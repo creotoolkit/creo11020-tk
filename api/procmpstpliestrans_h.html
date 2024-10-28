@@ -1,0 +1,85 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProCmpstPliesTrans.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="procmpstpliestrans_h.html#PROCMPST_PLIES_TRANS_H">PROCMPST_PLIES_TRANS_H</A>
+<A name="PROCMPST_PLIES_TRANS_H"></A>#define PROCMPST_PLIES_TRANS_H
+
+/*
+   Creo Parametric TOOLKIT declarations related to cmpstPliesTrans feature.
+*/
+
+
+
+#include &lt;<A HREF="profeature_h.html">ProFeature.h</A>&gt;
+#include &lt;<A HREF="proparamval_h.html">ProParamval.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*****************************************************************************
+ Feature element tree :
+ ----------------------
+ |--<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+ |--<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_TYPE">PRO_E_CMPST_PLIES_TRANS_TYPE</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_REFS">PRO_E_CMPST_PLIES_TRANS_REFS</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_OFFS_ARR">PRO_E_CMPST_PLIES_TRANS_OFFS_ARR</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_ARR_CMPD">PRO_E_CMPST_PLIES_TRANS_ARR_CMPD</A>
+ |  |  |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_PLY_REF_ARR">PRO_E_CMPST_PLIES_TRANS_PLY_REF_ARR</A>
+ |  |  |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_OFF_ARR">PRO_E_CMPST_PLIES_TRANS_OFF_ARR</A>
+ |--<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_PAT_SETT">PRO_E_CMPST_PLIES_TRANS_PAT_SETT</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_OFFSET">PRO_E_CMPST_PLIES_TRANS_OFFSET</A>
+
+
+
+Feature elements table
+----------------------------------------------------------------------------------------------------------------------------------------------
+Element Id                              Element Name         Data Type                                    Valid Values                     Notes
+----------------------------------------------------------------------------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>	                    Feature Type	    <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>	                          <A HREF="profeattype_h.html#PRO_FEAT_CMPST_PLIES_TRANS">PRO_FEAT_CMPST_PLIES_TRANS</A>
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>	                featname	        <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_TYPE">PRO_E_CMPST_PLIES_TRANS_TYPE</A>	        transition_type	    <A HREF="procmpstpliestrans_h.html#ProCmpst_plies_transTransition_type">ProCmpst_plies_transTransition_type</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_REFS">PRO_E_CMPST_PLIES_TRANS_REFS</A>	        plies_refs	        <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proreference_h.html#ProReference">ProReference</A>                                                       Note 1
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_OFFS_ARR">PRO_E_CMPST_PLIES_TRANS_OFFS_ARR</A>        offsets_arr     	<A HREF="proarray_h.html#ProArray">ProArray</A> of ProCmpst_plies_transOffsets_cmpd                                   Note 2
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_ARR_CMPD">PRO_E_CMPST_PLIES_TRANS_ARR_CMPD</A>        offsets_cmpd	    ProCmpst_plies_transOffsets_cmpd
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_PLY_REF_ARR">PRO_E_CMPST_PLIES_TRANS_PLY_REF_ARR</A>	    plies_ref     	    <A HREF="proreference_h.html#ProReference">ProReference</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_OFF_ARR">PRO_E_CMPST_PLIES_TRANS_OFF_ARR</A>	        offset_arr_col	    <A HREF="provalue_h.html#PRO_VALUE_TYPE_DOUBLE">PRO_VALUE_TYPE_DOUBLE</A>
+<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>	        transition_ref	    <A HREF="proobjects_h.html#ProCollection">ProCollection</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_PAT_SETT">PRO_E_CMPST_PLIES_TRANS_PAT_SETT</A>        pattern_settings	<A HREF="procmpstpliestrans_h.html#ProCmpst_plies_transPattern_settings">ProCmpst_plies_transPattern_settings</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_OFFSET">PRO_E_CMPST_PLIES_TRANS_OFFSET</A>	        offset	            <A HREF="provalue_h.html#PRO_VALUE_TYPE_DOUBLE">PRO_VALUE_TYPE_DOUBLE</A>
+
+
+
+
+Notes:
+1. <A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_REFS">PRO_E_CMPST_PLIES_TRANS_REFS</A> is visible only when <A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_TYPE">PRO_E_CMPST_PLIES_TRANS_TYPE</A> is <A HREF="procmpstpliestrans_h.html#PRO_CMPST_PLIES_TRANS_TRANSITION_TYPE_PATTERN">PRO_CMPST_PLIES_TRANS_TRANSITION_TYPE_PATTERN.</A>
+2. <A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_OFFS_ARR">PRO_E_CMPST_PLIES_TRANS_OFFS_ARR</A> is visible only when <A HREF="proelemid_h.html#PRO_E_CMPST_PLIES_TRANS_TYPE">PRO_E_CMPST_PLIES_TRANS_TYPE</A> is <A HREF="procmpstpliestrans_h.html#PRO_CMPST_PLIES_TRANS_TRANSITION_TYPE_CUSTOM">PRO_CMPST_PLIES_TRANS_TRANSITION_TYPE_CUSTOM.</A>
+
+*****************************************************************************/
+
+<A name="ProCmpst_plies_transTransition_type"></A>typedef enum
+{
+<A name="PRO_CMPST_PLIES_TRANS_TRANSITION_TYPE_PATTERN"></A>    PRO_CMPST_PLIES_TRANS_TRANSITION_TYPE_PATTERN = 1,
+<A name="PRO_CMPST_PLIES_TRANS_TRANSITION_TYPE_CUSTOM"></A>    PRO_CMPST_PLIES_TRANS_TRANSITION_TYPE_CUSTOM = 2,
+}ProCmpst_plies_transTransition_type;
+
+<A name="ProCmpst_plies_transPattern_settings"></A>typedef enum
+{
+<A name="PRO_CMPST_PLIES_TRANS_PATTERN_SETTINGS_BACKSLASH"></A>    PRO_CMPST_PLIES_TRANS_PATTERN_SETTINGS_BACKSLASH = 1,
+<A name="PRO_CMPST_PLIES_TRANS_PATTERN_SETTINGS_SLASH"></A>    PRO_CMPST_PLIES_TRANS_PATTERN_SETTINGS_SLASH = 2,
+}ProCmpst_plies_transPattern_settings;
+
+
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+
+        </PRE>
+    </BODY>
+</HTML>

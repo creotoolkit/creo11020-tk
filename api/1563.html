@@ -1,0 +1,103 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProMatrixMakeOrthonormal</TITLE>
+    
+<SCRIPT LANGUAGE="JAVASCRIPT">
+  function findProperNode() { top.frames[0].document.apiwizard.api(11, 1866); }
+</SCRIPT>
+
+</HEAD>
+    <BODY onLoad="findProperNode()" BGCOLOR="#ffffff">
+<h4>Category <a href="category_9.html">Creo Parametric TOOLKIT fundamentals</a>, Object <a href="ProMatrix.html">ProMatrix</a></h4>
+
+        <H2>Function ProMatrixMakeOrthonormal</H2>
+        <BR>
+        <TABLE BORDER="0">
+            <TR>
+                <TD><B><FONT SIZE="5">Description</FONT></B></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD COLSPAN="2">It converts a non-orthonormal matrix to orthonormal matrix with user provided scaling factor.</TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">Synopsis</FONT></B></TD>
+            </TR>
+            <TR>
+                <TD COLSPAN="3">#include &lt;<A HREF="prographic_h.html">ProGraphic.h</A>&gt;</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD><A HREF="protoolkiterrors_h.html#ProError">ProError</A></TD><TD><B>ProMatrixMakeOrthonormal</B></TD><TD>(</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proobjects_h.html#ProMatrix">ProMatrix</A> <I>inMatrix</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">Specifies the matrix to be converted to orthonormal.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD>double <I>intended_scale</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">Scale factor to be applied on the matrix.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proobjects_h.html#ProMatrix">ProMatrix</A> <I>outMatrix</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(Out)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">Specifies orthonormal matrix.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD>)</TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">Returns</FONT></B></TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">
+                    <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A></TD><TD width="30"></TD><TD valign="top">The function successfully converted the input matrix.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A></TD><TD width="30"></TD><TD valign="top">The input argument is invalid.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_MATRIX">PRO_TK_INVALID_MATRIX</A></TD><TD width="30"></TD><TD valign="top">The input matrix can not be converted to Orthonormal matrix.</TD>
+                        </TR>
+                    </TABLE>
+                </TD>
+            </TR>
+        </TABLE>
+    <P>
+<p>
+<h4>Manual References:</h4>
+<p><ol><li><a href="../manual0/Components_assemble.html#12">Assembly: Assembling Components: Assembling Components by Functions</a><li><a href="../manual0/Graphics.html#92">User Interface: Basic Graphics: Converting a Matrix to Orthonormal</a></ol>
+<p>
+
+</BODY>
+</HTML>

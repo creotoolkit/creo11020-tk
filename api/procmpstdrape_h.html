@@ -1,0 +1,184 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProCmpstDrape.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="procmpstdrape_h.html#PROCMPST_DRAPE_H">PROCMPST_DRAPE_H</A>
+<A name="PROCMPST_DRAPE_H"></A>#define PROCMPST_DRAPE_H
+
+/*
+   Creo Parametric TOOLKIT declarations related to cmpstDrape feature.
+*/
+
+
+
+#include &lt;<A HREF="profeature_h.html">ProFeature.h</A>&gt;
+#include &lt;<A HREF="proparamval_h.html">ProParamval.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*****************************************************************************
+
+NOTE:
+There must be only one Composite Drape feature in the single composite model.
+If the feature already exists, <A HREF="1416.html">ProFeatureWithoptionsCreate</A>() API will abort and:
+1. Return <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> value.
+2. And record <A HREF="proitemerr_h.html#ProItemerror">ProItemerror</A> with <A HREF="protoolkiterrors_h.html#PRO_TK_E_FOUND">PRO_TK_E_FOUND</A> error into output p_errors argument.
+
+
+ Feature element tree :
+ ----------------------
+ |--<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+ |--<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+ |--<A HREF="proelemid_h.html#PRO_E_DRAPE_SETS">PRO_E_DRAPE_SETS</A>
+    |--<A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A>
+       |--<A HREF="proelemid_h.html#PRO_E_DRAPE_PLY_REF">PRO_E_DRAPE_PLY_REF</A>
+       |--<A HREF="proelemid_h.html#PRO_E_DRAPE_SEED_PNT">PRO_E_DRAPE_SEED_PNT</A>
+       |--<A HREF="proelemid_h.html#PRO_E_DRAPE_STEP_LENGTH">PRO_E_DRAPE_STEP_LENGTH</A>
+       |--<A HREF="proelemid_h.html#PRO_E_DRAPE_ANGLE">PRO_E_DRAPE_ANGLE</A>
+       |--<A HREF="proelemid_h.html#PRO_E_DRAPE_POLYLINE_ANG">PRO_E_DRAPE_POLYLINE_ANG</A>
+       |--<A HREF="proelemid_h.html#PRO_E_DRAPE_3D">PRO_E_DRAPE_3D</A>
+       |--<A HREF="proelemid_h.html#PRO_E_DRAPE_SLIT_CURVES">PRO_E_DRAPE_SLIT_CURVES</A> (Reserved for future use. Not in use in Creo 10)
+       |--<A HREF="proelemid_h.html#PRO_E_DRAPE_REFINEMENT">PRO_E_DRAPE_REFINEMENT</A>
+    |--<A HREF="proelemid_h.html#PRO_E_DRAPE_CURED_THICK">PRO_E_DRAPE_CURED_THICK</A>
+ 
+
+Feature elements table
+------------------------------------------------------------------------
+Element Id                  Element Name         Data Type
+------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>       Feature Type           <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>       <A HREF="profeattype_h.html#PRO_FEAT_CMPST_DRAPE">PRO_FEAT_CMPST_DRAPE</A>
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>   featname               <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>   Wide character string
+<A HREF="proelemid_h.html#PRO_E_DRAPE_SETS">PRO_E_DRAPE_SETS</A>         Sets                   <A HREF="proarray_h.html#ProArray">ProArray</A>                 See note 1 below.
+<A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A>          Set                    Compound                 See note 2 below.
+<A HREF="proelemid_h.html#PRO_E_DRAPE_PLY_REF">PRO_E_DRAPE_PLY_REF</A>      Ply reference          <A HREF="proreference_h.html#ProReference">ProReference</A>             See note 3 below.
+<A HREF="proelemid_h.html#PRO_E_DRAPE_SEED_PNT">PRO_E_DRAPE_SEED_PNT</A>     Seed point             <A HREF="proreference_h.html#ProReference">ProReference</A>             See note 4 below.
+<A HREF="proelemid_h.html#PRO_E_DRAPE_STEP_LENGTH">PRO_E_DRAPE_STEP_LENGTH</A>  Step length            double                   See note 5 below.
+<A HREF="proelemid_h.html#PRO_E_DRAPE_ANGLE">PRO_E_DRAPE_ANGLE</A>        Draping angle          double                   See note 6 below.
+<A HREF="proelemid_h.html#PRO_E_DRAPE_POLYLINE_ANG">PRO_E_DRAPE_POLYLINE_ANG</A> Simplification angle   double                   See note 7 below.
+<A HREF="proelemid_h.html#PRO_E_DRAPE_3D">PRO_E_DRAPE_3D</A>           Drape in 3D space      <A HREF="procmpstdrape_h.html#ProDrapeIn3d">ProDrapeIn3d</A>             See note 8 below.
+<A HREF="proelemid_h.html#PRO_E_DRAPE_SLIT_CURVES">PRO_E_DRAPE_SLIT_CURVES</A>  - Reserved for future use. Not in use in Creo 10
+<A HREF="proelemid_h.html#PRO_E_DRAPE_REFINEMENT">PRO_E_DRAPE_REFINEMENT</A>   Refinement:            <A HREF="procmpstdrape_h.html#ProDrapeRefinement">ProDrapeRefinement</A>       See note 9 below.
+<A HREF="proelemid_h.html#PRO_E_DRAPE_CURED_THICK">PRO_E_DRAPE_CURED_THICK</A>	Drape all plies using:	<A HREF="procmpstdrape_h.html#ProDrapeThicknessOpt">ProDrapeThicknessOpt</A>     See note 10 below.
+
+
+*****************************************************************************/
+
+/* ========================== NOTES ===========================================
+
+Note 1. <A HREF="proelemid_h.html#PRO_E_DRAPE_SETS">PRO_E_DRAPE_SETS</A> - Mandatory
+  
+   <A HREF="proarray_h.html#ProArray">ProArray</A> of any number of <A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A> compound elements. This is array of 
+   Draping simulation definitions.
+
+
+Note 2. <A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A> - Mandatory
+
+   Compound element - holds definition (properties) of each individual Draping
+   Simulation applied to a particular single ply.
+
+
+Note 3. <A HREF="proelemid_h.html#PRO_E_DRAPE_PLY_REF">PRO_E_DRAPE_PLY_REF</A> - Mandatory - Individual per each <A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A>
+ 
+   Defines a ply to perform a draping simulation on.
+
+   Selection is a singal Composite Ply. Reference type <A HREF="proobjects_h.html#PRO_CMPST_PLY_DEF">PRO_CMPST_PLY_DEF.</A>
+   The same ply reference cannot be used in another Draping Simulation SET.
+   
+
+Note 4. <A HREF="proelemid_h.html#PRO_E_DRAPE_SEED_PNT">PRO_E_DRAPE_SEED_PNT</A> - Optional - Individual per each <A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A>
+
+   Defines a starting point of the Draping Simulation applied to the ply.
+   Must lie on the ply defined in <A HREF="proelemid_h.html#PRO_E_DRAPE_PLY_REF">PRO_E_DRAPE_PLY_REF</A> element and be located
+   inside the boundary of the selected ply.
+
+   Can be empty. In this case the system will calculate a default ply location point
+   and save it in the feature as a Seed Point reference.
+
+   Valid values:
+   a) Datum Point (<A HREF="proobjects_h.html#PRO_POINT">PRO_POINT</A>) or
+   b) Intent Point (<A HREF="proobjects_h.html#PRO_LOG_PNT">PRO_LOG_PNT</A>) or
+   c) Ply Location point (<A HREF="proobjects_h.html#PRO_CMPST_PLY_PNT">PRO_CMPST_PLY_PNT</A>), which is a UV location point
+      on a surface of a composite ply.
+   
+
+Note 5. <A HREF="proelemid_h.html#PRO_E_DRAPE_STEP_LENGTH">PRO_E_DRAPE_STEP_LENGTH</A> - Mandatory - Individual per each <A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A>
+   
+   It's the distance between adjacent drape points / fibers
+   i.e. the resolution of the fishnet drape mesh. 
+
+   Valid values: Linear dimensions : [model accuracy, 1e6]
+
+
+Note 6. <A HREF="proelemid_h.html#PRO_E_DRAPE_ANGLE">PRO_E_DRAPE_ANGLE</A> - Mandatory - Individual per each <A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A>
+
+   It's the angle with respect to the material roll direction of the fixed warp
+   and weft fibers (i.e. the orientation that the drape progresses). 
+
+   Valid values: Angular dimensions: [-360 deg, 360 deg]
+
+
+Note 7. <A HREF="proelemid_h.html#PRO_E_DRAPE_POLYLINE_ANG">PRO_E_DRAPE_POLYLINE_ANG</A> - Mandatory - Individual per each <A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A>
+
+   It's polyline simplification angle  The angle between polyline segments
+   below which the segments may be merged. 
+
+   Valid values: Angular dimensions: [0 deg, 360 deg]
+
+
+Note 8. <A HREF="proelemid_h.html#PRO_E_DRAPE_3D">PRO_E_DRAPE_3D</A> - Mandatory - Individual per each <A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A>
+
+   The option to consider the plys height in the laminate stack when
+   performing draping analysis.
+
+   Valid values: Disabled/Enabled as listed in <A HREF="procmpstdrape_h.html#ProDrapeIn3d">ProDrapeIn3d</A> enum below
+
+Note 9. <A HREF="proelemid_h.html#PRO_E_DRAPE_REFINEMENT">PRO_E_DRAPE_REFINEMENT</A> - Mandatory - Individual per each <A HREF="proelemid_h.html#PRO_E_DRAPE_SET">PRO_E_DRAPE_SET</A>
+
+   The option to consider the refinement for each set
+
+   Valid values: Disabled/Enabled as listed in <A HREF="procmpstdrape_h.html#ProDrapeRefinement">ProDrapeRefinement</A> enum below
+
+
+Note 10. <A HREF="proelemid_h.html#PRO_E_DRAPE_CURED_THICK">PRO_E_DRAPE_CURED_THICK</A> - global
+
+   The option to consider the cured/uncured thickness.for all sets
+
+   Valid values: Disabled/Enabled as listed in <A HREF="procmpstdrape_h.html#ProDrapeThicknessOpt">ProDrapeThicknessOpt</A> enum below
+
+
+
+*******************************************************************************/
+
+/* Valid values for <A HREF="proelemid_h.html#PRO_E_DRAPE_3D">PRO_E_DRAPE_3D</A> element */
+<A name="ProDrapeIn3d"></A>typedef enum
+{
+<A name="PRO_DRAPE_IN3D_DISABLED"></A>    PRO_DRAPE_IN3D_DISABLED = 0,
+<A name="PRO_DRAPE_IN3D_ENABLED"></A>    PRO_DRAPE_IN3D_ENABLED  = 1
+}ProDrapeIn3d;
+
+<A name="ProDrapeThicknessOpt"></A>typedef enum
+{
+
+<A name="PRO_DRAPE_OPTION_CURED_THICKNESS"></A>  PRO_DRAPE_OPTION_CURED_THICKNESS   = 0,
+<A name="PRO_DRAPE_OPTION_UNCURED_THICKNESS"></A>  PRO_DRAPE_OPTION_UNCURED_THICKNESS = 1
+
+}ProDrapeThicknessOpt;
+
+<A name="ProDrapeRefinement"></A>typedef enum
+{
+<A name="PRO_DRAPE_REFINEMENT_DISABLED"></A>  PRO_DRAPE_REFINEMENT_DISABLED = 0,
+<A name="PRO_DRAPE_REFINEMENT_ENABLED"></A>  PRO_DRAPE_REFINEMENT_ENABLED  = 1
+
+}ProDrapeRefinement;
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+
+        </PRE>
+    </BODY>
+</HTML>

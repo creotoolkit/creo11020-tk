@@ -1,0 +1,132 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProManikinCust.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="promanikincust_h.html#PRO_MAN_CUST">PRO_MAN_CUST</A>
+<A name="PRO_MAN_CUST"></A>#define PRO_MAN_CUST
+
+
+
+#include &lt;<A HREF="protoolkit_h.html">ProToolkit.h</A>&gt;
+#include &lt;<A HREF="proparamval_h.html">ProParamval.h</A>&gt;
+#include &lt;<A HREF="prosizeconst_h.html">ProSizeConst.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*
+  This API works with the custom manikin which has to be the top object in
+  the current CREO work window. All modifications will be applied to this 
+  model immediately. The setting of the dimension influences other manikin 
+  dimensions in the same manner as in the Manikin Editor UI. It means that set
+  of the height will change to the default all rest dimensions, etc.  
+
+  The list of parameters allowed for modification in customizable manikin.
+
+  ------------------  The dimensions section ----------------------------------
+
+  --- Height and Weight ------------------------------------------------------- 
+     "DESIRED_HEIGHT" - "Height" - double value in meter. 
+                      The direct dependence - "MODEL_HEIGHT".
+                      Drives all manikin dimensions.      
+     "DESIRED_WEIGHT" - "Weight" - double value in kilogram. 
+                      The direct dependence - "MODEL_WEIGHT".
+                      Drives the weigth dependent manikin dimensions. 
+                      The "Chest, "Waist", "Thigh" are dependent. 
+                      The "Shoulder width" is dependent if it has not been set
+                      erlier.
+  --- Anthropometric Dimensions, first part ----------------------------------- 
+     Only 2 of parameters in this section can be modified. When the user sets 
+     1 parameter - 2 other will change. When the user sets 2 parameters - 1
+     the reset parameter will change.
+     "DESIRED_UPPER_BODY_LENGTH" - "Upper body length" - double value in meter. 
+                      The dependence - "MODEL_UPPER_BODY_LENGTH".
+     "DESIRED_UPPER_LEG_LENGTH" - "Upper leg length, seated" - double value 
+                      in meter. The dependence - "MODEL_UPPER_LEG_LENGTH_SEATED".
+     "DESIRED_LOWER_LEG_LENGTH" - "Lower leg length, seated - double value
+                      in meter. The dependence - L"MODEL_LOWER_LEG_LENGTH_SEATED".
+  --- Anthropometric Dimensions,  second part -------------------------------
+     "DESIRED_ARM_LENGTH" - "Arm length" - double value in meter.
+                      The dependence - "MODEL_ARM_LENGTH".
+     "DESIRED_SHOULDER_WIDTH" - "Shoulder width" - double value in meter. 
+                      The dependence - "MODEL_SHOULDER_WIDTH".
+     "DESIRED_HAND_LENGTH" - "Hand length" - double value in meter. 
+                      The dependence - "MODEL_HAND_LENGTH". 
+     "DESIRED_HAND_WIDTH" - "Hand width" - double value in meter.
+                      The dependence - "MODEL_HAND_WIDTH".
+     "DESIRED_SHOE_LENGTH" - "Shoe length" - double value in meter.
+                      The dependence - "MODEL_SHOE_LENGTH".
+  --- Circumferences ----------------------------------------------------------
+     Optimization is used to achieve this value. As a result getting
+     the desired value requires some time.
+     "DESIRED_CHEST_CIRCUMFERENCE" - "Chest" - double value in meter.
+                      The dependence - "MODEL_CHEST_CIRCUMFERENCE".
+     "DESIRED_WAIST_CIRCUMFERENCE" - "Waist" - double value in meter. 
+                      The dependence - "MODEL_WAIST_CIRCUMFERENCE".
+     "DESIRED_THIGH_CIRCUMFERENCE" - "Thigh" - double value in meter. 
+                      The dependence - "MODEL_THIGH_CIRCUMFERENCE".
+
+  ------------------  The attributes section ---------------------------------- 
+
+     "MANIKIN_AGE_GROUP" - "Age group" - <A HREF="prosizeconst_h.html#ProLine">ProLine</A> value.
+     "MANIKIN_COUNTRY" - "Country" - <A HREF="prosizeconst_h.html#ProLine">ProLine</A> value.
+     "MANIKIN_DATABASE" - "Data base" - <A HREF="prosizeconst_h.html#ProLine">ProLine</A> value.
+     "MANIKIN_PERCENTILE" - "Size percentile" - integer value.
+     "MANIKIN_VERSION" - "Version" - double value.
+     "MODELED_BY" - "Modeled by" - <A HREF="prosizeconst_h.html#ProLine">ProLine</A> value.
+     "DESCRIPTION" - "Description" - <A HREF="prosizeconst_h.html#ProLine">ProLine</A> value. 
+*/
+
+<A name="ProManikinEditVarPair"></A>typedef struct manikin_edit_var_pair
+{
+  <A HREF="prosizeconst_h.html#ProName">ProName</A>        param_name; /* See the list of the allowed parameters. */
+  <A HREF="proparamval_h.html#ProParamvalue">ProParamvalue</A>  p_val; 
+  <A HREF="protoolkit_h.html#ProBool">ProBool</A>        reset;  /* Reset the parameter to the default value. 
+                            In this case, the p_val value will be ignored.
+                            For the attributes section, this argument 
+                            does nothing. */
+} <A HREF="promanikincust_h.html#ProManikinEditVarPair">ProManikinEditVarPair</A>;
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1818.html">ProManikinCustomize</A> (const <A HREF="promanikincust_h.html#ProManikinEditVarPair">ProManikinEditVarPair</A> *vars_array, 
+                                     <A HREF="prosizeconst_h.html#ProName">ProName</A> failed_param_name);
+/*
+    Purpose: This function sets the specified parameters and performs 
+             regeneration if required. The logics of parameters update is 
+             following: height change resets all other dimensions; weight 
+             change resets 3 or 4 dimemnsions mentioned above; any 
+             antropometric dim from the 1st part influences all other 
+             dimensions on this section; all other parameters would be left 
+             unchanged. If required to set the parameter to the default value 
+             ProManikinEditVarPair.reset has to be set to <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> Order of 
+             the parameters in <A HREF="promanikincust_h.html#ProManikinEditVarPair">ProManikinEditVarPair</A> is not important.
+
+    Input Arguments:
+        vars_array - <A HREF="proarray_h.html#ProArray">ProArray</A> array of <A HREF="promanikincust_h.html#ProManikinEditVarPair">ProManikinEditVarPair</A>
+
+    Output Arguments:
+        failed_param_name - if the process failed it would contain the 
+                            problematic parameter we were unable to satisfy.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The cust manikin must be the top window object.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input in this case failed_param_name will 
+                            return the problematic parameter.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A> - ProManikinEditVarPair.p_val does not match type 
+                              of ProManikinEditVarPair.ProParamvalue - 
+                              failed_param_name will be set.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NOT_VALID">PRO_TK_NOT_VALID</A> - A parameter not in bounds or the regeneration
+        failed - failed_param_name will be set.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed by other reason.
+
+*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif  /* PRO_MAN_CUST */
+
+        </PRE>
+    </BODY>
+</HTML>

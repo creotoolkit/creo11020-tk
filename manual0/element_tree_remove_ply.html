@@ -1,0 +1,194 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
+      <meta name="ch:resourceid" content="element_tree_remove_ply" scheme="atiChunkerMeta">
+      
+      
+      
+      
+      
+      
+      <link href="css/styler.css" rel="stylesheet" type="text/css">
+      <title>Element Tree: Remove Ply</title>
+   
+<SCRIPT LANGUAGE="JAVASCRIPT">
+  function findProperNode() { top.frames[0].document.apiwizard.manual("MANELEMENT_TREE_REMOVE_PLY0", location.hash); }
+</SCRIPT>
+
+</head>
+   <body onLoad="findProperNode()">
+      
+         
+         <a name="0"> </a><div class=" x-title-65-0 x-title-65-1 x-title-65-2" combinedFontName="off" id="styler-id1.1.1.19.1" class="ChapterTitle">Element Tree: Remove Ply</div>
+         <div class=" x-shortdesc-1-0"></div><span class=" x-prolog-1-0">
+            <div class=" x-metadata-1-0"><span class=" x-keywords-2-0"><span class=" x-keyword-1-0">
+                     </span><span class=" x-indexterm-1-0"></span></span></div></span><div class=" x-body-2-0 x-body-2-1">
+            <div class=" x-p-7-0">This  <span class=" x-ph-2-0"><span xmlns="" profilecode="100000000">section</span></span> introduces and shows how to create, redefine and access remove ply features in <span class=" x-ph-2-0" id="element_tree_remove_ply_pubsTopic-1-4578B678_PTCCreoPara_21_16">Creo TOOLKIT</span>.
+            </div>
+            <div class=" x-section-1-0" id="styler-id1.1.1.19.4.2">
+               <div class=" x-title-58-0" combinedFontName="off" id="styler-id1.1.1.19.4.2.1">Introduction to Remove Ply</div>
+               <div class=" x-p-7-0">You can remove cores and plies created in the Composite Design using the Remove Ply feature. You cannot use a remove ply in
+                  your composite design again.
+               </div>
+            </div>
+            <div class=" x-section-1-0" id="styler-id1.1.1.19.4.3">
+               <div class=" x-title-58-0" combinedFontName="off" id="styler-id1.1.1.19.4.3.1">Feature Element Tree for the Remove Ply Feature</div><a xmlns="" class="indexterm" name="1"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="2"></a><span class=" x-indexterm-1-0"></span><div class=" x-p-7-0">The element tree for the Remove Ply feature is documented in the header file <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProCmpstRemovePly.h</span></span> and has a simple structure. The following figure demonstrates the element tree structure:
+               </div>
+               <div class=" x-fig-2-0 x-fig-2-2" id="styler-id1.1.1.19.4.3.5">
+                  <div class=" x-image-1-0 x-image-1-1"><img alt="" src="graphics/ele_tree_remove_ply.gif"></div>
+               </div>
+               <div class=" x-p-7-0">The following table describes the elements in the element tree:</div>
+               <div class=" x-table-2-0" id="styler-id1.1.1.19.4.3.7">
+                  <table xmlns="" cellpadding="6.666666666666667" class=" x-tgroup-1-0" frame="box" rules="none" style="border-collapse: collapse; border-width: 1pt; " width="100%">
+                     <colgroup>
+                        <col width="160">
+                        <col>
+                        <col>
+                     </colgroup>
+                     <thead align="left" class=" x-thead-1-0" style="font-weight: bold" valign="top">
+                        <tr class=" x-row-2-0">
+                           <th class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; " valign="top">
+                              <div class=" x-p-3-0">Element ID</div>
+                           </th>
+                           <th class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; " valign="top">
+                              <div class=" x-p-3-0">Element Name</div>
+                           </th>
+                           <th class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; " valign="top">
+                              <div class=" x-p-3-0">Data Type</div>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody class=" x-tbody-1-0" valign="top">
+                        <tr class=" x-row-2-0">
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_FEATURE_TYPE</span></span></div>
+                           </td>
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">Feature Type</span></span></div>
+                           </td>
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_VALUE_TYPE_INT</span></span></div>
+                           </td>
+                        </tr>
+                        <tr class=" x-row-2-0">
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_REMOVE_PLY_TYPE</span></span></div>
+                           </td>
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">Type</span></span></div>
+                           </td>
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_VALUE_TYPE_INT</span></span></div>
+                           </td>
+                        </tr>
+                        <tr class=" x-row-2-0">
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_STD_FEATURE_NAME</span></span></div>
+                           </td>
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">featname</span></span></div>
+                           </td>
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_VALUE_TYPE_WSTRING</span></span></div>
+                           </td>
+                        </tr>
+                        <tr class=" x-row-2-0">
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_REMOVE_PLY_REF</span></span></div>
+                           </td>
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ply_ref</span></span></div>
+                           </td>
+                           <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                              <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProArray</span></span> of <span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProReference</span></span></div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class=" x-p-7-0">The elements in this tree are described as follows:</div>
+               <div class=" x-ul-2-0">
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_FEATURE_TYPE</span></span>&#8212;Specifies the feature type and the valid value is <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_FEAT_REMOVE_PLY</span></span>.</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_REMOVE_PLY_TYPE</span></span>&#8212;Specifies the objects to be removed and is defined using the enumerated data type <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProRemovePlyType</span></span>. The valid values are:</span><div class=" x-ul-2-0">
+                                 <table border="0" cellpadding="0" cellspacing="0" class=" x-li-10-0" style="table-layout: fixed; " width="100%">
+                                    <col style="width: 0em">
+                                    <col style="width: 18pt">
+                                    <col>
+                                    <tbody>
+                                       <tr valign="baseline">
+                                          <td align="right"></td>
+                                          <td align="left" style="word-break: keep-all; "><span style="font-family: 'Arial Unicode MS'; ">&#9675;</span>&nbsp;
+                                          </td>
+                                          <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_REMOVE_PLY_REMOVE</span></span>&#8212;All selected plies are removed.</span></td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <table border="0" cellpadding="0" cellspacing="0" class=" x-li-10-0" style="table-layout: fixed; " width="100%">
+                                    <col style="width: 0em">
+                                    <col style="width: 18pt">
+                                    <col>
+                                    <tbody>
+                                       <tr valign="baseline">
+                                          <td align="right"></td>
+                                          <td align="left" style="word-break: keep-all; "><span style="font-family: 'Arial Unicode MS'; ">&#9675;</span>&nbsp;
+                                          </td>
+                                          <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_REMOVE_PLY_KEEP</span></span>&#8212;All selected plies are kept, and unselected plies are removed.</span></td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_STD_FEATURE_NAME</span></span>&#8212;Specifies the feature name.</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_REMOVE_PLY_REF</span></span>&#8212;Specifies the laminate objects to be removed and is defined using the <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProArray</span></span> of <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProReference</span></span>.</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

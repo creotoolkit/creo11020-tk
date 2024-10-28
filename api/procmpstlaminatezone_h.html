@@ -1,0 +1,58 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProCmpstLaminateZone.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="procmpstlaminatezone_h.html#PROCMPST_LAMINATE_ZONE_H">PROCMPST_LAMINATE_ZONE_H</A>
+<A name="PROCMPST_LAMINATE_ZONE_H"></A>#define PROCMPST_LAMINATE_ZONE_H
+
+/*
+   Creo Parametric TOOLKIT declarations related to composite Laminate Zone feature.
+*/
+
+
+
+#include &lt;<A HREF="proansi_h.html">ProANSI.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/***********************************************************************************************
+
+ Feature element tree :
+ ----------------------
+ |--<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+ |--<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_BASE_QUILT">PRO_E_CMPST_PLY_BASE_QUILT</A>
+ |--<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY">PRO_E_AREA_BOUNDARY</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOPS">PRO_E_AREA_BOUNDARY_LOOPS</A>
+ |     |--<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOP">PRO_E_AREA_BOUNDARY_LOOP</A>
+ |        |--<A HREF="proelemid_h.html#PRO_E_STD_LOOP_COLLECTION_APPL">PRO_E_STD_LOOP_COLLECTION_APPL</A>
+ |
+ |--<A HREF="proelemid_h.html#PRO_E_DSGNTAREA_CREATION_FLIP">PRO_E_DSGNTAREA_CREATION_FLIP</A>
+ 
+
+
+Feature elements table
+-------------------------------------------------------------------------------------------------------
+Element Id                     Element Name           Data Type                Valid Values
+-------------------------------------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>             Feature Type           <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>       <A HREF="profeattype_h.html#PRO_FEAT_CMPST_LAMINATE_ZONE">PRO_FEAT_CMPST_LAMINATE_ZONE</A>
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>	       featname	              <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>   Wide character string
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_BASE_QUILT">PRO_E_CMPST_PLY_BASE_QUILT</A>     CmpstPlyBaseQuiltStep  <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A> The layup surface
+<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY">PRO_E_AREA_BOUNDARY</A>            Boundary               compound
+<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOPS">PRO_E_AREA_BOUNDARY_LOOPS</A>      Loops                  <A HREF="proarray_h.html#ProArray">ProArray</A> of Loops
+<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOP">PRO_E_AREA_BOUNDARY_LOOP</A>       Loop                   compound
+<A HREF="proelemid_h.html#PRO_E_STD_LOOP_COLLECTION_APPL">PRO_E_STD_LOOP_COLLECTION_APPL</A> Boundary chains        <A HREF="provalue_h.html#PRO_VALUE_TYPE_POINTER">PRO_VALUE_TYPE_POINTER</A>   See <A HREF="procrvcollection_h.html">ProCrvcollection.h</A>
+<A HREF="proelemid_h.html#PRO_E_DSGNTAREA_CREATION_FLIP">PRO_E_DSGNTAREA_CREATION_FLIP</A>  Creation Flip          <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>       Optional. 0/1
+
+******************************************************************************************************/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+        </PRE>
+    </BODY>
+</HTML>

@@ -1,0 +1,210 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProXSectionPlanarCreate</TITLE>
+    
+<SCRIPT LANGUAGE="JAVASCRIPT">
+  function findProperNode() { top.frames[0].document.apiwizard.api(11, 6364); }
+</SCRIPT>
+
+</HEAD>
+    <BODY onLoad="findProperNode()" BGCOLOR="#ffffff">
+<h4>Object <a href="ProX.html">ProX</a></h4>
+
+        <H2>Function ProXSectionPlanarCreate</H2>
+        <BR>
+        <TABLE BORDER="0">
+            <TR>
+                <TD><B><FONT SIZE="5">Description</FONT></B></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD COLSPAN="2">Creates a cross section through a datum plane and makes it visible.</TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">Synopsis</FONT></B></TD>
+            </TR>
+            <TR>
+                <TD COLSPAN="3">#include &lt;<A HREF="proxsec_h.html">ProXsec.h</A>&gt;</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD><A HREF="protoolkiterrors_h.html#ProError">ProError</A></TD><TD><B>ProXSectionPlanarCreate</B></TD><TD>(</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proobjects_h.html#ProSolid">ProSolid</A> <I>solid_owner</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">Solid in which the xsec is to be created.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="prosizeconst_h.html#ProMdlName">ProMdlName</A> <I>xsec_name</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">Name of the cross section. Name size should be <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A></TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proselection_h.html#ProSelection">ProSelection</A> <I>cutting_plane</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">Selection of cutting plane. Cutting plane should belong to top level part or assembly.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proxsec_h.html#ProXsecCutobj">ProXsecCutobj</A> <I>xsec_type</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">Type of object being cut by the xsec.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proselection_h.html#ProSelection">ProSelection</A> <I>quilt_or_one_part</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2"><A HREF="proselection_h.html#ProSelection">ProSelection</A> of quilt or component depending on xsec_type.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD>int <I>flip</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">xsec flip with respect to cutting plane positive normal.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proxsec_h.html#ProXsecExcludeModels">ProXsecExcludeModels</A> <I>excld_incld_opt</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2"><A HREF="proxsec_h.html#PRO_XSEC_MODEL_EXCLUDE">PRO_XSEC_MODEL_EXCLUDE</A> - exclude exclude_items from cutting by cross section;</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proselection_h.html#ProSelection">ProSelection</A>* <I>exclude_items</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2"><A HREF="proarray_h.html#ProArray">ProArray</A> of selected bodies or parts to include/exclude from cross-section.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> <I>data</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">Reserved for future use. Pass NULL.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>* <I>r_xsec</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(Out)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">Handle to created cross section</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD>)</TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">Returns</FONT></B></TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">
+                    <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A></TD><TD width="30"></TD><TD valign="top">Cross section successfully created.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A></TD><TD width="30"></TD><TD valign="top">Invalid input parameter(s).</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A></TD><TD width="30"></TD><TD valign="top">Failed to create cross section.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_LINE_TOO_LONG">PRO_TK_LINE_TOO_LONG</A></TD><TD width="30"></TD><TD valign="top">xsec_name is longer then <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A></TD>
+                        </TR>
+                    </TABLE>
+                </TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">See Also</FONT></B></TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">ProXSecGeometryCollect</TD>
+            </TR>
+        </TABLE>
+    <P>
+<p>
+<h4>Manual References:</h4>
+<p><ol><li><a href="../manual0/Cross_section.html#46">Core: Cross Sections: Creating and Modifying Cross Sections</a><li><a href="../manual0/Cross_section.html#63">Core: Cross Sections: Creating and Modifying Cross Sections</a><li><a href="../manual0/atechsum_creo_11000.html#21">Technical Summary of Changes for Creo 11.0.0.0: Functions superseded from Creo 1.0 to Creo 11.0</a><li><a href="../manual0/migrate_to_multibody.html#2">Migrating to the Multibody Environment: Overview</a><li><a href="../manual0/migrate_to_multibody.html#3">Migrating to the Multibody Environment: Impact on Existing APIs</a></ol>
+<p>
+
+</BODY>
+</HTML>

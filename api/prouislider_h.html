@@ -1,0 +1,1064 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProUISlider.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="prouislider_h.html#PROUISLIDER_H">PROUISLIDER_H</A>
+<A name="PROUISLIDER_H"></A>#define PROUISLIDER_H
+
+#include &lt;<A HREF="proui_h.html">ProUI.h</A>&gt;
+
+
+
+/*===========================================================================*/
+ 
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5346.html">ProUISliderHelptextSet</A>(
+    char*	dialog,
+    char*	slider,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>*    helptext);
+/*
+    Purpose: Set the helptext of a slider component
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        slider - The name of the slider component
+        helptext - The help text
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5347.html">ProUISliderLengthSet</A>(
+    char*	dialog,
+    char*	slider,
+    int         length);
+/*
+    Purpose: Set the length of a slider component
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        slider - The name of the slider component
+        length - The length of the slider component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+ 
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5348.html">ProUISliderMinintegerSet</A>(
+    char*	dialog,
+    char*	slider,
+    int         min);
+/*
+    Purpose: Set the minimum integer for a slider component
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        slider - The name of the slider component
+        min - The minimum integer value (default = -32768)
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+ 
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5349.html">ProUISliderMaxintegerSet</A>(
+    char*	dialog,
+    char*	slider,
+    int         max);
+/*
+    Purpose: Sets the maximum integer for a slider component
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        slider - The name of the slider component
+        max - The minimum integer value (default = -32768)
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+ 
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5350.html">ProUISliderDisableTracking</A>(
+    char*	dialog,
+    char*	slider);
+/*
+    Purpose: Disables tracking for a slider component. If the slider is 
+             tracking the update action is called for each change in position.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        slider - The name of the slider component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+ 
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5351.html">ProUISliderEnableTracking</A>(
+    char*	dialog,
+    char*	slider);
+/*
+    Purpose: Enables tracking for a slider component. If the slider is tracking 
+             the update action is called for each change in position.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        slider - The name of the slider component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5352.html">ProUISliderUpdateActionSet</A>(
+    char*	dialog,
+    char*	slider,
+    <A HREF="4148.html">ProUIAction</A> action,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A> appdata);
+/*
+    Purpose: Sets the update action for a slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        slider - The name of the slider component
+        action - The action to be called on selecting the slider
+        appdata - User data to be passed to the action function.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5353.html">ProUISliderIntegerGet</A>(
+    char*	dialog,
+    char*	slider,
+    int         *position);
+/*
+    Purpose: Gets the current position of the slider
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        slider - The name of the slider component
+
+    Output Arguments:
+        position - The current position of the slider
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+ 
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5354.html">ProUISliderIntegerSet</A>(
+    char*	dialog,
+    char*	slider,
+    int         position);
+/*
+    Purpose: Sets the current position of the slider
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        slider - The name of the slider component
+        position - The current position of the slider
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5355.html">ProUISliderIsVisible</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>   *state
+);
+/*
+    Purpose: Checks to see if the Slider is visible in the dialog or not.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        component - The name of the slider component
+
+    Output Arguments:
+        state - Whether or not the slider is visible.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5356.html">ProUISliderShow</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Makes the component visible in the dialog
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        component - The name of the slider component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5357.html">ProUISliderHide</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Hides the component from the dialog
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        component - The name of the slider component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5358.html">ProUISliderIsEnabled</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>   *state
+);
+/*
+    Purpose: Checks to see if the Slider is enabled.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        component - The name of the slider component
+
+    Output Arguments:
+        state - Whether or not the slider is sensitive to user input.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5359.html">ProUISliderEnable</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Sets the Slider to be enabled.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        component - The name of the slider component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5360.html">ProUISliderDisable</A>(
+    char* dialog,
+    char* component);
+/*
+    Purpose: Sets the slider to be disabled, so the user cannot select it.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider
+        component - The name of the slider component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5361.html">ProUISliderPopupmenuSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *value);
+/*
+    Purpose: Sets the name of the popup menu for the slider.
+
+    Input Arguments:
+        dialog - The dialog name.
+        component - The component name.
+        value - The name of the popup menu pane.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5362.html">ProUISliderPopupmenuGet</A> (
+    char       *dialog,
+    char       *component,
+    char      **value);
+/*
+    Purpose: Gets the name of the popup menu for the slider.
+
+    Input Arguments:
+        dialog - The dialog name.
+        component - The component name.
+
+    Output Arguments:
+        value - The name of the popup menu pane. Free this string using 
+                <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5363.html">ProUISliderAnchorSet</A> (char* dialog, char* component, int x, int y, <A HREF="proui_h.html#ProUIAnchor">ProUIAnchor</A> anchor);
+/*
+    Purpose: Sets the position of the slider with respect to a given anchor 
+             location. This function is applicable only if the parent of the 
+             slider is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+        anchor - Location on the slider used to set the position.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5364.html">ProUISliderSizeSet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                 width, 
+    int                 height);
+/*
+    Purpose: Set the size of the slider. This field is used only if the parent 
+             is a drawing area. If the width or the height parameter is passed 
+             a value smaller than the slider's minimum size, the function will 
+             fail. The slider's minimum size can be retrieved using 
+             <A HREF="5367.html">ProUISliderMinimumsizeGet.</A>
+
+    Input Arguments:
+        dialog - The name of the dialog that contains slider.
+        component - The name of the slider component.
+        width - Width value
+        height - Height value
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5365.html">ProUISliderPositionSet</A> (char* dialog, char* component, int x, int y);
+/*
+    Purpose: Set the position to the slider with respect to its parent. This 
+             field is used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains slider.
+        component - The name of the slider component.
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5366.html">ProUISliderPositionGet</A> (char* dialog, char* component, int* x, int* y);
+/*
+    Purpose: Get the position of the slider with respect to its parent. This 
+             field is used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5367.html">ProUISliderMinimumsizeGet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                *min_width, 
+    int                *min_height);
+/*
+    Purpose: Get the minimum size of the slider in pixels. This field is used 
+             only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        min_width - Minimum width value.
+        min_height - Minimum height value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5368.html">ProUISliderSizeGet</A> (char* dialog, char* component, int* width, int* height);
+/*
+    Purpose: Get the size of the slider. This field is used only if the parent 
+             is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        width - Width value
+        height - Height value
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5369.html">ProUISliderParentnameGet</A> (char *dialog, char *component, char **value);
+/*
+    Purpose: Get the name of the parent to the slider component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        value - The name of the parent. Free this using <A HREF="6134.html">ProStringFree</A> ().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5370.html">ProUISliderHelptextGet</A> (char* dialog, char* component, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** value);
+/*
+    Purpose: Get the helptext that will display when the cursor is over the 
+             slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        value - The helptext. Free this using <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5371.html">ProUISliderMinintegerGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get the minimum integer value of the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        value - Minimum integer value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5372.html">ProUISliderMaxintegerGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get the maximum integer value of the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        value - Maximum integer value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5373.html">ProUISliderOrientationSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIOrientation">ProUIOrientation</A> value);
+/*
+    Purpose: Set the orientation of the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+        value - Orientation of the slider.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5374.html">ProUISliderOrientationGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIOrientation">ProUIOrientation</A>* value);
+/*
+    Purpose: Get the orientation of the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        value - Orientation of the slider.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5375.html">ProUISliderLengthGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get the length of the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        value - Length of the slider.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5376.html">ProUISliderAttachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the slider at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5377.html">ProUISliderUnattachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the slider at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5378.html">ProUISliderIsAttachedLeft</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the slider is attached at left side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        state - state of the left attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the slider is 
+                attached at left. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the slider is not attached at 
+                left.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5379.html">ProUISliderAttachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the slider at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5380.html">ProUISliderUnattachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the slider at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5381.html">ProUISliderIsAttachedRight</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the slider is attached at right side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        state - state of the right attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the slider is 
+                attached at right. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the slider is not attached at 
+                right.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5382.html">ProUISliderAttachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the slider at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5383.html">ProUISliderUnattachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the slider at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5384.html">ProUISliderIsAttachedTop</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the slider is attached at top side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        state - state of the top attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the slider is 
+                attached at top. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the slider is not attached at 
+                top.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5385.html">ProUISliderAttachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the slider at bottom side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5386.html">ProUISliderUnattachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the slider at bottom side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5387.html">ProUISliderIsAttachedBottom</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the slider is attached at bottom side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        state - state of the bottom attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the slider is 
+                attached at bottom. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the slider is not attached 
+                at bottom.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5388.html">ProUISliderLeftoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set left offset to the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+        value - Left offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5389.html">ProUISliderLeftoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get left offset of the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        value - Left offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5390.html">ProUISliderRightoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set right offset to the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+        value - Right offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5391.html">ProUISliderRightoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get right offset of the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        value - Right offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5392.html">ProUISliderTopoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set top offset to the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+        value - Top offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5393.html">ProUISliderTopoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get top offset of the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        value - Top offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5394.html">ProUISliderBottomoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set bottom offset to the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+        value - Bottom offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5395.html">ProUISliderBottomoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get bottom offset of the slider.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        value - Bottom offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5396.html">ProUISliderIsTrackingEnabled</A> (
+    char           *dialog,
+    char           *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state  
+);
+/*
+    Purpose: Get the state of slider tracking.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the slider.
+        component - The name of the slider component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> when slider tracking is enabled. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> when 
+                slider tracking is disabled.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+ 
+#endif  /* PROUISLIDER_H */
+
+        </PRE>
+    </BODY>
+</HTML>

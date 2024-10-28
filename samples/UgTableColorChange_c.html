@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>UgTableColorChange.c</title>
+</head>
+<body bgcolor="#ffffff">
+<pre><a name="anchor-0"></a>
+/*
+	Copyright (c) 2024 PTC Inc. and/or Its Subsidiary Companies. All Rights Reserved.
+*/
+
+<a name="anchor-1"></a>
+/*-------------------------- Pro/Toolkit includes ---------------------------*/
+#include &lt;ProToolkit.h>
+#include &lt;ProMdl.h>
+#include &lt;ProCsys.h>
+<a name="anchor-2"></a>#include &lt;ProDrawing.h>
+#include &lt;ProDtlnote.h>
+#include &lt;ProDwgtable.h>
+
+/*-------------------------- Application includes ---------------------------*/
+<a name="anchor-3"></a>#include &lt;TestError.h>
+
+
+ProError UserTableColorAction (
+    ProDwgtable *table,
+<a name="anchor-4"></a>    ProError    filter_status,
+    ProAppData  data)
+{
+    int                     ncols, nrows, c, r;
+    ProError                status;
+<a name="anchor-5"></a>    ProColor                *p_color = (ProColor*)data;
+
+    status = ProDwgtableRowsCount(table, &amp;nrows);
+   	ERROR_CHECK(&quot;UserTableColorChange&quot;,&quot;prodrw_count_table_rows&quot;,(nrows&lt;1));
+   	if (nrows&lt;1) return (PRO_TK_NOT_VALID);
+<a name="anchor-6"></a>
+    status = ProDwgtableColumnsCount(table, &amp;ncols);
+   	ERROR_CHECK(&quot;UserTableColorChange&quot;,&quot;ProDwgtableColumnsCount&quot;,(ncols&lt;1));
+   	if (ncols&lt;1) return (PRO_TK_NOT_VALID);
+
+<a name="anchor-7"></a>    /*--------------------------------------------------------*\
+        For each row and column in the table...
+    \*--------------------------------------------------------*/
+    for (r = 1; r &lt;= nrows; r++)
+    {
+<a name="anchor-8"></a>      for (c = 1; c &lt;= ncols; c++)
+        {
+          ProDtlnote note;
+          ProDtlnotedata notedata;
+          ProTextStyle dtlNote_text_style;
+<a name="anchor-9"></a>          /*-----------------------------------------------*\
+             Get the identifier of the note in this cell.
+          \*-----------------------------------------------*/
+          status = ProDwgtableCellNoteGet(table, c, r, &amp;note);
+          ERROR_CHECK(&quot;UserTableColorChange&quot;, &quot;ProDwgtableCellNoteGet&quot;,status);
+<a name="anchor-10"></a>
+          /*-----------------------------------------------*\
+             Get the data structure for the note.
+          \*-----------------------------------------------*/
+          status = ProDtlnoteDataGet(&amp;note, NULL, PRODISPMODE_NUMERIC, &amp;notedata);
+<a name="anchor-11"></a>          ERROR_CHECK(&quot;UserTableColorChange&quot;, &quot;ProDtlnoteDataGet&quot;,status);
+
+          /*-----------------------------------------------*\
+             Modify its color.
+          \*-----------------------------------------------*/
+<a name="anchor-12"></a>          status = ProDtlnotedataTextStyleGet(notedata, &amp;dtlNote_text_style);
+          status = ProTextStyleColorSetWithDef(dtlNote_text_style, &amp;p_color);
+
+          status = ProDtlnoteRemove(&amp;note);
+          ERROR_CHECK(&quot;UserTableColorChange&quot;, &quot;ProDtlnoteRemove&quot;,status);
+<a name="anchor-13"></a>
+          status = ProDtlnoteModify(&amp;note, NULL, notedata);
+          ERROR_CHECK(&quot;UserTableColorChange&quot;, &quot;ProDtlnoteModify&quot;,status);
+
+          status = ProDtlnoteShow(&amp;note);
+<a name="anchor-14"></a>          ERROR_CHECK(&quot;UserTableColorChange&quot;, &quot;ProDtlnoteShow&quot;,status);
+        }
+    }
+
+    return PRO_TK_NO_ERROR;
+<a name="anchor-15"></a>}
+
+/*=================================================================*\
+FUNCTION : UserTableColorChange
+PURPOSE : Change the color of the notes in a drawing table
+<a name="anchor-16"></a>\*=================================================================*/
+ProError UserTableColorChange ()
+{
+    ProError        status;
+    ProDrawing      p_draw;
+<a name="anchor-17"></a>    int         	table_id;
+    int			win_id;
+    int 		color_index;
+    ProColor    color;
+    int			i_range[2]= {0 , PRO_COLOR_MAX};
+<a name="anchor-18"></a>
+    ProFileName WMSGFIL = {'m','s','g','_','u','g','d','w','g','.','t','x','t','\0'};
+    /*------------------------------------------------------------*\
+      Get the current model
+    \*------------------------------------------------------------*/
+<a name="anchor-19"></a>    status = ProMdlCurrentGet((ProMdl*)&amp;p_draw);
+    ERROR_CHECK(&quot;UserTableColorChange&quot;,&quot;ProMdlCurrentGet&quot;,status);
+    if (status != PRO_TK_NO_ERROR) return (status);
+
+    /*------------------------------------------------------------*\
+<a name="anchor-20"></a>    Ask the user the color of the notes
+    \*------------------------------------------------------------*/
+    status = ProMessageDisplay(WMSGFIL, &quot;USER %0s&quot;,
+                                &quot;Enter the color index : &quot;);
+    ERROR_CHECK(&quot;UserTableColorChange&quot;,&quot;ProMessageDisplay&quot;,status);
+<a name="anchor-21"></a>
+    status = ProMessageIntegerRead(i_range, &amp;color_index);
+    ERROR_CHECK(&quot;UserTableColorChange&quot;,&quot;ProMessageIntegerRead&quot;,status);
+    if (status != PRO_TK_NO_ERROR) return (status);
+
+<a name="anchor-22"></a>    color.method = PRO_COLOR_METHOD_TYPE;
+    color.value.type = (ProColortype)color_index;
+
+    /*------------------------------------------------------------*\
+    For each table in the drawing
+<a name="anchor-23"></a>    \*------------------------------------------------------------*/
+    status = ProDrawingTableVisit(p_draw, (ProDwgtableVisitAction)UserTableColorAction, 
+                                  (ProDwgtableFilterAction)NULL, (ProAppData)&amp;color);
+
+
+<a name="anchor-24"></a>    /*------------------------------------------------------------*\
+      Update the changes by repainting the window
+    \*------------------------------------------------------------*/
+    status = ProWindowCurrentGet(&amp;win_id);
+    ERROR_CHECK(&quot;UserSheetAdd&quot;,&quot;ProWindowCurrentGet&quot;,status);
+<a name="anchor-25"></a>
+    status = ProWindowRepaint (win_id);
+    ERROR_CHECK(&quot;UserSheetAdd&quot;,&quot;ProWindowRepaint&quot;,status);
+
+    return (PRO_TK_NO_ERROR);
+<a name="anchor-26"></a>}
+</pre>
+</body>
+</html>

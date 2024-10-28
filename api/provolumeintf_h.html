@@ -1,0 +1,162 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProVolumeIntf.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="provolumeintf_h.html#PRO_VOL_INTF">PRO_VOL_INTF</A>
+<A name="PRO_VOL_INTF"></A>#define PRO_VOL_INTF
+
+
+
+#include &lt;<A HREF="proselection_h.html">ProSelection.h</A>&gt;
+#include &lt;<A HREF="proobjects_h.html">ProObjects.h</A>&gt;
+#include &lt;<A HREF="protoolkit_h.html">ProToolkit.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+<A name="ProVolumeInterferenceData"></A>typedef struct volume_intf_data *<A HREF="provolumeintf_h.html#ProVolumeInterferenceData">ProVolumeInterferenceData</A>;  
+
+<A name="ProVolumeInterferenceInfo"></A>typedef struct ProVolumeIntfInfo
+{
+  <A HREF="proobjects_h.html#ProAsmcomppath">ProAsmcomppath</A> comp;                  /*component interfering with the quilt*/
+  <A HREF="provolumeintf_h.html#ProVolumeInterferenceData">ProVolumeInterferenceData</A> intf_data; /* Resulting volume interference data */
+} <A HREF="provolumeintf_h.html#ProVolumeInterferenceInfo">ProVolumeInterferenceInfo</A>;
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6211.html">ProVolumeInterferenceCompute</A> (<A HREF="proselection_h.html#ProSelection">ProSelection</A> quilt, 
+                    <A HREF="provolumeintf_h.html#ProVolumeInterferenceInfo">ProVolumeInterferenceInfo</A> **p_intf_infos);
+/*
+    Purpose: This function computes volume interference of the selected closed 
+             quilt with the assembly as it is done in the Volume Interference 
+             UI.
+
+    Input Arguments:
+        quilt - The quilt with which the interefrance should be computed
+
+    Output Arguments:
+        p_intf_infos - pointer to a <A HREF="proarray_h.html#ProArray">ProArray</A> (allocated inside) where the 
+                       interference results will be stored, users need to free 
+                       the allocated array using 
+                       <A HREF="6215.html">ProVolumeInterferenceInfoArrayFree</A>
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - An error is encountered.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+    See Also:
+        <A HREF="6215.html">ProVolumeInterferenceInfoArrayFree</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6212.html">ProVolumeInterferenceBodiesGet</A> (
+                    <A HREF="provolumeintf_h.html#ProVolumeInterferenceData">ProVolumeInterferenceData</A> interf_data,
+                    <A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> **r_bodies);
+/*
+    Purpose: This function should be called after 
+             <A HREF="6211.html">ProVolumeInterferenceCompute</A>(). Given the interference data of a 
+             component part, it obtains the set of that part's solid bodies 
+             which participate in the interference.
+
+    Input Arguments:
+        interf_data - pointer to the interference data for the corresponding 
+                      component that interferes with the quilt
+
+    Output Arguments:
+        r_bodies - pointer to the array of <A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> structures which is 
+                   allocated by the function (as <A HREF="proarray_h.html#ProArray">ProArray</A>); may not be NULL
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - A general error is encountered.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Could not find any valid bodies in the supplied 
+                             data
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6213.html">ProVolumeInterferenceDisplay</A> (
+                    <A HREF="provolumeintf_h.html#ProVolumeInterferenceData">ProVolumeInterferenceData</A> interf_data,
+                    <A HREF="protoolkit_h.html#ProColortype">ProColortype</A> color, <A HREF="protoolkit_h.html#ProBool">ProBool</A> hilite);
+/*
+    Purpose: This function should be called after 
+             <A HREF="6211.html">ProVolumeInterferenceCompute</A>(). It will display/hide the curves 
+             and surfaces that interfere with the closed quilt that was 
+             selected by user.
+
+    Input Arguments:
+        interf_data - pointer to the interference data for the corresponding 
+                      component that interfere with the quilt
+        color - The preferred color for highlighting the ineterference
+        hilite - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> for displaying or <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> for hiding the 
+                 current component interference data.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - A general error is encountered.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6214.html">ProVolumeInterferenceDisplayForBody</A> (
+                    <A HREF="provolumeintf_h.html#ProVolumeInterferenceData">ProVolumeInterferenceData</A> interf_data, <A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> *p_body,
+                    <A HREF="protoolkit_h.html#ProColortype">ProColortype</A> color, <A HREF="protoolkit_h.html#ProBool">ProBool</A> hilite);
+/*
+    Purpose: This function should be called after 
+             <A HREF="6211.html">ProVolumeInterferenceCompute</A>(). It will display/hide the given 
+             solid body's curves and surfaces that interfere with the closed 
+             quilt that was selected by user.
+
+    Input Arguments:
+        interf_data - pointer to the interference data for the corresponding 
+                      component that interferes with the quilt
+        p_body - pointer to the desired solid body in that component
+        color - The preferred color for highlighting the ineterference
+        hilite - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> for displaying or <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> for hiding the given 
+                 body's interference geometry.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - A general error is encountered.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The given body doesn't interfere with the quilt
+
+*/
+        
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6215.html">ProVolumeInterferenceInfoArrayFree</A> (
+                    <A HREF="provolumeintf_h.html#ProVolumeInterferenceInfo">ProVolumeInterferenceInfo</A> *p_intf_infos);
+/*
+    Purpose: This function frees the memory that was allocated by 
+             <A HREF="6211.html">ProVolumeInterferenceCompute</A>(). Call this API to remove the 
+             interference highlighted by the function 
+             <A HREF="6213.html">ProVolumeInterferenceDisplay</A>(). This function also refreshes the 
+             screen. This API is supported in DLL mode only.
+
+    Input Arguments:
+        p_intf_infos - pointer to the interference data array that is no longer 
+                       needed and should be freed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - A general error is encountered.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Pointer to the interference data array is invalid.
+
+*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif 
+
+
+        </PRE>
+    </BODY>
+</HTML>

@@ -1,0 +1,2674 @@
+<html>
+<head>
+<title>TestGtol.c</title>
+</head>
+<body bgcolor="#ffffff">
+<pre><a name="anchor-0"></a>
+/*
+	Copyright (c) 2024 PTC Inc. and/or Its Subsidiary Companies. All Rights Reserved.
+*/
+
+<a name="anchor-1"></a>
+/*=================================================================*\
+    Pro/Toolkit includes
+\*=================================================================*/
+#include &lt;ProToolkit.h>
+<a name="anchor-2"></a>#include &lt;ProObjects.h>
+#include &lt;ProMdl.h>
+#include &lt;ProMenu.h>
+#include &lt;ProDimension.h>
+#include &lt;ProSelection.h>
+<a name="anchor-3"></a>#include &lt;ProGtol.h>
+#include &lt;ProFeature.h>
+#include &lt;ProMessage.h>
+#include &lt;ProWindows.h>
+#include &lt;ProAnnotation.h>
+<a name="anchor-4"></a>#include &lt;ProUtil.h>
+#include &lt;ProGtolAttach.h>
+
+/*=================================================================*\
+    Application includes
+<a name="anchor-5"></a>\*=================================================================*/
+#include &quot;TestError.h&quot;
+#include &quot;UtilMessage.h&quot;
+#include &quot;UtilMenu.h&quot;
+#include &quot;UtilTypes.h&quot;
+<a name="anchor-6"></a>#include &quot;UtilString.h&quot;
+#include &quot;UtilCollect.h&quot;
+#include &quot;PTApplsUnicodeUtils.h&quot;
+/*=================================================================*\
+    Application macros
+<a name="anchor-7"></a>\*=================================================================*/
+#define mnLastItem  -1
+#define mnFirstItem -1
+
+#define TestGtS_Unit 0x20 
+<a name="anchor-8"></a>#define TestGtS_Stat 0x10
+#define TestGtS_Diam 0x08
+#define TestGtS_Free 0x04
+#define TestGtS_All  0x02
+#define TestGtS_Tan  0x01
+<a name="anchor-9"></a>
+#define YesNoStr(a) (a ? &quot;Yes&quot; : &quot;No&quot;)
+#define IsMenuDone(a) ((a == mnLastItem)||(a == mnFirstItem))?(PRO_B_FALSE):(PRO_B_TRUE)
+
+/*=================================================================*\
+<a name="anchor-10"></a>    Application global types
+\*=================================================================*/
+
+typedef struct  test_gtol_symbol {
+    ProGtolType gtType;
+<a name="anchor-11"></a>    int symbols;
+    char sel_param[80];
+}TestGtolSymbol;
+
+/*=================================================================*\
+<a name="anchor-12"></a>    Application global data
+\*=================================================================*/
+
+static ProUtilMenuButtons  mnGtolType[] ={
+    {&quot;GtolType&quot;, mnFirstItem, TEST_CALL_PRO_MENU_DELETE},
+<a name="anchor-13"></a>    {&quot;Straightness&quot;,    PROGTOLTYPE_STRAIGHTNESS,   0},
+    {&quot;Flatness&quot;,        PROGTOLTYPE_FLATNESS,       0},
+    {&quot;Circular&quot;,        PROGTOLTYPE_CIRCULAR,       0},
+    {&quot;Cylindrical&quot;,     PROGTOLTYPE_CYLINDRICAL,    0},
+    {&quot;Line&quot;,            PROGTOLTYPE_LINE,           0},
+<a name="anchor-14"></a>    {&quot;Surface&quot;,         PROGTOLTYPE_SURFACE,        0},
+    {&quot;Angular&quot;,         PROGTOLTYPE_ANGULAR,        0},
+    {&quot;Perpendicular&quot;,   PROGTOLTYPE_PERPENDICULAR,  0},
+    {&quot;Parallel&quot;,        PROGTOLTYPE_PARALLEL,       0},
+    {&quot;Position&quot;,        PROGTOLTYPE_POSITION,       0},
+<a name="anchor-15"></a>    {&quot;Concentricity&quot;,   PROGTOLTYPE_CONCENTRICITY,  0},
+    {&quot;Symmetry&quot;,        PROGTOLTYPE_SYMMETRY,       0},
+    {&quot;Circular Runout&quot;, PROGTOLTYPE_CIRCULAR_RUNOUT,0},                                
+    {&quot;Total Highway&quot;,   PROGTOLTYPE_TOTAL_RUNOUT,   0},                                
+    {&quot;&quot;,      mnLastItem,0}};
+<a name="anchor-16"></a>
+static ProUtilMenuButtons mnGtolRefItemType[] = {
+    {&quot;RefItemType&quot;, mnFirstItem, TEST_CALL_PRO_MENU_DELETE},
+    {&quot;edge&quot;,     PROGTOLRTYPE_EDGE,  0},
+    {&quot;axis&quot;,     PROGTOLRTYPE_AXIS,  0},
+<a name="anchor-17"></a>    {&quot;surface&quot;,  PROGTOLRTYPE_SURF,  0},
+    {&quot;feature&quot;,  PROGTOLRTYPE_FEAT,  0},
+    {&quot;datum&quot;,    PROGTOLRTYPE_DATUM, 0},
+    {&quot;&quot;,  mnLastItem,   0}};
+
+<a name="anchor-18"></a>static ProUtilMenuButtons mnGtolAttachType[]={
+    {&quot;GtolAttach&quot;, mnFirstItem,TEST_CALL_PRO_MENU_DELETE},
+    {&quot;Datum&quot;,          PRO_GTOL_ATTACH_DATUM,      0},
+    {&quot;Annotation&quot;,     PRO_GTOL_ATTACH_ANNOTATION,  0},
+    {&quot;Annotation Elbow&quot;,PRO_GTOL_ATTACH_ANNOTATION_ELBOW,0},
+<a name="anchor-19"></a>    {&quot;Free&quot;,	       PRO_GTOL_ATTACH_FREE,   0},
+    {&quot;Leaders&quot;,        PRO_GTOL_ATTACH_LEADERS,    0},
+    {&quot;&quot;, mnLastItem, 0}};
+
+static ProUtilMenuButtons mnGtolDrwAttachType[] = {
+<a name="anchor-20"></a>	{ &quot;GtolAttach&quot;, mnFirstItem,TEST_CALL_PRO_MENU_DELETE },
+	{ &quot;Offset&quot;,         PRO_GTOL_ATTACH_OFFSET,  0 },
+	{ &quot;Make Dim&quot;,       PRO_GTOL_ATTACH_MAKE_DIM, 0 },
+	{ &quot;&quot;, mnLastItem, 0 } };
+
+<a name="anchor-21"></a>static ProUtilMenuButtons mnGtolLeaderType[]={
+    {&quot;Leader Type&quot;, mnFirstItem,TEST_CALL_PRO_MENU_DELETE},
+    {&quot;Arrow head&quot;,  PROLEADERTYPE_ARROWHEAD,  0},
+    {&quot;Dot&quot;,         PROLEADERTYPE_DOT,        0},
+    {&quot;Fille dot&quot;,   PROLEADERTYPE_FILLEDDOT,  0},
+<a name="anchor-22"></a>    {&quot;No arrow&quot;,    PROLEADERTYPE_NOARROW,    0},
+    {&quot;Slash&quot;,       PROLEADERTYPE_SLASH,      0},
+    {&quot;Integral&quot;,    PROLEADERTYPE_INTEGRAL,   0},
+    {&quot;Box&quot;,         PROLEADERTYPE_BOX,        0},
+    {&quot;Filled box&quot;,  PROLEADERTYPE_FILLEDBOX,  0},
+<a name="anchor-23"></a>    {&quot;Double arrow&quot;,PROLEADERTYPE_DOUBLEARROW,0},
+    {&quot;&quot;, mnLastItem, 0}};
+    
+static ProUtilMenuButtons mnGtolMaterialCond[]={
+    {&quot;Material Cond.&quot;, mnFirstItem, TEST_CALL_PRO_MENU_DELETE},
+<a name="anchor-24"></a>    {&quot;LMC&quot;,         PRO_GTOL_SYMBOL_LMC,         0},
+    {&quot;MMC&quot;,         PRO_GTOL_SYMBOL_MMC,         0},
+    {&quot;RFC&quot;,         PRO_GTOL_SYMBOL_RFS,         0},
+    {&quot;Default RFS&quot;, PRO_GTOL_SYMBOL_DEFAULT_RFS, 0},
+    {&quot;&quot;, mnLastItem, 0}};
+<a name="anchor-25"></a>
+static ProUtilMenuButtons mnGtolReferenceType[]={
+    {&quot;Reference type&quot;, mnFirstItem, TEST_CALL_PRO_MENU_DELETE},
+    {&quot;None&quot;,      PROGTOLREFTYPE_NONE,      0},
+    {&quot;Primary&quot;,   PROGTOLREFTYPE_PRIMARY,   0},
+<a name="anchor-26"></a>    {&quot;Secondary&quot;, PROGTOLREFTYPE_SECONDARY, 0},
+    {&quot;Tertiary&quot;,  PROGTOLREFTYPE_TERTIARY,  0},
+    {&quot;&quot;, mnLastItem, 0}};    
+
+static ProUtilMenuButtons mnGtolProjzone[]={
+<a name="anchor-27"></a>    {&quot;Proj. zone&quot;, mnFirstItem, TEST_CALL_PRO_MENU_DELETE},
+    {&quot;None&quot;,   PROGTOLPROJZONE_NONE,       0},
+    {&quot;Below&quot;,  PROGTOLPROJZONE_BELOWGTOL,  0},
+    {&quot;Inside&quot;, PROGTOLPROJZONE_INSIDEGTOL, 0},
+    {&quot;&quot;, mnLastItem, 0}};    
+<a name="anchor-28"></a>
+    
+static TestGtolSymbol TestGtolSymbolTbl[]={
+    {PROGTOLTYPE_UNKNOWN,        
+     TestGtS_Stat,
+<a name="anchor-29"></a>     &quot;&quot;},     
+    {PROGTOLTYPE_STRAIGHTNESS,   
+     TestGtS_Stat | TestGtS_Diam | TestGtS_Free | TestGtS_Unit,
+     &quot;surface,axis,edge&quot;},     
+    {PROGTOLTYPE_FLATNESS,       
+<a name="anchor-30"></a>     TestGtS_Stat | TestGtS_Free | TestGtS_Unit,
+     &quot;sldface&quot;},     
+    {PROGTOLTYPE_CIRCULAR,       
+     TestGtS_Stat | TestGtS_Free,
+     &quot;surface&quot;},     
+<a name="anchor-31"></a>    {PROGTOLTYPE_CYLINDRICAL,    
+     TestGtS_Stat | TestGtS_Free,
+     &quot;surface&quot;},     
+    {PROGTOLTYPE_LINE,           
+     TestGtS_Stat | TestGtS_All  | TestGtS_Tan,
+<a name="anchor-32"></a>     &quot;edge&quot;},     
+    {PROGTOLTYPE_SURFACE,        
+     TestGtS_Stat | TestGtS_All  | TestGtS_Tan,
+     &quot;surface&quot;},     
+    {PROGTOLTYPE_ANGULAR,        
+<a name="anchor-33"></a>     TestGtS_Stat | TestGtS_Diam | TestGtS_Tan,
+     &quot;datum,surface,axis&quot;},     
+    {PROGTOLTYPE_PERPENDICULAR,  
+     TestGtS_Stat | TestGtS_Diam | TestGtS_Tan | TestGtS_Unit,
+     &quot;surface,axis,datum&quot;},     
+<a name="anchor-34"></a>    {PROGTOLTYPE_PARALLEL ,       
+     TestGtS_Stat | TestGtS_Diam | TestGtS_Tan | TestGtS_Unit,
+     &quot;surface,axis&quot;},     
+    {PROGTOLTYPE_POSITION,       
+     TestGtS_Stat | TestGtS_Diam | TestGtS_Free,
+<a name="anchor-35"></a>     &quot;point,axis,datum,csys,feature,edge,curve&quot;},     
+    {PROGTOLTYPE_CONCENTRICITY,  
+     TestGtS_Stat | TestGtS_Diam | TestGtS_Free,
+     &quot;axis,surface&quot;},     
+    {PROGTOLTYPE_SYMMETRY,       
+<a name="anchor-36"></a>     TestGtS_Stat | TestGtS_Free,
+     &quot;point,axis,datum,csys,feature,edge,curve&quot;},     
+    {PROGTOLTYPE_CIRCULAR_RUNOUT,
+     TestGtS_Stat,
+     &quot;surface&quot;},      
+<a name="anchor-37"></a>    {PROGTOLTYPE_TOTAL_RUNOUT,   
+     TestGtS_Stat,
+     &quot;surface&quot;},
+    {(ProGtolType)-1,   -1, &quot;&quot;}};     
+           
+<a name="anchor-38"></a>static char *NumeralStr[]={
+    &quot;First&quot;, 
+    &quot;Second&quot;,
+    &quot;Third&quot;
+};
+<a name="anchor-39"></a>
+static char *strDatumRef[]={
+    &quot;primary&quot;,
+    &quot;secondary&quot;,
+    &quot;tertiary&quot;
+<a name="anchor-40"></a>};
+
+/*====================================================================*\
+  Function : TestGtolSymInfoGet()
+  Purpose  : return in
+<a name="anchor-41"></a>\*====================================================================*/
+ProError TestGtolSymInfoGet(ProGtolType gtType, TestGtolSymbol *info)
+{
+    int i=0;
+    
+<a name="anchor-42"></a>    if(info == NULL)
+        return(PRO_TK_BAD_INPUTS);
+        
+    while(TestGtolSymbolTbl[i].gtType!=-1)
+    {
+<a name="anchor-43"></a>        if(TestGtolSymbolTbl[i].gtType == gtType)
+        {
+            memcpy(info, &amp;TestGtolSymbolTbl[i],sizeof(TestGtolSymbol));
+            return(PRO_TK_NO_ERROR);
+        }
+<a name="anchor-44"></a>        i++;
+    }
+    return(PRO_TK_E_NOT_FOUND);
+}
+
+<a name="anchor-45"></a>/*====================================================================*\
+  Function : TestGtolSymIsEnable()
+  Purpose  : If specified symbol enabled for gtol then return PRO_B_TRUE.
+\*====================================================================*/
+ProBoolean TestGtolSymIsEnable(ProGtolType gtType, int sym)
+<a name="anchor-46"></a>{
+    ProError error;
+    TestGtolSymbol info;
+    
+    error = TestGtolSymInfoGet(gtType, &amp;info);
+<a name="anchor-47"></a>    if(error != PRO_TK_NO_ERROR)
+        return(PRO_B_FALSE);
+    
+    return(((info.symbols &amp; sym)!=0)?(PRO_B_TRUE):(PRO_B_FALSE));
+}
+<a name="anchor-48"></a>
+/*====================================================================*\
+  Function : TestGtolSymSelParam()
+  Purpose  : Return string for ProSelect function.
+\*====================================================================*/
+<a name="anchor-49"></a>char* TestGtolSymSelParam(ProGtolType gtType)
+{
+    static TestGtolSymbol	info;
+    ProError			error;
+    
+<a name="anchor-50"></a>    error = TestGtolSymInfoGet(gtType, &amp;info);
+    if(error != PRO_TK_NO_ERROR)
+        return(NULL);
+
+    return(info.sel_param);
+<a name="anchor-51"></a>}
+
+/*====================================================================*\
+  Function : ProArrayObjectAdd()
+  Purpose  : Visit action function. Add visited object to array.
+<a name="anchor-52"></a>\*====================================================================*/
+ProError TestGtolCollectVisit(ProGtol *gtol, ProError status, ProAppData app_data)
+{
+    ProError error;
+    
+<a name="anchor-53"></a>/*--------------------------------------------------------------------*\
+    Add visited object to array
+\*--------------------------------------------------------------------*/
+    error = ProArrayObjectAdd((ProArray*)app_data,PRO_VALUE_UNUSED,1,gtol);
+    TEST_CALL_REPORT (&quot;ProArrayObjectAdd()&quot;,
+<a name="anchor-54"></a>            &quot;TestGtolCollectVisit()&quot;, error, error != PRO_TK_NO_ERROR);
+        
+    return(error);
+}
+
+<a name="anchor-55"></a>/*====================================================================*\
+  Function : TestGtolCollect()
+  Purpose  : Collect all gtol in the model.
+\*====================================================================*/
+ProError TestGtolCollect(ProMdl mdl, ProGtol **gtol)
+<a name="anchor-56"></a>{
+    ProGtol *tmp_gtol = NULL;
+    ProError error;
+    
+    if((gtol==NULL)||(mdl==NULL))
+<a name="anchor-57"></a>        return(PRO_TK_BAD_INPUTS);
+
+/*--------------------------------------------------------------------*\
+    Alloc memory for gtol array.
+\*--------------------------------------------------------------------*/
+<a name="anchor-58"></a>    error = ProArrayAlloc(0, sizeof(ProGtol),1,(ProArray*)&amp;tmp_gtol);
+    TEST_CALL_REPORT (&quot;ProArrayAlloc()&quot;,
+            &quot;TestGtolCollect()&quot;, error, error != PRO_TK_NO_ERROR);
+    
+    if(error!=PRO_TK_NO_ERROR)
+<a name="anchor-59"></a>        return(error);
+        
+/*--------------------------------------------------------------------*\
+    Visit and add all gtol from the specified model.
+\*--------------------------------------------------------------------*/
+<a name="anchor-60"></a>    error = ProMdlGtolVisit(mdl,(ProGtolVisitAction)TestGtolCollectVisit, 
+       (ProGtolFilterAction)PRO_NO_FUNCTION,(ProAppData)&amp;tmp_gtol);        
+    TEST_CALL_REPORT (&quot;ProMdlGtolVisit()&quot;,
+            &quot;TestGtolCollect()&quot;, error, (error != PRO_TK_NO_ERROR &amp;&amp; error != PRO_TK_E_NOT_FOUND));
+
+<a name="anchor-61"></a>/*--------------------------------------------------------------------*\
+    If error then free memory.
+\*--------------------------------------------------------------------*/
+    if(error!=PRO_TK_NO_ERROR)
+    {
+<a name="anchor-62"></a>        if(tmp_gtol!=NULL)
+        {
+            error=ProArrayFree((ProArray*)&amp;tmp_gtol);
+            TEST_CALL_REPORT (&quot;ProArrayFree()&quot;,
+                &quot;TestGtolCollect()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-63"></a>            tmp_gtol = NULL;
+        }
+        return(error);
+    }
+    
+<a name="anchor-64"></a>    *gtol = tmp_gtol;    
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-65"></a>  Function : TestGtolAttachPrn()
+  Purpose  : Print information about gtol placement.
+\*====================================================================*/
+ProError TestGtolAttachPrn(FILE *fp, ProGtol* gtol)
+{
+<a name="anchor-66"></a>	ProGtolAttach gtolAttach;
+	ProGtolAttachType attachType;
+	ProModelitem datum, item;
+	ProAnnotation annotation;
+	ProAnnotationPlane plane;
+<a name="anchor-67"></a>	Pro3dPnt location;
+	ProGtolLeaderAttachType leaderAttachType;
+	ProSelection selection;
+	ProVector offset;
+    ProGtolleader *leaders;
+<a name="anchor-68"></a>	ProDimAttachment *dimAttach;
+	ProDimSense *dimSense;
+	ProDimOrient orient;
+
+    ProLeaderType lead_type;  
+<a name="anchor-69"></a>    int n, i; 
+    ProCharLine cname; 
+    ProDimension dimension;
+    ProError error;
+
+<a name="anchor-70"></a>/*--------------------------------------------------------------------*\
+    Get gtol placement information
+\*--------------------------------------------------------------------*/
+	error = ProGtolAttachGet(gtol, &amp;gtolAttach);
+    TEST_CALL_REPORT (&quot;ProGtolAttachGet()&quot;,
+<a name="anchor-71"></a>        &quot;TestGtolAttachPrn()&quot;, error, (error != PRO_TK_NO_ERROR &amp;&amp; error != PRO_TK_GENERAL_ERROR));
+        
+    if(error!=PRO_TK_NO_ERROR)    
+        return(error);
+        
+<a name="anchor-72"></a>	error = ProGtolAttachTypeGet(gtolAttach, &amp;attachType);
+	TEST_CALL_REPORT(&quot;ProGtolAttachTypeGet()&quot;,
+		&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+	ProTKFprintf(fp, (char*)&quot;Attach type : %d\n&quot;, attachType);
+
+<a name="anchor-73"></a>	if (attachType == PRO_GTOL_ATTACH_DATUM) {
+		error = ProGtolAttachOnDatumGet(gtolAttach, &amp;datum);
+		TEST_CALL_REPORT(&quot;ProGtolAttachOnDatumGet()&quot;,
+			&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+		ProTKFprintf(fp, (char*)&quot;Attach datum id : %d \t type : %d\n&quot;, datum.id, datum.type);
+<a name="anchor-74"></a>	}
+	if (attachType == PRO_GTOL_ATTACH_ANNOTATION || attachType == PRO_GTOL_ATTACH_ANNOTATION_ELBOW) {
+		error = ProGtolAttachOnAnnotationGet(gtolAttach, &amp;annotation);
+		TEST_CALL_REPORT(&quot;ProGtolAttachOnAnnotationGet()&quot;,
+			&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-75"></a>		ProTKFprintf(fp, (char*)&quot;Attach annotation id : %d \t type : %d\n&quot;, annotation.id, annotation.type);
+	}
+	if (attachType == PRO_GTOL_ATTACH_FREE) {
+		error = ProGtolAttachFreeGet(gtolAttach, &amp;plane, location);
+		TEST_CALL_REPORT(&quot;ProGtolAttachFreeGet()&quot;,
+<a name="anchor-76"></a>			&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		ProTKFprintf(fp, (char*)&quot;Attach annotation plane id : %d \t type : %d\n&quot;, plane.id, plane.type);
+		ProTKFprintf(fp, (char*)&quot;Free text point : {%lf,  %lf  %lf}\n&quot;, location[0], location[1], location[2]);
+	}
+<a name="anchor-77"></a>	if (attachType == PRO_GTOL_ATTACH_LEADERS) {
+		int nSize;
+		ProSelection attachment;
+		ProModelitem selItem;
+		ProLeaderType leaderType;
+<a name="anchor-78"></a>		Pro3dPnt pnt;
+
+		error = ProGtolAttachLeadersGet(gtolAttach, &amp;plane, &amp;leaderAttachType, &amp;leaders, location);
+		TEST_CALL_REPORT(&quot;ProGtolAttachLeadersGet()&quot;,
+			&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-79"></a>
+		error = ProArraySizeGet(leaders, &amp;nSize);
+		if (leaderAttachType == PRO_GTOL_NORMAL_LEADER)
+			ProTKFprintf(fp, (char*)&quot; GTOL_NORMAL_LEADER info :  \n&quot;);
+		else if (leaderAttachType == PRO_GTOL_TANGENT_LEADER)
+<a name="anchor-80"></a>			ProTKFprintf(fp, (char*)&quot; TANGENT_LEADER info :  \n&quot;);
+		else if (leaderAttachType == PRO_GTOL_LEADER)
+			ProTKFprintf(fp, (char*)&quot; GTOL_LEADER info :  \n&quot;);
+
+		for (int ii = 0; ii &lt; nSize; ii++) {
+<a name="anchor-81"></a>			error = ProGtolleaderGet(leaders[ii], &amp;leaderType, &amp;attachment);
+			TEST_CALL_REPORT(&quot;ProGtolleaderGet()&quot;,
+				&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+
+			error = ProSelectionModelitemGet(attachment, &amp;selItem);
+<a name="anchor-82"></a>			TEST_CALL_REPORT(&quot;ProSelectionModelitemGet()&quot;,
+				&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+
+			error = ProSelectionPoint3dGet(attachment, pnt);
+			TEST_CALL_REPORT(&quot;ProSelectionPoint3dGet()&quot;,
+<a name="anchor-83"></a>				&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+
+			ProTKFprintf(fp, (char*)&quot;Leader [%d] Item id : %d  type : %d\n&quot;, ii, selItem.id, leaderType);
+			ProTKFprintf(fp, (char*)&quot;Leader [%d] Point : {%lf,  %lf  %lf}\n&quot;,ii, pnt[0], pnt[1], pnt[2]);
+		}
+<a name="anchor-84"></a>
+	}
+	if (attachType == PRO_GTOL_ATTACH_OFFSET) {
+		error = ProGtolAttachOffsetItemGet(gtolAttach, &amp;selection, offset);
+		TEST_CALL_REPORT(&quot;ProGtolAttachOffsetItemGet()&quot;,
+<a name="anchor-85"></a>			&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		error = ProSelectionModelitemGet(offset, &amp;item);
+		TEST_CALL_REPORT(&quot;ProSelectionModelitemGet()&quot;,
+			&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-86"></a>
+		ProTKFprintf(fp, (char*)&quot;Offset item id : %d \n&quot;, item.id);
+		ProTKFprintf(fp, (char*)&quot;Free text point : {%lf,  %lf  %lf}\n&quot;, offset[0], offset[1], offset[2]);
+	}
+	if (attachType == PRO_GTOL_ATTACH_MAKE_DIM) {
+<a name="anchor-87"></a>
+		int attSize;
+		ProModelitem attachItem;
+		error = ProGtolAttachMakeDimGet(gtolAttach, &amp;plane, &amp;dimAttach, &amp;dimSense, &amp;orient, location);
+		TEST_CALL_REPORT(&quot;ProGtolAttachMakeDimGet()&quot;,
+<a name="anchor-88"></a>			&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		error = ProArraySizeGet(dimAttach, &amp;attSize);
+		for (int ii = 0; ii &lt; attSize; ii++) {
+			error = ProSelectionModelitemGet(dimAttach[ii][0], &amp;attachItem);
+<a name="anchor-89"></a>			TEST_CALL_REPORT(&quot;ProSelectionModelitemGet()&quot;,
+				&quot;TestGtolAttachPrn()&quot;, error, error != PRO_TK_NO_ERROR);
+
+			ProTKFprintf(fp, (char*)&quot;Make Dim Gtol Attach [%d] item id : %d \n&quot;, ii, attachItem.id);
+			ProTKFprintf(fp, (char*)&quot;Sense [%d] type : %d sense : %d\n&quot;, ii, dimSense[ii].type, dimSense[ii].sense);
+<a name="anchor-90"></a>		}
+		ProTKFprintf(fp, (char*)&quot;Orient hint : %d\n&quot;, orient);
+		ProTKFprintf(fp, (char*)&quot;Location : {%lf,  %lf  %lf}\n&quot;, location[0], location[1], location[2]);
+	}
+    return(PRO_TK_NO_ERROR);
+<a name="anchor-91"></a>}
+
+ProError TestGtolSymbolFontGet(ProGtol *gtol, ProSymbolFont *fontType)
+{
+	ProLine fontString;
+<a name="anchor-92"></a>	ProError error = PRO_TK_NO_ERROR;
+	int match = 0;
+
+	error = ProMdlDetailOptionGet(gtol->owner, L&quot;symbol_font&quot;, fontString);
+	TEST_CALL_REPORT(&quot;ProMdlDetailOptionGet()&quot;,
+<a name="anchor-93"></a>		&quot;TestGtolSymbolFontGet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+	ProWstringCompare(fontString, L&quot;LEGACY&quot;, -1, &amp;match);
+	if (match == 0)
+		*fontType = PRO_FONT_LEGACY;
+<a name="anchor-94"></a>	else
+	{
+		ProWstringCompare(fontString, L&quot;ASME&quot;, -1, &amp;match);
+		if (match == 0)
+			*fontType = PRO_FONT_ASME;
+<a name="anchor-95"></a>
+		else// ISO is default choice
+			*fontType = PRO_FONT_ISO;
+	}
+
+<a name="anchor-96"></a>	return (error);
+}
+void TestWStringSubstitute(wchar_t* str, wchar_t* patten, wchar_t* replace, wchar_t** retStr)
+{
+	int strLen = 0;
+<a name="anchor-97"></a>	int patLen = 0;
+	wchar_t* retStrVal = NULL;
+	int replaceLen;
+	int foundAt[20], count = 0;
+	int offset = 0, ln = 0, i = 0, strLenCnt = 0, countCnt = 0;
+<a name="anchor-98"></a>
+	if (str == NULL || patten == NULL || replace == NULL || retStr == NULL)
+		return;
+
+	ProWstringLengthGet(str, &amp;strLen);
+<a name="anchor-99"></a>	ProWstringLengthGet(patten, &amp;patLen);
+	ProWstringLengthGet(replace, &amp;replaceLen);
+
+	if (strLen == 0 || patLen == 0)
+	{
+<a name="anchor-100"></a>		*retStr = str;
+		return;
+	}
+
+	/* Find number of matches and indices of at which pattern starts */
+<a name="anchor-101"></a>	foundAt[0] = -1;
+	for (i = 0; i &lt;= strLen - patLen; i++)
+	{
+		int j;
+		for (j = 0; j &lt; patLen; j++)
+<a name="anchor-102"></a>			if (str[i + j] != patten[j])
+				break;
+
+		if (j == patLen)
+		{
+<a name="anchor-103"></a>			foundAt[count] = i;
+			foundAt[count + 1] = -1;
+			count++;
+		}
+	}
+<a name="anchor-104"></a>
+	/* If no match found return same string */
+	if (count == 0)
+	{
+		*retStr = str;
+<a name="anchor-105"></a>		return;
+	}
+
+	/* Allocate new string */
+	offset = (replaceLen - patLen);
+<a name="anchor-106"></a>	ln = strLen + count * offset;
+
+	retStrVal = (wchar_t*)malloc(sizeof(wchar_t) * (ln + 1));
+
+	/* Populate new string by replacing pattern with replace string */
+<a name="anchor-107"></a>	for (i = 0, strLenCnt = 0, countCnt = 0; i &lt; ln;)
+	{
+		if (i == foundAt[countCnt] + offset * countCnt)
+		{
+			for (int j = 0; j &lt; replaceLen; j++, i++)
+<a name="anchor-108"></a>				retStrVal[i] = replace[j];
+
+			strLenCnt = strLenCnt + patLen;
+			countCnt++;
+		}
+<a name="anchor-109"></a>		else
+		{
+			retStrVal[i] = str[strLenCnt];
+			strLenCnt++;
+			i++;
+<a name="anchor-110"></a>		}
+	}
+
+	retStrVal[ln] = '\0';
+	*retStr = retStrVal;
+<a name="anchor-111"></a>
+	return;
+}
+void TestWStringSubstituteArray(wchar_t* str, wchar_t** patten, wchar_t** replace, wchar_t** retStr)
+{
+<a name="anchor-112"></a>	int nSize = 0, ln = 0, ii = 0;
+	wchar_t* subStr = NULL;
+	wchar_t* copyInput = NULL;
+
+	if (str == NULL || patten == NULL || replace == NULL || retStr == NULL)
+<a name="anchor-113"></a>		return;
+
+	ProWstringLengthGet(str, &amp;ln);
+	subStr = (wchar_t*)malloc(sizeof(wchar_t) * (ln + 1));
+	ProWstringCopy(str, subStr, -1);
+<a name="anchor-114"></a>
+	ProArraySizeGet(patten, &amp;nSize);
+
+	for (ii = 0; ii &lt; nSize; ii++)
+	{
+<a name="anchor-115"></a>		if (subStr != copyInput)
+		{
+			ProWstringLengthGet(subStr, &amp;ln);
+			copyInput = (wchar_t*)realloc(copyInput, sizeof(wchar_t) * (ln + 1));
+			ProWstringCopy(subStr, copyInput, -1);
+<a name="anchor-116"></a>			free(subStr);
+		}
+		TestWStringSubstitute(copyInput, patten[ii], replace[ii], &amp;subStr);
+	}
+	*retStr = subStr;
+<a name="anchor-117"></a>}
+
+void TestGtolSymbolToString(wchar_t* str, ProSymbolFont font, wchar_t** finalStr)
+{
+	wchar_t** patterns = NULL;
+<a name="anchor-118"></a>	wchar_t** replace = NULL;
+	wchar_t* symVal = NULL;
+	wchar_t* ctrlChars = NULL;
+	wchar_t* symb = NULL;
+	ProError error;
+<a name="anchor-119"></a>
+
+	ProArrayAlloc(0, sizeof(wchar_t*), 1, (ProArray*)&amp;patterns);
+	ProArrayAlloc(0, sizeof(wchar_t*), 1, (ProArray*)&amp;replace);
+
+<a name="anchor-120"></a>
+	error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_DIAMETER, font, &amp;symVal);
+	TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+		&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+	error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+<a name="anchor-121"></a>
+	symb = L&quot;&lt;SYMBOL_DIAMTER>&quot;;
+	error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+
+	error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_FREE_STATE, font, &amp;symVal);
+<a name="anchor-122"></a>	TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+		&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+	error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+	symb = L&quot;&lt;SYMBOL_FREE_STATE>&quot;;
+	error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+<a name="anchor-123"></a>
+	error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_LMC_R, font, &amp;symVal);
+	TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+		&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+	error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+<a name="anchor-124"></a>	symb = L&quot;&lt;SYMBOL_LMC_R>&quot;;
+	error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+
+	error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_LMC, font, &amp;symVal);
+	TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+<a name="anchor-125"></a>		&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+	error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+	symb = L&quot;&lt;SYMBOL_STAT_LMC>&quot;;
+	error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+
+<a name="anchor-126"></a>	error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_MMC_R, font, &amp;symVal);
+	TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+		&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+	error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+	symb = L&quot;&lt;SYMBOL_MMC_R>&quot;;
+<a name="anchor-127"></a>	error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+
+	error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_MMC, font, &amp;symVal);
+	TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+		&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-128"></a>	error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+	symb = L&quot;&lt;SYMBOL_MMC>&quot;;
+	error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+
+	error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_RFS, font, &amp;symVal);
+<a name="anchor-129"></a>	TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+		&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+	error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+	symb = L&quot;&lt;SYMBOL_RFS>&quot;;
+	error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+<a name="anchor-130"></a>
+	error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_STAT_TOL, font, &amp;symVal);
+	TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+		&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+	error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+<a name="anchor-131"></a>	symb = L&quot;&lt;SYMBOL_STAT_TOL>&quot;;
+	error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+
+	error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_TANGENT_PLANE, font, &amp;symVal);
+	TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+<a name="anchor-132"></a>		&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+	error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+	symb = L&quot;&lt;SYMBOL_TANGENT_PLANE>&quot;;
+	error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+
+<a name="anchor-133"></a>	error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_TRANSLATION, font, &amp;symVal);
+	TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+		&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+	error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+	symb = L&quot;&lt;SYMBOL_TRANSLATION>&quot;;
+<a name="anchor-134"></a>	error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+
+	if (font != PRO_FONT_LEGACY)
+	{
+		error = ProGtolSymbolStringGet(PRO_INDICATOR_SYMBOL_ANGULARITY, font, &amp;symVal);
+<a name="anchor-135"></a>		TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+			&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+		error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+		symb = L&quot;&lt;INDICATOR_ANGULARITY>&quot;;
+		error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+<a name="anchor-136"></a>
+		error = ProGtolSymbolStringGet(PRO_INDICATOR_SYMBOL_PARALLELISM, font, &amp;symVal);
+		TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+			&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+		error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+<a name="anchor-137"></a>		symb = L&quot;&lt;INDICATOR_PARALLEL>&quot;;
+		error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+
+		error = ProGtolSymbolStringGet(PRO_INDICATOR_SYMBOL_PERPENDICULARITY, font, &amp;symVal);
+		TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+<a name="anchor-138"></a>			&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+		error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+		symb = L&quot;&lt;INDICATOR_PERPENDICULAR>&quot;;
+		error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+
+<a name="anchor-139"></a>		error = ProGtolSymbolStringGet(PRO_INDICATOR_SYMBOL_SYMMETRY, font, &amp;symVal);
+		TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+			&quot;TestGtolSymbolToString()&quot;, error, error != PRO_TK_NO_ERROR);
+		error = ProWstringArrayObjectAdd(&amp;patterns, -1, 1, &amp;symVal);
+		symb = L&quot;&lt;PRO_INDICATOR_SYMBOL_SYMMETRY>&quot;;
+<a name="anchor-140"></a>		error = ProWstringArrayObjectAdd(&amp;replace, -1, 1, &amp;symb);
+	}
+
+	TestWStringSubstituteArray(str, patterns, replace, finalStr);
+
+<a name="anchor-141"></a>	ProWstringproarrayFree(patterns);
+	ProArrayFree((ProArray*)&amp;replace);
+
+}
+
+<a name="anchor-142"></a>/*====================================================================*\
+  Function : TestGtolDatumRefInfo()
+  Purpose  : Print information about gtol references.
+\*====================================================================*/
+ProError TestGtolDatumRefInfo(FILE *fp, ProGtol* gtol)
+<a name="anchor-143"></a>{
+	wchar_t* primary = NULL;
+	wchar_t* secondary = NULL;
+	wchar_t* tertiary = NULL ;
+	wchar_t* primSymb = NULL;
+<a name="anchor-144"></a>	wchar_t* secSymb = NULL;
+	wchar_t* terSymb = NULL;
+	ProSymbolFont fontType;
+	ProError error;
+
+<a name="anchor-145"></a>/*--------------------------------------------------------------------*\
+    Get the datum references for a gtol.
+\*--------------------------------------------------------------------*/
+	error = ProGtolDatumReferencesGet(gtol, &amp;primary, &amp;secondary, &amp;tertiary);
+    TEST_CALL_REPORT (&quot;ProGtolDatumReferencesGet()&quot;,
+<a name="anchor-146"></a>        &quot;TestGtolDatumRefInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+        
+    if(error!=PRO_TK_NO_ERROR)
+        return(error);
+      
+<a name="anchor-147"></a>	error = TestGtolSymbolFontGet(gtol, &amp;fontType);
+
+    if(primary != NULL)
+	    TestGtolSymbolToString(primary, fontType, &amp;primSymb);
+    if (secondary != NULL)
+<a name="anchor-148"></a>        TestGtolSymbolToString(secondary, fontType, &amp;secSymb);
+    if (tertiary != NULL)
+	    TestGtolSymbolToString(tertiary, fontType, &amp;terSymb);
+
+    return(PRO_TK_NO_ERROR);        
+<a name="anchor-149"></a>}
+
+/*====================================================================*\
+  Function : TestGtolReferenceInfo()
+  Purpose  : Print information about gtol references.
+<a name="anchor-150"></a>\*====================================================================*/
+ProError TestGtolReferenceInfo(FILE *fp, ProGtol* gtolRef)
+{   
+	ProAnnotationReference *refs = NULL;
+    ProCharLine cname;
+<a name="anchor-151"></a>    ProSelection ref;
+    ProType type; 
+    ProModelitem mdl_item;     
+    ProError error;
+	int i, size = 0, id;
+<a name="anchor-152"></a>
+/*--------------------------------------------------------------------*\
+    Gets the item which the gtol refers to.
+\*--------------------------------------------------------------------*/
+	error = ProGtolReferencesGet(gtolRef, &amp;refs);
+<a name="anchor-153"></a>    TEST_CALL_REPORT (&quot;ProGtolReferencesGet()&quot;,
+            &quot;TestGtolReferenceInfo()&quot;, error, (error != PRO_TK_NO_ERROR &amp;&amp; error != PRO_TK_BAD_INPUTS));
+    
+	if (error == PRO_TK_NO_ERROR &amp;&amp; refs != NULL)
+	{
+<a name="anchor-154"></a>		error = ProArraySizeGet((ProArray)refs, &amp;size);
+		TEST_CALL_REPORT(&quot;ProArraySizeGet()&quot;,
+			&quot;TestGtolReferenceInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+		for (i = 0; i &lt; size; i++)
+		{
+<a name="anchor-155"></a>			error = ProReferenceTypeGet(refs[i].object.reference, &amp;type);
+			TEST_CALL_REPORT(&quot;ProReferenceTypeGet()&quot;,
+				&quot;TestGtolReferenceInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+
+			ProTKFprintf(fp, (char*)&quot;Reference type: %d\n&quot;, type);
+<a name="anchor-156"></a>
+			error = ProReferenceIdGet(refs[i].object.reference, &amp;id);
+			TEST_CALL_REPORT(&quot;ProReferenceTypeGet()&quot;,
+				&quot;TestGtolReferenceInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+
+<a name="anchor-157"></a>			ProTKFprintf(fp, (char*)&quot;Reference id: %d\n&quot;, id);
+		}
+
+	}
+    return(error);
+<a name="anchor-158"></a>}
+
+/*====================================================================*\
+  Function : TestGtolPrintInfo()
+  Purpose  : Print gtol information.
+<a name="anchor-159"></a>\*====================================================================*/
+ProError TestGtolPrintInfo(FILE* fp, ProGtol* gtol)
+{   
+	ProGtolType type;
+	wchar_t** values = NULL;
+<a name="anchor-160"></a>	wchar_t** primary = NULL;
+	wchar_t** secondary = NULL;
+	wchar_t** tertiary = NULL;
+	wchar_t* value = NULL;
+	wchar_t* finalStr = NULL;
+<a name="anchor-161"></a>	int nSize, ii, nGtolLine = 0;
+	ProSymbolFont fontType = PRO_FONT_ASME;
+
+    ProCharLine cname, ctype;
+    ProError error;
+<a name="anchor-162"></a>    ProMdl mdl, owner;
+    ProBoolean is_composite, overall_tol, perunit_tol,
+               stat_tol, diam, free_stat, specify_height,
+               all_around, tangent_plane, outside, boundary, unilateral;               
+    ProGtolProfBoundIndex profile_idx;
+<a name="anchor-163"></a>    double val, overall_value, val_per_unit, zone_height, unit_len;
+    ProGtolReferenceType r_type;
+    ProName name;
+    ProGtolMaterialCond matcond;   
+    ProGtolProjzone projected_zone; 
+<a name="anchor-164"></a>    ProMdldata mdl_data;
+	ProMdlName modelName;
+	ProMdlExtension modelExtension;
+
+
+<a name="anchor-165"></a>	char printLine[PRO_LINE_SIZE];
+    TestGtolSymbolFontGet(gtol, &amp;fontType);
+
+/*--------------------------------------------------------------------*\
+    Gets gtol type
+<a name="anchor-166"></a>\*--------------------------------------------------------------------*/
+	error = ProGtolTypeGet(gtol, &amp;type);
+    TEST_CALL_REPORT (&quot;ProGtolTypeGet()&quot;,
+            &quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+    
+<a name="anchor-167"></a>    if(error == PRO_TK_NO_ERROR)
+    {
+        ProUtilGtolTypeStr(type, cname);
+        ProTKFprintf(fp,(char*)&quot;Type: %s\n&quot;, cname );
+    }
+<a name="anchor-168"></a>    
+/*--------------------------------------------------------------------*\
+    Gets gtol owner
+\*--------------------------------------------------------------------*/
+	error = ProGtolTopModelGet(gtol, &amp;owner);
+<a name="anchor-169"></a>    TEST_CALL_REPORT (&quot;ProGtolTopModelGet()&quot;,
+            &quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+    
+    error = ProMdlMdlnameGet(owner, modelName);         
+    TEST_CALL_REPORT (&quot;ProMdlMdlnameGet()&quot;,
+<a name="anchor-170"></a>            &quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+
+    error = ProMdlExtensionGet(owner, modelExtension);         
+    TEST_CALL_REPORT (&quot;ProMdlExtensionGet()&quot;,
+            &quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-171"></a>
+    ProWstringToString(ctype, modelExtension);
+    ProWstringToString(cname, modelName);
+    
+    ProTKFprintf(fp, (char*)&quot;Owner type: %s; name: %s\n&quot;, ctype, cname);
+<a name="anchor-172"></a>/*--------------------------------------------------------------------*\
+    Gets reference, placement and datom reference info.
+\*--------------------------------------------------------------------*/
+	error = TestGtolReferenceInfo(fp, gtol);
+    
+<a name="anchor-173"></a>    TestGtolAttachPrn(fp, gtol);
+    
+    if(!((type == PROGTOLTYPE_STRAIGHTNESS)||(type == PROGTOLTYPE_FLATNESS)||
+         (type == PROGTOLTYPE_CIRCULAR)    ||(type == PROGTOLTYPE_CYLINDRICAL)))
+        TestGtolDatumRefInfo(fp, gtol);
+<a name="anchor-174"></a>
+/*--------------------------------------------------------------------*\
+    Check if gtol is composite then print information about composite.
+\*--------------------------------------------------------------------*/
+	if ((type == PROGTOLTYPE_SURFACE) || (type == PROGTOLTYPE_POSITION))
+<a name="anchor-175"></a>	{
+		error = ProGtolCompositeGet(gtol, &amp;values, &amp;primary, &amp;secondary, &amp;tertiary);
+		TEST_CALL_REPORT(&quot;ProGtolCompositeGet()&quot;,
+			&quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+
+<a name="anchor-176"></a>		if (error == PRO_TK_NO_ERROR)
+		{
+			ProTKFprintf(fp, (char*)&quot;Composite Values \n&quot;);
+            if (values != NULL)
+                error = ProArraySizeGet(values, &amp;nSize);
+<a name="anchor-177"></a>            else
+                nSize = 0;
+			nGtolLine = nSize;
+			for (ii = 0; ii &lt; nSize; ii++)
+			{
+<a name="anchor-178"></a>				//if (values[ii] == NULL)
+				//	continue;
+
+				TestGtolSymbolToString(values[ii], fontType, &amp;finalStr);
+				ProWstringToString(printLine, finalStr);
+<a name="anchor-179"></a>				ProTKFprintf(fp, (char*)&quot;Values [%d] : %s\n&quot;, ii, printLine);
+				free(finalStr);
+			}
+            if (primary != NULL)
+                error = ProArraySizeGet(primary, &amp;nSize);
+<a name="anchor-180"></a>            else
+                nSize = 0;
+			if (nSize > nGtolLine)
+				nGtolLine = nSize;
+			if (nSize > 0)
+<a name="anchor-181"></a>			{
+				for (ii = 0; ii &lt; nSize; ii++)
+				{
+					if (primary[ii] == NULL)
+						continue;
+<a name="anchor-182"></a>
+					TestGtolSymbolToString(primary[ii], fontType, &amp;finalStr);
+					ProWstringToString(printLine, finalStr);
+					ProTKFprintf(fp, (char*)&quot;Primary [%d] = \&quot;%s\&quot;\n&quot;, ii, printLine);
+					free(finalStr);
+<a name="anchor-183"></a>				}
+			}
+
+            if (secondary != NULL)
+                error = ProArraySizeGet(secondary, &amp;nSize);
+<a name="anchor-184"></a>            else
+                nSize = 0;
+			if (nSize > nGtolLine)
+				nGtolLine = nSize;
+			if (nSize > 0)
+<a name="anchor-185"></a>			{
+				for (ii = 0; ii &lt; nSize; ii++)
+				{
+					if (secondary[ii] == NULL)
+						continue;
+<a name="anchor-186"></a>
+					TestGtolSymbolToString(secondary[ii], fontType, &amp;finalStr);
+					ProWstringToString(printLine, finalStr);
+					ProTKFprintf(fp, (char*)&quot;Secondary [%d] = \&quot;%s\&quot;\n&quot;, ii, printLine);
+					free(finalStr);
+<a name="anchor-187"></a>				}
+			}
+
+            if (tertiary != NULL)
+                error = ProArraySizeGet(tertiary, &amp;nSize);
+<a name="anchor-188"></a>            else
+                nSize = 0;
+			if (nSize > nGtolLine)
+				nGtolLine = nSize;
+			if (nSize > 0)
+<a name="anchor-189"></a>			{
+				for (ii = 0; ii &lt; nSize; ii++)
+				{
+					if (tertiary[ii] == NULL)
+						continue;
+<a name="anchor-190"></a>
+					TestGtolSymbolToString(tertiary[ii], fontType, &amp;finalStr);
+					ProWstringToString(printLine, finalStr);
+					ProTKFprintf(fp, (char*)&quot;Tertiary [%d] = \&quot;%s\&quot;\n&quot;, ii, printLine);
+					free(finalStr);
+<a name="anchor-191"></a>				}
+			}
+		}
+		else {
+			is_composite = PRO_B_FALSE;
+<a name="anchor-192"></a>			ProTKFprintf(fp, (char*)&quot;Gtol is not composite.\n&quot;);
+		}
+	}
+/*--------------------------------------------------------------------*\
+    Gets the value of a gtol.
+<a name="anchor-193"></a>\*--------------------------------------------------------------------*/
+	error = ProGtolValueStringGet(gtol, &amp;value);
+    TEST_CALL_REPORT (&quot;ProGtolValueStringGet()&quot;,
+            &quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+     
+<a name="anchor-194"></a>	error = TestGtolSymbolFontGet(gtol, &amp;fontType);
+	TEST_CALL_REPORT(&quot;TestGtolSymbolFontGet()&quot;,
+		&quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+    
+    if (value != NULL)
+<a name="anchor-195"></a>    {
+        TestGtolSymbolToString(value, fontType, &amp;finalStr);
+        ProWstringToString(printLine, finalStr);
+        ProTKFprintf(fp, (char*)&quot;Value String = %s\n\n&quot;, printLine);
+    }
+<a name="anchor-196"></a>
+	error = ProGtolAllAroundGet(gtol, &amp;all_around);
+	TEST_CALL_REPORT(&quot;ProGtolAllAroundGet()&quot;,
+		&quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+
+<a name="anchor-197"></a>	if (error == PRO_TK_NO_ERROR)
+	ProTKFprintf(fp, (char*)&quot;All around: %s\n&quot;, YesNoStr(all_around));
+
+	if ((type == PROGTOLTYPE_LINE) || (type == PROGTOLTYPE_SURFACE))
+	{
+<a name="anchor-198"></a>		error = ProGtolBoundaryDisplayGet(gtol, &amp;boundary);
+		TEST_CALL_REPORT(&quot;ProGtoldataProfBoundaryGet()&quot;,
+			&quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		if (error == PRO_TK_NO_ERROR)
+<a name="anchor-199"></a>			ProTKFprintf(fp, (char*)&quot;Boundary: %s\n&quot;, YesNoStr(boundary));
+	}
+
+	if ((type == PROGTOLTYPE_LINE) || (type == PROGTOLTYPE_SURFACE))
+	{
+<a name="anchor-200"></a>		error = ProGtolUnilateralGet(gtol, &amp;unilateral, &amp;outside);
+		TEST_CALL_REPORT(&quot;ProGtoldataProfBoundaryGet()&quot;,
+			&quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		if (error == PRO_TK_NO_ERROR)
+<a name="anchor-201"></a>			ProTKFprintf(fp, (char*)&quot;Unilateral: %s   Outside : %s\n&quot;, YesNoStr(unilateral), YesNoStr(outside));
+	}
+    return(PRO_TK_NO_ERROR);        
+}
+
+<a name="anchor-202"></a>/*====================================================================*\
+  Function : TestMdlGtolShow()
+  Purpose  : Show all gtol in the specified model .
+\*====================================================================*/
+ProError TestMdlGtolShow(ProMdl mdl)
+<a name="anchor-203"></a>{
+    ProFeature *features = NULL;
+    ProError error;
+    int n, i;
+    ProSelection sel;
+<a name="anchor-204"></a>
+/*--------------------------------------------------------------------*\
+    Collect all features in the specified model.
+\*--------------------------------------------------------------------*/
+    error = ProUtilCollectSolidFeaturesWithFilter((ProSolid)mdl, (ProFeatureFilterAction)PRO_TK_NO_ERROR, &amp;features);
+<a name="anchor-205"></a>    if((error!=PRO_TK_NO_ERROR)||(features == NULL))
+        return(PRO_TK_E_NOT_FOUND);
+    
+    error= ProArraySizeGet((ProArray)features, &amp;n);
+    TEST_CALL_REPORT (&quot;ProArraySizeGet()&quot;,
+<a name="anchor-206"></a>            &quot;TestMdlGtolShow()&quot;, error, error != PRO_TK_NO_ERROR);
+    
+    if((error!=PRO_TK_NO_ERROR)||(n&lt;=0))
+        return(PRO_TK_E_NOT_FOUND);
+        
+<a name="anchor-207"></a>/*--------------------------------------------------------------------*\
+    Show gtol for each feature.
+\*--------------------------------------------------------------------*/
+    for(i=0; i&lt;n; i++)
+    {
+<a name="anchor-208"></a>        error = ProSelectionAlloc(NULL,(ProModelitem*)&amp;features[i], &amp;sel);
+        TEST_CALL_REPORT (&quot;ProSelectionAlloc()&quot;,
+            &quot;TestGtolInfoSel()&quot;, error, error != PRO_TK_NO_ERROR);
+        
+        error = ProFeatureParamsDisplay(sel, PRO_GTOL_PARAM);  
+<a name="anchor-209"></a>        TEST_CALL_REPORT (&quot;ProFeatureParamsDisplay()&quot;,
+            &quot;TestGtolInfoSel()&quot;, error, error != PRO_TK_NO_ERROR);
+    
+        error = ProSelectionFree(&amp;sel);
+        TEST_CALL_REPORT (&quot;ProSelectionFree()&quot;,
+<a name="anchor-210"></a>            &quot;TestGtolInfoSel()&quot;, error, error != PRO_TK_NO_ERROR);
+    }    
+
+/*--------------------------------------------------------------------*\
+    Free allocated memory.
+<a name="anchor-211"></a>\*--------------------------------------------------------------------*/
+    error = ProArrayFree((ProArray*)&amp;features);
+    TEST_CALL_REPORT (&quot;ProArrayFree()&quot;,
+        &quot;TestGtolInfoSel()&quot;, error, error != PRO_TK_NO_ERROR);
+    
+<a name="anchor-212"></a>    return(PRO_TK_NO_ERROR);    
+}
+
+/*====================================================================*\
+  Function : TestGtolInfoSel()
+<a name="anchor-213"></a>  Purpose  : Show information for selected gtol.
+\*====================================================================*/
+ProError TestGtolInfoSel(ProMdl model)
+{
+    ProError error;
+<a name="anchor-214"></a>    ProGtol gtol;
+    int n_sel;
+    ProGtoldata data;
+    char file_name[]=&quot;Gtol.info&quot;;
+    FILE *fp;      
+<a name="anchor-215"></a>    ProName wstr;
+    ProSelection *sel;
+
+/*--------------------------------------------------------------------*\
+    Show all gtols in the specified model
+<a name="anchor-216"></a>\*--------------------------------------------------------------------*/
+    error = TestMdlGtolShow(model);        
+    if(error!=PRO_TK_NO_ERROR)
+        return(error);
+            
+<a name="anchor-217"></a>    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Select gtol.&quot;);
+
+/*--------------------------------------------------------------------*\
+    Select gtol get information about it, and show this information.
+\*--------------------------------------------------------------------*/
+<a name="anchor-218"></a>    error = ProSelect((char*)&quot;gtol&quot;, 1,NULL, NULL, NULL, NULL, &amp;sel, &amp;n_sel); 
+    TEST_CALL_REPORT (&quot;ProSelect()&quot;,
+            &quot;TestGtolInfoSel()&quot;, error, error != PRO_TK_NO_ERROR);
+    
+    if((error!=PRO_TK_NO_ERROR)||(n_sel&lt;0))
+<a name="anchor-219"></a>        return(PRO_TK_E_NOT_FOUND);    
+        
+    error = ProSelectionModelitemGet(sel[0],(ProModelitem*)&amp;gtol);
+    TEST_CALL_REPORT (&quot;ProSelectionModelitemGet()&quot;,
+            &quot;TestGtolInfoSel()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-220"></a>
+    if ((fp = PTApplsUnicodeFopen(file_name, &quot;w&quot;)) == NULL)
+    {
+	ProTKPrintf((char*)&quot;Cannot open output file\n&quot;);
+	return ((ProError)-1);
+<a name="anchor-221"></a>    }         
+    
+    ProTKFprintf(fp,(char*)&quot;\t\tGeometric Tolerance\n&quot;);
+    TestGtolPrintInfo(fp,&amp;gtol);
+    fclose(fp);
+<a name="anchor-222"></a>
+    error = ProInfoWindowDisplay(ProStringToWstring(wstr, file_name), NULL, NULL);    
+    TEST_CALL_REPORT (&quot;ProInfoWindowDisplay()&quot;,
+        &quot;TestGtolInfoSel()&quot;, error, error != PRO_TK_NO_ERROR);
+
+<a name="anchor-223"></a>    return(error);
+}
+
+/*====================================================================*\
+  Function : TestGtolInfoAll()
+<a name="anchor-224"></a>  Purpose  : Show information about all gtols in the model.
+\*====================================================================*/
+ProError TestGtolInfoAll(ProMdl model)
+{
+  ProError error;
+<a name="anchor-225"></a>  ProGtoldata data;
+  ProGtol *gtol=NULL;
+  int i, n=0;
+  char file_name[]=&quot;GtolAll.info&quot;;
+  FILE *fp;  
+<a name="anchor-226"></a>  ProName wstr;
+  ProMdldata mdl_data;
+  ProCharLine cname, ctype;
+  ProMdlName modelName;
+  ProMdlExtension modelExtension;
+<a name="anchor-227"></a>
+  if(model == NULL)
+    {
+      error = ProMdlCurrentGet(&amp;model);
+      TEST_CALL_REPORT (&quot;ProMdlCurrentGet()&quot;,
+<a name="anchor-228"></a>			&quot;TestGtolInfoAll()&quot;, error, error != PRO_TK_NO_ERROR);
+            
+      if(error!=PRO_TK_NO_ERROR)
+	return(error);    
+    }       
+<a name="anchor-229"></a>     
+    error = ProMdlMdlnameGet(model, modelName);         
+    TEST_CALL_REPORT (&quot;ProMdlMdlnameGet()&quot;,
+            &quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+
+<a name="anchor-230"></a>    error = ProMdlExtensionGet(model, modelExtension);         
+    TEST_CALL_REPORT (&quot;ProMdlExtensionGet()&quot;,
+            &quot;TestGtolPrintInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+
+    ProWstringToString(ctype, modelExtension);
+<a name="anchor-231"></a>    ProWstringToString(cname, modelName);
+
+/*--------------------------------------------------------------------*\
+    Collect all gtols from the current model.
+\*--------------------------------------------------------------------*/
+<a name="anchor-232"></a>  error = TestGtolCollect(model, &amp;gtol);
+  if(error!=PRO_TK_NO_ERROR)
+    return(error);
+
+/*--------------------------------------------------------------------*\
+<a name="anchor-233"></a>    Get gtols count.
+\*--------------------------------------------------------------------*/
+  if (gtol != NULL)
+  {
+      error = ProArraySizeGet((ProArray)gtol, &amp;n);
+<a name="anchor-234"></a>      TEST_CALL_REPORT(&quot;ProArraySizeGet()&quot;,
+          &quot;TestGtolInfoAll()&quot;, error, (error != PRO_TK_NO_ERROR &amp;&amp; error != PRO_TK_BAD_INPUTS));
+  }
+    
+  if((error!=PRO_TK_NO_ERROR)||(n&lt;=0))
+<a name="anchor-235"></a>    return(error);
+        
+  if ((fp = PTApplsUnicodeFopen(file_name, &quot;w&quot;)) == NULL)
+    {
+      ProTKPrintf((char*)&quot;Cannot open output file\n&quot;);
+<a name="anchor-236"></a>      return ((ProError)-1);
+    }
+    
+  ProTKFprintf(fp, (char*)&quot;Model Name: %s; Type: %s\n&quot;, cname, ctype);	  
+        
+<a name="anchor-237"></a>/*--------------------------------------------------------------------*\
+    Print information about each gtol.
+\*--------------------------------------------------------------------*/
+  for(i=0; i&lt;n; i++)
+    {
+<a name="anchor-238"></a>      ProTKFprintf(fp,(char*)&quot;%d Geometric Tolerance\n&quot;,i);
+	  TestGtolPrintInfo(fp, &amp;gtol[i]);
+      ProTKFprintf(fp,(char*)&quot;\n&quot;);
+    }
+
+<a name="anchor-239"></a>/*--------------------------------------------------------------------*\
+    Close output file, free memory and show information.
+\*--------------------------------------------------------------------*/
+  fclose(fp);
+
+<a name="anchor-240"></a>  error = ProArrayFree((ProArray*)&amp;gtol);
+  TEST_CALL_REPORT (&quot;ProArrayFree()&quot;,
+		    &quot;TestGtolInfoAll()&quot;, error, error != PRO_TK_NO_ERROR);
+
+  error = ProInfoWindowDisplay(ProStringToWstring(wstr, file_name), NULL, NULL);    
+<a name="anchor-241"></a>  TEST_CALL_REPORT (&quot;ProInfoWindowDisplay()&quot;,
+		    &quot;TestGtolInfoAll()&quot;, error, error != PRO_TK_NO_ERROR);
+
+  return(error);
+}
+<a name="anchor-242"></a>
+/*====================================================================*\
+  Function : TestGtolDeleteAll()
+  Purpose  : Delete all gtol from the model.
+\*====================================================================*/
+<a name="anchor-243"></a>ProError TestGtolDeleteAll(ProMdl model)
+{
+    ProError error;
+    ProGtol *gtol;
+    int i, n;
+<a name="anchor-244"></a>    
+/*--------------------------------------------------------------------*\
+    Collect all gtol in the specified model.
+\*--------------------------------------------------------------------*/
+    error = TestGtolCollect(model, &amp;gtol);
+<a name="anchor-245"></a>    if(error!=PRO_TK_NO_ERROR)
+        return(error);
+        
+    error = ProArraySizeGet((ProArray)gtol, &amp;n);
+    TEST_CALL_REPORT (&quot;ProArraySizeGet()&quot;,
+<a name="anchor-246"></a>            &quot;TestGtolGet()&quot;, error, error != PRO_TK_NO_ERROR);
+    
+    if((error!=PRO_TK_NO_ERROR)||(n&lt;=0))
+        return(error);
+
+<a name="anchor-247"></a>/*--------------------------------------------------------------------*\
+    Delete gtols.
+\*--------------------------------------------------------------------*/
+    for(i=0; i&lt;n; i++)
+    {
+<a name="anchor-248"></a>        error = ProGtolDelete(&amp;gtol[i]);
+        TEST_CALL_REPORT (&quot;ProGtolDelete()&quot;,
+            &quot;TestGtolDeleteAll()&quot;, error, error != PRO_TK_NO_ERROR);
+    }
+
+<a name="anchor-249"></a>    if(gtol!=NULL)
+    {
+        error = ProArrayFree((ProArray*)&amp;gtol);
+        TEST_CALL_REPORT (&quot;ProArrayFree()&quot;,
+            &quot;TestGtolDeleteAll()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-250"></a>    }            
+
+    error = ProWindowRepaint(PRO_VALUE_UNUSED);
+    TEST_CALL_REPORT (&quot;ProWindowRepaint()&quot;,
+        &quot;TestGtolDeleteAll()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-251"></a>        
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-252"></a>  Function : TestGtolModify()
+  Purpose  : Change gtol value in all gtols.
+\*====================================================================*/
+ProError TestGtolModify(ProMdl model)
+{
+<a name="anchor-253"></a>    ProError error;
+    ProGtol *gtol;
+    int i, n, ch;
+	double value;
+	wchar_t* valueStr = NULL;
+<a name="anchor-254"></a>    ProBoolean tolerance;
+    ProName  wname; 
+	char cValue[PRO_LINE_SIZE];
+	ProPath path;
+
+<a name="anchor-255"></a>/*--------------------------------------------------------------------*\
+    Collect all gtols in the specified model.
+\*--------------------------------------------------------------------*/
+    error = TestGtolCollect(model, &amp;gtol);
+    if(error!=PRO_TK_NO_ERROR)
+<a name="anchor-256"></a>    {
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Gtol is not found.&quot;);
+        return(error);
+    }
+        
+<a name="anchor-257"></a>    error = ProArraySizeGet((ProArray)gtol, &amp;n);
+    TEST_CALL_REPORT (&quot;ProArraySizeGet()&quot;,
+            &quot;TestGtolGet()&quot;, error, error != PRO_TK_NO_ERROR);
+    if(n&lt;=0)
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;The current model have't any gtol.&quot;);
+<a name="anchor-258"></a>    
+    if((error!=PRO_TK_NO_ERROR)||(n&lt;=0))
+        return(error);
+
+/*--------------------------------------------------------------------*\
+<a name="anchor-259"></a>    Prompt user to input new gtol value.
+\*--------------------------------------------------------------------*/
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Input new gtol value:&quot;);    
+    if(ProMessageDoubleRead(NULL, &amp;value)!=PRO_TK_NO_ERROR)
+    {
+<a name="anchor-260"></a>		error = ProArrayFree((ProArray*)&amp;gtol);
+        TEST_CALL_REPORT (&quot;ProGtoldataFree()&quot;,
+            &quot;TestGtolModify()&quot;, error, error != PRO_TK_NO_ERROR);
+    
+        return(PRO_TK_BAD_INPUTS);
+<a name="anchor-261"></a>    }  
+	sprintf(cValue, &quot;%lf&quot;, value);
+	ProStringToWstring(path, cValue);
+   
+/*--------------------------------------------------------------------*\
+<a name="anchor-262"></a>    Change value in the each gtol
+\*--------------------------------------------------------------------*/
+    for(i=0; i&lt;n; i++)
+    {
+        error = ProGtolValueStringSet(&amp;gtol[i], path);
+<a name="anchor-263"></a>        TEST_CALL_REPORT (&quot;ProGtolValueStringSet()&quot;,
+            &quot;TestGtolModify()&quot;, error, error != PRO_TK_NO_ERROR);    
+    }          
+    return(PRO_TK_NO_ERROR);
+}
+<a name="anchor-264"></a>
+/*====================================================================*\
+  Function : TestGtolSelType()
+  Purpose  : Menu for select gtol type.
+\*====================================================================*/
+<a name="anchor-265"></a>int TestGtolSelType()
+{
+    int n;
+    ProError error;
+
+<a name="anchor-266"></a>    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please select gtol type.&quot;);    
+    error = ProUtilMenuIntValueSelect(mnGtolType, &amp;n);
+
+    return((error == PRO_TK_NO_ERROR)?(n):error);
+}
+<a name="anchor-267"></a>
+/*====================================================================*\
+  Function : TestGtolSelRefItemType()
+  Purpose  : Menu for select gtol type reference type.
+\*====================================================================*/
+<a name="anchor-268"></a>int TestGtolSelRefItemType()
+{
+    int n;
+    ProError error;
+
+<a name="anchor-269"></a>    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please choose refernce type.&quot;);    
+    error = ProUtilMenuIntValueSelect(mnGtolRefItemType, &amp;n);
+
+    return((error == PRO_TK_NO_ERROR)?(n):error);
+}
+<a name="anchor-270"></a>
+/*====================================================================*\
+  Function : TestGtolSelAttachType()
+  Purpose  : Menu for select gtol type Attach type.
+\*====================================================================*/
+<a name="anchor-271"></a>int TestGtolSelAttachType()
+{
+    int n;
+    ProError error;
+
+<a name="anchor-272"></a>    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please choose Attach type.&quot;);    
+    error = ProUtilMenuIntValueSelect(mnGtolAttachType, &amp;n);
+
+    return((error == PRO_TK_NO_ERROR)?(n):-1);
+}
+<a name="anchor-273"></a>
+/*====================================================================*\
+Function : TestGtolDrwSelAttachType()
+Purpose  : Menu for select gtol type Attach type.
+\*====================================================================*/
+<a name="anchor-274"></a>int TestGtolDrwSelAttachType()
+{
+	int n;
+	ProError error;
+
+<a name="anchor-275"></a>	ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please choose Attach type.&quot;);
+	error = ProUtilMenuIntValueSelect(mnGtolDrwAttachType, &amp;n);
+
+	return((error == PRO_TK_NO_ERROR) ? (n) : -1);
+}
+<a name="anchor-276"></a>/*====================================================================*\
+  Function : TestGtolSelLeaderType()
+  Purpose  : Menu for select gtol type Leader type.
+\*====================================================================*/
+int TestGtolSelLeaderType()
+<a name="anchor-277"></a>{
+    int n;
+    ProError error;
+
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please choose leader type.&quot;);    
+<a name="anchor-278"></a>    error = ProUtilMenuIntValueSelect(mnGtolLeaderType, &amp;n);
+
+    return((error == PRO_TK_NO_ERROR)?(n):error);
+}
+
+<a name="anchor-279"></a>/*====================================================================*\
+  Function : TestGtolSelMaterialCond()
+  Purpose  : Menu for select material condition.
+\*====================================================================*/
+int TestGtolSelMaterialCond()
+<a name="anchor-280"></a>{
+    int n;
+    ProError error;
+
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please choose material condition.&quot;);    
+<a name="anchor-281"></a>    error = ProUtilMenuIntValueSelect(mnGtolMaterialCond, &amp;n);
+
+    return((error == PRO_TK_NO_ERROR)?(n):error);
+}
+
+<a name="anchor-282"></a>/*====================================================================*\
+  Function : TestGtolSelReferenceType()
+  Purpose  : Menu for select reference type.
+\*====================================================================*/
+int TestGtolSelReferenceType()
+<a name="anchor-283"></a>{
+    int n;
+    ProError error;
+
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please choose reference type.&quot;);    
+<a name="anchor-284"></a>    error = ProUtilMenuIntValueSelect(mnGtolReferenceType, &amp;n);
+
+    return((error == PRO_TK_NO_ERROR)?(n):error);
+}
+
+<a name="anchor-285"></a>/*====================================================================*\
+  Function : TestGtolSelProjzone()
+  Purpose  : Menu for select projected zone type.
+\*====================================================================*/
+int TestGtolSelProjzone()
+<a name="anchor-286"></a>{
+    int n;
+    ProError error;
+
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please choose projected zone type&quot;);
+<a name="anchor-287"></a>    error = ProUtilMenuIntValueSelect(mnGtolProjzone, &amp;n);
+
+    return((error == PRO_TK_NO_ERROR)?(n):error);
+}
+
+<a name="anchor-288"></a>/*====================================================================*\
+  Function : TestGtolAttachSet()
+  Purpose  : Set gtol placement.
+\*====================================================================*/
+ProError TestGtolAttachSet(ProMdl mdl, ProGtolAttach* attach)
+<a name="anchor-289"></a>{
+    ProGtol *gtol = NULL;
+	ProMdlType mdlType;
+	ProGtolAttachType attachtype = PRO_GTOL_ATTACH_DATUM;
+    ProLeaderType ldr_type;
+<a name="anchor-290"></a>    ProPoint3d location;
+    ProGtolleader *leaders = NULL;    
+    ProSelection *sel;
+    ProDimension dimension;   
+    ProMouseButton btn;    
+<a name="anchor-291"></a>    int i, n_sel, n_leader, n_gtol, n, range[2];
+    ProBoolean IsComplete = PRO_B_FALSE;
+    ProError error;
+    ProGtolRefItemType type;
+    ProSelection reference;
+<a name="anchor-292"></a>
+	ProAnnotationReference *refs = NULL;
+	ProSelection *planeSels = 0;
+	int numSels = 0;
+	ProVector planeVec = { 1.00,1.00,1.00 };
+<a name="anchor-293"></a>	ProAnnotationPlane annotPlane;
+/*--------------------------------------------------------------------*\
+    Select gtol placement type.
+\*--------------------------------------------------------------------*/
+	error = ProMdlTypeGet(mdl, &amp;mdlType);
+<a name="anchor-294"></a>
+	if(mdlType == PRO_MDL_PART || mdlType == PRO_MDL_ASSEMBLY)
+		attachtype = (ProGtolAttachType)TestGtolSelAttachType();
+	else if (mdlType == PRO_MDL_DRAWING)
+		attachtype = (ProGtolAttachType)TestGtolDrwSelAttachType();
+<a name="anchor-295"></a>
+    if(attachtype == -1)
+        return(PRO_TK_BAD_INPUTS);
+
+    if(IsMenuDone(attachtype) == PRO_B_FALSE)
+<a name="anchor-296"></a>        return(PRO_TK_BAD_INPUTS);
+  
+	if (attachtype == PROGTOLPTYPE_FREENOTE || attachtype == PRO_GTOL_ATTACH_LEADERS || attachtype == PRO_GTOL_ATTACH_MAKE_DIM)
+	{
+		ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please select annotation plane&quot;);
+<a name="anchor-297"></a>
+		error = ProSelect((char*)&quot;datum&quot;, 1, NULL, NULL, NULL, NULL, &amp;planeSels, &amp;numSels);
+		TEST_CALL_REPORT(&quot;ProSelect()&quot;, &quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		if (error != PRO_TK_NO_ERROR)
+<a name="anchor-298"></a>			return error;
+
+		error = ProAnnotationplaneCreate(planeSels[0], planeVec, &amp;annotPlane);
+		TEST_CALL_REPORT(&quot;ProAnnotationplaneCreate()&quot;, &quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);
+	}
+<a name="anchor-299"></a>//--------------------------------------------------------------------
+//   Select the dimension to attach to gtol
+//--------------------------------------------------------------------
+        if((attachtype == PRO_GTOL_ATTACH_ANNOTATION) ||
+           (attachtype == PRO_GTOL_ATTACH_ANNOTATION_ELBOW))
+<a name="anchor-300"></a>        {
+            error = ProSelect((char*)&quot;dimension&quot;,1, NULL, NULL, NULL, NULL, &amp;sel, &amp;n_sel);
+            TEST_CALL_REPORT (&quot;ProSelect()&quot;,
+                &quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR); 
+            
+<a name="anchor-301"></a>            if((error!=PRO_TK_NO_ERROR)||(n_sel&lt;=0))
+                return(PRO_TK_E_NOT_FOUND);
+                
+            error = ProSelectionModelitemGet(sel[0],(ProModelitem*)&amp;dimension);    
+            TEST_CALL_REPORT (&quot;ProSelectionModelitemGet()&quot;,
+<a name="anchor-302"></a>                &quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR); 
+
+			error = ProGtolAttachOnAnnotationSet(*attach, (ProAnnotation *)&amp;dimension, PRO_B_FALSE);
+			TEST_CALL_REPORT(&quot;ProGtolAttachOnAnnotationSet()&quot;,
+				&quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-303"></a>        }
+		/*--------------------------------------------------------------------*\
+		Setup location of the gtol label. (for valid placement types)
+		\*--------------------------------------------------------------------*/
+		if ((attachtype == PRO_GTOL_ATTACH_FREE) ||
+<a name="anchor-304"></a>			(attachtype == PRO_GTOL_ATTACH_LEADERS) ||
+			(attachtype == PRO_GTOL_ATTACH_OFFSET) ||
+			(attachtype == PRO_GTOL_ATTACH_MAKE_DIM))
+		{
+			ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please select place location&quot;);
+<a name="anchor-305"></a>
+			error = ProMousePickGet(PRO_LEFT_BUTTON, &amp;btn, location);
+
+			TEST_CALL_REPORT(&quot;ProMousePickGet()&quot;,
+				&quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-306"></a>
+			if (error != PRO_TK_NO_ERROR)
+				return(error);
+
+			if (attachtype == PRO_GTOL_ATTACH_FREE) {
+<a name="anchor-307"></a>				error = ProGtolAttachFreeSet(*attach, &amp;annotPlane, location);
+				TEST_CALL_REPORT(&quot;ProGtolAttachFreeSet()&quot;,
+					&quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);
+			}
+		}
+<a name="anchor-308"></a>/*--------------------------------------------------------------------*\
+    Create ProArray of leader structures. Contains only a single
+    leader if the type is PROGTOLPTYPE_TANLEADER or PROGTOLPTYPE_NORMLEADER
+\*--------------------------------------------------------------------*/
+        if(attachtype == PRO_GTOL_ATTACH_LEADERS)
+<a name="anchor-309"></a>        {
+            ldr_type = (ProLeaderType)TestGtolSelLeaderType();
+            
+            if(IsMenuDone(ldr_type) == PRO_B_FALSE)
+                return(PRO_TK_BAD_INPUTS);
+<a name="anchor-310"></a>                
+            ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please select items for attach&quot;);
+            
+            error = ProSelect((char*)&quot;surface,axis,datum,csys,edge&quot;, 
+              (attachtype == PRO_GTOL_ATTACH_LEADERS)?(PRO_VALUE_UNUSED):(1),
+<a name="anchor-311"></a>              NULL, NULL, NULL, NULL, &amp;sel, &amp;n_leader);  
+            TEST_CALL_REPORT (&quot;ProSelect()&quot;,
+                &quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR); 
+            
+            if((error != PRO_TK_NO_ERROR)||(n_leader&lt;=0))
+<a name="anchor-312"></a>                return(PRO_TK_E_NOT_FOUND);
+                
+            error = ProArrayAlloc(n_leader, sizeof(ProGtolleader),1, (ProArray*)&amp;leaders);
+            TEST_CALL_REPORT (&quot;ProArrayAlloc()&quot;,
+                &quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR); 
+<a name="anchor-313"></a>            
+            if(error != PRO_TK_NO_ERROR)
+                return(error);
+                
+            for(i=0; i&lt;n_leader; i++)
+<a name="anchor-314"></a>            {         
+                error = ProGtolleaderAlloc(ldr_type, sel[i], &amp;leaders[i]);
+                TEST_CALL_REPORT (&quot;ProGtolleaderAlloc()&quot;,
+                    &quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR); 
+            }
+<a name="anchor-315"></a>			error = ProGtolAttachLeadersSet(*attach, &amp;annotPlane, PRO_GTOL_NORMAL_LEADER, leaders, location);
+			TEST_CALL_REPORT(&quot;ProGtolAttachLeadersSet()&quot;,
+				&quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);
+        }      
+/*--------------------------------------------------------------------*\
+<a name="anchor-316"></a>    Select gtol to attach to offset.
+\*--------------------------------------------------------------------*/
+		if (attachtype == PRO_GTOL_ATTACH_OFFSET)
+		{
+			ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please select ref for attach&quot;);
+<a name="anchor-317"></a>
+			error = ProSelect((char*)&quot;dimension, note&quot;,1,
+				NULL, NULL, NULL, NULL, &amp;sel, &amp;n_leader);
+			TEST_CALL_REPORT(&quot;ProSelect()&quot;,
+				&quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-318"></a>
+			if ((error != PRO_TK_NO_ERROR) || (n_leader &lt;= 0))
+				return(PRO_TK_E_NOT_FOUND);
+
+			error = ProGtolAttachOffsetItemSet(*attach, sel[0], location);
+<a name="anchor-319"></a>			TEST_CALL_REPORT(&quot;ProGtolAttachOffsetItemSet()&quot;,
+				&quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);
+		}
+
+		if (attachtype == PRO_GTOL_ATTACH_MAKE_DIM)
+<a name="anchor-320"></a>		{
+			ProDimAttachment *dimAttachs = NULL;
+			ProDimSense *sense = NULL;
+
+			error = ProArrayAlloc(1, sizeof(ProDimAttachment), 1, (ProArray*)&amp;dimAttachs);
+<a name="anchor-321"></a>			error = ProArrayAlloc(1, sizeof(ProDimSense), 1, (ProArray*)&amp;sense);
+			sense[0].type = PRO_DIM_SNS_TYP_NONE;
+
+
+			if (IsMenuDone(ldr_type) == PRO_B_FALSE)
+<a name="anchor-322"></a>				return(PRO_TK_BAD_INPUTS);
+
+			ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please select edge for make Dim&quot;);
+
+			error = ProSelect((char*)&quot;edge&quot;, 1,
+<a name="anchor-323"></a>				NULL, NULL, NULL, NULL, &amp;sel, &amp;n_leader);
+			TEST_CALL_REPORT(&quot;ProSelect()&quot;,
+				&quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+			dimAttachs[0][0] = sel[0];
+<a name="anchor-324"></a>			dimAttachs[0][1] = NULL;
+
+			if ((error != PRO_TK_NO_ERROR) || (n_leader &lt;= 0))
+				return(PRO_TK_E_NOT_FOUND);
+
+<a name="anchor-325"></a>			error = ProGtolAttachMakeDimSet(*attach, &amp;annotPlane, dimAttachs, sense, PRO_DIM_ORNT_HORIZ, location);
+			TEST_CALL_REPORT(&quot;ProGtolAttachOffsetItemSet()&quot;,
+				&quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);
+		}	  
+/*--------------------------------------------------------------------*\
+<a name="anchor-326"></a>    Free memory
+\*--------------------------------------------------------------------*/
+       
+        if(leaders != NULL){
+            for(i=0; i&lt;n_leader; i++)
+<a name="anchor-327"></a>            { 
+                error = ProGtolleaderFree(&amp;leaders[i]);
+                TEST_CALL_REPORT (&quot;ProGtolleaderFree()&quot;,
+                    &quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+            }
+<a name="anchor-328"></a>            error = ProArrayFree((ProArray*)&amp;leaders);
+            TEST_CALL_REPORT (&quot;ProArrayFree()&quot;,
+                    &quot;TestGtolAttachSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+        }        
+    return(error);    
+<a name="anchor-329"></a>}
+
+/*====================================================================*\
+  Function : TestGtoldatumrefSet()
+  Purpose  : Setup datum references for specified gtol.
+<a name="anchor-330"></a>\*====================================================================*/
+ProError TestGtoldatumrefSet(ProGtol*  gtol)
+{
+    ProError error;
+    ProBoolean IsComplete = PRO_B_FALSE;
+<a name="anchor-331"></a>	ProGtolSymbol symbol;
+	ProSymbolFont fontType;
+	wchar_t* primary;
+	wchar_t* secondary;
+	wchar_t* tertiary;
+<a name="anchor-332"></a>	wchar_t* symStr = NULL;
+	ProGtolType type;
+
+	double value = 0;
+	char cValue[PRO_LINE_SIZE];
+<a name="anchor-333"></a>	ProPath path;
+
+	error = ProGtolTypeGet(gtol, &amp;type);
+	TEST_CALL_REPORT(&quot;ProGtolTypeGet()&quot;,
+		&quot;TestGtolPerUnitSet()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-334"></a>
+	if (error != PRO_TK_NO_ERROR)
+		return(error);
+
+	if ((type == PROGTOLTYPE_STRAIGHTNESS) || (type == PROGTOLTYPE_FLATNESS) ||
+<a name="anchor-335"></a>		(type == PROGTOLTYPE_CIRCULAR) || (type == PROGTOLTYPE_CYLINDRICAL))
+		return(PRO_TK_NO_ERROR);
+/*--------------------------------------------------------------------*\
+    Setup basic datum
+\*--------------------------------------------------------------------*/
+<a name="anchor-336"></a>		ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Choise material condition&quot;);
+		symbol = (ProGtolSymbol)TestGtolSelMaterialCond();
+
+		error = TestGtolSymbolFontGet(gtol, &amp;fontType);
+
+<a name="anchor-337"></a>		error = ProGtolSymbolStringGet(symbol, fontType, &amp;symStr);
+		TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+			&quot;TestGtoldatumrefSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		error = ProGtolDatumReferencesGet(gtol, &amp;primary, &amp;secondary, &amp;tertiary);
+<a name="anchor-338"></a>		TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+			&quot;TestGtoldatumrefSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Set primary datum reference ?(y/n):&quot;);
+
+<a name="anchor-339"></a>		if (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)
+		{
+			ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Input primary datum reference value:&quot;);
+			ProMessageDoubleRead(NULL, &amp;value);
+			sprintf(cValue, &quot;%lf&quot;, value);
+<a name="anchor-340"></a>
+			ProStringToWstring(path, cValue);
+			ProWstringConcatenate(path, primary, PRO_VALUE_UNUSED);
+			ProWstringConcatenate(symStr, primary, PRO_VALUE_UNUSED);
+		}
+<a name="anchor-341"></a>
+		ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Set secondary datum reference ?(y/n):&quot;);
+
+		if (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)
+		{
+<a name="anchor-342"></a>			ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Input secondary datum reference value:&quot;);
+			ProMessageDoubleRead(NULL, &amp;value);
+			sprintf(cValue, &quot;%lf&quot;, value);
+
+			ProStringToWstring(path, cValue);
+<a name="anchor-343"></a>			ProWstringConcatenate(path, secondary, PRO_VALUE_UNUSED);
+			ProWstringConcatenate(symStr, secondary, PRO_VALUE_UNUSED);
+		}
+
+		ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Set tertiary datum reference ?(y/n):&quot;);
+<a name="anchor-344"></a>
+		if (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)
+		{
+			ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Input tertiary datum reference value:&quot;);
+			ProMessageDoubleRead(NULL, &amp;value);
+<a name="anchor-345"></a>			sprintf(cValue, &quot;%lf&quot;, value);
+
+			ProStringToWstring(path, cValue);
+			ProWstringConcatenate(path, tertiary, PRO_VALUE_UNUSED);
+			ProWstringConcatenate(symStr, tertiary, PRO_VALUE_UNUSED);
+<a name="anchor-346"></a>		}
+	error = ProGtolDatumReferencesSet(gtol, primary, secondary, tertiary);
+    TEST_CALL_REPORT (&quot;ProGtolDatumReferencesSet()&quot;,
+        &quot;TestGtoldatumrefSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+    
+<a name="anchor-347"></a>    IsComplete = ((error == PRO_TK_NO_ERROR)||(PRO_TK_CANT_MODIFY == error))?
+            (PRO_B_TRUE):(PRO_B_FALSE);
+
+   return((IsComplete == PRO_B_TRUE)?(PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR));
+}
+<a name="anchor-348"></a>
+/*====================================================================*\
+  Function : TestGtolCompositeSet()
+  Purpose  : Setup gtol composite property.
+\*====================================================================*/
+<a name="anchor-349"></a>ProError TestGtolCompositeSet(ProGtol* gtol)
+{
+    ProGtolReferenceType type;
+    ProError error;
+    ProBoolean is_composite = PRO_B_FALSE;  
+<a name="anchor-350"></a>    ProGtolType gtype;
+	double value = 0;
+	char cValue[PRO_LINE_SIZE];
+	ProPath path;
+
+<a name="anchor-351"></a>	error = ProGtolTypeGet(gtol, &amp;gtype);
+	TEST_CALL_REPORT(&quot;ProGtolTypeGet()&quot;,
+		&quot;TestGtolPerUnitSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+	if (error != PRO_TK_NO_ERROR)
+<a name="anchor-352"></a>		return(error);
+
+	if (!((gtype == PROGTOLTYPE_SURFACE) || (gtype == PROGTOLTYPE_POSITION)))
+		return(PRO_TK_NO_ERROR);
+
+<a name="anchor-353"></a>/*--------------------------------------------------------------------*\
+    Prompt user for setup gtol composite property.    
+\*--------------------------------------------------------------------*/
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Composite tolerance ?(y/n):&quot;);    
+
+<a name="anchor-354"></a>    if (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)
+    {
+        is_composite = PRO_B_TRUE;
+        type = (ProGtolReferenceType)TestGtolSelReferenceType();
+        if (IsMenuDone(type) == PRO_B_FALSE)
+<a name="anchor-355"></a>            return(PRO_TK_BAD_INPUTS);
+        
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Input composite tolerance value:&quot;);    
+		ProMessageDoubleRead(NULL, &amp;value);
+		sprintf(cValue, &quot;%lf&quot;, value);
+<a name="anchor-356"></a>
+		ProStringToWstring(path, cValue);
+	error = ProGtolCompositeSet(gtol, PRO_VALUE_UNUSED, path, NULL, NULL, NULL);
+        TEST_CALL_REPORT(&quot;ProGtolCompositeSet()&quot;,
+        &quot;TestGtolCompositeSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+<a name="anchor-357"></a>        
+        if (error == PRO_TK_CANT_MODIFY)
+    {
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+        return(PRO_TK_NO_ERROR);            
+<a name="anchor-358"></a>    }          
+    }           	    
+        
+    return(error);
+}
+<a name="anchor-359"></a>
+/*====================================================================*\
+  Function : TestGtolValueSet()
+  Purpose  : Setup gtol value.
+\*====================================================================*/
+<a name="anchor-360"></a>ProError TestGtolValueSet(ProGtol* gtol)
+{
+	double value = 0;
+	char cValue[PRO_LINE_SIZE];
+	ProPath path; 
+<a name="anchor-361"></a>    ProError error; 
+
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Input overall tolerance value:&quot;);    
+	ProMessageDoubleRead(NULL, &amp;value);
+	sprintf(cValue, &quot;%lf&quot;, value);
+<a name="anchor-362"></a>
+	ProStringToWstring(path, cValue);
+/*--------------------------------------------------------------------*\
+    Call Pro/Toolkit function for setup gtol value.
+\*--------------------------------------------------------------------*/
+<a name="anchor-363"></a>	error = ProGtolValueStringSet(gtol, path);
+    TEST_CALL_REPORT (&quot;ProGtolValueStringSet()&quot;,
+        &quot;TestGtolValueSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+        
+    if(error == PRO_TK_CANT_MODIFY)
+<a name="anchor-364"></a>    {
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+        return(PRO_TK_NO_ERROR);            
+    }          
+    
+<a name="anchor-365"></a>    return(error);
+}
+
+/*====================================================================*\
+  Function : TestGtolPerUnitSet()
+<a name="anchor-366"></a>  Purpose  : Set the per unit tolerance of a gtol.
+\*====================================================================*/
+ProError TestGtolPerUnitSet(ProGtol* gtol)
+{
+    ProError  error;
+<a name="anchor-367"></a>    ProBoolean  perunit_tolerance = PRO_B_FALSE;
+	double value;
+    ProPath value_per_unit, unit_area_or_length;
+	char cValue[PRO_LINE_SIZE], aValue[PRO_LINE_SIZE];
+	ProPath path; 
+<a name="anchor-368"></a>
+    perunit_tolerance = PRO_B_TRUE;
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Input per unit tolerance value:&quot;);  
+	ProMessageDoubleRead(NULL, &amp;value);
+	sprintf(cValue, &quot;%lf&quot;, value);
+<a name="anchor-369"></a>
+	ProStringToWstring(value_per_unit, cValue);
+	        
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Input unit area, or length:&quot;);    
+	ProMessageDoubleRead(NULL, &amp;value);
+<a name="anchor-370"></a>	sprintf(aValue, &quot;%lf&quot;, value);
+
+	ProStringToWstring(unit_area_or_length, aValue);
+
+	ProWstringConcatenate(value_per_unit, path, PRO_VALUE_UNUSED);
+<a name="anchor-371"></a>	ProWstringConcatenate(L&quot;/&quot;, path, PRO_VALUE_UNUSED);
+	ProWstringConcatenate(unit_area_or_length, path, PRO_VALUE_UNUSED);
+
+    error = ProGtolCompositeSet(gtol, PRO_VALUE_UNUSED, path, NULL, NULL, NULL);
+	TEST_CALL_REPORT (&quot;ProGtolCompositeSet()&quot;,
+<a name="anchor-372"></a>	    &quot;TestGtolPerUnitSet()&quot;, error, error != PRO_TK_NO_ERROR); 
+
+    if(error == PRO_TK_CANT_MODIFY)
+    {
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+<a name="anchor-373"></a>        return(PRO_TK_NO_ERROR);            
+    }          
+
+    return(error);
+}
+<a name="anchor-374"></a>
+/*====================================================================*\
+  Function : TestGtolStatTolSet()
+  Purpose  : Set whether a gtol shows the statistical tolerance symbol.
+\*====================================================================*/
+<a name="anchor-375"></a>ProError TestGtolStatTolSet(ProGtol* gtol)
+{
+    ProBoolean statistic_tolerance;
+    ProError error = PRO_TK_GENERAL_ERROR;
+	wchar_t* valString = NULL;
+<a name="anchor-376"></a>	ProSymbolFont symbFont;
+	wchar_t* symbolStr = NULL;
+    
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Show the statistical tolerance symbol ? (y/n):&quot;);    
+
+<a name="anchor-377"></a>    statistic_tolerance = (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)?(PRO_B_TRUE):(PRO_B_FALSE);
+
+    if (!statistic_tolerance)
+        return PRO_TK_NO_ERROR;
+
+<a name="anchor-378"></a>	if (statistic_tolerance)
+	{
+		error = ProGtolValueStringGet(gtol, &amp;valString);
+		TEST_CALL_REPORT(&quot;ProGtolValueStringGet()&quot;,
+			&quot;TestGtolStatTolSet()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-379"></a>
+		error = TestGtolSymbolFontGet(gtol, &amp;symbFont);
+
+		error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_STAT_TOL, symbFont, &amp;symbolStr);
+		TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+<a name="anchor-380"></a>			&quot;TestGtolStatTolSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		ProWstringConcatenate(symbolStr, valString, PRO_VALUE_UNUSED);
+
+		error = ProGtolValueStringSet(gtol, valString);
+<a name="anchor-381"></a>		TEST_CALL_REPORT(&quot;ProGtolValueStringSet()&quot;,
+			&quot;TestGtolStatTolSet()&quot;, error, error != PRO_TK_NO_ERROR);
+	}
+    if(error == PRO_TK_CANT_MODIFY)
+    {
+<a name="anchor-382"></a>        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+        return(PRO_TK_NO_ERROR);            
+    }          
+        
+    return(error);
+<a name="anchor-383"></a>}
+
+/*====================================================================*\
+  Function : TestGtolDiameterSet()
+  Purpose  : Set whether a gtol shows the diameter tolerance symbol.
+<a name="anchor-384"></a>\*====================================================================*/
+ProError TestGtolDiameterSet(ProGtol* gtol)
+{
+    ProError error = PRO_TK_GENERAL_ERROR;
+    ProBoolean diameter;
+<a name="anchor-385"></a>	wchar_t* valString = NULL;
+	ProSymbolFont symbFont;
+	wchar_t* symbolStr = NULL;
+
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Show the diameter tolerance symbol ? (y/n):&quot;);    
+<a name="anchor-386"></a>    diameter = (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)?(PRO_B_TRUE):(PRO_B_FALSE);
+    
+	if (diameter)
+	{
+		error = ProGtolValueStringGet(gtol, &amp;valString);
+<a name="anchor-387"></a>		TEST_CALL_REPORT(&quot;ProGtolValueStringGet()&quot;,
+			&quot;TestGtolDiameterSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		error = TestGtolSymbolFontGet(gtol, &amp;symbFont);
+
+<a name="anchor-388"></a>		error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_DIAMETER, symbFont, &amp;symbolStr);
+		TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+			&quot;TestGtolDiameterSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		ProWstringConcatenate(symbolStr, valString, PRO_VALUE_UNUSED);
+<a name="anchor-389"></a>
+		error = ProGtolValueStringSet(gtol, valString);
+		TEST_CALL_REPORT(&quot;ProGtolValueStringSet()&quot;,
+			&quot;TestGtolDiameterSet()&quot;, error, error != PRO_TK_NO_ERROR);
+	}
+<a name="anchor-390"></a>    if(error == PRO_TK_CANT_MODIFY)
+    {
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+        return(PRO_TK_NO_ERROR);            
+    }          
+<a name="anchor-391"></a>   
+    return(error);
+}
+
+/*====================================================================*\
+<a name="anchor-392"></a>  Function : TestGtolFreeStateSet()
+  Purpose  : Set whether a gtol shows the free state symbol.
+\*====================================================================*/
+ProError TestGtolFreeStateSet(ProGtol* gtol)
+{
+<a name="anchor-393"></a>    ProError error = PRO_TK_GENERAL_ERROR;
+    ProBoolean free_state;
+    wchar_t* valString = NULL;
+	ProSymbolFont symbFont;
+	wchar_t* symbolStr = NULL;
+<a name="anchor-394"></a>
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Show free state symbol ? (y/n):&quot;);    
+    free_state = (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)?(PRO_B_TRUE):(PRO_B_FALSE);
+
+    if (!free_state)
+<a name="anchor-395"></a>        return PRO_TK_NO_ERROR;
+
+	if (free_state) 
+	{
+		error = ProGtolValueStringGet(gtol, &amp;valString);
+<a name="anchor-396"></a>		TEST_CALL_REPORT(&quot;ProGtolValueStringGet()&quot;,
+			&quot;TestGtolFreeStateSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		error = TestGtolSymbolFontGet(gtol, &amp;symbFont);
+
+<a name="anchor-397"></a>		error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_FREE_STATE, symbFont, &amp;symbolStr);
+		TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+			&quot;TestGtolFreeStateSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		ProWstringConcatenate(symbolStr, valString, PRO_VALUE_UNUSED);
+<a name="anchor-398"></a>
+		error = ProGtolValueStringSet(gtol, valString);
+		TEST_CALL_REPORT(&quot;ProGtolValueStringSet()&quot;,
+			&quot;TestGtolFreeStateSet()&quot;, error, error != PRO_TK_NO_ERROR);
+	}
+<a name="anchor-399"></a>    if(error == PRO_TK_CANT_MODIFY)
+    {
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+        return(PRO_TK_NO_ERROR);            
+    }          
+<a name="anchor-400"></a>   
+    return(error);
+}
+
+/*====================================================================*\
+<a name="anchor-401"></a>  Function : TestGtolAllAroundSet()
+  Purpose  : Sets whether a gtol shows the all around symbol.
+\*====================================================================*/
+ProError TestGtolAllAroundSet(ProGtol* gtol)
+{
+<a name="anchor-402"></a>    ProError error = PRO_TK_GENERAL_ERROR;
+    ProBoolean all_around;
+        
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Show the all around symbol ? (y/n):&quot;);    
+    all_around = (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)?(PRO_B_TRUE):(PRO_B_FALSE);
+<a name="anchor-403"></a>    
+    error = ProGtolAllAroundSet(gtol, all_around);
+    TEST_CALL_REPORT (&quot;ProGtolAllAroundSet()&quot;,
+        &quot;TestGtolAllAroundSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+        
+<a name="anchor-404"></a>    if(error == PRO_TK_CANT_MODIFY)
+    {
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+        return(PRO_TK_NO_ERROR);            
+    }          
+<a name="anchor-405"></a>   
+    return(error);
+}
+
+/*====================================================================*\
+<a name="anchor-406"></a>  Function : TestGtolTangentPlaneSet()
+  Purpose  : Sets whether a gtol shows the tangent plane symbol.
+\*====================================================================*/
+ProError TestGtolTangentPlaneSet(ProGtol* gtol)
+{
+<a name="anchor-407"></a>    ProError error = PRO_TK_GENERAL_ERROR;
+    ProBoolean tangent_plane;
+    wchar_t* valString = NULL;
+	ProSymbolFont symbFont;
+	wchar_t* symbolStr = NULL;
+<a name="anchor-408"></a>	ProGtolType type;
+     
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Show the tangent plane symbol ? (y/n):&quot;);    
+    tangent_plane = (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)?(PRO_B_TRUE):(PRO_B_FALSE);
+
+<a name="anchor-409"></a>    if (!tangent_plane)
+        return PRO_TK_NO_ERROR;
+
+	if (tangent_plane)
+	{
+<a name="anchor-410"></a>		error = ProGtolValueStringGet(gtol, &amp;valString);
+		TEST_CALL_REPORT(&quot;ProGtolValueStringGet()&quot;,
+			&quot;TestGtolTangentPlaneSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		error = TestGtolSymbolFontGet(gtol, &amp;symbFont);
+<a name="anchor-411"></a>
+		error = ProGtolSymbolStringGet(PRO_GTOL_SYMBOL_TANGENT_PLANE, symbFont, &amp;symbolStr);
+		TEST_CALL_REPORT(&quot;ProGtolSymbolStringGet()&quot;,
+			&quot;TestGtolTangentPlaneSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+<a name="anchor-412"></a>		ProWstringConcatenate(symbolStr, valString, PRO_VALUE_UNUSED);
+
+		error = ProGtolValueStringSet(gtol, valString);
+		TEST_CALL_REPORT(&quot;ProGtolValueStringSet()&quot;,
+			&quot;TestGtolTangentPlaneSet()&quot;, error, error != PRO_TK_NO_ERROR);
+<a name="anchor-413"></a>	}
+    if(error == PRO_TK_CANT_MODIFY)
+    {
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+        return(PRO_TK_NO_ERROR);            
+<a name="anchor-414"></a>    }          
+   
+    return(error);
+}
+/*====================================================================*\
+<a name="anchor-415"></a>  Function : TestGtolProjZoneSet()
+  Purpose  : Sets the projected tolerance zone for a gtol.
+\*====================================================================*/
+ProError TestGtolProjZoneSet(ProGtol* gtol)  
+{
+<a name="anchor-416"></a>    ProError error = PRO_TK_GENERAL_ERROR;
+    ProGtolType type;
+	wchar_t font[3];
+	wchar_t* valString = NULL;
+	ProSymbolFont symbFont;
+<a name="anchor-417"></a>	wchar_t* symbolStr = NULL;
+
+    error = ProGtolTypeGet(gtol, &amp;type);
+    TEST_CALL_REPORT (&quot;ProGtolTypeGet()&quot;,
+        &quot;TestGtolProjZoneSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+<a name="anchor-418"></a>    
+    if(error != PRO_TK_NO_ERROR)
+        return(error);
+    
+    if (!((type == PROGTOLTYPE_ANGULAR)||
+<a name="anchor-419"></a>          (type == PROGTOLTYPE_PERPENDICULAR) ||
+          (type == PROGTOLTYPE_PARALLEL) ||
+          (type == PROGTOLTYPE_POSITION)))
+          return(PRO_TK_NO_ERROR);
+
+<a name="anchor-420"></a>	error = ProGtolValueStringGet(gtol, &amp;valString);
+	TEST_CALL_REPORT(&quot;ProGtolValueStringGet()&quot;,
+		&quot;TestGtolProjZoneSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+	error = TestGtolSymbolFontGet(gtol, &amp;symbFont);
+<a name="anchor-421"></a>
+	if (symbFont == PRO_FONT_ISO || symbFont == PRO_FONT_ASME) {
+		font[0] = 9413;
+		ProWstringConcatenate(font, valString, PRO_VALUE_UNUSED);
+	}
+<a name="anchor-422"></a>	else if (symbFont == PRO_FONT_LEGACY) {
+		font[0] = 112;
+		ProWstringConcatenate(font, valString, PRO_VALUE_UNUSED);
+	}
+	error = ProGtolValueStringSet(gtol, valString);
+<a name="anchor-423"></a>	TEST_CALL_REPORT(&quot;ProGtolValueStringSet()&quot;,
+		&quot;TestGtolProjZoneSet()&quot;, error, error != PRO_TK_NO_ERROR);   
+        
+    if(error == PRO_TK_CANT_MODIFY)
+    {
+<a name="anchor-424"></a>        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+        return(PRO_TK_NO_ERROR);            
+    }          
+   
+    return(error);    
+<a name="anchor-425"></a>}
+
+/*====================================================================*\
+  Function : TestGtolProfBoundarySet()
+  Purpose  : Sets the profile boundary for a gtol.
+<a name="anchor-426"></a>\*====================================================================*/
+
+ProError TestGtolProfBoundarySet(ProGtol* gtol)
+{
+    ProError error;
+<a name="anchor-427"></a>    ProBoolean unilateral = PRO_B_FALSE;
+    ProBoolean outside = PRO_B_FALSE;
+    ProGtolType type;
+    
+    error = ProGtolTypeGet(gtol, &amp;type);
+<a name="anchor-428"></a>    TEST_CALL_REPORT (&quot;ProGtolTypeGet()&quot;,
+        &quot;TestGtolProfBoundarySet()&quot;, error, error != PRO_TK_NO_ERROR);    
+    
+    if(error != PRO_TK_NO_ERROR)
+        return(error);
+<a name="anchor-429"></a>    
+    if (!(type == PROGTOLTYPE_POSITION))
+          return(PRO_TK_NO_ERROR);
+
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Profile boundary is unilateral ? (y/n):&quot;);    
+<a name="anchor-430"></a>	unilateral = (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1) ? (PRO_B_TRUE) :(PRO_B_FALSE);
+
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;tolerance refers to the outside of the profile ? (y/n):&quot;);    
+    outside = (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)?(PRO_B_TRUE):(PRO_B_FALSE);
+    
+<a name="anchor-431"></a>	error = ProGtolUnilateralSet(gtol, unilateral, outside);
+    TEST_CALL_REPORT (&quot;ProGtolUnilateralSet()&quot;,
+        &quot;TestGtolProfBoundarySet()&quot;, error, (error != PRO_TK_NO_ERROR &amp;&amp; error != PRO_TK_CANT_MODIFY));    
+
+    if(error == PRO_TK_CANT_MODIFY)
+<a name="anchor-432"></a>    {
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+        return(PRO_TK_NO_ERROR);            
+    }          
+        
+<a name="anchor-433"></a>    return(error);
+}
+
+/*====================================================================*\
+  Function : TestGtoldataReferenceSet()
+<a name="anchor-434"></a>  Purpose  : Sets the item which the gtol refers to.
+\*====================================================================*/
+ProError TestGtolReferenceSet(ProGtol* gtol)
+{
+    int n_sel;
+<a name="anchor-435"></a>    ProSelection *sel;
+	ProAnnotationReference *annotRefs = NULL;
+	ProReference ref;
+    ProError error;  
+
+<a name="anchor-436"></a>    ProCharLine cline;
+    ProGtolType type;    
+    ProModelitem mdl_item;
+    
+	error = ProGtolTypeGet(gtol, &amp;type);
+<a name="anchor-437"></a>    TEST_CALL_REPORT (&quot;ProGtolTypeGet()&quot;,
+        &quot;TestGtolReferenceSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+
+/*--------------------------------------------------------------------*\
+    Select reference item.
+<a name="anchor-438"></a>\*--------------------------------------------------------------------*/
+    ProUtilMsgPrint( (char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Please select reference item&quot; );    
+    
+    ProTKSprintf(cline,(char*)&quot;%s&quot;,TestGtolSymSelParam(type));
+    error = ProSelect(&quot;surface, edge&quot;, 1, NULL, NULL, NULL, NULL, &amp;sel, &amp;n_sel); 
+<a name="anchor-439"></a>    TEST_CALL_REPORT (&quot;ProSelect()&quot;,
+        &quot;TestGtolReferenceSet()&quot;, error, error != PRO_TK_NO_ERROR); 
+               
+ProTKPrintf( (char*)&quot;--------------------------_> %d\n&quot;, error );
+ProTKPrintf( (char*)&quot;--------------------------_> %s\n&quot;, cline );
+<a name="anchor-440"></a>
+    if((error!=PRO_TK_NO_ERROR)||(n_sel&lt;0))     
+            return(PRO_TK_BAD_INPUTS);
+    
+	error = ProArrayAlloc(1, sizeof(ProAnnotationReference), 1, (ProArray*)&amp;annotRefs);
+<a name="anchor-441"></a>
+	annotRefs[0].type = PRO_ANNOT_REF_SINGLE;
+	annotRefs[0].object.reference = NULL;
+
+	error = ProSelectionToReference(sel[0], &amp;(annotRefs[0].object.reference));
+<a name="anchor-442"></a>	TEST_CALL_REPORT(&quot;ProSelectionToReference()&quot;,
+		&quot;TestGtolReferenceSet()&quot;, error, error != PRO_TK_NO_ERROR);
+
+	error = ProGtolReferencesAdd(gtol, annotRefs);
+    TEST_CALL_REPORT (&quot;ProGtolReferencesAdd()&quot;,
+<a name="anchor-443"></a>        &quot;TestGtolReferenceSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+        
+    if(error == PRO_TK_CANT_MODIFY)
+    {
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't modify this parameter.&quot;);    
+<a name="anchor-444"></a>        return(PRO_TK_NO_ERROR);            
+    }          
+    
+    return(error);        
+}
+<a name="anchor-445"></a>
+/*====================================================================*\
+  Function : TestGtolCreate()
+  Purpose  : Create new gtol in the specified model.
+\*====================================================================*/
+<a name="anchor-446"></a>ProError TestGtolCreate(ProMdl mdl)
+{
+    ProGtol createdGtol;
+    ProGtolType type;
+	ProGtolAttach gtolAttach;
+<a name="anchor-447"></a>	wchar_t* valueStr = L&quot;\0&quot;;
+	ProBoolean IsComplete = PRO_B_FALSE, is_overall, is_PerUnit;
+    ProError error;  
+    
+    while(1==1)
+<a name="anchor-448"></a>    {
+/*--------------------------------------------------------------------*\
+    Choice  gtol type.
+\*--------------------------------------------------------------------*/
+        type = (ProGtolType)TestGtolSelType();
+<a name="anchor-449"></a>
+        if(type&lt;0)
+            break;
+    
+		error = ProGtolAttachAlloc(mdl, &amp;gtolAttach);
+<a name="anchor-450"></a>		TEST_CALL_REPORT(&quot;ProGtolAttachAlloc()&quot;,
+			&quot;TestGtolCreate()&quot;, error, error != PRO_TK_NO_ERROR);
+
+/*--------------------------------------------------------------------*\
+Sets gtol Attachment.
+<a name="anchor-451"></a>\*--------------------------------------------------------------------*/
+		error = TestGtolAttachSet(mdl, (ProGtolAttach*)&amp;gtolAttach);
+		if (error != PRO_TK_NO_ERROR)
+			break;
+
+<a name="anchor-452"></a>		error = ProMdlGtolCreate(mdl, type, gtolAttach, valueStr, &amp;createdGtol);
+		TEST_CALL_REPORT(&quot;ProMdlGtolCreate()&quot;,
+			&quot;TestGtolCreate()&quot;, error, error != PRO_TK_NO_ERROR);
+
+		if (error == PRO_TK_NO_ERROR)
+<a name="anchor-453"></a>			IsComplete = PRO_B_TRUE;     
+/*--------------------------------------------------------------------*\
+    Sets references.
+\*--------------------------------------------------------------------*/
+        error = TestGtolReferenceSet(&amp;createdGtol);
+<a name="anchor-454"></a>        if(error!=PRO_TK_NO_ERROR)
+            break;
+            
+/*--------------------------------------------------------------------*\
+    Sets gtol datum references.
+<a name="anchor-455"></a>\*--------------------------------------------------------------------*/
+        error = TestGtoldatumrefSet(&amp;createdGtol);
+        if(error!=PRO_TK_NO_ERROR)
+            break;
+
+<a name="anchor-456"></a>/*--------------------------------------------------------------------*\
+    Sets gtol value.
+\*--------------------------------------------------------------------*/
+        is_overall = (TestGtolSymIsEnable(type, TestGtS_Unit) == PRO_B_TRUE)?
+            (PRO_B_FALSE):(PRO_B_TRUE);
+<a name="anchor-457"></a>            
+        if(is_overall == PRO_B_FALSE)
+        {    
+            ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Overall tolerance ?(y/n):&quot;);    
+            is_overall = (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)?(PRO_B_TRUE):(PRO_B_FALSE);
+<a name="anchor-458"></a>        }    
+
+        if (is_overall == PRO_B_TRUE)
+        {
+            error = TestGtolValueSet(&amp;createdGtol);
+<a name="anchor-459"></a>            if(error!=PRO_TK_NO_ERROR)
+                break;
+        }                
+
+/*--------------------------------------------------------------------*\
+<a name="anchor-460"></a>    Set the per unit tolerance of a gtol.
+\*--------------------------------------------------------------------*/
+        if(TestGtolSymIsEnable(type, TestGtS_Unit) == PRO_B_TRUE)
+        {
+            is_PerUnit = (is_overall == PRO_B_FALSE)?(PRO_B_TRUE):(PRO_B_FALSE);
+<a name="anchor-461"></a>
+            if(is_PerUnit == PRO_B_FALSE)
+            {    
+                ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Per unit tolerance? (y/n):&quot;);    
+                is_PerUnit = (ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)?(PRO_B_TRUE):(PRO_B_FALSE); 
+<a name="anchor-462"></a>            }    
+            if (is_PerUnit == PRO_B_TRUE)
+            {        
+                error = TestGtolPerUnitSet(&amp;createdGtol);
+                if(error!=PRO_TK_NO_ERROR)
+<a name="anchor-463"></a>                    break;
+            }        
+        }        
+/*--------------------------------------------------------------------*\
+    Set whether a gtol shows the statistical tolerance symbol.
+<a name="anchor-464"></a>\*--------------------------------------------------------------------*/
+        if(TestGtolSymIsEnable(type, TestGtS_Stat) == PRO_B_TRUE)
+        {
+            error = TestGtolStatTolSet(&amp;createdGtol);
+            if(error!=PRO_TK_NO_ERROR)
+<a name="anchor-465"></a>                break;
+        }
+            
+/*--------------------------------------------------------------------*\
+    Set whether a gtol shows the diameter tolerance symbol.
+<a name="anchor-466"></a>\*--------------------------------------------------------------------*/
+        if (TestGtolSymIsEnable(type, TestGtS_Diam) == PRO_B_TRUE)
+        {
+            error = TestGtolDiameterSet(&amp;createdGtol);
+            if(error!=PRO_TK_NO_ERROR)
+<a name="anchor-467"></a>                break;
+        }        
+            
+/*--------------------------------------------------------------------*\
+    Set whether a gtol shows the free state symbol.
+<a name="anchor-468"></a>\*--------------------------------------------------------------------*/
+        if (TestGtolSymIsEnable(type, TestGtS_Free) == PRO_B_TRUE)
+        {
+            error = TestGtolFreeStateSet(&amp;createdGtol);
+            if(error!=PRO_TK_NO_ERROR)
+<a name="anchor-469"></a>                break;
+        }                
+            
+/*--------------------------------------------------------------------*\
+    Sets whether a gtol shows the all around symbol.
+<a name="anchor-470"></a>\*--------------------------------------------------------------------*/
+        if (TestGtolSymIsEnable(type, TestGtS_All) == PRO_B_TRUE)
+        {
+            error = TestGtolAllAroundSet(&amp;createdGtol);
+            if(error!=PRO_TK_NO_ERROR)
+<a name="anchor-471"></a>                break;
+        }                
+
+/*--------------------------------------------------------------------*\
+    Sets whether a gtol shows the tangent plane symbol.
+<a name="anchor-472"></a>\*--------------------------------------------------------------------*/
+        if (TestGtolSymIsEnable(type, TestGtS_Tan) == PRO_B_TRUE)
+        {
+            error = TestGtolTangentPlaneSet(&amp;createdGtol);
+            if(error!=PRO_TK_NO_ERROR)
+<a name="anchor-473"></a>                break;
+        }       
+            
+/*--------------------------------------------------------------------*\
+    Sets the projected tolerance zone for a gtol.
+<a name="anchor-474"></a>\*--------------------------------------------------------------------*/
+        error = TestGtolProjZoneSet(&amp;createdGtol);
+        if(error!=PRO_TK_NO_ERROR)
+            break;
+
+<a name="anchor-475"></a>/*--------------------------------------------------------------------*\
+    Sets the profile boundary for a gtol.
+\*--------------------------------------------------------------------*/
+        error = TestGtolProfBoundarySet(&amp;createdGtol);
+        if(error!=PRO_TK_NO_ERROR)
+<a name="anchor-476"></a>            break;
+
+/*--------------------------------------------------------------------*\
+   Sets gtol composite property.
+\*--------------------------------------------------------------------*/
+<a name="anchor-477"></a>		error = TestGtolCompositeSet(&amp;createdGtol);
+		if (error != PRO_TK_NO_ERROR)
+			break;
+
+        break;
+<a name="anchor-478"></a>    }
+    
+    if(IsComplete == PRO_B_TRUE)
+	{
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Gtol normal created&quot;);    
+<a name="anchor-479"></a>
+		error = ProAnnotationShow((ProAnnotation*)&amp;createdGtol,NULL,NULL);
+		TEST_CALL_REPORT (&quot;ProAnnotationShow()&quot;,&quot;TestGtolCreate()&quot;, error, error != PRO_TK_NO_ERROR);    
+
+	}
+<a name="anchor-480"></a>    else
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Can't create gtol.&quot;);    
+           
+    return(PRO_TK_NO_ERROR);
+}
+<a name="anchor-481"></a>
+/*====================================================================*\
+  Function : TestGtolRefSet()
+  Purpose  : Sets a datum plane or axis to be a gtol reference.
+\*====================================================================*/
+<a name="anchor-482"></a>ProError TestGtolRefSet(ProMdl mdl)
+{
+    ProError error;
+    ProGeomitem geomitem;
+    ProSelection *sel;
+<a name="anchor-483"></a>    int n_sel;
+    ProBoolean is_in_dim;
+    ProDimension in_dim; 
+
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Select axis or datum&quot;);    
+<a name="anchor-484"></a>
+/*--------------------------------------------------------------------*\
+    Select datum or axis.
+\*--------------------------------------------------------------------*/
+    error = ProSelect((char*)&quot;datum,axis&quot;, 1,NULL, NULL, NULL, NULL, &amp;sel, &amp;n_sel); 
+<a name="anchor-485"></a>    TEST_CALL_REPORT (&quot;ProSelect()&quot;,
+        &quot;TestGtolRefSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+    
+    if((error!=PRO_TK_NO_ERROR)||(n_sel&lt;0))
+        return(PRO_TK_E_NOT_FOUND);    
+<a name="anchor-486"></a>
+    error = ProSelectionModelitemGet(sel[0],(ProModelitem*)&amp;geomitem);
+    TEST_CALL_REPORT (&quot;ProSelectionModelitemGet()&quot;,
+        &quot;TestGtolRefSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+
+<a name="anchor-487"></a>    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;In dim tolerance ?(y/n):&quot;);    
+    
+    if(ProUtilYesnoGet((char*)&quot;Yes&quot;) == 1)
+    { 
+/*--------------------------------------------------------------------*\
+<a name="anchor-488"></a>    if &quot;In dim tolerance&quot; then select dimension.
+\*--------------------------------------------------------------------*/
+        is_in_dim = PRO_B_FALSE;
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Select dimension&quot;);    
+    
+<a name="anchor-489"></a>        error = ProSelect((char*)&quot;dimension,ref_dim&quot;, 1,NULL, NULL, NULL, NULL, &amp;sel, &amp;n_sel); 
+        TEST_CALL_REPORT (&quot;ProSelect()&quot;,
+            &quot;TestGtolRefSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+    
+        if((error!=PRO_TK_NO_ERROR)||(n_sel&lt;0))
+<a name="anchor-490"></a>            return(PRO_TK_E_NOT_FOUND);    
+            
+        error = ProSelectionModelitemGet(sel[0],(ProModelitem*)&amp;in_dim);
+        TEST_CALL_REPORT (&quot;ProSelectionModelitemGet()&quot;,
+            &quot;TestGtolRefSet()&quot;, error, error != PRO_TK_NO_ERROR);       
+<a name="anchor-491"></a>         
+    } else
+    {
+        is_in_dim = PRO_B_TRUE;
+        ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Gtol is FREE.&quot;);    
+<a name="anchor-492"></a>    }   
+
+    error = ProGeomitemSetdatumSet(&amp;geomitem, NULL);
+    TEST_CALL_REPORT (&quot;ProGeomitemSetdatumSet()&quot;,
+        &quot;TestGtolRefSet()&quot;, error, error != PRO_TK_NO_ERROR);    
+<a name="anchor-493"></a>    
+    return(error);
+}
+
+/*====================================================================*\
+<a name="anchor-494"></a>  Function : TestGtolRefClear()
+  Purpose  : Clears a datum plane or axis so it is no 
+             longer a gtol reference.
+\*====================================================================*/
+ProError TestGtolRefClear(ProMdl mdl)
+<a name="anchor-495"></a>{
+    ProError error;
+    ProGeomitem geomitem;
+    ProSelection *sel;
+    int n_sel;
+<a name="anchor-496"></a>
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Select axis or datum&quot;);    
+
+/*--------------------------------------------------------------------*\
+    Select target (datum or axis).
+<a name="anchor-497"></a>\*--------------------------------------------------------------------*/
+    error = ProSelect((char*)&quot;datum,axis&quot;, 1,NULL, NULL, NULL, NULL, &amp;sel, &amp;n_sel); 
+    TEST_CALL_REPORT (&quot;ProSelect()&quot;,
+        &quot;TestGtolRefClear()&quot;, error, error != PRO_TK_NO_ERROR);    
+    
+<a name="anchor-498"></a>    if((error!=PRO_TK_NO_ERROR)||(n_sel&lt;0))
+        return(PRO_TK_E_NOT_FOUND);    
+
+    error = ProSelectionModelitemGet(sel[0],(ProModelitem*)&amp;geomitem);
+    TEST_CALL_REPORT (&quot;ProSelectionModelitemGet()&quot;,
+<a name="anchor-499"></a>        &quot;TestGtolRefClear()&quot;, error, error != PRO_TK_NO_ERROR);    
+
+    error = ProGeomitemSetdatumClear(&amp;geomitem);
+    TEST_CALL_REPORT (&quot;ProGeomitemSetdatumClear()&quot;,
+        &quot;TestGtolRefClear()&quot;, error, error != PRO_TK_NO_ERROR);    
+<a name="anchor-500"></a>    
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-501"></a>  Function : TestGtolRefInfo()
+  Purpose  : Shows whether a datum plane or axis is a gtol reference 
+\*====================================================================*/
+ProError TestGtolRefInfo(ProMdl mdl)
+{
+<a name="anchor-502"></a>    ProError error;
+    ProGeomitem geomitem;
+    ProSelection *sel;
+    int n_sel;
+    ProBoolean ref_datum;
+<a name="anchor-503"></a>    ProCharLine cline; 
+    ProGtolsetdatumValue value;
+    
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, (char*)&quot;Select axis or datum&quot;);    
+
+<a name="anchor-504"></a>/*--------------------------------------------------------------------*\
+    Select target (datum or axis).
+\*--------------------------------------------------------------------*/
+    error = ProSelect((char*)&quot;datum,axis&quot;, 1,NULL, NULL, NULL, NULL, &amp;sel, &amp;n_sel); 
+    TEST_CALL_REPORT (&quot;ProSelect()&quot;,
+<a name="anchor-505"></a>        &quot;TestGtolRefInfo()&quot;, error, error != PRO_TK_NO_ERROR);    
+    
+    if((error!=PRO_TK_NO_ERROR)||(n_sel&lt;0))
+        return(PRO_TK_E_NOT_FOUND);    
+
+<a name="anchor-506"></a>    error = ProSelectionModelitemGet(sel[0],(ProModelitem*)&amp;geomitem);
+    TEST_CALL_REPORT (&quot;ProSelectionModelitemGet()&quot;,
+        &quot;TestGtolRefInfo()&quot;, error, error != PRO_TK_NO_ERROR);    
+
+    error = ProGeomitemSetdatumGet(&amp;geomitem, &amp;ref_datum, &amp;value);
+<a name="anchor-507"></a>    TEST_CALL_REPORT (&quot;ProGeomitemIsGtolref()&quot;,
+        &quot;TestGtolRefInfo()&quot;, error, error != PRO_TK_NO_ERROR);
+
+    if(error != PRO_TK_NO_ERROR)
+      return(error);
+<a name="anchor-508"></a>
+    ProTKSprintf(cline, (char*)&quot;Gtol reference: %s; %s&quot;, YesNoStr(ref_datum),        			(value.type == PRO_GTOLREF_IN_GEOM)?(&quot;Set Datum&quot;):(&quot;Free&quot;));        
+    ProUtilMsgPrint((char*)&quot;gen&quot;, (char*)&quot;TEST %0s&quot;, cline);   
+    
+    if(value.type == PRO_GTOLREF_IN_GEOM) 
+<a name="anchor-509"></a>    { 
+      error = ProSelectionFree((ProSelection*)&amp;value);
+      TEST_CALL_REPORT (&quot;ProSelectionFree()&quot;, 
+          &quot;TestGtolRefInfo()&quot;, error, error!= PRO_TK_NO_ERROR);
+    }
+<a name="anchor-510"></a>          
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-511"></a>  Function : TestGtolInfo()
+  Purpose  : Create menu for choice mode of get information about gtol. 
+\*====================================================================*/
+ProError TestGtolInfo(ProMdl mdl)
+{
+<a name="anchor-512"></a>    int menu_id;
+
+/*=================================================================*\
+    Setup menu actions
+\*=================================================================*/
+<a name="anchor-513"></a>    ProMenuFileRegister((char*)&quot;TkGtolInfo&quot;,(char*)&quot;tkgtolinfo.mnu&quot;,&amp;menu_id);
+    ProMenubuttonActionSet((char*)&quot;TkGtolInfo&quot;,(char*)&quot;-Selected&quot;,
+        (ProMenubuttonAction)TestGtolInfoSel, mdl,  0);
+
+    ProMenubuttonActionSet((char*)&quot;TkGtolInfo&quot;,(char*)&quot;-All&quot;,
+<a name="anchor-514"></a>        (ProMenubuttonAction)TestGtolInfoAll, mdl,  0);
+
+    ProMenubuttonActionSet((char*)&quot;TkGtolInfo&quot;,(char*)&quot;TkGtolInfo&quot;,
+        (ProMenubuttonAction)ProMenuDelete, mdl,  0);
+        
+<a name="anchor-515"></a>/*=================================================================*\
+    Create new menu
+\*=================================================================*/
+    ProMenuCreate(PROMENUTYPE_MAIN, (char*)&quot;TkGtolInfo&quot;, NULL);
+    ProMenuProcess((char*)&quot;&quot;, &amp;menu_id);
+<a name="anchor-516"></a>
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-517"></a>  Function : TestGtolRefMenu()
+  Purpose  : Create menu for change datupm plane or axis property.
+\*====================================================================*/
+ProError TestGtolRefMenu(ProMdl mdl)
+{
+<a name="anchor-518"></a>    int menu_id;
+    ProError error;
+    
+/*=================================================================*\
+    Setup menu actions
+<a name="anchor-519"></a>\*=================================================================*/
+    ProMenuFileRegister((char*)&quot;TkGtolRef&quot;,(char*)&quot;tkgtolref.mnu&quot;,&amp;menu_id);
+    ProMenubuttonActionSet((char*)&quot;TkGtolRef&quot;,(char*)&quot;-Set&quot;,
+        (ProMenubuttonAction)TestGtolRefSet, mdl,  0);
+
+<a name="anchor-520"></a>    ProMenubuttonActionSet((char*)&quot;TkGtolRef&quot;,(char*)&quot;-Clear&quot;,
+        (ProMenubuttonAction)TestGtolRefClear, mdl,  0);
+
+    ProMenubuttonActionSet((char*)&quot;TkGtolRef&quot;,(char*)&quot;-Info&quot;,
+        (ProMenubuttonAction)TestGtolRefInfo, mdl,  0);
+<a name="anchor-521"></a>
+    ProMenubuttonActionSet((char*)&quot;TkGtolRef&quot;,(char*)&quot;TkGtolRef&quot;,
+        (ProMenubuttonAction)ProMenuDelete, mdl,  0);
+        
+/*=================================================================*\
+<a name="anchor-522"></a>    Create new menu
+\*=================================================================*/
+    ProMenuCreate(PROMENUTYPE_MAIN, (char*)&quot;TkGtolRef&quot;, NULL);
+    ProMenuProcess((char*)&quot;&quot;, &amp;menu_id);
+
+<a name="anchor-523"></a>    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+  Function : TestGtolMainMenu()
+<a name="anchor-524"></a>  Purpose  : Create main menu for gtol test and demo.
+\*====================================================================*/
+ProError TestGtolMainMenu()
+{
+    int menu_id;
+<a name="anchor-525"></a>    ProMdl mdl;
+    ProError error;
+
+    error = ProMdlCurrentGet(&amp;mdl);
+    TEST_CALL_REPORT (&quot;ProMdlCurrentGet()&quot;,
+<a name="anchor-526"></a>            &quot;TestGtolMainMenu()&quot;, error, error != PRO_TK_NO_ERROR);
+
+/*=================================================================*\
+    Setup menu actions
+\*=================================================================*/
+<a name="anchor-527"></a>    ProMenuFileRegister((char*)&quot;TkGtol&quot;,(char*)&quot;tkgtol.mnu&quot;,&amp;menu_id);
+    ProMenubuttonActionSet((char*)&quot;TkGtol&quot;,(char*)&quot;-Add&quot;,
+        (ProMenubuttonAction)TestGtolCreate, mdl,  0);
+
+    ProMenubuttonActionSet((char*)&quot;TkGtol&quot;,(char*)&quot;-Modify&quot;,
+<a name="anchor-528"></a>        (ProMenubuttonAction)TestGtolModify, mdl,  0);
+
+    ProMenubuttonActionSet((char*)&quot;TkGtol&quot;,(char*)&quot;-Delete all&quot;,
+        (ProMenubuttonAction)TestGtolDeleteAll, mdl,  0);
+
+<a name="anchor-529"></a>    ProMenubuttonActionSet((char*)&quot;TkGtol&quot;,(char*)&quot;-Show all&quot;,
+        (ProMenubuttonAction)TestMdlGtolShow, mdl,  0);
+
+    ProMenubuttonActionSet((char*)&quot;TkGtol&quot;,(char*)&quot;-Info&quot;,
+        (ProMenubuttonAction)TestGtolInfo, mdl,  0);
+<a name="anchor-530"></a>        
+    ProMenubuttonActionSet((char*)&quot;TkGtol&quot;,(char*)&quot;-Reference&quot;,
+        (ProMenubuttonAction)TestGtolRefMenu, mdl,  0);
+
+    ProMenubuttonActionSet((char*)&quot;TkGtol&quot;,(char*)&quot;TkGtol&quot;,
+<a name="anchor-531"></a>	(ProMenubuttonAction)ProMenuDelete, NULL,  0);
+
+/*=================================================================*\
+    Create new menu
+\*=================================================================*/
+<a name="anchor-532"></a>    ProMenuCreate(PROMENUTYPE_MAIN, (char*)&quot;TkGtol&quot;, NULL);
+    ProMenuProcess((char*)&quot;&quot;, &amp;menu_id);
+    
+    return(PRO_TK_NO_ERROR);
+}
+<a name="anchor-533"></a>
+</pre>
+</body>
+</html>

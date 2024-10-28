@@ -1,0 +1,105 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProBodyOpts.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="probodyopts_h.html#PROBODYOPTSH">PROBODYOPTSH</A>
+<A name="PROBODYOPTSH"></A>#define PROBODYOPTSH
+
+
+
+#include &lt;<A HREF="protoolkit_h.html">ProToolkit.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*****************************************************************************\
+
+   Generic Body options branch
+
+1. Element tree:
+========================
+
+   <A HREF="proelemid_h.html#PRO_E_BODY">PRO_E_BODY</A>
+     |
+     |--<A HREF="proelemid_h.html#PRO_E_BODY_USE">PRO_E_BODY_USE</A>
+     |
+     |--<A HREF="proelemid_h.html#PRO_E_BODY_SELECT">PRO_E_BODY_SELECT</A>
+
+
+\*****************************************************************************/
+
+/*****************************************************************************\
+
+2. Elements table:
+============================================================
+
+------------------------------------------------------------------------------
+Element Id                       Element Name               Data Type
+------------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_BODY">PRO_E_BODY</A>                       Body options               Compound
+<A HREF="proelemid_h.html#PRO_E_BODY_USE">PRO_E_BODY_USE</A>                   Body use option            <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>
+<A HREF="proelemid_h.html#PRO_E_BODY_SELECT">PRO_E_BODY_SELECT</A>                Selected body reference    <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A>
+
+\*****************************************************************************/
+
+/*****************************************************************************\
+
+-------------------------------------------------------------------------------
+3. Elements explained
+-------------------------------------------------------------------------------
+| Element Id                  | Comment                                       |
+-------------------------------------------------------------------------------
+| <A HREF="proelemid_h.html#PRO_E_BODY">PRO_E_BODY</A>                  | Compound element                              |
+|.............................|...............................................|
+| <A HREF="proelemid_h.html#PRO_E_BODY_USE">PRO_E_BODY_USE</A>              | Mandatory                                     |
+|                             |                                               |
+|                             | Valid values:                                 |
+|                             |   <A HREF="probodyopts_h.html#PRO_BODY_USE_NEW">PRO_BODY_USE_NEW</A>                            |
+|                             |   Feature stores it's geometry in new body    |
+|                             |   <A HREF="probodyopts_h.html#PRO_BODY_USE_ALL">PRO_BODY_USE_ALL</A>                            |
+|                             |   Feature cuts from all existing bodies       |
+|                             |   <A HREF="probodyopts_h.html#PRO_BODY_USE_SELECTED">PRO_BODY_USE_SELECTED</A>                       |
+|                             |   Feature adds/removes it's geometry to/from  |
+|                             |   selected body/ies.                          |
+|                             |                                               |
+|.............................|...............................................|
+| <A HREF="proelemid_h.html#PRO_E_BODY_SELECT">PRO_E_BODY_SELECT</A>           | Reference to selected body(ies)               |
+|                             | Mandatory if <A HREF="proelemid_h.html#PRO_E_BODY_USE">PRO_E_BODY_USE</A> is set to         | 
+|                             | <A HREF="probodyopts_h.html#PRO_BODY_USE_SELECTED">PRO_BODY_USE_SELECTED</A>                         |
+|                             | Ignored otherwise                             |
+
+|                             |                                               |
+|.............................|...............................................|
+
+\*****************************************************************************/
+/*****************************************************************************/
+
+
+/* <A HREF="proelemid_h.html#PRO_E_BODY_USE">PRO_E_BODY_USE</A> */
+
+<A name="ProBodyUseOpts"></A>typedef enum pro_body_use_opts
+{
+<A name="PRO_BODY_USE_NEW"></A>  PRO_BODY_USE_NEW = 0,
+<A name="PRO_BODY_USE_ALL"></A>  PRO_BODY_USE_ALL = 1,
+<A name="PRO_BODY_USE_SELECTED"></A>  PRO_BODY_USE_SELECTED = 2
+} <A HREF="probodyopts_h.html#ProBodyUseOpts">ProBodyUseOpts</A>;
+
+
+/*****************************************************************************/
+/*****************************************************************************\
+
+   Note 1.  For Surface features <A HREF="proelemid_h.html#PRO_E_BODY">PRO_E_BODY</A> element should be not visible
+
+
+\*****************************************************************************/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+
+        </PRE>
+    </BODY>
+</HTML>

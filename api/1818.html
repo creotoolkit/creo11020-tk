@@ -1,0 +1,101 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProManikinCustomize</TITLE>
+    
+<SCRIPT LANGUAGE="JAVASCRIPT">
+  function findProperNode() { top.frames[0].document.apiwizard.api(11, 1850); }
+</SCRIPT>
+
+</HEAD>
+    <BODY onLoad="findProperNode()" BGCOLOR="#ffffff">
+<h4>Object <a href="ProManikin.html">ProManikin</a></h4>
+
+        <H2>Function ProManikinCustomize</H2>
+        <BR>
+        <TABLE BORDER="0">
+            <TR>
+                <TD><B><FONT SIZE="5">Description</FONT></B></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD COLSPAN="2">This function sets the specified parameters and performs regeneration if required. The logics of parameters update is following: height change resets all other dimensions; weight change resets 3 or 4 dimemnsions mentioned above; any antropometric dim from the 1st part influences all other dimensions on this section; all other parameters would be left unchanged. If required to set the parameter to the default value ProManikinEditVarPair.reset has to be set to <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> Order of the parameters in <A HREF="promanikincust_h.html#ProManikinEditVarPair">ProManikinEditVarPair</A> is not important.</TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">Synopsis</FONT></B></TD>
+            </TR>
+            <TR>
+                <TD COLSPAN="3">#include &lt;<A HREF="promanikincust_h.html">ProManikinCust.h</A>&gt;</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD><A HREF="protoolkiterrors_h.html#ProError">ProError</A></TD><TD><B>ProManikinCustomize</B></TD><TD>(</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD>const <A HREF="promanikincust_h.html#ProManikinEditVarPair">ProManikinEditVarPair</A>* <I>vars_array</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2"><A HREF="proarray_h.html#ProArray">ProArray</A> array of <A HREF="promanikincust_h.html#ProManikinEditVarPair">ProManikinEditVarPair</A></TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="prosizeconst_h.html#ProName">ProName</A> <I>failed_param_name</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(Out)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">if the process failed it would contain the problematic parameter we were unable to satisfy.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD>)</TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">Returns</FONT></B></TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">
+                    <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A></TD><TD width="30"></TD><TD valign="top">The function was successful.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A></TD><TD width="30"></TD><TD valign="top">The cust manikin must be the top window object.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A></TD><TD width="30"></TD><TD valign="top">Invalid input in this case failed_param_name will return the problematic parameter.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A></TD><TD width="30"></TD><TD valign="top">ProManikinEditVarPair.p_val does not match type of ProManikinEditVarPair.ProParamvalue - failed_param_name will be set.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_NOT_VALID">PRO_TK_NOT_VALID</A></TD><TD width="30"></TD><TD valign="top">A parameter not in bounds or the regeneration</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top">failed</TD><TD width="30"></TD><TD valign="top">failed_param_name will be set.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A></TD><TD width="30"></TD><TD valign="top">The function failed by other reason.</TD>
+                        </TR>
+                    </TABLE>
+                </TD>
+            </TR>
+        </TABLE>
+    <P>
+<p>
+<h4>Manual References:</h4>
+<p><ol><li><a href="../manual0/Assembly_drag.html#29">Assembly: Kinematic Dragging and Creating Snapshots: Manikin Edit</a></ol>
+<p>
+
+</BODY>
+</HTML>

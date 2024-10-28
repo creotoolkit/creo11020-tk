@@ -1,0 +1,296 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProSolidBody.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="prosolidbody_h.html#PRO_SOLID_BODY_H">PRO_SOLID_BODY_H</A>
+<A name="PRO_SOLID_BODY_H"></A>#define PRO_SOLID_BODY_H
+
+#include	&lt;<A HREF="protoolkit_h.html">ProToolkit.h</A>&gt;
+#include	&lt;<A HREF="proobjects_h.html">ProObjects.h</A>&gt;
+#include    &lt;<A HREF="prosolid_h.html">ProSolid.h</A>&gt; 
+
+
+ <A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A> 
+ 
+<A name="ProSolidBodyState"></A>typedef enum tk_body_state
+{ 
+<A name="PRO_BODY_STATE_NONE"></A>   PRO_BODY_STATE_NONE  = -1
+<A name="PRO_BODY_STATE_MISSING"></A>  ,PRO_BODY_STATE_MISSING = 0
+<A name="PRO_BODY_STATE_CONSUMED"></A>  ,PRO_BODY_STATE_CONSUMED
+<A name="PRO_BODY_STATE_NO_CONTR_FEAT"></A>  ,PRO_BODY_STATE_NO_CONTR_FEAT
+<A name="PRO_BODY_STATE_NO_GEOMETRY"></A>  ,PRO_BODY_STATE_NO_GEOMETRY
+<A name="PRO_BODY_STATE_ACTIVE"></A>  ,PRO_BODY_STATE_ACTIVE
+} <A HREF="prosolidbody_h.html#ProSolidBodyState">ProSolidBodyState</A>;
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3926.html">ProSolidBodyCreate</A> (<A HREF="proobjects_h.html#ProSolid">ProSolid</A>      sld, 
+                                    <A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> *body);
+/*
+    Purpose: Create new body
+
+    Input Arguments:
+        sld - The solid owner.
+
+    Output Arguments:
+        body - Newly created body.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully initialized body.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more of the input arguments are invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3927.html">ProSolidBodiesCollect</A> (<A HREF="proobjects_h.html#ProSolid">ProSolid</A>       sld, 
+                                       <A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A>** bodies);
+/*
+    Purpose: Collect all bodies in the solid.
+
+    Input Arguments:
+        sld - visit bodies of this solid
+
+    Output Arguments:
+        bodies - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A>
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - API returned bodies.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - NULL or invalid inputs .
+
+*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3928.html">ProSolidDefaultBodyGet</A> (<A HREF="proobjects_h.html#ProSolid">ProSolid</A>      sld, 
+                                        <A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> *default_body);
+/*
+    Purpose: Get default body in solid.
+
+    Input Arguments:
+        sld - solid
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Function is successful.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Function failed.
+
+*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3929.html">ProSolidDefaultBodySet</A> (<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> *default_body);
+/*
+    Purpose: Set specified body as default.
+
+    Input Arguments:
+        default_body - set this body as default body
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Function is successful.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_CHANGE">PRO_TK_NO_CHANGE</A> - Body is already default body.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Function failed.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3930.html">ProSolidBodySurfaceVisit</A> (<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A>         *body, 
+                                          <A HREF="3875.html">ProSurfaceVisitAction</A> visit_action,  
+                                          <A HREF="proobjects_h.html#ProAppData">ProAppData</A>            app_data);
+/*
+    Purpose: Visits surface in a body
+
+    Input Arguments:
+        body - body
+        visit_action - action function
+        app_data - application data.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Function is successful. <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A>- There are 
+                          no surfaces in specified body.
+
+*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3931.html">ProSolidBodyDelete</A> (<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> *body);
+/*
+    Purpose: Delete body
+
+    Input Arguments:
+        body - the body
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Function is successful. <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A>- invalid 
+                          inputs.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3932.html">ProSolidBodyStateGet</A> (<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A>      *body,
+                                      <A HREF="prosolidbody_h.html#ProSolidBodyState">ProSolidBodyState</A> *state);
+/*
+    Purpose: Get state of the body
+
+    Input Arguments:
+        body - the body
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Function is successful. <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A>- invalid 
+                          inputs.
+
+*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3933.html">ProSolidBodyIsConstruction</A> (<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> *body,
+                                            <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>   *is_constr);
+/*
+    Purpose: Checks if specified body is construction body.
+
+    Input Arguments:
+        body - body
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Function is successful.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Function failed.
+
+*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3934.html">ProSolidBodyConstructionSet</A> (<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> *constr_body);
+/*
+    Purpose: Set specified body as construction.
+
+    Input Arguments:
+        constr_body - set this body as construction body.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Function is successful.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_CHANGE">PRO_TK_NO_CHANGE</A> - Body is already construction body.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Function failed.
+
+*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3935.html">ProSolidBodyIsSheetmetal</A>(<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> *body, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>  *is_smt);
+/*
+    Purpose: Checks if specified body is active sheetmetal body.
+
+    Input Arguments:
+        body - body
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Function is successful.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Function failed.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3936.html">ProSolidBodyOutlineGet</A>(<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> *body, <A HREF="proobjects_h.html#ProOutline">ProOutline</A> body_outline);
+/*
+    Purpose: Retrieves the regeneration outline of a solid body, with respect 
+             to the base coordinate system orientation.
+
+    Input Arguments:
+        body - The body whose outline is to be determined
+
+    Output Arguments:
+        body_outline - The outline that defines the boundary box of the body, 
+                       in the orientation of the base coordinate system
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Function is successful.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The solid body is empty
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Function failed.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3937.html">ProSolidBodyFeaturesGet</A> (<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A>  *body,
+                                         <A HREF="proobjects_h.html#ProFeature">ProFeature</A> **features);
+/*
+    Purpose: Lists all features associated with the specified body
+
+    Input Arguments:
+        body - The body handle.
+
+    Output Arguments:
+        features - <A HREF="proarray_h.html#ProArray">ProArray</A> of features. Free this using <A HREF="146.html">ProArrayFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully retrieved features.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - No contributing features.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3938.html">ProSolidBodyDensityGet</A> (<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A> *body, 
+                                        double       *density);
+/*
+    Purpose: Determines the density of the body. 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function returns density of material 
+             assigned to body.
+
+    Input Arguments:
+        body - The body handle.
+
+    Output Arguments:
+        density - The body density (in the units of the model). Density of 
+                  material assigned to body.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function retrieved the density.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The part has not been assigned a density value.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3939.html">ProSolidBodyMassPropertyGet</A> ( <A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A>     *body,      
+                                              <A HREF="prosizeconst_h.html#ProName">ProName</A>           csys_name,
+                                              <A HREF="prosolid_h.html#ProMassProperty">ProMassProperty</A>  *mass_prop );
+/*
+    Purpose: Calculates the mass properties of a body in the specified 
+             coordinate system.
+
+    Input Arguments:
+        body - The handle to a part or an assembly.
+        csys_name - The name of the coordinate system. If this is NULL, the 
+                    function uses the default coordinate system.
+
+    Output Arguments:
+        mass_prop - The mass property.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully retrieved the information.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The solid handle is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The specified coordinate system was not found.
+        PRO_TK_GENREAL_ERROR - A general error occurred and the function 
+                               failed.
+
+*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="3940.html">ProSolidBodyIsComposite</A>(<A HREF="proobjects_h.html#ProSolidBody">ProSolidBody</A>* body, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* is_cmpst);
+/*
+    Purpose: Checks if specified body is active composite body.
+
+    Input Arguments:
+        body - body
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Function is successful.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Function failed.
+
+*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+        </PRE>
+    </BODY>
+</HTML>

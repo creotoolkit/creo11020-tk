@@ -1,0 +1,274 @@
+<html>
+<head>
+<title>UgNoteCreate.c</title>
+</head>
+<body bgcolor="#ffffff">
+<pre><a name="anchor-0"></a>
+/*
+	Copyright (c) 2024 PTC Inc. and/or Its Subsidiary Companies. All Rights Reserved.
+*/
+
+<a name="anchor-1"></a>
+/*-------------------------- Pro/Toolkit includes ---------------------------*/
+#include &lt;ProToolkit.h>
+#include &lt;ProMdl.h>
+#include &lt;ProSolid.h>
+<a name="anchor-2"></a>#include &lt;ProCsys.h>
+#include &lt;ProDtlnote.h>
+#include &lt;ProDtlattach.h>
+
+/*-------------------------- Application includes ---------------------------*/
+<a name="anchor-3"></a>#include &lt;TestError.h>
+
+
+
+/*---------------------------Function Prototypes-----------------------------*/
+<a name="anchor-4"></a>ProError UserPickPosition ();
+void UserFreeNoteSetup();
+
+/*****************************************************************************\
+Function : UserNoteCreate() 
+<a name="anchor-5"></a>Purpose :  Create a drawing note
+\*****************************************************************************/
+ProError UserNoteCreate()
+{
+    ProError    status;
+<a name="anchor-6"></a>    ProMdl		p_draw;
+    ProDtlnote 	note;
+    ProCharLine     	text;
+    wchar_t     	**w_text = NULL;
+    ProPoint3d		pos;
+<a name="anchor-7"></a>    ProSelection  *leaders;
+    int			n_leaders;
+    ProFileName WMSGFIL = { 'm','s','g','_','u','g','d','w','g','.','t','x','t','\0' };
+    int nTxt = 0;
+    ProView noteView=NULL;
+<a name="anchor-8"></a>    int ii = 0;
+
+    /*------------------------------------------------------------*\
+    Get the current model
+    \*------------------------------------------------------------*/
+<a name="anchor-9"></a>    status = ProMdlCurrentGet(&amp;p_draw);
+    ERROR_CHECK(&quot;UserNoteCreate&quot;, &quot;ProMdlCurrentGet&quot;, status);
+    if (status != PRO_TK_NO_ERROR) return(status);
+
+    /*----------------------------------------------------------*\
+<a name="anchor-10"></a>    Ask the user for the note position.
+    \*----------------------------------------------------------*/
+    status = UserPickPosition(WMSGFIL, &quot;Pick the position of the new note.&quot;, pos);
+    ERROR_CHECK(&quot;UserNoteCreate&quot;, &quot;UserPickPosition&quot;, status);
+    if (status != PRO_TK_NO_ERROR) return(status);
+<a name="anchor-11"></a>
+    /*----------------------------------------------------------*\
+    Ask the user to enter multiple texts. 
+    Each note line will contain two texts with alternate text styles.
+    \*----------------------------------------------------------*/
+<a name="anchor-12"></a>    while (1)
+    {
+        ProLine buffer;
+        wchar_t* ptr = 0;
+        status = ProMessageDisplay(WMSGFIL, &quot;USER %0s&quot;,
+<a name="anchor-13"></a>                &quot;Enter note text [QUIT] : &quot;);
+        ERROR_CHECK(&quot;UserNoteCreate&quot;, &quot;ProMessageDisplay&quot;, status);
+
+        status = ProMessageStringRead(PRO_LINE_SIZE, buffer);
+        ERROR_CHECK(&quot;UserNoteCreate&quot;, &quot;ProMessageStringRead&quot;, status);
+<a name="anchor-14"></a>        if (status != PRO_TK_NO_ERROR)
+            break;
+
+        if (w_text == NULL)
+            ProArrayAlloc(0, sizeof(wchar_t*), 1, (ProArray*)&amp;w_text); 
+<a name="anchor-15"></a>
+        ProArrayObjectAdd((ProArray*)&amp;w_text, PRO_VALUE_UNUSED, 1, &amp;ptr);
+
+        ProArrayAlloc(PRO_LINE_SIZE, sizeof(wchar_t), 1, (ProArray*)&amp;w_text[nTxt]);
+        ProWstringCopy(buffer, w_text[nTxt], PRO_VALUE_UNUSED);
+<a name="anchor-16"></a>        nTxt++;
+    }
+
+    if (w_text == NULL)
+        return PRO_TK_BAD_INPUTS;
+<a name="anchor-17"></a>      
+    /*----------------------------------------------------------*\
+    Ask the user to pick the leader points (edges of models in
+    drawing views).
+    \*----------------------------------------------------------*/
+<a name="anchor-18"></a>    status = ProMessageDisplay(WMSGFIL, &quot;USER %0s&quot;, &quot;Select leader points&quot;);
+    ERROR_CHECK(&quot;UserNoteCreate&quot;,&quot;ProMessageDisplay&quot;,status);
+
+    ProSelect (&quot;edge&quot;, -1, NULL, NULL, NULL, NULL, &amp;leaders, &amp;n_leaders);
+
+<a name="anchor-19"></a>    if (n_leaders > 0)
+        ProSelectionViewGet(leaders[0], &amp;noteView);
+    /*----------------------------------------------------------*\
+    Add the note to the drawing.
+    \*----------------------------------------------------------*/
+<a name="anchor-20"></a>    UserFreeNoteSetup ( p_draw, pos, w_text, n_leaders, leaders,noteView, &amp;note );
+
+    status = ProAnnotationShow(&amp;note,NULL, noteView);
+    ERROR_CHECK(&quot;UserNoteCreate&quot;,&quot;ProAnnotationShow&quot;,status);
+    if (status != PRO_TK_NO_ERROR) return(PRO_TK_GENERAL_ERROR);
+<a name="anchor-21"></a>
+    status = ProDrawingtreeRefresh(p_draw, PRO_VALUE_UNUSED);
+   
+    for (ii = 0; ii &lt; nTxt; ii++)
+    {
+<a name="anchor-22"></a>        ProArrayFree((ProArray*)&amp;w_text[ii]);
+    }
+    ProArrayFree((ProArray*)&amp;w_text);
+
+    return(PRO_TK_NO_ERROR);
+<a name="anchor-23"></a>}
+
+/*===============================================================*\
+    Function that gives the default text height for the
+    specified drawing
+<a name="anchor-24"></a>\*===============================================================*/
+ProError UserTextHeightScale (ProMdl p_draw, double * height)
+{
+    int 	cur_sheet;
+    ProName   	w_size;
+<a name="anchor-25"></a>    ProMatrix   matrix;
+    ProError    err;
+
+    /*----------------------------------------------------------*\
+    Scale text height 
+<a name="anchor-26"></a>    \*----------------------------------------------------------*/  
+
+    err = ProDrawingCurrentSheetGet(p_draw, &amp;cur_sheet);
+    err = ProDrawingSheetTrfGet(p_draw, cur_sheet, w_size, matrix);
+    ERROR_CHECK(&quot;UserTextDefaultHeight&quot;,&quot;ProDrawingSheetTrfGet&quot;, err);
+<a name="anchor-27"></a>    if (PRO_TK_NO_ERROR != err) return (PRO_TK_GENERAL_ERROR);
+
+   *height /= matrix[0][0]; /* for unit conversion */
+    return (PRO_TK_NO_ERROR);
+
+<a name="anchor-28"></a>}
+ProTextStyle UserCreateTextStyle(wchar_t* font, double height, double width, double slant, double thickness)
+{
+    ProError err;
+    ProTextStyle style;
+<a name="anchor-29"></a>    int fontid = -1;
+
+    err = ProTextStyleAlloc(&amp;style);
+    if (font != NULL)
+        err = ProTextStyleFontSet(style, font);
+<a name="anchor-30"></a>
+    err = ProTextStyleHeightSet(style, height);
+    err = ProTextStyleWidthSet(style, width);
+    err = ProTextStyleSlantAngleSet(style, slant);
+    err = ProTextStyleThicknessSet(style, thickness);
+<a name="anchor-31"></a>
+    return style;
+}
+/*===============================================================*\
+    Function that sets up the C structure for a free note with
+<a name="anchor-32"></a>    parametric leaders
+\*===============================================================*/
+void UserFreeNoteSetup(
+	ProMdl		p_draw,
+	ProVector       pos,
+<a name="anchor-33"></a>	wchar_t**         texts,
+	int           	n_leaders,
+	ProSelection   	*attach_geom,
+    ProView         noteView,
+	ProDtlnote      *p_note)
+<a name="anchor-34"></a>{
+    ProDtlnotedata notedata;
+    ProDtlnoteline dtl_line;
+    ProDtlnotetext dtl_text;
+    ProLine wtext;
+<a name="anchor-35"></a>    double height;
+    ProColor color;
+    ProDtlattach attachment, *leaders;
+    ProError err = PRO_TK_NO_ERROR;
+    int l;
+<a name="anchor-36"></a>    int n_txts = 0,ii=0,jj=0;
+    ProTextStyle style1, style2,style3;
+    ProDtlnoteline* lines=0;
+    int nLines = 0;
+   
+<a name="anchor-37"></a>    /*----------------------------------------------------------*\
+    Claim and initialize the note record.
+    \*----------------------------------------------------------*/
+    ProDtlnotedataAlloc(p_draw, &amp;notedata);
+
+<a name="anchor-38"></a>    ProArraySizeGet((ProArray)texts, &amp;n_txts);
+    if (n_txts &lt; 1)
+        return;
+
+    /*----------------------------------------------------------*\     
+<a name="anchor-39"></a>     Create two text style object for alternate texts in line.
+   \*----------------------------------------------------------*/
+    height = -1.0;
+    style1 = UserCreateTextStyle(L&quot;cgomg&quot;, height, 0.8, 0, 0.8);
+    height = 0.19;
+<a name="anchor-40"></a>    err = UserTextHeightScale(p_draw, &amp;height);
+    style2 = UserCreateTextStyle(NULL, height, 0.2, 15, 0.2);
+
+    for (ii = 0, jj = 0; ii &lt; n_txts; ii++, jj++)
+    {
+<a name="anchor-41"></a>        if (jj % 2 == 0)
+            ProDtlnotelineAlloc(&amp;dtl_line);
+
+        /*----------------------------------------------------------*\
+        Add a two text record to the text line.
+<a name="anchor-42"></a>        \*----------------------------------------------------------*/
+        ProDtlnotetextAlloc(&amp;dtl_text);
+
+        /*----------------------------------------------------------*\
+        Set up the alternate text with different text style.
+<a name="anchor-43"></a>        \*----------------------------------------------------------*/
+        if (jj % 2 == 0)           
+            err = ProDtlnotetextStyleSet(dtl_text, style1); 
+        else
+            err = ProDtlnotetextStyleSet(dtl_text, style2);
+<a name="anchor-44"></a>       
+        err = ProDtlnotetextStringSet (dtl_text, texts[ii]);
+        
+        err = ProDtlnotelineTextAdd(dtl_line, dtl_text);
+
+<a name="anchor-45"></a>        if (jj % 2 != 0 || n_txts == 1)
+            err = ProDtlnotedataLineAdd(notedata, dtl_line);         
+    }
+
+    /*----------------------------------------------------------*\
+<a name="anchor-46"></a>    Set the entire note to be the default color for text.
+    \*----------------------------------------------------------*/
+    err = ProTextStyleAlloc(&amp;style3);
+    color.method = PRO_COLOR_METHOD_TYPE;
+    color.value.type = PRO_COLOR_LETTER;
+<a name="anchor-47"></a>    err = ProTextStyleColorSetWithDef(style3, &amp;color);
+    err = ProDtlnotedataTextStyleSet(notedata, style3);
+
+    /*----------------------------------------------------------*\
+    Set the attachment to be FREE at the specified screen
+<a name="anchor-48"></a>    coordinates. Associate it with leader selection view.
+    \*----------------------------------------------------------*/   
+    err = ProDtlattachAlloc(PRO_DTLATTACHTYPE_FREE, noteView, pos, NULL, &amp;attachment);
+    err = ProDtlnotedataAttachmentSet(notedata, attachment);
+    /*----------------------------------------------------------*\
+<a name="anchor-49"></a>    Copy the selected leader points as PARAMETRIC leaders.
+    \*----------------------------------------------------------*/
+    err = ProArrayAlloc (n_leaders, sizeof (ProDtlattach), 1, (ProArray*)&amp;leaders);
+
+    for (l = 0; l &lt; n_leaders; l++)
+<a name="anchor-50"></a>    {         
+         err = ProDtlattachAlloc(PRO_DTLATTACHTYPE_PARAMETRIC, NULL, NULL, attach_geom[l], &amp;leaders[l]);         
+    }
+
+    err = ProDtlnotedataLeadersSet(notedata, leaders);
+<a name="anchor-51"></a>
+    for (l = 0; l &lt; n_leaders; l++)
+      err = ProDtlattachFree (leaders[l]);
+    err = ProArrayFree ((ProArray*)&amp;leaders);
+
+<a name="anchor-52"></a>    err = ProDtlnoteCreate(p_draw, NULL, notedata, p_note);
+    err = ProDtlnotedataFree(notedata);
+    ProTextStyleFree(&amp;style1);
+    ProTextStyleFree(&amp;style2);
+    ProTextStyleFree(&amp;style3);
+<a name="anchor-53"></a>}
+</pre>
+</body>
+</html>

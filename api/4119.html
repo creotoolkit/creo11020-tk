@@ -1,0 +1,114 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProTableCellBlankGet</TITLE>
+    
+<SCRIPT LANGUAGE="JAVASCRIPT">
+  function findProperNode() { top.frames[0].document.apiwizard.api(11, 4167); }
+</SCRIPT>
+
+</HEAD>
+    <BODY onLoad="findProperNode()" BGCOLOR="#ffffff">
+<h4>Object <a href="ProTable.html">ProTable</a></h4>
+
+        <H2>Function ProTableCellBlankGet</H2>
+        <BR>
+        <TABLE BORDER="0">
+            <TR>
+                <TD><B><FONT SIZE="5">Description</FONT></B></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD COLSPAN="2">Gets blank border information of specified cell.</TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">Synopsis</FONT></B></TD>
+            </TR>
+            <TR>
+                <TD COLSPAN="3">#include &lt;<A HREF="protable_h.html">ProTable.h</A>&gt;</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD><A HREF="protoolkiterrors_h.html#ProError">ProError</A></TD><TD><B>ProTableCellBlankGet</B></TD><TD>(</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proobjects_h.html#ProTable">ProTable</A>* <I>table</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">table</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD>int <I>row</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">specify row of cell. Indices start at 1</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD>int <I>col</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">specify row of column. Indices start at 1</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD>int* <I>blank_flags</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(Out)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">Bit mask of PROTBLCELL_BLANK_LEFT/RIGHT/TOP/Bottom</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD>)</TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">Returns</FONT></B></TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">
+                    <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A></TD><TD width="30"></TD><TD valign="top">selection not provided, selection not a table cell, or <A HREF="proobjects_h.html#ProTable">ProTable</A> for output not provided.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A></TD><TD width="30"></TD><TD valign="top">Successfully found blank information</TD>
+                        </TR>
+                    </TABLE>
+                </TD>
+            </TR>
+        </TABLE>
+    <P>
+<p>
+<h4>Manual References:</h4>
+<p><ol><li><a href="../manual0/atechsum_creo_11010.html#4">Technical Summary of Changes for Creo 11.0.1.0: Model-based Definition Tables</a><li><a href="../manual0/mbd.html#85">Model-Based Definition and Drawing Tables: Reading MBD or DrawingTables</a><li><a href="../manual0/mbd.html#94">Model-Based Definition and Drawing Tables: Reading MBD or DrawingTables</a></ol>
+<p>
+
+</BODY>
+</HTML>

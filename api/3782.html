@@ -1,0 +1,137 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProDrawingLegacySetdatumtagIsShown</TITLE>
+    
+<SCRIPT LANGUAGE="JAVASCRIPT">
+  function findProperNode() { top.frames[0].document.apiwizard.api(11, 772); }
+</SCRIPT>
+
+</HEAD>
+    <BODY onLoad="findProperNode()" BGCOLOR="#ffffff">
+<h4>Category <a href="category_24.html">Drawings and detail</a>, Object <a href="ProDrawing.html">ProDrawing</a></h4>
+
+        <H2>Function ProDrawingLegacySetdatumtagIsShown</H2>
+        <BR>
+        <TABLE BORDER="0">
+            <TR>
+                <TD><B><FONT SIZE="5">Description</FONT></B></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD COLSPAN="2">Checks if legacy set datum tag is shown <b>Note:</b> Only allowed for legacy Set Datum tag</TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">Synopsis</FONT></B></TD>
+            </TR>
+            <TR>
+                <TD COLSPAN="3">#include &lt;<A HREF="prosetdatumtag_h.html">ProSetDatumTag.h</A>&gt;</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD><A HREF="protoolkiterrors_h.html#ProError">ProError</A></TD><TD><B>ProDrawingLegacySetdatumtagIsShown</B></TD><TD>(</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="prosetdatumtag_h.html#ProSetDatumTag">ProSetDatumTag</A>* <I>tag</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">legacy set datum tag</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proobjects_h.html#ProDrawing">ProDrawing</A> <I>drawing</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">The drawing where legacy set datum tag present.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proview_h.html#ProView">ProView</A> <I>view</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">drawing view. Should NOT be NULL</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="proobjects_h.html#ProAsmcomppath">ProAsmcomppath</A>* <I>path</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(In)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">component path.</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD><A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* <I>is_shown</I></TD><TD></TD>
+            </TR>
+            <TR>
+                <TD></TD><TD colspan="2">/*
+
+(Out)</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2"><A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if it is shwon</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">*/</TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD>)</TD>
+            </TR>
+            <TR>
+                <TD><B><FONT SIZE="5">Returns</FONT></B></TD>
+            </TR>
+            <TR VALIGN="top">
+                <TD></TD><TD COLSPAN="2">
+                    <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A></TD><TD width="30"></TD><TD valign="top">The function succeeded.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A></TD><TD width="30"></TD><TD valign="top">One or more arguments was invalid.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A></TD><TD width="30"></TD><TD valign="top">Set datum tag cannot be shown in specified drawing view.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_NO_CHANGE">PRO_TK_NO_CHANGE</A></TD><TD width="30"></TD><TD valign="top">The annotation is not shown in the target drawing view.</TD>
+                        </TR>
+                        <TR>
+                            <TD valign="top"><A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A></TD><TD width="30"></TD><TD valign="top">not a legacy set datum tag.</TD>
+                        </TR>
+                    </TABLE>
+                </TD>
+            </TR>
+        </TABLE>
+    <P>
+<p>
+<h4>Manual References:</h4>
+<p><ol><li><a href="../manual0/annotation_features.html#411">Annotations: Annotation Features and Annotations: Accessing Set Datum Tags</a></ol>
+<p>
+
+</BODY>
+</HTML>

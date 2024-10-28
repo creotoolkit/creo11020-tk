@@ -1,0 +1,62 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProCmpstRemovePly.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="procmpstremoveply_h.html#PROCMPSTREMOVE_PLY_H">PROCMPSTREMOVE_PLY_H</A>
+<A name="PROCMPSTREMOVE_PLY_H"></A>#define PROCMPSTREMOVE_PLY_H
+
+/*
+   Creo Parametric TOOLKIT declarations related to removePly feature.
+*/
+
+
+
+#include &lt;<A HREF="profeature_h.html">ProFeature.h</A>&gt;
+#include &lt;<A HREF="proparamval_h.html">ProParamval.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*****************************************************************************
+ Feature element tree :
+
+ <A HREF="proelemid_h.html#PRO_E_FEATURE_TREE">PRO_E_FEATURE_TREE</A>
+	 |
+	 |--<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+	 |--<A HREF="proelemid_h.html#PRO_E_REMOVE_PLY_TYPE">PRO_E_REMOVE_PLY_TYPE</A>
+	 |--<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+	 |--<A HREF="proelemid_h.html#PRO_E_REMOVE_PLY_REF">PRO_E_REMOVE_PLY_REF</A>
+
+
+Feature elements table
+------------------------------------------------------------------------
+Element Id                  Element Name         Data Type
+------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>         Feature Type       <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>        Note-1
+<A HREF="proelemid_h.html#PRO_E_REMOVE_PLY_TYPE">PRO_E_REMOVE_PLY_TYPE</A>      Type               <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>        Note-2
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>     featname           <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>              
+<A HREF="proelemid_h.html#PRO_E_REMOVE_PLY_REF">PRO_E_REMOVE_PLY_REF</A>       ply_ref            <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proreference_h.html#ProReference">ProReference</A>
+
+ Notes
+	Note-1 : <A HREF="profeattype_h.html#PRO_FEAT_REMOVE_PLY">PRO_FEAT_REMOVE_PLY</A>
+    Note-2 : <A HREF="procmpstremoveply_h.html#ProRemovePlyType">ProRemovePlyType</A>
+
+*****************************************************************************/
+
+<A name="ProRemovePlyType"></A>typedef enum pro_remove_ply_type
+{
+<A name="PRO_REMOVE_PLY_UNDEFINE"></A>	PRO_REMOVE_PLY_UNDEFINE = -1,
+<A name="PRO_REMOVE_PLY_REMOVE"></A>	PRO_REMOVE_PLY_REMOVE   = 0,   
+<A name="PRO_REMOVE_PLY_KEEP"></A>	PRO_REMOVE_PLY_KEEP     = 1 
+} <A HREF="procmpstremoveply_h.html#ProRemovePlyType">ProRemovePlyType</A>;
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+
+        </PRE>
+    </BODY>
+</HTML>

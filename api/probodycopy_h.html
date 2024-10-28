@@ -1,0 +1,59 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProBodyCopy.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="probodycopy_h.html#PROBODYCOPYH">PROBODYCOPYH</A>
+<A name="PROBODYCOPYH"></A>#define PROBODYCOPYH
+
+
+
+#include &lt;<A HREF="protoolkit_h.html">ProToolkit.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*==============================================================================
+
+(1) Feature element tree
+
+   <A HREF="proelemid_h.html#PRO_E_FEATURE_TREE">PRO_E_FEATURE_TREE</A>
+      |
+      |-- <A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+      |
+      |-- <A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+      |
+      |-- <A HREF="proelemid_h.html#PRO_E_BODY_COPY_REFS">PRO_E_BODY_COPY_REFS</A>
+===============================================================================
+
+(2) Feature elements table
+
+-------------------------------------------------------------------------------
+Element Id                     Element Name     Data Type                 Valid Values
+-------------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>             Feature Type     <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>        Note-1
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>         Feature Name     <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>    Note-2
+<A HREF="proelemid_h.html#PRO_E_BODY_COPY_REFS">PRO_E_BODY_COPY_REFS</A>           Bodies to copy   <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A>  Note-3
+
+===============================================================================
+
+(3) Notes
+
+   Note-1 : <A HREF="profeattype_h.html#PRO_FEAT_BODY_COPY">PRO_FEAT_BODY_COPY</A>
+
+   Note-2 : Body copy feature name.
+
+   Note-3 : Mandatory: one or more selected bodies to copy. Only bodies from
+            the same model are allowed.
+            In case of multiple bodies, please use <A HREF="1233.html">ProElementReferencesSet</A>().
+
+==============================================================================*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+        </PRE>
+    </BODY>
+</HTML>

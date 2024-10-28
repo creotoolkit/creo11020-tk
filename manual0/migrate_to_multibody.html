@@ -1,0 +1,1338 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
+      <meta name="ch:resourceid" content="migrate_to_multibody" scheme="atiChunkerMeta">
+      
+      
+      
+      
+      
+      
+      <link href="css/styler.css" rel="stylesheet" type="text/css">
+      <title>Migrating to the Multibody Environment</title>
+   
+<SCRIPT LANGUAGE="JAVASCRIPT">
+  function findProperNode() { top.frames[0].document.apiwizard.manual("MANMIGRATE_TO_MULTIBODY0", location.hash); }
+</SCRIPT>
+
+</head>
+   <body onLoad="findProperNode()">
+      
+         
+         <a name="0"> </a><div class=" x-title-65-0 x-title-65-1" combinedFontName="off" id="styler-id1.1.1.97.1" class="ChapterTitle">Migrating to the Multibody Environment</div>
+         <div class=" x-shortdesc-1-0"></div><span class=" x-prolog-1-0">
+            <div class=" x-metadata-1-0"><span class=" x-keywords-2-0"><span class=" x-keyword-1-0">
+                     </span><a xmlns="" class="indexterm" name="1"></a><span class=" x-indexterm-1-0"></span></span></div></span><div class=" x-body-2-0">
+            <div class=" x-p-7-0">This <span class=" x-ph-2-0"><span xmlns="" profilecode="100000000">section</span></span> describes how to migrate to the <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_17"><span xmlns="" profilecode="1">Creo Parametric</span></span> multibody environment.
+            </div>
+         </div>
+         <div class=" x-topic-4-0 x-topic-4-1 x-topic-4-2" combinedFontName="off" id="styler-id1.1.1.97.5">
+            
+            <a name="2"> </a><div class=" x-title-33-0 x-title-33-2" combinedFontName="off" id="styler-id1.1.1.97.5.1" class="Heading1">Overview</div>
+            <div class=" x-body-3-0">
+               <div class=" x-p-7-0">PTC introduces multibody part design to improve design productivity, flexibility, and usability.</div>
+               <div class=" x-p-7-0">The existing <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_24">Creo TOOLKIT</span> application continues to work seamlessly for legacy models and models having a single body. However, you must upgrade to
+                  <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_17"><span xmlns="" profilecode="1">Creo Parametric</span></span> <span class=" x-ph-2-0">7.0.0.0 </span> to use the multibody environment.
+               </div>
+               <div class=" x-p-7-0">To support the multibody environment, <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_17"><span xmlns="" profilecode="1">Creo Parametric</span></span> <span class=" x-ph-2-0">7.0.0.0 </span> is updated in the following aspects:
+               </div>
+               <div class=" x-ul-2-0">
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0">New APIs are added</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0">Some existing APIs are deprecated and are superseded by new APIs</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0">Implementation of existing APIs is updated. No visible changes in Creo Toolkit APIs</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0">New element trees are added to support new multibody features</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0">Some existing element trees are updated.</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0">Some enumerated data types and their values are updated </span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0">Existing structures are updated</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class=" x-p-7-0">To enable you to smoothly migrate your existing <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_24">Creo TOOLKIT</span> applications, the <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_24">Creo TOOLKIT</span> APIWizard provides the following APIs to support multibody:
+               </div>
+               <div class=" x-p-7-0">
+                  <div class=" x-table-1-0" id="styler-id1.1.1.97.5.2.6.1">
+                     <table xmlns="" cellpadding="6.666666666666667" class=" x-tgroup-1-0" frame="box" rules="none" style="border-collapse: collapse; border-width: 1pt; " width="100%">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <thead align="left" class=" x-thead-1-0" style="font-weight: bold" valign="top">
+                           <tr class=" x-row-2-0">
+                              <th class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; " valign="top">
+                                 <div class=" x-p-3-0">Feature Name</div>
+                              </th>
+                              <th class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; " valign="top">
+                                 <div class=" x-p-3-0">API name</div>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody class=" x-tbody-1-0" valign="top">
+                           <tr class=" x-row-2-0">
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">Body Operations</div>
+                              </td>
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">
+                                    <div class=" x-ul-1-0">
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyCreate()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyDelete()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidDefaultBodySet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyConstructionSet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr class=" x-row-2-0">
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">Querying Body</div>
+                              </td>
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">
+                                    <div class=" x-ul-1-0">
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodiesCollect()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodySurfaceVisit()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidDefaultBodyGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyStateGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyIsConstruction()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyOutlineGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyFeaturesGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProGeomitemBodyGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr class=" x-row-2-0">
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">Interference</div>
+                              </td>
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">
+                                    <div class=" x-ul-1-0">
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProVolumeInterferenceBodiesGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProVolumeInterferenceDisplayForBody()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr class=" x-row-2-0">
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">Material Properties</div>
+                              </td>
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">
+                                    <div class=" x-ul-1-0">
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyMaterialSet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyMaterialGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyMaterialGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyDensityGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyMassPropertyGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr class=" x-row-2-0">
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">Sheetmetal</div>
+                              </td>
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">
+                                    <div class=" x-ul-1-0">
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyIsSheetmetal()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr class=" x-row-2-0">
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">Cross-Section</div>
+                              </td>
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">
+                                    <div class=" x-ul-1-0">
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionExcludeCompGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemDataGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemFree()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemXhatchStyleGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemXhatchStyleSet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemsArrFree()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemsCollect()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionOffsetCreate()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionPlanarCreate()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecMdlnameAlloc()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecMdlnameFree()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecNewXhatchStyleCreateFromName()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsectionCompXhatchStyleGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsectionCompXhatchStyleSet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecMdlnameNameGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecMdlnameNameSet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecMdlnameSolidOwnerGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecMdlnameSolidOwnerGet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecMdlnameSolidOwnerSet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr class=" x-row-2-0">
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">Shrinkwrap options</div>
+                              </td>
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">
+                                    <div class=" x-ul-1-0">
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProShrinkwrapoptionsIgnoreconstrbodiesSet()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr class=" x-row-2-0">
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">UDF</div>
+                              </td>
+                              <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                 <div class=" x-p-3-0">
+                                    <div class=" x-ul-1-0">
+                                       <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                                          <col style="width: 0em">
+                                          <col style="width: 18pt">
+                                          <col>
+                                          <tbody>
+                                             <tr valign="baseline">
+                                                <td align="right"></td>
+                                                <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                                <td><span class=" x-p-4-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProUdfFileIsPreCreo7()</span></span></span></td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+            <div class=" x-topic-11-0 x-topic-11-1" id="styler-id1.1.1.97.5.3">
+               
+               <a name="3"> </a><div class=" x-title-27-0 x-title-27-2" combinedFontName="off" id="styler-id1.1.1.97.5.3.1" class="Heading2">Impact on Existing APIs</div>
+               <div class=" x-body-3-0">
+                  <div class=" x-p-7-0">You must evaluate the need for using the new APIs based on the logic of your application. The following table lists the names
+                     of the existing APIs and respective superseding APIs.
+                  </div>
+                  <div class=" x-p-7-0">
+                     <div class=" x-table-1-0" id="styler-id1.1.1.97.5.3.2.2.1">
+                        <table xmlns="" cellpadding="6.666666666666667" class=" x-tgroup-1-0" frame="box" rules="none" style="border-collapse: collapse; border-width: 1pt; " width="100%">
+                           <colgroup>
+                              <col>
+                              <col>
+                           </colgroup>
+                           <thead align="left" class=" x-thead-1-0" style="font-weight: bold" valign="top">
+                              <tr class=" x-row-2-0">
+                                 <th class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; " valign="top">
+                                    <div class=" x-p-3-0">Deprecated API</div>
+                                 </th>
+                                 <th class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; " valign="top">
+                                    <div class=" x-p-3-0">New API</div>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody class=" x-tbody-1-0" valign="top">
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidSurfaceVisit()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodiesCollect()</span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidyBodySurfaceVisit()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProPartToProIntfData()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProPartToProInterfaceData()</span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProQuiltdataTypeGet()</span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProQuiltdataTypeSet()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecGeometryCollect()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemsCollect()</span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemDataGet()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecPlanarWithoptionsCreate()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionPlanarCreate()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecExcludeCompGet()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionExcludeCompGet()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecCompXhatchStyleGet()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsectionCompXhatchStyleGet()</span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemXhatchStyleGet()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecCompNewXhatchStyleGet()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsectionCompXhatchStyleGet ()</span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemXhatchStyleGet()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecCompXhatchStyleSet()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsectionCompXhatchStyleSet() </span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemXhatchStyleSet()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecCompNewXhatchStyleSet()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsectionCompXhatchStyleSet() </span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemXhatchStyleSet()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecCompNewXhatchStyleSetByName()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecNewXhatchStyleCreateFromName() </span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">/ProXsectionCompXhatchStyleSet()</span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionItemXhatchStyleSet()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXsecOffsetCreate()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProXSectionOffsetCreate()</span></span></div>
+                                 </td>
+                              </tr>
+                              <tr class=" x-row-2-0">
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProPartDensitySet()</span></span></div>
+                                 </td>
+                                 <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                                    <div class=" x-p-3-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProMaterialCurrentSet()</span></span></div>
+                                    <div class=" x-p-7-0"><span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProMaterialPropertySet()</span></span></div>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <div class=" x-section-1-0" id="styler-id1.1.1.97.5.3.2.3">
+                     <div class=" x-title-58-0" combinedFontName="off" id="styler-id1.1.1.97.5.3.2.3.1">The following points are important to remember:</div>
+                     <div class=" x-p-7-0">
+                        <div class=" x-ul-1-0">
+                           <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                              <col style="width: 0em">
+                              <col style="width: 18pt">
+                              <col>
+                              <tbody>
+                                 <tr valign="baseline">
+                                    <td align="right"></td>
+                                    <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                    <td><span class=" x-p-4-0">Check instances of deprecated API use.</span></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                              <col style="width: 0em">
+                              <col style="width: 18pt">
+                              <col>
+                              <tbody>
+                                 <tr valign="baseline">
+                                    <td align="right"></td>
+                                    <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                    <td><span class=" x-p-4-0">Modify code to use superseding APIs</span></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                              <col style="width: 0em">
+                              <col style="width: 18pt">
+                              <col>
+                              <tbody>
+                                 <tr valign="baseline">
+                                    <td align="right"></td>
+                                    <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                    <td><span class=" x-p-4-0">Test the updated application on legacy models and on multibody models.</span></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                              <col style="width: 0em">
+                              <col style="width: 18pt">
+                              <col>
+                              <tbody>
+                                 <tr valign="baseline">
+                                    <td align="right"></td>
+                                    <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                    <td><span class=" x-p-4-0">Some of the deprecated APIs work on multibody models if the special configuration option <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">allow_gmb_tkapi</span></span> is set to <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">yes</span></span>.</span></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class=" x-topic-11-0 x-topic-11-1" id="styler-id1.1.1.97.5.4">
+               
+               <a name="4"> </a><div class=" x-title-27-0 x-title-27-2" combinedFontName="off" id="styler-id1.1.1.97.5.4.1" class="Heading2">User-Defined Features</div>
+               <div class=" x-body-3-0">
+                  <div class=" x-p-7-0">With the introduction of bodies in <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_17"><span xmlns="" profilecode="1">Creo Parametric</span></span> <span class=" x-ph-2-0">7.0.0.0</span>, the following occurs:
+                  </div>
+                  <div class=" x-ul-2-0">
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0">When creating a part, you can add body references to some features, such as to protrusion&nbsp;and cut features.</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0">When creating an assembly,&nbsp;you cannot add body references.</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0">UDFs created in an earlier release of <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_17"><span xmlns="" profilecode="1">Creo Parametric</span></span>do not have body references.</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0">UDFs created in an assembly in <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_17"><span xmlns="" profilecode="1">Creo Parametric</span></span> <span class=" x-ph-2-0">7.0.0.0</span> do not have body references.</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class=" x-p-7-0"> For more information about how UDF placement is handled in <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_17"><span xmlns="" profilecode="1">Creo Parametric</span></span> <span class=" x-ph-2-0">7.0.0.0</span>, refer to the section <a href="Features_basic.html" class=" x-xref-4-0 x-xref-4-5 x-xref-4-6 x-xref-4-9">Multibody support in UDF and Copy feature</a> in the <a href="Features_basic.html" class=" x-xref-4-0 x-xref-4-5 x-xref-4-6 x-xref-4-9">Core: Features</a> chapter.
+                  </div>
+               </div>
+            </div>
+            <div class=" x-topic-11-0 x-topic-11-1" id="styler-id1.1.1.97.5.5">
+               
+               <a name="5"> </a><div class=" x-title-27-0 x-title-27-2" combinedFontName="off" id="styler-id1.1.1.97.5.5.1" class="Heading2">Update in API Implementation to Support Multibody</div>
+               <div class=" x-body-3-0">
+                  <div class=" x-p-7-0">Implementation of some APIs is changed. To programmatically select bodies, pass the string <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">3d_body</span></span> to the API <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSelect</span></span> to select bodies.
+                  </div>
+               </div>
+            </div>
+            <div class=" x-topic-11-0 x-topic-11-1" id="styler-id1.1.1.97.5.6">
+               
+               <a name="6"> </a><div class=" x-title-27-0 x-title-27-2" combinedFontName="off" id="styler-id1.1.1.97.5.6.1" class="Heading2">Update in Existing Element Trees</div>
+               <div class=" x-body-3-0">
+                  <div class=" x-p-7-0">Some existing features are affected due to the introduction of the multibody features such as creating or adding a body. The
+                     following header files are updated:
+                  </div>
+                  <div class=" x-ul-2-0">
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProShell.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProRib.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSmtDrvSurf.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProExtrude.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProRevolve.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSweep.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProHole.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProRound.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProChamfer.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProModifyRound.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProModifyChamfer.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSmtShell.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class=" x-section-1-0" id="styler-id1.1.1.97.5.6.2.3">
+                     <div class=" x-title-58-0" combinedFontName="off" id="styler-id1.1.1.97.5.6.2.3.1">The following points are important to remember:</div>
+                     <div class=" x-p-7-0">
+                        <div class=" x-ul-1-0">
+                           <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                              <col style="width: 0em">
+                              <col style="width: 18pt">
+                              <col>
+                              <tbody>
+                                 <tr valign="baseline">
+                                    <td align="right"></td>
+                                    <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                    <td><span class=" x-p-4-0">Check if the affected features are created in the <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_24">Creo TOOLKIT</span> application.</span></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                              <col style="width: 0em">
+                              <col style="width: 18pt">
+                              <col>
+                              <tbody>
+                                 <tr valign="baseline">
+                                    <td align="right"></td>
+                                    <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                    <td><span class=" x-p-4-0">If you are working in the single body or legacy environment, then no action is required.</span></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                              <col style="width: 0em">
+                              <col style="width: 18pt">
+                              <col>
+                              <tbody>
+                                 <tr valign="baseline">
+                                    <td align="right"></td>
+                                    <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                    <td><span class=" x-p-4-0">If you are working in the multibody environment, update the application code and use the updated element trees for the specific
+                                          features.</span></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                              <col style="width: 0em">
+                              <col style="width: 18pt">
+                              <col>
+                              <tbody>
+                                 <tr valign="baseline">
+                                    <td align="right"></td>
+                                    <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                                    <td><span class=" x-p-4-0">If you are using an updated version of the <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_24">Creo TOOLKIT</span> application, perform subsequent testing for multibody models.</span></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class=" x-topic-11-0 x-topic-11-1" id="styler-id1.1.1.97.5.7">
+               
+               <a name="7"> </a><div class=" x-title-27-0 x-title-27-2" combinedFontName="off" id="styler-id1.1.1.97.5.7.1" class="Heading2">New Element Trees for Supporting Multibody Features</div>
+               <div class=" x-body-3-0">
+                  <div class=" x-p-7-0">To support multibody features, the following header files are added:</div>
+                  <div class=" x-ul-2-0">
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSplitBody.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProBooleanBodies.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProRemoveBody.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProBodyCopy.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProBodyOpts.h</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class=" x-p-7-0">You can create multibody features using these new feature element trees based on the logic of your <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_24">Creo TOOLKIT</span> application.
+                  </div>
+               </div>
+            </div>
+            <div class=" x-topic-11-0 x-topic-11-1" id="styler-id1.1.1.97.5.8">
+               
+               <a name="8"> </a><div class=" x-title-27-0 x-title-27-2" combinedFontName="off" id="styler-id1.1.1.97.5.8.1" class="Heading2">Update to Values of Enumerated Data Types</div>
+               <div class=" x-body-3-0">
+                  <div class=" x-p-7-0">With the introduction of the multibody environment, the following enumerated values are impacted:</div>
+                  <div class=" x-ul-2-0">
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_SURFCOLL_ALL_SOLID_SRFS</span></span> is deprecated</span><div class=" x-note-2-0 x-note-2-3">
+                                    <div class=" x--ufe-note-1-0 x--ufe-note-1-1" combinedFontName="off">Note</div>
+                                    <div class=" x-p-7-0">As a result, the functions <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSrfcollectionRegenerate()</span></span>, <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProElementCollectionSet() </span></span>, and <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSelbufferCollectionAdd()</span></span> return the error <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_TK_MULTIBODY_UNSUPPORTED</span></span> for multibody based models.
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0">The new enum values <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_SURFCOLL_BODY_SRFS</span></span> and <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_SURFCOLL_ALL_BODY_SRFS</span></span> are added.</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0">New enum value<span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_LAYER_BODY</span></span> is added.</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class=" x-p-7-0">If the enum value <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_SURFCOLL_ALL_SOLID_SRFS</span></span> exists in your <span class=" x-ph-2-0" id="migrate_to_multibody_pubsTopic-1-4578B678_PTCCreoParamet_100_24">Creo TOOLKIT</span> application code, then you need to update the code and test the legacy and multibody models.
+                  </div>
+               </div>
+            </div>
+            <div class=" x-topic-11-0 x-topic-11-1" id="styler-id1.1.1.97.5.9">
+               
+               <a name="9"> </a><div class=" x-title-27-0 x-title-27-2" combinedFontName="off" id="styler-id1.1.1.97.5.9.1" class="Heading2">Impact on Existing Structures</div>
+               <div class=" x-body-3-0">
+                  <div class=" x-p-7-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProQuiltData</span></span> is updated with a new structure member to support multibody environment. As a result, the function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProPartToIntfData()</span></span> is impacted.
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

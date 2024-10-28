@@ -1,0 +1,871 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProUICascadebutton.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="prouicascadebutton_h.html#PROUICASCADEBUTTON_H">PROUICASCADEBUTTON_H</A>
+<A name="PROUICASCADEBUTTON_H"></A>#define PROUICASCADEBUTTON_H
+
+#include &lt;<A HREF="proui_h.html">ProUI.h</A>&gt;
+
+
+
+/*===========================================================================*/
+ 
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4155.html">ProUICascadebuttonTextSet</A>(
+    char       *dialog,
+    char       *cascadebutton,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>    *label);
+/*
+    Purpose: Set the text to appear on the cascadebutton
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton
+        cascadebutton - The name of the cascadebutton
+        label - The text to appear on the button
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4156.html">ProUICascadebuttonHelptextSet</A> (
+    char       *dialog,
+    char       *cascadebutton,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>    *helptext);
+/*
+    Purpose: Set the helptext of a cascade button component
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascade button
+        cascadebutton - The name of the cascade button component
+        helptext - The help text
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4157.html">ProUICascadebuttonIsVisible</A> (
+    char       *dialog,
+    char       *cascadebutton,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *state);
+/*
+    Purpose: Checks to see if the Cascadebutton is visible
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascade button
+        cascadebutton - The name of the cascade button component
+
+    Output Arguments:
+        state - Whether or not the cascadebutton is visible.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4158.html">ProUICascadebuttonShow</A> (
+    char       *dialog,
+    char       *cascadebutton);
+/*
+    Purpose: Makes the Cascadebutton visible
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascade button
+        cascadebutton - The name of the cascade button component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4159.html">ProUICascadebuttonHide</A> (
+    char       *dialog,
+    char       *cascadebutton);
+/*
+    Purpose: Makes the cascadebutton component invisible from the dialog
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascade button
+        cascadebutton - The name of the cascade button component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4160.html">ProUICascadebuttonIsEnabled</A> (
+    char       *dialog,
+    char       *cascadebutton,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *state);
+/*
+    Purpose: Checks to see if the button is enabled or not (greyed-out or 
+             active)
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascade button
+        cascadebutton - The name of the cascade button component
+
+    Output Arguments:
+        state - True - Enabled
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4161.html">ProUICascadebuttonEnable</A> (
+    char       *dialog,
+    char       *cascadebutton);
+/*
+    Purpose: Enables the cascade button
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascade button
+        cascadebutton - The name of the cascade button component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4162.html">ProUICascadebuttonDisable</A> (
+    char       *dialog,
+    char       *cascadebutton);
+/*
+    Purpose: Disables the button
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascade button
+        cascadebutton - The name of the cascade button component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4163.html">ProUICascadebuttonTextGet</A> (char* dialog, char* component, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** value);
+/*
+    Purpose: Get the label of the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        value - Label of the cascadebutton. Free this using <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4164.html">ProUICascadebuttonBitmapSet</A> (char* dialog, char* component, char* value);
+/*
+    Purpose: Set the bitmap to the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+        value - The name of the bitmap.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4165.html">ProUICascadebuttonBitmapGet</A> (char* dialog, char* component, char** value);
+/*
+    Purpose: Get the bitmap of the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        value - The name of the cascadebutton. Free this using <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4166.html">ProUICascadebuttonHelptextGet</A> (char* dialog, char* component, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** value);
+/*
+    Purpose: Get the helptext that will display when the cursor is over the 
+             cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        value - The helptext. Free this using <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4167.html">ProUICascadebuttonCascadedirectionSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUICascadeDirection">ProUICascadeDirection</A> value);
+/*
+    Purpose: Set the direction at which the cascadebutton should cascade.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+        value - Cascade direction.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4168.html">ProUICascadebuttonCascadedirectionGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUICascadeDirection">ProUICascadeDirection</A>* value);
+/*
+    Purpose: Get the direction at which the cascadebutton should cascade.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        value - Cascade direction.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4169.html">ProUICascadebuttonPopupmenuSet</A> (char* dialog, char* component, char* value);
+/*
+    Purpose: Set the popup menu to the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+        value - The name of the popup menu.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4170.html">ProUICascadebuttonPopupmenuGet</A> (char* dialog, char* component, char** value);
+/*
+    Purpose: Get the popup menu for the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        value - The name of the popup menu. Free this using <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4171.html">ProUICascadebuttonAttachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the cascadebutton at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4172.html">ProUICascadebuttonUnattachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the cascadebutton at left side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4173.html">ProUICascadebuttonIsAttachedLeft</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the cascadebutton is attached at left side of the 
+             parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        state - state of the left attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the cascadebutton 
+                is attached at left. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the cascadebutton is not 
+                attached at left.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4174.html">ProUICascadebuttonAttachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the cascadebutton at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4175.html">ProUICascadebuttonUnattachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the cascadebutton at right side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4176.html">ProUICascadebuttonIsAttachedRight</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the cascadebutton is attached at right side of the 
+             parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        state - state of the right attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the cascadebutton 
+                is attached at right. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the cascadebutton is not 
+                attached at right.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4177.html">ProUICascadebuttonAttachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the cascadebutton at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4178.html">ProUICascadebuttonUnattachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the cascadebutton at top side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4179.html">ProUICascadebuttonIsAttachedTop</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the cascadebutton is attached at top side of the 
+             parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        state - state of the top attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the cascadebutton is 
+                attached at top. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the cascadebutton is not 
+                attached at top.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4180.html">ProUICascadebuttonAttachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the cascadebutton at bottom side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4181.html">ProUICascadebuttonUnattachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the cascadebutton at bottom side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4182.html">ProUICascadebuttonIsAttachedBottom</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the cascadebutton is attached at bottom side of the 
+             parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        state - state of the bottom attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the cascadebutton 
+                is attached at bottom. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the cascadebutton is not 
+                attached at bottom.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4183.html">ProUICascadebuttonLeftoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set left offset to the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+        value - Left offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4184.html">ProUICascadebuttonLeftoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get left offset of the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        value - Left offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4185.html">ProUICascadebuttonRightoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set right offset to the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+        value - Right offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4186.html">ProUICascadebuttonRightoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get right offset of the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        value - Right offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4187.html">ProUICascadebuttonTopoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set top offset to the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+        value - Top offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4188.html">ProUICascadebuttonTopoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get top offset of the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        value - Top offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4189.html">ProUICascadebuttonBottomoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set bottom offset to the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+        value - Bottom offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4190.html">ProUICascadebuttonBottomoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get bottom offset of the cascadebutton.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        value - Bottom offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4191.html">ProUICascadebuttonParentnameSet</A> (char* dialog, char* component, char* value);
+/*
+    Purpose: Set the name of the parent to the cascadebutton component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+        value - The name of the parent.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4192.html">ProUICascadebuttonParentnameGet</A> (char* dialog, char* component, char** value);
+/*
+    Purpose: Get the name of the parent to the cascadebutton component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        value - The name of the parent. Free this output using <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4193.html">ProUICascadebuttonChildnamesSet</A> (char* dialog, char* component, int count, char** values);
+/*
+    Purpose: Do not use. To set the child menupane of a cascade, use 
+             <A HREF="4169.html">ProUICascadebuttonPopupmenuSet</A> instead.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+        count - Number of children.
+        values - Array of names of the children.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4194.html">ProUICascadebuttonChildnamesGet</A> (char* dialog, char* component, int* count, char*** values);
+/*
+    Purpose: Get the name of the children to the cascadebutton component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component.
+
+    Output Arguments:
+        count - Number of children.
+        values - Array of names of the children. Free this using 
+                 <A HREF="6136.html">ProStringarrayFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4195.html">ProUICascadebuttonIsResizeable</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>   *state
+);
+/*
+    Purpose: Checks to see if the cascadebutton is resizeable or not.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton
+        component - The name of the cascadebutton component
+
+    Output Arguments:
+        state - Whether or not the cascadebutton is resizeable.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4196.html">ProUICascadebuttonEnableResizing</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Sets the cascadebutton to be resizeable.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton
+        component - The name of the cascadebutton component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4197.html">ProUICascadebuttonDisableResizing</A>(
+    char* dialog,
+    char* component);
+/*
+    Purpose: Sets the cascadebutton to be non-resizeable.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the cascadebutton.
+        component - The name of the cascadebutton component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+
+
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+ 
+#endif  /* PROUICASCADEBUTTON_H */
+
+        </PRE>
+    </BODY>
+</HTML>

@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>Object ProMechmeshcntrl</title>
+
+<SCRIPT LANGUAGE="JAVASCRIPT">
+  function findProperNode() { top.frames[0].document.apiwizard.api(2, 241); }
+</SCRIPT>
+
+</head>
+<body onLoad="findProperNode()" bgcolor="#ffffff">
+<h2>Object ProMechmeshcntrl</h2>
+<h4>Mechanica mesh control</h4>
+<hr>
+<p>
+<h4>Superobjects:</h4>
+<p>
+<a href="ProMechitem.html">ProMechitem</a>
+<p>
+<hr>
+Pro/Mechanica mesh controls define the limitations and rules to be applied when generating a mesh, such as the minimum or maximum size of the elements, the distribution of nodes along edges, hard points and hard curves, mesh ID numbering, mesh ID offsets, and the displacement coordinate system.
+<p>
+<p>
+<h4>ProMechmeshcntrl Functions:</h4>
+<p>
+<a href="2748.html">ProMechmcautogemHardcurveSet()</a>,
+<a href="2747.html">ProMechmcautogemHardpointSet()</a>,
+<a href="2721.html">ProMechmcautogemedgedistrAlloc()</a>,
+<a href="2674.html">ProMechmcautogemedgedistrFree()</a>,
+<a href="2671.html">ProMechmcautogemedgedistrNodesGet()</a>,
+<a href="2718.html">ProMechmcautogemedgedistrNodesSet()</a>,
+<a href="2672.html">ProMechmcautogemedgedistrRatioGet()</a>,
+<a href="2719.html">ProMechmcautogemedgedistrRatioSet()</a>,
+<a href="2673.html">ProMechmcautogemedgedistrStrictGet()</a>,
+<a href="2720.html">ProMechmcautogemedgedistrStrictSet()</a>,
+<a href="2746.html">ProMechmcautogemedgelencrvAlloc()</a>,
+<a href="2681.html">ProMechmcautogemedgelencrvFree()</a>,
+<a href="2679.html">ProMechmcautogemedgelencrvIgnoreRadiusGet()</a>,
+<a href="2744.html">ProMechmcautogemedgelencrvIgnoreRadiusSet()</a>,
+<a href="2680.html">ProMechmcautogemedgelencrvMinradiusGet()</a>,
+<a href="2745.html">ProMechmcautogemedgelencrvMinradiusSet()</a>,
+<a href="2678.html">ProMechmcautogemedgelencrvRatioGet()</a>,
+<a href="2743.html">ProMechmcautogemedgelencrvRatioSet()</a>,
+<a href="2741.html">ProMechmcautogemelemsizeAlloc()</a>,
+<a href="2742.html">ProMechmcautogemelemsizeFree()</a>,
+<a href="2739.html">ProMechmcautogemelemsizeSizeGet()</a>,
+<a href="2740.html">ProMechmcautogemelemsizeSizeSet()</a>,
+<a href="2736.html">ProMechmcautogemisolateexcludeAlloc()</a>,
+<a href="2725.html">ProMechmcautogemisolateexcludeExcludeGet()</a>,
+<a href="2731.html">ProMechmcautogemisolateexcludeExcludeSet()</a>,
+<a href="2730.html">ProMechmcautogemisolateexcludeFree()</a>,
+<a href="2729.html">ProMechmcautogemisolateexcludeShellIsolMaxSizeGet()</a>,
+<a href="2735.html">ProMechmcautogemisolateexcludeShellIsolMaxSizeSet()</a>,
+<a href="2728.html">ProMechmcautogemisolateexcludeShellIsolTypeGet()</a>,
+<a href="2734.html">ProMechmcautogemisolateexcludeShellIsolTypeSet()</a>,
+<a href="2727.html">ProMechmcautogemisolateexcludeSolidIsolMaxSizeGet()</a>,
+<a href="2733.html">ProMechmcautogemisolateexcludeSolidIsolMaxSizeSet()</a>,
+<a href="2726.html">ProMechmcautogemisolateexcludeSolidIsolTypeGet()</a>,
+<a href="2732.html">ProMechmcautogemisolateexcludeSolidIsolTypeSet()</a>,
+<a href="2724.html">ProMechmcautogemminedgeAlloc()</a>,
+<a href="2676.html">ProMechmcautogemminedgeEdgesGet()</a>,
+<a href="2723.html">ProMechmcautogemminedgeEdgesSet()</a>,
+<a href="2677.html">ProMechmcautogemminedgeFree()</a>,
+<a href="2675.html">ProMechmcautogemminedgeLengthGet()</a>,
+<a href="2722.html">ProMechmcautogemminedgeLengthSet()</a>,
+<a href="2710.html">ProMechmcdisplacementcsysAlloc()</a>,
+<a href="2662.html">ProMechmcdisplacementcsysCsysGet()</a>,
+<a href="2709.html">ProMechmcdisplacementcsysCsysSet()</a>,
+<a href="2663.html">ProMechmcdisplacementcsysFree()</a>,
+<a href="2702.html">ProMechmcedgedistrAlloc()</a>,
+<a href="2655.html">ProMechmcedgedistrFree()</a>,
+<a href="2652.html">ProMechmcedgedistrNodesGet()</a>,
+<a href="2699.html">ProMechmcedgedistrNodesSet()</a>,
+<a href="2653.html">ProMechmcedgedistrRatioGet()</a>,
+<a href="2700.html">ProMechmcedgedistrRatioSet()</a>,
+<a href="2654.html">ProMechmcedgedistrStrictGet()</a>,
+<a href="2701.html">ProMechmcedgedistrStrictSet()</a>,
+<a href="2698.html">ProMechmcelemsizeAlloc()</a>,
+<a href="2651.html">ProMechmcelemsizeFree()</a>,
+<a href="2650.html">ProMechmcelemsizeSizeGet()</a>,
+<a href="2697.html">ProMechmcelemsizeSizeSet()</a>,
+<a href="2704.html">ProMechmchardpntAlloc()</a>,
+<a href="2657.html">ProMechmchardpntFree()</a>,
+<a href="2656.html">ProMechmchardpntNodeGet()</a>,
+<a href="2703.html">ProMechmchardpntNodeSet()</a>,
+<a href="2714.html">ProMechmcidsoffsetAlloc()</a>,
+<a href="2667.html">ProMechmcidsoffsetFree()</a>,
+<a href="2666.html">ProMechmcidsoffsetOffsetGet()</a>,
+<a href="2713.html">ProMechmcidsoffsetOffsetSet()</a>,
+<a href="2708.html">ProMechmcnumberingAlloc()</a>,
+<a href="2658.html">ProMechmcnumberingFirstGet()</a>,
+<a href="2705.html">ProMechmcnumberingFirstSet()</a>,
+<a href="2661.html">ProMechmcnumberingFree()</a>,
+<a href="2659.html">ProMechmcnumberingIncrementGet()</a>,
+<a href="2706.html">ProMechmcnumberingIncrementSet()</a>,
+<a href="2660.html">ProMechmcnumberingLastGet()</a>,
+<a href="2707.html">ProMechmcnumberingLastSet()</a>,
+<a href="2717.html">ProMechmcshellcsysAlloc()</a>,
+<a href="2668.html">ProMechmcshellcsysCsysGet()</a>,
+<a href="2715.html">ProMechmcshellcsysCsysSet()</a>,
+<a href="2669.html">ProMechmcshellcsysDirectionGet()</a>,
+<a href="2716.html">ProMechmcshellcsysDirectionSet()</a>,
+<a href="2670.html">ProMechmcshellcsysFree()</a>,
+<a href="2712.html">ProMechmcsuppressAlloc()</a>,
+<a href="2665.html">ProMechmcsuppressFree()</a>,
+<a href="2664.html">ProMechmcsuppressTypeGet()</a>,
+<a href="2711.html">ProMechmcsuppressTypeSet()</a>,
+<a href="2647.html">ProMechmeshcntrlAutogemedgedistrdataGet()</a>,
+<a href="2692.html">ProMechmeshcntrlAutogemedgedistrdataSet()</a>,
+<a href="2649.html">ProMechmeshcntrlAutogemedgelencrvdataGet()</a>,
+<a href="2696.html">ProMechmeshcntrlAutogemedgelencrvdataSet()</a>,
+<a href="2737.html">ProMechmeshcntrlAutogemelemsizedataGet()</a>,
+<a href="2738.html">ProMechmeshcntrlAutogemelemsizedataSet()</a>,
+<a href="2694.html">ProMechmeshcntrlAutogemisolateexcludedataGet()</a>,
+<a href="2695.html">ProMechmeshcntrlAutogemisolateexcludedataSet()</a>,
+<a href="2648.html">ProMechmeshcntrlAutogemminedgedataGet()</a>,
+<a href="2693.html">ProMechmeshcntrlAutogemminedgedataSet()</a>,
+<a href="2750.html">ProMechmeshcntrlAutogemsuppressGet()</a>,
+<a href="2749.html">ProMechmeshcntrlAutogemsuppressSet()</a>,
+<a href="2643.html">ProMechmeshcntrlDisplacementcsysGet()</a>,
+<a href="2688.html">ProMechmeshcntrlDisplacementcsysSet()</a>,
+<a href="2640.html">ProMechmeshcntrlEdgedistrdataGet()</a>,
+<a href="2684.html">ProMechmeshcntrlEdgedistrdataSet()</a>,
+<a href="2639.html">ProMechmeshcntrlElemsizedataGet()</a>,
+<a href="2683.html">ProMechmeshcntrlElemsizedataSet()</a>,
+<a href="2686.html">ProMechmeshcntrlHardcurveSet()</a>,
+<a href="2641.html">ProMechmeshcntrlHardpointGet()</a>,
+<a href="2685.html">ProMechmeshcntrlHardpointSet()</a>,
+<a href="2645.html">ProMechmeshcntrlIdsoffsetGet()</a>,
+<a href="2690.html">ProMechmeshcntrlIdsoffsetSet()</a>,
+<a href="2642.html">ProMechmeshcntrlNumberingGet()</a>,
+<a href="2687.html">ProMechmeshcntrlNumberingSet()</a>,
+<a href="2637.html">ProMechmeshcntrlReferencesGet()</a>,
+<a href="2682.html">ProMechmeshcntrlReferencesSet()</a>,
+<a href="2646.html">ProMechmeshcntrlShellcsysGet()</a>,
+<a href="2691.html">ProMechmeshcntrlShellcsysSet()</a>,
+<a href="2644.html">ProMechmeshcntrlSuppressGet()</a>,
+<a href="2689.html">ProMechmeshcntrlSuppressSet()</a>,
+<a href="2638.html">ProMechmeshcntrlTypeGet()</a><p>
+<h4>Functions inherited from ProMechitem:</h4>
+<p>
+<a href="2435.html">ProMechitemCreate()</a>,
+<a href="2441.html">ProMechitemDependenciesGet()</a>,
+<a href="2429.html">ProMechitemFilterAction()</a>,
+<a href="2432.html">ProMechitemNameGet()</a>,
+<a href="2434.html">ProMechitemNameSet()</a>,
+<a href="2440.html">ProMechitemRemove()</a>,
+<a href="2433.html">ProMechitemStatusGet()</a>,
+<a href="2439.html">ProMechitemUpdateComplete()</a>,
+<a href="2436.html">ProMechitemValidate()</a>,
+<a href="2430.html">ProMechitemVisitAction()</a>
+
+</body>
+</html>

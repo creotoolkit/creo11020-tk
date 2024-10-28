@@ -1,0 +1,59 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProCmpstExtByRef.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="procmpstextbyref_h.html#PROEXT_BY_REF_H">PROEXT_BY_REF_H</A>
+<A name="PROEXT_BY_REF_H"></A>#define PROEXT_BY_REF_H
+
+/*
+   Creo Parametric TOOLKIT declarations related to extByRef feature.
+*/
+
+
+
+#include &lt;<A HREF="profeature_h.html">ProFeature.h</A>&gt;
+#include &lt;<A HREF="proparamval_h.html">ProParamval.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*****************************************************************************
+ Feature element tree :
+ ----------------------
+ |--<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+ |--<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_EXT_PLY_REF">PRO_E_CMPST_EXT_PLY_REF</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_EXT_RM_CMPND">PRO_E_CMPST_EXT_RM_CMPND</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_EXT_NEW_CMPND">PRO_E_CMPST_EXT_NEW_CMPND</A> 
+ |  |--<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>
+
+
+Feature elements table
+------------------------------------------------------------------------
+Element Id                      Element Name                  Data Type
+------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>              Feature Type                  int (<A HREF="profeattype_h.html#PRO_FEAT_CMPST_PLY_EXT_BY_REF">PRO_FEAT_CMPST_PLY_EXT_BY_REF</A>)
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>	        Featname	                    <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_EXT_PLY_REF">PRO_E_CMPST_EXT_PLY_REF</A>	        Ply	<A HREF="proreference_h.html#ProReference">ProReference</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_EXT_RM_CMPND">PRO_E_CMPST_EXT_RM_CMPND</A>	      Extension references compound	Compound
+<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>	Extension references	        <A HREF="proobjects_h.html#ProCollection">ProCollection</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_EXT_NEW_CMPND">PRO_E_CMPST_EXT_NEW_CMPND</A> 	    Up to compound	              Compound
+<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>	Up to references	            <A HREF="proobjects_h.html#ProCollection">ProCollection</A>
+
+
+
+*****************************************************************************/
+
+
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+
+        </PRE>
+    </BODY>
+</HTML>

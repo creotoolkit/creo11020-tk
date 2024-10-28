@@ -1,0 +1,126 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProSplitbody.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="prosplitbody_h.html#PRO_SPLITBODY_H">PRO_SPLITBODY_H</A>
+<A name="PRO_SPLITBODY_H"></A>#define PRO_SPLITBODY_H
+
+/*
+   Creo Parametric TOOLKIT declarations related to split body feature.
+*/
+
+
+
+#include &lt;<A HREF="profeature_h.html">ProFeature.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+
+/*****************************************************************************
+
+Feature element tree
+
+   <A HREF="proelemid_h.html#PRO_E_FEATURE_TREE">PRO_E_FEATURE_TREE</A>
+     |
+     |--<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+     |
+     |--<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+     |
+     |--<A HREF="proelemid_h.html#PRO_E_SPLIT_BY_OPTION">PRO_E_SPLIT_BY_OPTION</A>
+     |   
+	 |--<A HREF="proelemid_h.html#PRO_E_SPLIT_BODY_TYPE">PRO_E_SPLIT_BODY_TYPE</A>
+	 |
+     |--<A HREF="proelemid_h.html#PRO_E_SPLIT_BODY">PRO_E_SPLIT_BODY</A>
+     |    |--<A HREF="proelemid_h.html#PRO_E_SPLIT_TARGET_BODY">PRO_E_SPLIT_TARGET_BODY</A>
+     |    |--<A HREF="proelemid_h.html#PRO_E_SPLIT_BODY_REF">PRO_E_SPLIT_BODY_REF</A>
+     |    |--<A HREF="proelemid_h.html#PRO_E_SPLIT_BODY_SLICE_OPT">PRO_E_SPLIT_BODY_SLICE_OPT</A>
+     |    |--<A HREF="proelemid_h.html#PRO_E_SPLIT_TOOL_EXTEND_OPT">PRO_E_SPLIT_TOOL_EXTEND_OPT</A> 
+     |
+     |--<A HREF="proelemid_h.html#PRO_E_SPLIT_OUT">PRO_E_SPLIT_OUT</A>
+     |    |--<A HREF="proelemid_h.html#PRO_E_SPLIT_VOL_SRFS">PRO_E_SPLIT_VOL_SRFS</A>
+
+
+Feature elements table
+
+----------------------------------------------------------------------------------------------------------
+Element Id                   Element Name            Data Type                  Valid Values
+----------------------------------------------------------------------------------------------------------
+
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>           Feature type            <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>         <A HREF="profeattype_h.html#PRO_FEAT_SPLIT_BODY">PRO_FEAT_SPLIT_BODY</A>
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>       Feature Name            <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>
+<A HREF="proelemid_h.html#PRO_E_SPLIT_BY_OPTION">PRO_E_SPLIT_BY_OPTION</A>        Split by option         <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>         <A HREF="prosplitbody_h.html#ProSplitByType">ProSplitByType</A>
+<A HREF="proelemid_h.html#PRO_E_SPLIT_BODY_TYPE">PRO_E_SPLIT_BODY_TYPE</A>        Operation               <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>         <A HREF="prosplitbody_h.html#ProSplitOperation">ProSplitOperation</A>
+<A HREF="proelemid_h.html#PRO_E_SPLIT_BODY">PRO_E_SPLIT_BODY</A>             Split by object         Compound
+<A HREF="proelemid_h.html#PRO_E_SPLIT_TARGET_BODY">PRO_E_SPLIT_TARGET_BODY</A>      Target body             <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A>
+<A HREF="proelemid_h.html#PRO_E_SPLIT_BODY_REF">PRO_E_SPLIT_BODY_REF</A>         Split By                <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A>
+<A HREF="proelemid_h.html#PRO_E_SPLIT_BODY_SLICE_OPT">PRO_E_SPLIT_BODY_SLICE_OPT</A>   Slice direction         <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>         <A HREF="prosplitbody_h.html#ProSplitBodySliceOpt">ProSplitBodySliceOpt</A>
+<A HREF="proelemid_h.html#PRO_E_SPLIT_TOOL_EXTEND_OPT">PRO_E_SPLIT_TOOL_EXTEND_OPT</A>  Extend splitting object <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>         <A HREF="prosplitbody_h.html#ProSplitBodyToolExtendOpt">ProSplitBodyToolExtendOpt</A>
+<A HREF="proelemid_h.html#PRO_E_SPLIT_OUT">PRO_E_SPLIT_OUT</A>              Split by volume         Compound
+<A HREF="proelemid_h.html#PRO_E_SPLIT_VOL_SRFS">PRO_E_SPLIT_VOL_SRFS</A>         Surfaces                <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A>
+
+-----------------------------------------------------------------------------------------------------------
+Note 1 : Using the split body feature a given body can be splitted 
+         either by a splitting object or by volume. 
+--------------------------------------------------------------------------------
+Table 1: Mandatory elements for Split by object type of splitting.
+------------------------------------------------------------------------------
+|              | Element Id                      | Comment                   |
+------------------------------------------------------------------------------
+| Splitting    : <A HREF="proelemid_h.html#PRO_E_SPLIT_BY_OPTION">PRO_E_SPLIT_BY_OPTION</A>           : PRO_SPLIT_BY_SPLITTING_OBJ|
+| Object                                           of type <A HREF="prosplitbody_h.html#ProSplitByType">ProSplitByType</A>    |
+|              : <A HREF="proelemid_h.html#PRO_E_SPLIT_TARGET_BODY">PRO_E_SPLIT_TARGET_BODY</A>         : Body to be split          |
+|              : <A HREF="proelemid_h.html#PRO_E_SPLIT_BODY_REF">PRO_E_SPLIT_BODY_REF</A>            : Splitting object          |
+|              : <A HREF="proelemid_h.html#PRO_E_SPLIT_BODY_SLICE_OPT">PRO_E_SPLIT_BODY_SLICE_OPT</A>      : Side 1 / Side 2 of type   |
+|                                                  <A HREF="prosplitbody_h.html#ProSplitBodySliceOpt">ProSplitBodySliceOpt</A>      |
+|              : <A HREF="proelemid_h.html#PRO_E_SPLIT_TOOL_EXTEND_OPT">PRO_E_SPLIT_TOOL_EXTEND_OPT</A>     : Extend option of type     |
+|                                                  <A HREF="prosplitbody_h.html#ProSplitBodyToolExtendOpt">ProSplitBodyToolExtendOpt</A> |
+|............................................................................|
+
+--------------------------------------------------------------------------------
+Table 2: Mandatory elements for Split by volume type of splitting.
+------------------------------------------------------------------------------
+|              | Element Id                      | Comment                   |
+------------------------------------------------------------------------------
+| Volume      : <A HREF="proelemid_h.html#PRO_E_SPLIT_BY_OPTION">PRO_E_SPLIT_BY_OPTION</A>            : <A HREF="prosplitbody_h.html#PRO_SPLIT_BY_VOLUME">PRO_SPLIT_BY_VOLUME</A>       |
+|                                                  of type <A HREF="prosplitbody_h.html#ProSplitByType">ProSplitByType</A>    |
+|             : <A HREF="proelemid_h.html#PRO_E_SPLIT_VOL_SRFS">PRO_E_SPLIT_VOL_SRFS</A>             : Surfaces and / or surface |
+|                                                  regions                   |
+|----------------------------------------------------------------------------|
+*****************************************************************************/
+/* <A HREF="proelemid_h.html#PRO_E_SPLIT_BY_OPTION">PRO_E_SPLIT_BY_OPTION</A> */
+<A name="ProSplitByType"></A>typedef enum pro_split_by_type
+{
+<A name="PRO_SPLIT_BY_SPLITTING_OBJ"></A>   PRO_SPLIT_BY_SPLITTING_OBJ = 1,
+<A name="PRO_SPLIT_BY_VOLUME"></A>   PRO_SPLIT_BY_VOLUME        = 2
+} <A HREF="prosplitbody_h.html#ProSplitByType">ProSplitByType</A>;
+
+<A name="ProSplitOperation"></A>typedef enum pro_split_operation
+{
+<A name="PRO_SPLIT_BODY"></A>	PRO_SPLIT_BODY = 1,
+<A name="PRO_TRIM_BODY"></A>	PRO_TRIM_BODY = 2
+} <A HREF="prosplitbody_h.html#ProSplitOperation">ProSplitOperation</A>;
+
+ /* <A HREF="proelemid_h.html#PRO_E_SPLIT_BODY_SLICE_OPT">PRO_E_SPLIT_BODY_SLICE_OPT</A> */
+<A name="ProSplitBodySliceOpt"></A> typedef enum pro_split_body_slice_opt
+ {
+<A name="PRO_E_SPLIT_BODY_SLICE_FIRST_OPT"></A>   PRO_E_SPLIT_BODY_SLICE_FIRST_OPT  =  0,
+<A name="PRO_E_SPLIT_BODY_SLICE_SECOND_OPT"></A>   PRO_E_SPLIT_BODY_SLICE_SECOND_OPT =  1 
+ } <A HREF="prosplitbody_h.html#ProSplitBodySliceOpt">ProSplitBodySliceOpt</A>;
+
+ /* <A HREF="proelemid_h.html#PRO_E_SPLIT_TOOL_EXTEND_OPT">PRO_E_SPLIT_TOOL_EXTEND_OPT</A> */
+<A name="ProSplitBodyToolExtendOpt"></A> typedef enum pro_split_body_tool_extend_opt
+ {
+<A name="PRO_E_SPLIT_TOOL_EXTEND_OPT_NO"></A>   PRO_E_SPLIT_TOOL_EXTEND_OPT_NO   = 0,
+<A name="PRO_E_SPLIT_TOOL_EXTEND_OPT_YES"></A>   PRO_E_SPLIT_TOOL_EXTEND_OPT_YES  = 1
+ } <A HREF="prosplitbody_h.html#ProSplitBodyToolExtendOpt">ProSplitBodyToolExtendOpt</A>;
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+        </PRE>
+    </BODY>
+</HTML>

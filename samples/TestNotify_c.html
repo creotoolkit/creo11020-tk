@@ -1,0 +1,1759 @@
+<html>
+<head>
+<title>TestNotify.c</title>
+</head>
+<body bgcolor="#ffffff">
+<pre><a name="anchor-0"></a>
+/*
+	Copyright (c) 2024 PTC Inc. and/or Its Subsidiary Companies. All Rights Reserved.
+*/
+
+<a name="anchor-1"></a>/*--------------------------------------------------------------------*\
+Pro/TOOLKIT includes
+\*--------------------------------------------------------------------*/
+#include &quot;ProToolkit.h&quot;
+#include &quot;ProMdl.h&quot;
+<a name="anchor-2"></a>#include &quot;ProObjects.h&quot;
+#include &quot;ProFeature.h&quot;
+#include &quot;ProSizeConst.h&quot;
+#include &quot;ProNotify.h&quot;
+#include &quot;ProParamval.h&quot;
+<a name="anchor-3"></a>#include &quot;ProMenu.h&quot;
+#include &quot;ProClCmd.h&quot;
+#include &quot;ProUtil.h&quot;
+#include &quot;ProWorkspace.h&quot;
+#include &quot;PTApplsUnicodeUtils.h&quot;
+<a name="anchor-4"></a>/*--------------------------------------------------------------------*\
+    C System includes
+\*--------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------*\
+<a name="anchor-5"></a>    Application includes
+\*--------------------------------------------------------------------*/
+#include &quot;TestError.h&quot;
+#include &quot;UtilString.h&quot;
+#include &quot;UtilMenu.h&quot;
+<a name="anchor-6"></a>#include &quot;UtilNames.h&quot;
+/*--------------------------------------------------------------------*\
+    Application types
+\*--------------------------------------------------------------------*/
+typedef struct notifyinfo
+<a name="anchor-7"></a>{
+    ProNotifyType	type;			/* The type of this notify */
+    char		status;			/* The current status	   */
+    char		name[PRO_NAME_SIZE];	/* The name (also the menu button) */
+    ProFunction		func;			/* The function to be called */
+<a name="anchor-8"></a>} NotifyInfo;
+
+/*--------------------------------------------------------------------*\
+	Static variables
+NOTE:   The defenition of NotifyStatus array moved after notification 
+<a name="anchor-9"></a>	functions
+\*--------------------------------------------------------------------*/
+
+static FILE *notify_fp;
+
+<a name="anchor-10"></a>static int  user_notify_cancel = 1;/* 0 - cancel, 1 - agree*/
+
+/*--------------------------------------------------------------------*\
+    Notification functions
+\*--------------------------------------------------------------------*/
+<a name="anchor-11"></a>
+/*====================================================================*\
+FUNCTION : ProTestNotifyReport
+PURPOSE  : write the log file
+\*====================================================================*/
+<a name="anchor-12"></a>void ProTestNotifyReport(
+    char *func,
+    char *args)
+{
+    ProTKPrintf(&quot;ProTestNotifyReport() - %s() : %s\n&quot;, func, args);
+<a name="anchor-13"></a>    ProTKFprintf(notify_fp, &quot;ProTestNotifyReport() - %s() - %s\n&quot;, func, args);
+    fflush (notify_fp);
+}
+
+/*====================================================================*\
+<a name="anchor-14"></a>FUNCTION : ProUtilModelToStr
+PURPOSE  : Convert ProModel* to str
+\*====================================================================*/
+char *ProUtilModelToStr(
+    ProModel *p_mdldata,
+<a name="anchor-15"></a>    char *buff)
+{
+    ProCharName  name;
+    char type[10];
+    
+<a name="anchor-16"></a>    ProTKSprintf(buff, &quot;model=%s.%s&quot;, ProWstringToString(name, p_mdldata->name),
+	    ProWstringToString(type, p_mdldata->type));
+    return(buff);
+}
+
+<a name="anchor-17"></a>/*====================================================================*\
+FUNCTION : ProUtilModelFromToStr
+PURPOSE  : Convert ProModel* to str
+\*====================================================================*/
+char *ProUtilModelFromToStr(
+<a name="anchor-18"></a>    ProModel *p_from,
+    ProModel *p_to,
+    char *buff)
+{
+    ProUtilstrcpy(buff, &quot;from &quot;);
+<a name="anchor-19"></a>    ProUtilModelToStr(p_from, buff + strlen(buff));
+    ProUtilstrcat(buff, &quot; to &quot;);
+    ProUtilModelToStr(p_to, buff + strlen(buff));
+    return(buff);
+}
+<a name="anchor-20"></a>
+/*====================================================================*\
+FUNCTION : ProUserMdlSavePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-21"></a>ProError ProUserMdlSavePre(
+    ProPath r_model_path)
+{
+static unsigned char    cancel = 1;
+    ProError            ret = PRO_TK_NO_ERROR;
+<a name="anchor-22"></a>
+    if (user_notify_cancel == 0)
+    {
+
+        if (cancel == 1)
+<a name="anchor-23"></a>        {
+            cancel = 0;
+            ret = PRO_TK_GENERAL_ERROR;
+        }
+        else
+<a name="anchor-24"></a>            cancel = 1;
+    }
+    
+    TEST_CALL_REPORT( &quot;ProModelSavePreAction&quot;, &quot;ProUserMdlSavePre&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport((char*)&quot;ProUserMdlSavePre&quot;,
+<a name="anchor-25"></a>        (char*)((ret==PRO_TK_NO_ERROR)?&quot;Agree.&quot;:
+            &quot;Cancel.&quot;));
+    
+    return (ret);
+}
+<a name="anchor-26"></a>
+/*====================================================================*\
+FUNCTION : ProUserMdlSavePost
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-27"></a>ProError ProUserMdlSavePost(
+    ProPath model_path, ProMdlfileType model_file_type)
+{
+    ProError status = PRO_TK_NO_ERROR;
+    ProName wksp_wstr;
+<a name="anchor-28"></a>    ProCharName wksp_name;
+    char fTypeSrt[PRO_LINE_SIZE] = &quot;&quot;;
+    char buff[PRO_PATH_SIZE*2] = &quot;&quot;;
+
+    TEST_CALL_REPORT( &quot;ProModelSavePostAction&quot;, &quot;ProUserMdlSavePost&quot;, PRO_TK_NO_ERROR, 0 );
+<a name="anchor-29"></a> 
+    ProWstringToString(buff, model_path);
+    ProUtilObjtypeStr(model_file_type, fTypeSrt);
+    ProUtilstrcat(buff, &quot; Type: &quot;);
+    ProUtilstrcat(buff, fTypeSrt);
+<a name="anchor-30"></a>
+    if (model_path == NULL_WCHAR)
+    {
+        status = ProCurrentWorkspaceGet(wksp_wstr);
+        TEST_CALL_REPORT(&quot;ProCurrentWorkspaceGet()&quot;, &quot;ProUserMdlSavePost()&quot;,
+<a name="anchor-31"></a>                         status, status != PRO_TK_NO_ERROR &amp;&amp;
+                         status != PRO_TK_E_NOT_FOUND);
+        if (status == PRO_TK_NO_ERROR)
+        {
+            ProUtilstrcat(buff, &quot; in workspace &quot;);
+<a name="anchor-32"></a>            ProWstringToString(wksp_name, wksp_wstr);
+            ProUtilstrcat(buff, (const char*)wksp_name);
+        }
+    }
+    ProTestNotifyReport((char*)&quot;ProUserMdlSavePost&quot;, buff);
+<a name="anchor-33"></a>    if (model_path != NULL_WCHAR)
+    {
+        ProTKFprintf(notify_fp, &quot;! path=%s\n&quot;, 
+	    ProWstringToString(buff, model_path));
+        ProTKPrintf(&quot;! path=%s\n&quot;,  buff);
+<a name="anchor-34"></a>    }
+    return (PRO_TK_NO_ERROR);
+}
+
+
+<a name="anchor-35"></a>/*====================================================================*\
+FUNCTION : ProUserMdlSavePostAll
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlSavePostAll(
+<a name="anchor-36"></a>    ProPath model_path, ProMdlfileType model_file_type)
+{
+    ProError status = PRO_TK_NO_ERROR;
+    ProName wksp_wstr;
+    ProCharName wksp_name;
+<a name="anchor-37"></a>    char fTypeSrt[PRO_LINE_SIZE] = &quot;&quot;;
+    char buff[PRO_PATH_SIZE * 2] = &quot;&quot;;
+ 
+    TEST_CALL_REPORT( &quot;ProModelSavePostAllAction&quot;, &quot;ProUserMdlSavePostAll&quot;, 
+       PRO_TK_NO_ERROR, 0 );
+<a name="anchor-38"></a>
+    ProWstringToString(buff, model_path);
+    ProUtilObjtypeStr(model_file_type, fTypeSrt);
+    ProUtilstrcat(buff, &quot; Type: &quot;);
+    ProUtilstrcat(buff, fTypeSrt);
+<a name="anchor-39"></a>
+    if (model_path == NULL_WCHAR)
+    {
+        status = ProCurrentWorkspaceGet(wksp_wstr);
+        TEST_CALL_REPORT(&quot;ProCurrentWorkspaceGet()&quot;, &quot;ProUserMdlSavePost()&quot;,
+<a name="anchor-40"></a>                         status, status != PRO_TK_NO_ERROR &amp;&amp;
+                         status != PRO_TK_E_NOT_FOUND);
+        if (status == PRO_TK_NO_ERROR)
+        {
+            ProWstringToString(wksp_name, wksp_wstr);
+<a name="anchor-41"></a>	    ProTKSprintf(buff + strlen(buff), &quot; in workspace %s&quot;, 
+	        ProWstringToString(wksp_name, wksp_wstr));
+        }
+    }
+    ProTestNotifyReport((char*)&quot;ProUserMdlSavePostAll&quot;, buff);
+<a name="anchor-42"></a>    if (model_path != NULL_WCHAR)
+    {
+        ProTKFprintf(notify_fp, &quot;! path=%s\n&quot;, 
+	    ProWstringToString(buff, model_path));
+        ProTKPrintf(&quot;! path=%s\n&quot;,  buff);
+<a name="anchor-43"></a>    }
+    return (PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-44"></a>FUNCTION : ProUserMdlCopyPre
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlCopyPre(
+    ProMdl* r_from, ProPath r_to)
+<a name="anchor-45"></a>{
+    char buff[PRO_PATH_SIZE];
+
+    ProError            ret = (user_notify_cancel==1)?
+                            (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+<a name="anchor-46"></a>    
+    TEST_CALL_REPORT( &quot;ProModelCopyPreAction&quot;, &quot;ProUserMdlCopyPre&quot;, PRO_TK_NO_ERROR, 0 )
+
+    ProUtilstrcpy (buff, ret==PRO_TK_NO_ERROR?&quot;Agree. &quot;:&quot;Cancel. &quot;);
+
+<a name="anchor-47"></a>    ProTestNotifyReport((char*)&quot;ProUserMdlCopyPre&quot;, buff);
+    return ret;
+}
+
+/*====================================================================*\
+<a name="anchor-48"></a>FUNCTION : ProUserMdlCopyPost
+PURPOSE  : Notification user_notify_cancel
+\*====================================================================*/
+ProError ProUserMdlCopyPost(
+    ProMdl r_from, ProPath toMdlPath, ProMdlfileType toMdlType)
+<a name="anchor-49"></a>{
+    ProError status = PRO_TK_NO_ERROR;
+    char buff[PRO_PATH_SIZE * 2];
+    ProMdlName name1;
+    ProMdlExtension ext1;
+<a name="anchor-50"></a>    char cName[PRO_MDLNAME_SIZE];
+    char cPath[PRO_PATH_SIZE];
+    char cExt[PRO_MDLEXTENSION_SIZE];
+    char fTypeSrt[PRO_LINE_SIZE];
+
+<a name="anchor-51"></a>    TEST_CALL_REPORT( &quot;ProModelCopyPostAction&quot;, &quot;ProUserMdlCopyPost&quot;, PRO_TK_NO_ERROR, 0 );
+
+    status = ProMdlMdlnameGet(r_from, name1);
+    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+<a name="anchor-52"></a>
+    status = ProMdlExtensionGet(r_from, ext1);
+    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+
+<a name="anchor-53"></a>    ProWstringToString(cName, name1);
+    ProWstringToString(cExt, ext1);
+
+    ProUtilstrcpy(buff, &quot; From: &quot;);
+    ProUtilstrcat(buff, cName);
+<a name="anchor-54"></a>    ProUtilstrcat(buff, &quot;.&quot;);
+    ProUtilstrcat(buff, cExt);
+
+    ProUtilstrcat(buff, &quot; To: &quot;);
+
+<a name="anchor-55"></a>    ProWstringToString(cPath, toMdlPath);
+    ProUtilstrcat(buff, cPath);
+    ProUtilstrcat(buff, &quot; Type &quot;);
+    ProUtilObjtypeStr(toMdlType, fTypeSrt);
+    ProUtilstrcat(buff, fTypeSrt);
+<a name="anchor-56"></a>
+    ProTestNotifyReport((char*)&quot;ProUserMdlCopyPost&quot;,buff);
+    return(PRO_TK_NO_ERROR);
+}
+
+<a name="anchor-57"></a>/*====================================================================*\
+FUNCTION : ProUserMdlCopyPostAll
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlCopyPostAll(
+<a name="anchor-58"></a>    ProMdl r_from, ProPath toMdlPath, ProMdlfileType toMdlType)
+{
+    ProError status = PRO_TK_NO_ERROR;
+    char buff[PRO_PATH_SIZE * 2];
+    ProMdlName name1;
+<a name="anchor-59"></a>    ProMdlExtension ext1;
+    char cName[PRO_MDLNAME_SIZE];
+    char cPath[PRO_PATH_SIZE];
+    char cExt[PRO_MDLEXTENSION_SIZE];
+    char fTypeSrt[PRO_LINE_SIZE];
+<a name="anchor-60"></a>
+    TEST_CALL_REPORT( &quot;ProModelCopyPostAllAction&quot;, &quot;ProUserMdlCopyPostAll&quot;, 
+       PRO_TK_NO_ERROR, 0 );
+
+    status = ProMdlMdlnameGet(r_from, name1);
+<a name="anchor-61"></a>    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+
+    status = ProMdlExtensionGet(r_from, ext1);
+    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+<a name="anchor-62"></a>        status, status != PRO_TK_NO_ERROR);
+
+    ProWstringToString(cName, name1);
+    ProWstringToString(cExt, ext1);
+
+<a name="anchor-63"></a>    ProUtilstrcpy(buff, &quot; From: &quot;);
+    ProUtilstrcat(buff, cName);
+    ProUtilstrcat(buff, &quot;.&quot;);
+    ProUtilstrcat(buff, cExt);
+
+<a name="anchor-64"></a>    ProUtilstrcat(buff, &quot; To: &quot;);
+
+    ProWstringToString(cPath, toMdlPath);
+    ProUtilstrcat(buff, cPath);
+    ProUtilstrcat(buff, &quot; Type &quot;);
+<a name="anchor-65"></a>    ProUtilObjtypeStr(toMdlType, fTypeSrt);
+    ProUtilstrcat(buff, fTypeSrt);
+
+    ProTestNotifyReport((char*)&quot;ProUserMdlCopyPostAll&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+<a name="anchor-66"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserMdlRenamePre
+PURPOSE  : Notification Func
+<a name="anchor-67"></a>\*====================================================================*/
+ProError ProUserMdlRenamePre(
+    ProMdl* r_from, ProMdlFileName r_to)
+{
+    ProError status = PRO_TK_NO_ERROR;
+<a name="anchor-68"></a>    char buff[PRO_PATH_SIZE * 2];
+    ProMdlName name1;
+    ProMdlExtension ext1;
+    char cName[PRO_MDLNAME_SIZE];
+    char cPath[PRO_PATH_SIZE];
+<a name="anchor-69"></a>    char cExt[PRO_MDLEXTENSION_SIZE];
+
+    ProError            ret = (user_notify_cancel==1)?
+                            (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+
+<a name="anchor-70"></a>    TEST_CALL_REPORT( &quot;ProModelRenamePreAction&quot;, &quot;ProUserMdlRenamePre&quot;, PRO_TK_NO_ERROR, 0 );
+    ProUtilstrcpy (buff, ret==PRO_TK_NO_ERROR?&quot;Agree. &quot;:&quot;Cancel. &quot;);
+
+    ProTestNotifyReport((char*)&quot;ProUserMdlRenamePre&quot;, buff);
+    return ret;
+<a name="anchor-71"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserMdlRenamePre
+PURPOSE  : Notification Func
+<a name="anchor-72"></a>\*====================================================================*/
+ProError ProUserMdlRenamePost(
+    ProMdl model, ProMdlFileName old_name)
+{
+    ProError status = PRO_TK_NO_ERROR;
+<a name="anchor-73"></a>    char buff[PRO_PATH_SIZE * 2];
+    ProMdlName name1;
+    ProMdlExtension ext1;
+    char cName[PRO_MDLNAME_SIZE];
+    char cPath[PRO_PATH_SIZE];
+<a name="anchor-74"></a>    char cExt[PRO_MDLEXTENSION_SIZE];
+
+    TEST_CALL_REPORT( &quot;ProModelRenamePostAction&quot;, &quot;ProUserMdlRenamePost&quot;, PRO_TK_NO_ERROR, 0 );
+
+    ProUtilstrcpy(buff, &quot; From: &quot;);
+<a name="anchor-75"></a>
+    ProWstringToString(cPath, old_name);
+    ProUtilstrcat(buff, cPath);
+
+    status = ProMdlMdlnameGet(model, name1);
+<a name="anchor-76"></a>    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+
+    status = ProMdlExtensionGet(model, ext1);
+    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+<a name="anchor-77"></a>        status, status != PRO_TK_NO_ERROR);
+
+    ProWstringToString(cName, name1);
+    ProWstringToString(cExt, ext1);
+
+<a name="anchor-78"></a>    ProUtilstrcat(buff, &quot; To: &quot;);
+    ProUtilstrcat(buff, cName);
+    ProUtilstrcat(buff, &quot;.&quot;);
+    ProUtilstrcat(buff, cExt);
+
+<a name="anchor-79"></a>    ProTestNotifyReport((char*)&quot;ProUserMdlRenamePost&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-80"></a>FUNCTION : ProUserMdlErasePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlErasePre()
+{
+<a name="anchor-81"></a>    ProError            ret = PRO_TK_NO_ERROR;
+static unsigned char cancel = 1;
+    
+    if (user_notify_cancel==0)
+    {
+<a name="anchor-82"></a>ProTKPrintf (&quot;\tProUserMdlErasePre return %s\n&quot;,
+    cancel==1?&quot;PRO_TK_GENERAL_ERROR&quot;:&quot;PRO_TK_NO_ERROR&quot;);
+        if (cancel == 1)
+        {
+            cancel = 0;
+<a name="anchor-83"></a>            ret=PRO_TK_GENERAL_ERROR;
+        }
+        else
+            cancel = 1;
+    }
+<a name="anchor-84"></a>    
+    TEST_CALL_REPORT( &quot;ProMdlErasePreAction&quot;, &quot;ProUserMdlErasePre&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport((char*)&quot;ProUserMdlErasePre&quot;, 
+        (char*)(ret==PRO_TK_NO_ERROR?&quot;Agree.&quot;:&quot;Cancel.&quot;));
+    
+<a name="anchor-85"></a>    return (ret);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserMdlErasePost
+<a name="anchor-86"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlErasePost(
+    ProMdl p_erased_mdl)
+{
+<a name="anchor-87"></a>    ProError status = PRO_TK_NO_ERROR;
+    char buff[PRO_PATH_SIZE * 2];
+    ProMdlName name1;
+    ProMdlExtension ext1;
+    char cName[PRO_MDLNAME_SIZE];
+<a name="anchor-88"></a>    char cPath[PRO_PATH_SIZE];
+    char cExt[PRO_MDLEXTENSION_SIZE];
+
+    TEST_CALL_REPORT( &quot;ProModelErasePostAction&quot;, &quot;ProUserMdlErasePost&quot;, PRO_TK_NO_ERROR, 0 );
+
+<a name="anchor-89"></a>    status = ProMdlMdlnameGet(p_erased_mdl, name1);
+    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+
+    status = ProMdlExtensionGet(p_erased_mdl, ext1);
+<a name="anchor-90"></a>    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+
+    ProWstringToString(cName, name1);
+    ProWstringToString(cExt, ext1);
+<a name="anchor-91"></a>
+    ProUtilstrcpy(buff, cName);
+    ProUtilstrcat(buff, &quot;.&quot;);
+    ProUtilstrcat(buff, cExt);
+
+<a name="anchor-92"></a>    ProTestNotifyReport((char*)&quot;ProUserMdlErasePost&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-93"></a>FUNCTION : ProUserMdlErasePostAll
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlErasePostAll(
+    ProMdl p_erased_mdl)
+<a name="anchor-94"></a>{
+    ProError status = PRO_TK_NO_ERROR;
+    char buff[PRO_PATH_SIZE * 2];
+    ProMdlName name1;
+    ProMdlExtension ext1;
+<a name="anchor-95"></a>    char cName[PRO_MDLNAME_SIZE];
+    char cPath[PRO_PATH_SIZE];
+    char cExt[PRO_MDLEXTENSION_SIZE];
+
+    TEST_CALL_REPORT( &quot;ProModelErasePostAllAction&quot;, &quot;ProUserMdlErasePostAll&quot;,
+<a name="anchor-96"></a>       PRO_TK_NO_ERROR, 0 );
+
+    status = ProMdlMdlnameGet(p_erased_mdl, name1);
+    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+<a name="anchor-97"></a>
+    status = ProMdlExtensionGet(p_erased_mdl, ext1);
+    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+
+<a name="anchor-98"></a>    ProWstringToString(cName, name1);
+    ProWstringToString(cExt, ext1);
+
+    ProUtilstrcpy(buff, cName);
+    ProUtilstrcat(buff, &quot;.&quot;);
+<a name="anchor-99"></a>    ProUtilstrcat(buff, cExt);
+
+    ProTestNotifyReport((char*)&quot;ProUserMdlErasePostAll&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+}
+<a name="anchor-100"></a>
+/*====================================================================*\
+FUNCTION : ProUserMdlPurgePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-101"></a>ProError ProUserMdlPurgePre(
+    ProModel *p_mdldata)
+{
+    char        buff[124];
+    ProError    ret = (user_notify_cancel==1)?
+<a name="anchor-102"></a>                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+                            
+    TEST_CALL_REPORT( &quot;ProMdlPurgePreAction&quot;, &quot;ProUserMdlPurgePre&quot;, PRO_TK_NO_ERROR, 0 );
+    ProUtilstrcpy (buff, ret==PRO_TK_NO_ERROR?&quot;Agree. &quot;:&quot;Cancel. &quot;);
+    ProUtilModelToStr(p_mdldata, buff+strlen(buff));    
+<a name="anchor-103"></a>    ProTestNotifyReport((char*)&quot;ProUserMdlPurgePre&quot;, buff);
+    return ret;
+}
+
+/*====================================================================*\
+<a name="anchor-104"></a>FUNCTION : ProUserMdlPurgePost
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlPurgePost(
+    ProModel *p_mdldata)
+<a name="anchor-105"></a>{
+    char buff[100];
+
+    TEST_CALL_REPORT( &quot;ProMdlPurgePostAction&quot;, &quot;ProUserMdlPurgePost&quot;, PRO_TK_NO_ERROR, 0 );
+
+<a name="anchor-106"></a>    ProUtilModelToStr(p_mdldata, buff);    
+    ProTestNotifyReport((char*)&quot;ProUserMdlPurgePost&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+}
+
+<a name="anchor-107"></a>/*====================================================================*\
+FUNCTION : ProUserMdlDeletePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlDeletePre()
+<a name="anchor-108"></a>{
+    ProError    ret = (user_notify_cancel==1)?
+                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);    
+    TEST_CALL_REPORT( &quot;ProMdlDeletePreAction&quot;, &quot;ProUserMdlDeletePre&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport((char*)&quot;ProUserMdlDeletePre&quot;, 
+<a name="anchor-109"></a>        (char*)(ret==PRO_TK_NO_ERROR?&quot;Agree. &quot;:&quot;Cancel. &quot;));
+
+     return ret;
+}
+
+<a name="anchor-110"></a>/*====================================================================*\
+FUNCTION : ProUserMdlDeletePost
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlDeletePost(
+<a name="anchor-111"></a>    ProModel *p_mdldata)
+{
+    char buff[100];
+
+    TEST_CALL_REPORT( &quot;ProMdlDeletePostAction&quot;, &quot;ProUserMdlDeletePost&quot;, PRO_TK_NO_ERROR, 0 );
+<a name="anchor-112"></a>
+    ProUtilModelToStr(p_mdldata, buff);    
+    ProTestNotifyReport((char*)&quot;ProUserMdlDeletePost&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+}
+<a name="anchor-113"></a>
+/*====================================================================*\
+FUNCTION : ProUserMdlDeletePostAll
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-114"></a>ProError ProUserMdlDeletePostAll(
+    ProMdldata *p_mdldata)
+{
+    char buff[100];
+
+<a name="anchor-115"></a>    TEST_CALL_REPORT( &quot;ProMdlDeletePostAllAction&quot;, &quot;ProUserMdlDeletePostAll&quot;,
+        PRO_TK_NO_ERROR, 0 );
+    ProUtilModelToStr((ProModel*)p_mdldata, buff);    
+    ProTestNotifyReport((char*)&quot;ProUserMdlDeletePostAll&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+<a name="anchor-116"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserMdlRetrievePre
+PURPOSE  : Notification Func
+<a name="anchor-117"></a>\*====================================================================*/
+ProError ProUserMdlRetrievePre(
+    ProPath         path,
+    ProFileRetrieveOpt **p_retr_options_arr)
+{
+<a name="anchor-118"></a>    static ProFileRetrieveOpt arr[]= {PRO_RETRIEVE_OP_NORMAL};
+    TEST_CALL_REPORT( &quot;ProModelRetrievePreAction&quot;, &quot;ProUserMdlRetrievePre&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProStringToWstring(path, (char*)&quot;p1.prt.1&quot;);
+
+<a name="anchor-119"></a>    (*p_retr_options_arr) = arr;
+
+    ProTestNotifyReport ((char*)&quot;ProUserMdlRetrievePre&quot;, (char*)&quot;&quot;);
+    return (PRO_TK_NO_ERROR);
+}
+<a name="anchor-120"></a>
+
+/*====================================================================*\
+FUNCTION : ProUserMdlRetrievePost
+PURPOSE  : Notification Func
+<a name="anchor-121"></a>\*====================================================================*/
+ProError ProUserMdlRetrievePost(
+    ProMdl p_retrieved_mdl)
+{
+    ProError status = PRO_TK_NO_ERROR;
+<a name="anchor-122"></a>    char buff[PRO_PATH_SIZE * 2];
+    ProMdlName name1;
+    ProMdlExtension ext1;
+    char cName[PRO_MDLNAME_SIZE];
+    char cPath[PRO_PATH_SIZE];
+<a name="anchor-123"></a>    char cExt[PRO_MDLEXTENSION_SIZE];
+
+    TEST_CALL_REPORT( &quot;ProModelRetrievePostAction&quot;, &quot;ProUserMdlRetrievePost&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    
+<a name="anchor-124"></a>    status = ProMdlMdlnameGet(p_retrieved_mdl, name1);
+    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+
+    status = ProMdlExtensionGet(p_retrieved_mdl, ext1);
+<a name="anchor-125"></a>    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+
+    ProWstringToString(cName, name1);
+    ProWstringToString(cExt, ext1);
+<a name="anchor-126"></a>
+    ProUtilstrcpy(buff, cName);
+    ProUtilstrcat(buff, &quot;.&quot;);
+    ProUtilstrcat(buff, cExt);
+
+<a name="anchor-127"></a>    ProTestNotifyReport((char*)&quot;ProUserMdlRetrievePost&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-128"></a>FUNCTION : ProUserMdlRetrievePostAll
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlRetrievePostAll(
+    ProMdl p_retrieved_mdl)
+<a name="anchor-129"></a>{
+    ProError status = PRO_TK_NO_ERROR;
+    char buff[PRO_PATH_SIZE * 2];
+    ProMdlName name1;
+    ProMdlExtension ext1;
+<a name="anchor-130"></a>    char cName[PRO_MDLNAME_SIZE];
+    char cPath[PRO_PATH_SIZE];
+    char cExt[PRO_MDLEXTENSION_SIZE];
+
+    TEST_CALL_REPORT( &quot;ProModelRetrievePostAllAction&quot;, 
+<a name="anchor-131"></a>	&quot;ProUserMdlRetrievePostAll&quot;, PRO_TK_NO_ERROR, 0 );
+
+    status = ProMdlMdlnameGet(p_retrieved_mdl, name1);
+    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+<a name="anchor-132"></a>
+    status = ProMdlExtensionGet(p_retrieved_mdl, ext1);
+    TEST_CALL_REPORT(&quot;ProMdlMdlnameGet&quot;, &quot;ProUserMdlCopyPre&quot;,
+        status, status != PRO_TK_NO_ERROR);
+
+<a name="anchor-133"></a>    ProWstringToString(cName, name1);
+    ProWstringToString(cExt, ext1);
+
+    ProUtilstrcpy(buff, cName);
+    ProUtilstrcat(buff, &quot;.&quot;);
+<a name="anchor-134"></a>    ProUtilstrcat(buff, cExt);
+
+    ProTestNotifyReport((char*)&quot;ProUserMdlRetrievePostAll&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+}
+<a name="anchor-135"></a>
+/*====================================================================*\
+FUNCTION : ProUserMdlCreatePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-136"></a>ProError ProUserMdlCreatePre(
+    ProMdlType  mdl_type,
+    int         sub_type,
+    ProName     r_model_name,
+    ProBoolean *r_allow_override)
+<a name="anchor-137"></a>{
+    char        buff[124];
+    ProError    ret = (user_notify_cancel==1)?
+                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+    
+<a name="anchor-138"></a>    TEST_CALL_REPORT( &quot;ProMdlCreatePreAction&quot;, &quot;ProUserMdlCreatePre&quot;, PRO_TK_NO_ERROR, 0 );
+    *r_allow_override = PRO_B_TRUE;
+    ProStringToWstring(r_model_name, (char*)&quot;create_pre&quot;);
+    ProTKSprintf (buff, &quot;%s. mdl_type=%d, sub_type=%d&quot;, 
+        ret==PRO_TK_NO_ERROR?&quot;Agree&quot;:&quot;Cancel&quot;,
+<a name="anchor-139"></a>        mdl_type, sub_type);
+    ProTestNotifyReport ((char*)&quot;ProUserMdlCreatePre&quot;, buff);
+
+    return ret;
+}
+<a name="anchor-140"></a>
+/*====================================================================*\
+FUNCTION : ProUserMdlCreatePost
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-141"></a>ProError ProUserMdlCreatePost(
+    ProModel *p_mdldata)
+{
+    char buff[100];
+    
+<a name="anchor-142"></a>    TEST_CALL_REPORT( &quot;ProMdlCreatePostAction&quot;, &quot;ProUserMdlCreatePost&quot;, PRO_TK_NO_ERROR, 0 );
+    ProUtilModelToStr(p_mdldata, buff);    
+    ProTestNotifyReport ((char*)&quot;ProUserMdlCreatePost&quot;, buff);
+    return (PRO_TK_NO_ERROR);
+}
+<a name="anchor-143"></a>
+
+/*====================================================================*\
+FUNCTION : ProUserMdlDbmsFailure
+PURPOSE  : Notification Func
+<a name="anchor-144"></a>\*====================================================================*/
+ProError ProUserMdlDbmsFailure(
+    char *dbms_action_string,
+    ProPath        mdl1_path,
+    ProMdlfileType mdl1_file_type,
+<a name="anchor-145"></a>    ProPath        mdl2_path,
+    ProMdlfileType mdl2_file_type,
+    ProError status)
+{
+    char buff[PRO_PATH_SIZE*2] = &quot;&quot;;
+<a name="anchor-146"></a>    char path1[PRO_PATH_SIZE] = &quot;&quot;;
+    char fTypeSrt[PRO_LINE_SIZE] = &quot;&quot;;
+
+    TEST_CALL_REPORT( &quot;ProModelDbmsFailureAction &quot;, &quot;ProUserMdlDbmsFailure&quot;, 
+       PRO_TK_NO_ERROR, 0 );
+<a name="anchor-147"></a>
+    ProUtilstrcpy(buff, (const char*)dbms_action_string);
+
+    ProWstringToString(path1, mdl1_path);
+    ProUtilstrcat(buff, path1);
+<a name="anchor-148"></a>
+    ProUtilstrcat(buff, &quot; model=.&quot;);
+
+    ProTestNotifyReport((char*)&quot;ProUserMdlDbmsFailure&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+<a name="anchor-149"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserMdlDisplayPre
+PURPOSE  : Notification Func
+<a name="anchor-150"></a>\*====================================================================*/
+ProError ProUserMdlDisplayPre(
+    ProMdl p_model)
+{
+    TEST_CALL_REPORT( &quot;ProMdlDisplayPreAction&quot;, &quot;ProUserMdlDisplayPre&quot;, PRO_TK_NO_ERROR, 0 );
+<a name="anchor-151"></a>    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserMdlDisplayPost
+<a name="anchor-152"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlDisplayPost()
+{
+    TEST_CALL_REPORT( &quot;ProMdlDisplayPostAction&quot;, &quot;ProUserMdlDisplayPost&quot;,
+<a name="anchor-153"></a>       PRO_TK_NO_ERROR, 0 );
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-154"></a>FUNCTION : ProUserMdlBackupPre
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserMdlBackupPre(
+    ProModel *r_from,
+<a name="anchor-155"></a>    ProMdldata *r_to)
+{
+    char        buff[124];
+    char        path[PRO_PATH_SIZE];    
+    ProError    ret = (user_notify_cancel==1)?
+<a name="anchor-156"></a>                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+    
+    TEST_CALL_REPORT( &quot;ProMdlBackupPreAction&quot;, &quot;ProUserMdlBackupPre&quot;, PRO_TK_NO_ERROR, 0);
+    ProUtilstrcpy (buff, ret==PRO_TK_NO_ERROR?&quot;Agree. &quot;:&quot;Cancel. &quot;);
+    ProUtilModelToStr(r_from, buff+strlen(buff));    
+<a name="anchor-157"></a>    ProUtilstrcpy(path, &quot;  Path :%s&quot;);
+    ProWstringToString(path+strlen(path), r_to->path);
+    ProUtilstrncpy(buff+strlen(buff), (const char*)path, sizeof(buff)/sizeof(buff[0]) - 1 -
+	    strlen(buff));
+    buff[sizeof(buff)/sizeof(buff[0]) - 1] = '\0';
+<a name="anchor-158"></a>    
+    ProTestNotifyReport ((char*)&quot;ProUserMdlBackupPre&quot;, buff);
+    return ret;
+}
+
+<a name="anchor-159"></a>
+/*====================================================================*\
+FUNCTION : ProUserMdlBackupPost
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-160"></a>ProError  ProUserMdlBackupPost(
+    ProModel *model,
+    ProMdldata *r_to)
+{
+    char buff[100];
+<a name="anchor-161"></a>    char path[PRO_PATH_SIZE];    
+    
+    TEST_CALL_REPORT( &quot;ProMdlBackupPostAction&quot;, &quot;ProUserMdlBackupPost&quot;, PRO_TK_NO_ERROR, 0);
+    
+    ProUtilModelToStr(model, buff);    
+<a name="anchor-162"></a>    ProUtilstrcpy(path, &quot;  Path :%s&quot;);
+    ProWstringToString(path+strlen(path), r_to->path);
+    ProUtilstrncpy(buff+strlen(buff), (const char*)path, sizeof(buff)/sizeof(buff[0]) - 1 -
+	    strlen(buff));
+    buff[sizeof(buff)/sizeof(buff[0]) - 1] = '\0';
+<a name="anchor-163"></a>    
+    ProTestNotifyReport ((char*)&quot;ProUserMdlBackupPost&quot;, buff);
+    return (PRO_TK_NO_ERROR);
+}
+
+<a name="anchor-164"></a>
+
+/*====================================================================*\
+FUNCTION : ProUserSolidRegenPre
+PURPOSE  : Notification Func
+<a name="anchor-165"></a>\*====================================================================*/
+ProError ProUserSolidRegenPre(
+    ProSolid    solid,
+    ProFeature *p_feature)
+{
+<a name="anchor-166"></a>    ProCharName name;
+    char type[10];
+    char buff[100];
+    
+    TEST_CALL_REPORT( &quot;ProSolidRegeneratePreAction&quot;, &quot;ProUserSolidRegenPre&quot;,
+<a name="anchor-167"></a>       PRO_TK_NO_ERROR, 0 );
+
+    ProUtilModelnameGet((ProMdl*)&amp;solid, name, type);
+    ProTKSprintf(buff, &quot;model=%s.%s Feat id=%d&quot;, name, type, p_feature->id); 
+    
+<a name="anchor-168"></a>    ProTestNotifyReport((char*)&quot;ProUserSolidRegenPre&quot;,buff);
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-169"></a>FUNCTION : ProUserMdlDeletePost
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserSolidRegenPost(
+    ProSolid   solid,
+<a name="anchor-170"></a>    ProFeature *p_feature,
+    ProError status)
+{
+    ProCharName name;
+    char type[10];
+<a name="anchor-171"></a>    char buff[100];
+    
+    TEST_CALL_REPORT( &quot;ProSolidRegeneratePostAction&quot;, &quot;ProUserSolidRegenPost&quot;,
+       PRO_TK_NO_ERROR, 0 );
+
+<a name="anchor-172"></a>    ProUtilModelnameGet((ProMdl*)&amp;solid, name, type);
+    ProTKSprintf(buff, &quot;model=%s.%s Feat id=%d Status=%d&quot;, name, type, p_feature->id,
+	status); 
+    
+    ProTestNotifyReport((char*)&quot;ProUserSolidRegenPost&quot;,(char*)&quot;&quot;);
+<a name="anchor-173"></a>    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserDirectoryChangePost
+<a name="anchor-174"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserDirectoryChangePost(
+    ProPath new_path)
+{
+<a name="anchor-175"></a>    char buff[PRO_PATH_SIZE];
+
+    TEST_CALL_REPORT( &quot;ProDirectoryChangePostAction&quot;,
+	&quot;ProUserDirectoryChangePost&quot;, PRO_TK_NO_ERROR, 0 );
+    ProWstringToString(buff, new_path);
+<a name="anchor-176"></a>    ProTestNotifyReport((char*)&quot;ProUserDirectoryChangePost&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-177"></a>FUNCTION : ProUserWindowChangePost
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserWindowChangePost()
+{
+<a name="anchor-178"></a>    TEST_CALL_REPORT( &quot;ProWindowChangePostAction&quot;, &quot;ProUserWindowChangePost&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport((char*)&quot;ProUserWindowChangePost&quot;,(char*)&quot;&quot;);
+    return(PRO_TK_NO_ERROR);
+}
+<a name="anchor-179"></a>
+/*====================================================================*\
+FUNCTION : ProUserFeatCreatePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-180"></a>ProError ProUserFeatCreatePre(
+    ProFeature *p_feature)
+{
+    char buff[100];
+    
+<a name="anchor-181"></a>    TEST_CALL_REPORT( &quot;ProFeatureCreatePreAction&quot;, &quot;ProUserFeatCreatePre&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf(buff, &quot;Feat Id=%d&quot;, p_feature->id);
+    ProTestNotifyReport ((char*)&quot;ProUserFeatCreatePre&quot;, buff);
+    return (PRO_TK_NO_ERROR);
+<a name="anchor-182"></a>}
+
+
+/*====================================================================*\
+FUNCTION : ProUserFeatCreatePost
+<a name="anchor-183"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserFeatCreatePost(
+    ProFeature *new_feature)
+{
+<a name="anchor-184"></a>    char buff[100];
+
+    TEST_CALL_REPORT( &quot;ProFeatureCreatePostAction&quot;, &quot;ProUserFeatCreatePost&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf(buff, &quot;Feat Id=%d&quot;, new_feature->id);
+<a name="anchor-185"></a>    ProTestNotifyReport((char*)&quot;ProUserFeatCreatePost&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-186"></a>FUNCTION : ProUserFeatCopyPost
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserFeatCopyPost(
+    ProFeature *from_feature,
+<a name="anchor-187"></a>    ProFeature *to_feature,
+    ProFeatcopyType type)
+{
+    char buff[100];
+
+<a name="anchor-188"></a>    TEST_CALL_REPORT( &quot;ProFeatureCopyPostAction&quot;, &quot;ProUserFeatCopyPost&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf(buff, &quot;from=%d, to=%d&quot;, from_feature->id, to_feature->id);
+    ProTestNotifyReport((char*)&quot;ProUserFeatCopyPost&quot;, buff);
+    return(PRO_TK_NO_ERROR);
+<a name="anchor-189"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserFeatDeletePre
+PURPOSE  : Notification Func
+<a name="anchor-190"></a>\*====================================================================*/
+ProError ProUserFeatDeletePre(
+    ProFeature *p_feature)
+{
+    char        buff[124];
+<a name="anchor-191"></a>    ProError    ret = (user_notify_cancel==1)?
+                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+                    
+    TEST_CALL_REPORT( &quot;ProFeatureDeletePreAction&quot;, &quot;ProUserFeatDeletePre&quot;,
+       PRO_TK_NO_ERROR, 0 );
+<a name="anchor-192"></a>    ProTKSprintf(buff, &quot;%s. Feat Id=%d&quot;, 
+        ret==PRO_TK_NO_ERROR?&quot;Agree&quot;:&quot;Cancel&quot;,
+        p_feature->id);
+    ProTestNotifyReport((char*)&quot;ProUserFeatDeletePre&quot;,buff);
+    return ret;
+<a name="anchor-193"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserFeatDeletePost
+PURPOSE  : Notification Func
+<a name="anchor-194"></a>\*====================================================================*/
+ProError ProUserFeatDeletePost(
+    ProFeature *p_feature)
+{
+    char buff[100];
+<a name="anchor-195"></a>
+    TEST_CALL_REPORT( &quot;ProFeatureDeletePostAction&quot;, &quot;ProUserFeatDeletePost&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf(buff, &quot;Feat Id=%d&quot;, p_feature->id);
+    ProTestNotifyReport((char*)&quot;ProUserFeatDeletePost&quot;, buff);
+<a name="anchor-196"></a>    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserFeatSuppressPre
+<a name="anchor-197"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserFeatSuppressPre(
+    ProFeature *p_feature)
+{
+<a name="anchor-198"></a>    char        buff[124];
+    ProError    ret = (user_notify_cancel==1)?
+                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+    TEST_CALL_REPORT( &quot;ProFeatureSuppressPreAction&quot;, &quot;ProUserFeatSuppressPre&quot;,
+       PRO_TK_NO_ERROR, 0 );
+<a name="anchor-199"></a>    ProTKSprintf(buff, &quot;%s. Feat Id=%d&quot;, 
+        ret==PRO_TK_NO_ERROR?&quot;Agree&quot;:&quot;Cancel&quot;,
+        p_feature->id);
+    ProTestNotifyReport((char*)&quot;ProUserFeatSuppressPre&quot;, buff);
+    return ret;
+<a name="anchor-200"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserFeatSuppressPost
+PURPOSE  : Notification Func
+<a name="anchor-201"></a>\*====================================================================*/
+ProError ProUserFeatSuppressPost(
+    ProFeature *p_feature)
+{
+    char buff[100];
+<a name="anchor-202"></a>
+    TEST_CALL_REPORT( &quot;ProFeatureSuppressPostAction&quot;, &quot;ProUserFeatSuppressPost&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf(buff, &quot;Feat Id=%d&quot;, p_feature->id);
+    ProTestNotifyReport((char*)&quot;ProUserFeatSuppressPost&quot;, buff);
+<a name="anchor-203"></a>    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserFeatregenPre
+<a name="anchor-204"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserFeatRegenPre(
+    ProFeature *p_feature)
+{
+<a name="anchor-205"></a>    char        buff[1240];
+    ProError    ret = (user_notify_cancel==1)?
+                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+    TEST_CALL_REPORT( &quot;ProFeatureRegenPreAction&quot;, &quot;ProUserFeatRegenPre&quot;,
+       PRO_TK_NO_ERROR, 0 );
+<a name="anchor-206"></a>    ProTKSprintf(buff, &quot;%s. Feat Id=%d&quot;, 
+        ret==PRO_TK_NO_ERROR?&quot;Agree&quot;:&quot;Cancel&quot;,
+        p_feature->id);
+    ProTestNotifyReport((char*)&quot;ProUserFeatRegenPre&quot;,buff);
+    return ret;
+<a name="anchor-207"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserFeatRegenPost
+PURPOSE  : Notification Func
+<a name="anchor-208"></a>\*====================================================================*/
+ProError ProUserFeatRegenPost(
+    ProFeature *p_feature)
+{
+    char buff[100];
+<a name="anchor-209"></a>
+    TEST_CALL_REPORT( &quot;ProFeatureRegenPostAction&quot;, &quot;ProUserFeatRegenPost&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf(buff, &quot;Feat Id=%d&quot;, p_feature->id);
+    ProTestNotifyReport((char*)&quot;ProUserFeatRegenPost&quot;, buff);
+<a name="anchor-210"></a>    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserFeatRegenFailure
+<a name="anchor-211"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserFeatRegenFailure(
+    ProFeature *p_feature)
+{
+<a name="anchor-212"></a>    char buff[100];
+    
+    TEST_CALL_REPORT( &quot;ProFeatureRegenFailureAction&quot;, &quot;ProUserFeatRegenFailure&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf(buff, &quot;Feat Id=%d&quot;, p_feature->id);
+<a name="anchor-213"></a>    ProTestNotifyReport ((char*)&quot;ProUserFeatRegenFailure&quot;, buff);
+    return (PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-214"></a>FUNCTION : ProUserFeatRedefinePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserFeatRedefinePre(
+    ProFeature *p_feature)
+<a name="anchor-215"></a>{
+    char        buff[124];
+    ProError    ret = (user_notify_cancel==1)?
+                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+    TEST_CALL_REPORT( &quot;ProFeatureRedefinePreAction&quot;, &quot;ProUserFeatRedefinePre&quot;,
+<a name="anchor-216"></a>       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf(buff, &quot;%s. Feat Id=%d&quot;, 
+        ret==PRO_TK_NO_ERROR?&quot;Agree&quot;:&quot;Cancel&quot;,
+        p_feature->id);
+    ProTestNotifyReport ((char*)&quot;ProUserFeatRedefinePre&quot;, buff);
+<a name="anchor-217"></a>    return ret;
+}
+
+
+/*====================================================================*\
+<a name="anchor-218"></a>FUNCTION : ProUserParamCreatePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserParamCreatePre(
+    ProModelitem *p_mdlitem,
+<a name="anchor-219"></a>    ProName w_name,
+    ProUnititem* units,
+    ProParamvalue *p_pvalue)
+{
+    char        name[PRO_FILE_NAME_SIZE+24];
+<a name="anchor-220"></a>    ProError    ret = (user_notify_cancel==1)?
+                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+    TEST_CALL_REPORT( &quot;ProParameterCreateWithUnitsPreAction&quot;, &quot;ProUserParamCreatePre&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProUtilstrcpy (name, ret==PRO_TK_NO_ERROR?&quot;Agree. &quot;:&quot;Cancel. &quot;);
+<a name="anchor-221"></a>    ProWstringToString(name+strlen(name), w_name);
+    ProTestNotifyReport((char*)&quot;ProUserParamCreatePre&quot;, name);
+    return ret;
+}
+
+<a name="anchor-222"></a>/*====================================================================*\
+FUNCTION : ProUserParamModifyPre
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserParamModifyPre(
+<a name="anchor-223"></a>    ProParameter *p_param,
+    ProParamvalue *p_pvalue,
+    ProUnititem* new_units,
+    ProParamvalue * old_value,
+    ProUnititem * old_units)
+<a name="anchor-224"></a>{
+    ProError    ret = (user_notify_cancel==1)?
+                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+    TEST_CALL_REPORT( &quot;ProParameterModifyWithUnitsPreAction&quot;, &quot;ProUserParamModifyPre&quot;,
+       PRO_TK_NO_ERROR, 0 );
+<a name="anchor-225"></a>    ProTestNotifyReport((char*)&quot;ProUserParamModifyPre&quot;,
+        (char*)(ret==PRO_TK_NO_ERROR?&quot;Agree. &quot;:&quot;Cancel. &quot;));
+    return ret;
+
+}
+<a name="anchor-226"></a>
+/*====================================================================*\
+FUNCTION : ProUserParamDeletePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-227"></a>ProError ProUserParamDeletePre(
+    ProParameter *p_param)
+{
+    ProError    ret = (user_notify_cancel==1)?
+                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+<a name="anchor-228"></a>    TEST_CALL_REPORT( &quot;ProParameterDeletePreAction&quot;, &quot;ProUserParamDeletePre&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport((char*)&quot;ProUserParamDeletePre&quot;,
+        (char*)(ret==PRO_TK_NO_ERROR?&quot;Agree. &quot;:&quot;Cancel. &quot;));
+    return ret;
+<a name="anchor-229"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserNCSeqCLPost
+PURPOSE  : Notification Func
+<a name="anchor-230"></a>\*====================================================================*/
+ProError ProUserNCSeqCLPost(
+    ProMdldata *p_mdldata)
+{
+    char buff[100];
+<a name="anchor-231"></a>
+    TEST_CALL_REPORT( &quot;ProNcseqClPostAction&quot;, &quot;ProUserNCSeqCLPost&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProUtilModelToStr((ProModel*)p_mdldata, buff);    
+    ProTestNotifyReport((char*)&quot;ProUserNCSeqCLPost&quot;,buff);
+<a name="anchor-232"></a>    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserMdlDeletePost
+<a name="anchor-233"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserOperCLPost(
+    ProMdldata *p_mdldata)
+{
+<a name="anchor-234"></a>    char buff[100];
+
+    TEST_CALL_REPORT( &quot;ProMfgoperClPostAction&quot;, &quot;ProUserOperCLPost&quot;, PRO_TK_NO_ERROR, 0 );
+    ProUtilModelToStr((ProModel*)p_mdldata, buff);    
+    ProTestNotifyReport((char*)&quot;ProUserOperCLPost&quot;, buff);
+<a name="anchor-235"></a>    return(PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserNClCommandExpand
+<a name="anchor-236"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserNClCommandExpand(
+    ProFeature *p_feature,
+    wchar_t	(*command)[512],
+<a name="anchor-237"></a>    int		num_cmd_lines,
+    ProClCmdData **r_output_arr,
+    int		*output_num)
+{
+    char buff[100];
+<a name="anchor-238"></a>    int i;
+    
+    TEST_CALL_REPORT( &quot;ProClCommandExpandAction&quot;, &quot;ProUserNClCommandExpand&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf(buff, &quot;Feat Id=%d&quot;, p_feature->id);
+<a name="anchor-239"></a>    ProTestNotifyReport ((char*)&quot;ProUserNClCommandExpand&quot;, buff);
+    for (i = 0; i &lt; num_cmd_lines; i++)
+    {
+        ProTKPrintf (&quot;\t%s\n&quot;, command[i]);
+    }
+<a name="anchor-240"></a>    *output_num = 0;
+    return (PRO_TK_NO_ERROR);
+}
+    
+/*====================================================================*\
+<a name="anchor-241"></a>FUNCTION : ProUserMdlDeletePost
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProBoolean ProUserNClGetLocation( 
+    ProFeature     *p_feature,
+<a name="anchor-242"></a>    wchar_t        (*command)[512],
+    int            num_cmd_lines,
+    ProPoint3d     location )
+{
+    char buff[100];
+<a name="anchor-243"></a>    int i;
+    
+    TEST_CALL_REPORT( &quot;ProClCommandGetLocAction&quot;, &quot;ProUserNClGetLocation&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf(buff, &quot;Feat Id=%d&quot;, p_feature->id);
+<a name="anchor-244"></a>    ProTestNotifyReport ((char*)&quot;ProUserNClCommandExpand&quot;, buff);
+    for (i = 0; i &lt; num_cmd_lines; i++)
+    {
+        ProTKPrintf (&quot;\t%s\n&quot;, command[i]);
+    }
+<a name="anchor-245"></a>    return (PRO_B_FALSE);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserMdlDeletePost
+<a name="anchor-246"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserFileOpenOK (
+    ProMdlType mdl_type,
+    int        sub_type,
+<a name="anchor-247"></a>    ProName    model_name)
+{
+    char buff[100];
+    char name[PRO_NAME_SIZE];
+    
+<a name="anchor-248"></a>    TEST_CALL_REPORT( &quot;ProFileOpenOKAction&quot;, &quot;ProUserFileOpenOK&quot;,
+       PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf (buff, &quot;mdl_type=%d, sub_type=%d, model=%s&quot;,
+        mdl_type, sub_type, ProWstringToString (name, model_name));
+    ProTestNotifyReport ((char*)&quot;ProUserFileOpenOK&quot;, buff);
+<a name="anchor-249"></a>    return (PRO_TK_NO_ERROR);
+}
+
+
+/*====================================================================*\
+<a name="anchor-250"></a>FUNCTION : ProUserSolidUnitConvertPre
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserSolidUnitConvertPre(
+    ProSolid	solid,
+<a name="anchor-251"></a>    int         convert_numbers )
+{
+    char buff[100];
+ 
+    TEST_CALL_REPORT( &quot;ProSolidUnitConvertPreAction&quot;, 
+<a name="anchor-252"></a>	&quot;ProUserSolidUnitConvertPre&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf( buff, &quot;%s&quot;, convert_numbers ? &quot;quantities are converted&quot; :
+	&quot;quantities are reinterpreted&quot; );
+    ProTestNotifyReport( (char*)&quot;ProUserSolidUnitConvertPre&quot;, buff );
+ 
+<a name="anchor-253"></a>    return (PRO_TK_NO_ERROR);
+}
+
+
+/*====================================================================*\
+<a name="anchor-254"></a>FUNCTION : ProUserSolidUnitConvertPost
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserSolidUnitConvertPost(
+    ProSolid	solid,
+<a name="anchor-255"></a>    int         convert_numbers )
+{
+    char buff[100];
+ 
+    TEST_CALL_REPORT( &quot;ProSolidUnitConvertPostAction&quot;, 
+<a name="anchor-256"></a>	&quot;ProUserSolidUnitConvertPost&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTKSprintf( buff, &quot;%s&quot;, convert_numbers ? &quot;quantities are converted&quot; :
+	&quot;quantities are reinterpreted&quot; );
+    ProTestNotifyReport( (char*)&quot;ProUserSolidUnitConvertPost&quot;, buff );
+ 
+<a name="anchor-257"></a>    return (PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserWeldSympathGet
+<a name="anchor-258"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+
+ProError ProUserWeldSympathGet(
+    ProDrawing	drawing,
+<a name="anchor-259"></a>    ProMdl model,
+    int feat_id,
+    ProPath sym_def_file_path,
+    ProPath ptk_sym_def_path)   
+{
+<a name="anchor-260"></a>    char buff[100];
+    ProTKSprintf(buff,&quot;Feat Id=%d&quot;, feat_id);
+    TEST_CALL_REPORT( &quot;ProDrawingWeldSympathGetAction&quot;, 
+	&quot;ProUserWeldSympathGet&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport( (char*)&quot;ProUserWeldSympathGet&quot;, buff );
+<a name="anchor-261"></a> 
+    return (PRO_TK_NO_ERROR);
+
+}
+
+<a name="anchor-262"></a>/*====================================================================*\
+FUNCTION : ProUserWeldGroupsGet
+PURPOSE  : Notification Func
+\*====================================================================*/
+
+<a name="anchor-263"></a>ProError ProUserWeldGroupsGet(
+    ProDrawing	drawing,
+    ProMdl model,
+    int feat_id,
+    int sym_def_id,
+<a name="anchor-264"></a>    ProBoolean left_side,
+    ProName* group_names,
+    int n_groups,
+    ProBoolean* include_groups )
+    
+<a name="anchor-265"></a>{
+    char buff[100];
+    ProTKSprintf(buff,&quot;Feat Id=%d&quot;, feat_id);
+    TEST_CALL_REPORT( &quot;ProDrawingWeldGroupsGetAction&quot;, 
+	&quot;ProUserWeldGroupsGet&quot;, PRO_TK_NO_ERROR, 0 );
+<a name="anchor-266"></a>    ProTestNotifyReport( (char*)&quot;ProUserWeldGroupsGet&quot;, buff );
+ 
+    return (PRO_TK_NO_ERROR);
+
+}
+<a name="anchor-267"></a>
+/*====================================================================*\
+FUNCTION : ProUserDrawingWeldSymtexGet
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-268"></a>
+ProError ProUserDrawingWeldSymtexGet(
+    ProDrawing	drawing,
+    ProMdl model,
+    int feat_id,
+<a name="anchor-269"></a>    int sym_def_id,
+    wchar_t sym_prompt_name[],
+    int sym_prompt_nm_idx,
+    ProParamvalue* p_text,
+    ProParamvalue* p_ptk_text )
+<a name="anchor-270"></a>    
+{
+    char buff[100];
+    ProTKSprintf(buff,&quot;Feat Id=%d&quot;, feat_id);
+    TEST_CALL_REPORT( &quot;ProDrawingWeldSymtextGetAction&quot;, 
+<a name="anchor-271"></a>	&quot;ProUserDrawingWeldSymtexGet&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport( (char*)&quot;ProUserDrawingWeldSymtexGet&quot;, buff );
+ 
+    return (PRO_TK_NO_ERROR);
+
+<a name="anchor-272"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserMdlCreateCancel
+PURPOSE  : Notification Func
+<a name="anchor-273"></a>\*====================================================================*/
+ProError ProUserMdlCreateCancel ()
+{
+
+    TEST_CALL_REPORT( &quot;ProMdlCreateCancelAction&quot;, 
+<a name="anchor-274"></a>	&quot;ProUserMdlCreateCancel&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport((char*)&quot;ProUserMdlCreateCancel&quot;, (char*)&quot;&quot;);
+    return (PRO_TK_NO_ERROR);    
+}
+
+<a name="anchor-275"></a>/*====================================================================*\
+FUNCTION : ProUserDimModifyValuePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserDimModifyValuePre (ProDimension *dimension)
+<a name="anchor-276"></a>{
+    char        buff[124];
+    ProError    ret = (user_notify_cancel==1)?
+                    (PRO_TK_NO_ERROR):(PRO_TK_GENERAL_ERROR);
+    ProTKSprintf(buff,&quot;%s. Dimension Id=%d&quot;, 
+<a name="anchor-277"></a>        ret==PRO_TK_NO_ERROR?&quot;Agree&quot;:&quot;Cancel&quot;,
+        dimension->id);    
+
+    TEST_CALL_REPORT( &quot;ProDimModifyValuePreAction&quot;, 
+	    &quot;ProUserDimModifyValuePre&quot;, PRO_TK_NO_ERROR, 0 );
+<a name="anchor-278"></a>        
+    ProTestNotifyReport((char*)&quot;ProUserDimModifyValuePre&quot;, buff);
+    return ret;    
+}
+
+<a name="anchor-279"></a>/*====================================================================*\
+FUNCTION : ProUserFeatureRedefinePost
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserFeatureRedefinePost(ProFeature *p_feat)
+<a name="anchor-280"></a>{
+    char buff[100];
+    ProTKSprintf(buff,&quot;Feat Id=%d&quot;, p_feat->id);    
+    TEST_CALL_REPORT( &quot;ProFeatureRedefinePostAction&quot;, 
+	&quot;ProUserFeatureRedefinePost&quot;, PRO_TK_NO_ERROR, 0 );
+<a name="anchor-281"></a>    ProTestNotifyReport((char*)&quot;ProUserFeatureRedefinePost&quot;, buff);
+    return (PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+<a name="anchor-282"></a>FUNCTION : ProUserFeatureReroutePre
+PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserFeatureReroutePre(ProFeature *p_feat)
+{
+<a name="anchor-283"></a>    char buff[100];
+    ProTKSprintf(buff,&quot;Feat Id=%d&quot;, p_feat->id);    
+    TEST_CALL_REPORT( &quot;ProFeatureReroutePreAction&quot;, 
+	&quot;ProUserFeatureReroutePre&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport((char*)&quot;ProUserFeatureReroutePre&quot;, buff);
+<a name="anchor-284"></a>    return (PRO_TK_NO_ERROR);
+}
+
+/*====================================================================*\
+FUNCTION : ProUserFeatureReroutePost
+<a name="anchor-285"></a>PURPOSE  : Notification Func
+\*====================================================================*/
+ProError ProUserFeatureReroutePost(ProFeature *p_feat)
+{
+    char buff[100];
+<a name="anchor-286"></a>    ProTKSprintf(buff,&quot;Feat Id=%d&quot;, p_feat->id);    
+    TEST_CALL_REPORT( &quot;ProFeatureReroutePostAction&quot;, 
+	&quot;ProUserFeatureReroutePost&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport((char*)&quot;ProUserFeatureReroutePost&quot;, buff);
+    return (PRO_TK_NO_ERROR);
+<a name="anchor-287"></a>}
+
+/*====================================================================*\
+FUNCTION : ProUserFeatureReplacePre
+PURPOSE  : Notification Func
+<a name="anchor-288"></a>\*====================================================================*/
+ProError ProUserFeatureReplacePre(ProFeature *p_feat)
+{
+    char buff[100];
+    ProTKSprintf(buff,&quot;Feat Id=%d&quot;, p_feat->id);    
+<a name="anchor-289"></a>    TEST_CALL_REPORT( &quot;ProFeatureReplacePreAction&quot;, 
+	&quot;ProUserFeatureReplacePre&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport((char*)&quot;ProUserFeatureReplacePre&quot;, buff);
+    return (PRO_TK_NO_ERROR);
+}
+<a name="anchor-290"></a>
+/*====================================================================*\
+FUNCTION : ProUserFeatureReplacePost
+PURPOSE  : Notification Func
+\*====================================================================*/
+<a name="anchor-291"></a>ProError ProUserFeatureReplacePost(ProFeature *p_feat)
+{
+    char buff[100];
+    ProTKSprintf(buff,&quot;Feat Id=%d&quot;, p_feat->id);    
+    TEST_CALL_REPORT( &quot;ProFeatureReplacePostAction&quot;, 
+<a name="anchor-292"></a>	&quot;ProUserFeatureReplacePost&quot;, PRO_TK_NO_ERROR, 0 );
+    ProTestNotifyReport((char*)&quot;ProUserFeatureReplacePost&quot;, buff);
+    return (PRO_TK_NO_ERROR);
+}
+
+<a name="anchor-293"></a>static NotifyInfo NotifyStatus[] =
+{
+{ PRO_MODEL_SAVE_PRE,		0,	&quot;Save Pre&quot;,		(ProFunction)ProUserMdlSavePre},
+{ PRO_MODEL_SAVE_POST,    	0,	&quot;Save Post&quot;,		(ProFunction)ProUserMdlSavePost},
+{ PRO_MODEL_SAVE_POST_ALL,	0,	&quot;Save Post All&quot;,	(ProFunction)ProUserMdlSavePostAll},
+<a name="anchor-294"></a>{ PRO_MODEL_COPY_PRE,		0,	&quot;Copy Pre&quot;,		(ProFunction)ProUserMdlCopyPre},
+{ PRO_MODEL_COPY_POST,		0,	&quot;Copy Post&quot;,		(ProFunction)ProUserMdlCopyPost},
+{ PRO_MODEL_COPY_POST_ALL,	0,	&quot;Copy Post All&quot;,	(ProFunction)ProUserMdlCopyPostAll},
+{ PRO_MODEL_RENAME_PRE,		0,	&quot;Rename Pre&quot;,		(ProFunction)ProUserMdlRenamePre},
+{ PRO_MODEL_RENAME_POST,    0,	&quot;Rename Post&quot;,		(ProFunction)ProUserMdlRenamePost},
+<a name="anchor-295"></a>{ PRO_MDL_ERASE_PRE,		0,	&quot;Erase Pre&quot;,		(ProFunction)ProUserMdlErasePre},
+{ PRO_MODEL_ERASE_POST,     0,	&quot;Erase Post&quot;,		(ProFunction)ProUserMdlErasePost},
+{ PRO_MODEL_ERASE_POST_ALL,	0,	&quot;Erase Post All&quot;,	(ProFunction)ProUserMdlErasePostAll},
+{ PRO_MDL_PURGE_PRE,		0,	&quot;Purge Pre&quot;,		(ProFunction)ProUserMdlPurgePre},
+{ PRO_MDL_PURGE_POST,		0,	&quot;Purge Post&quot;,		(ProFunction)ProUserMdlPurgePost},
+<a name="anchor-296"></a>{ PRO_MDL_DELETE_PRE,		0,	&quot;Del Pre&quot;,		(ProFunction)ProUserMdlDeletePre},
+{ PRO_MDL_DELETE_POST, 		0,	&quot;Del Post&quot;,		(ProFunction)ProUserMdlDeletePost},
+{ PRO_MDL_DELETE_POST_ALL,	0,	&quot;Del Post All&quot;,		(ProFunction)ProUserMdlDeletePostAll},
+{ PRO_MODEL_RETRIEVE_POST,	0,	&quot;Retr Post&quot;, 		(ProFunction)ProUserMdlRetrievePost},
+{ PRO_MODEL_RETRIEVE_POST_ALL,	0,	&quot;Retr Post All&quot;,	(ProFunction)ProUserMdlRetrievePostAll},
+<a name="anchor-297"></a>{ PRO_MODEL_DBMS_FAILURE,   0,	&quot;DBMS Failure&quot;,		(ProFunction)ProUserMdlDbmsFailure},
+{ PRO_SOLID_REGEN_PRE,		0,	&quot;Regen Pre&quot;,		(ProFunction)ProUserSolidRegenPre},
+{ PRO_SOLID_REGEN_POST,		0,	&quot;Regen Post&quot;,		(ProFunction)ProUserSolidRegenPost},
+{ PRO_DIRECTORY_CHANGE_POST,	0,	&quot;Change Dir&quot;,		(ProFunction)ProUserDirectoryChangePost},
+{ PRO_WINDOW_CHANGE_POST,	0,	&quot;Change Window&quot;,	(ProFunction)ProUserWindowChangePost},
+<a name="anchor-298"></a>{ PRO_MDL_DISPLAY_PRE,		0,	&quot;Repaint Pre&quot;,		(ProFunction)ProUserMdlDisplayPre},
+{ PRO_MDL_DISPLAY_POST,		0,	&quot;Repaint Post&quot;,		(ProFunction)ProUserMdlDisplayPost},
+{ PRO_NCSEQ_CL_POST,		0,	&quot;NCSEQ CL Post&quot;,	(ProFunction)ProUserNCSeqCLPost},
+{ PRO_MFGOPER_CL_POST,		0,	&quot;OPER CL Post&quot;,		(ProFunction)ProUserOperCLPost},
+{ PRO_FEATURE_CREATE_POST,	0,	&quot;Feat Create Post&quot;,	(ProFunction)ProUserFeatCreatePost},
+<a name="anchor-299"></a>{ PRO_FEATURE_COPY_POST,	0,	&quot;Feat Copy Post&quot;,	(ProFunction)ProUserFeatCopyPost},
+{ PRO_FEATURE_DELETE_PRE,	0,	&quot;Feat Delete Pre&quot;,	(ProFunction)ProUserFeatDeletePre},
+{ PRO_FEATURE_DELETE_POST,	0,	&quot;Feat Delete Post&quot;,	(ProFunction)ProUserFeatDeletePost},
+{ PRO_FEATURE_SUPPRESS_PRE,	0,	&quot;Feat Supp Pre&quot;,	(ProFunction)ProUserFeatSuppressPre},
+{ PRO_FEATURE_SUPPRESS_POST,	0,	&quot;Feat Supp Post&quot;,	(ProFunction)ProUserFeatSuppressPost},
+<a name="anchor-300"></a>{ PRO_FEATURE_REGEN_PRE,	0,	&quot;Feat Regen Pre&quot;,	(ProFunction)ProUserFeatRegenPre},
+{ PRO_FEATURE_REGEN_POST,	0,	&quot;Feat Regen Post&quot;,	(ProFunction)ProUserFeatRegenPost},
+{ PRO_PARAM_CREATE_W_UNITS_PRE,		0,	&quot;Parm Create Pre&quot;,	(ProFunction)ProUserParamCreatePre},
+{ PRO_PARAM_MODIFY_W_UNITS_PRE, 	0,	&quot;Parm Modify Pre&quot;, 	(ProFunction)ProUserParamModifyPre},
+{ PRO_PARAM_DELETE_PRE, 	0,	&quot;Parm Delete Pre&quot;,	(ProFunction)ProUserParamDeletePre},
+<a name="anchor-301"></a>{ PRO_MDL_CREATE_POST,		0,	&quot;Create Post&quot;,		(ProFunction)ProUserMdlCreatePost},
+{ PRO_FEATURE_REGEN_FAILURE,	0,	&quot;Feat Regen Fail&quot;,	(ProFunction)ProUserFeatRegenFailure},
+{ PRO_NCL_COMMAND_EXPAND,	0,	&quot;NClCmd Expand&quot;,	(ProFunction)ProUserNClCommandExpand},
+{ PRO_NCL_COMMAND_GET_LOC,	0,	&quot;NClCmd GetLoc&quot;,	(ProFunction)ProUserNClGetLocation},
+{ PRO_FEATURE_CREATE_PRE,	0,	&quot;Feat Create Pre&quot;,	(ProFunction)ProUserFeatCreatePre},
+<a name="anchor-302"></a>{ PRO_FEATURE_REDEFINE_PRE,	0,	&quot;Feat Redef Pre&quot;,	(ProFunction)ProUserFeatRedefinePre},
+{ PRO_FILE_OPEN_OK,		0,	&quot;File open&quot;,		(ProFunction)ProUserFileOpenOK},
+{ PRO_MDL_CREATE_PRE,		0,	&quot;Create Pre&quot;,		(ProFunction)ProUserMdlCreatePre},
+{ PRO_MODEL_RETRIEVE_PRE,   0,	&quot;Retr Pre&quot;,		(ProFunction)ProUserMdlRetrievePre},
+{ PRO_MDL_BACKUP_PRE,		0,	&quot;Backup Pre&quot;,		(ProFunction)ProUserMdlBackupPre},
+<a name="anchor-303"></a>{ PRO_MDL_BACKUP_POST,		0,	&quot;Backup Post&quot;,		(ProFunction)ProUserMdlBackupPost}, 
+{ PRO_SOLID_UNIT_CONVERT_PRE,	0,	&quot;Unit Convert Pre&quot;,	(ProFunction)ProUserSolidUnitConvertPre},
+{ PRO_SOLID_UNIT_CONVERT_POST,	0,	&quot;Unit Convert Post&quot;,    (ProFunction)ProUserSolidUnitConvertPost},
+{ PRO_DRAWING_WELD_SYMPATH_GET, 0,      &quot;Weld Sympath Get&quot;,     (ProFunction)ProUserWeldSympathGet},
+{ PRO_DRAWING_WELD_GROUPS_GET,  0,      &quot;Weld Groups Get&quot;,      (ProFunction)ProUserWeldGroupsGet},
+<a name="anchor-304"></a>{ PRO_DRAWING_WELD_SYMTEXT_GET, 0,      &quot;Weld Symtext Get&quot;,     (ProFunction)ProUserDrawingWeldSymtexGet},
+{ PRO_MDL_CREATE_CANCEL,        0,      &quot;Create Cancel&quot;,        (ProFunction)ProUserMdlCreateCancel},
+{ PRO_DIM_MODIFY_VALUE_PRE,     0,      &quot;Modify Value Pre&quot;,     (ProFunction)ProUserDimModifyValuePre},
+{ PRO_FEATURE_REDEFINE_POST,    0,      &quot;Feat Redefine Post&quot;,   (ProFunction)ProUserFeatureRedefinePost},
+{ PRO_FEATURE_REROUTE_PRE,      0,      &quot;Feat Reroute Pre&quot;,     (ProFunction)ProUserFeatureReroutePre},
+<a name="anchor-305"></a>{ PRO_FEATURE_REROUTE_POST,     0,      &quot;Feat Reroute Post&quot;,    (ProFunction)ProUserFeatureReroutePost},
+{ PRO_FEATURE_REPLACE_PRE,      0,      &quot;Feat Replace Pre&quot;,     (ProFunction)ProUserFeatureReplacePre},
+{ PRO_FEATURE_REPLACE_POST,     0,      &quot;Feat Replace Post&quot;,    (ProFunction)ProUserFeatureReplacePost}
+
+};
+<a name="anchor-306"></a>
+#define MAX_NOTIFY_TYPES (sizeof(NotifyStatus)/sizeof(NotifyStatus[0]))
+
+/*====================================================================*\
+    FUNCTION :	ProTestNotifyToggle()
+<a name="anchor-307"></a>    PURPOSE  :	Toggle the status of a specified notification
+\*====================================================================*/
+int ProTestNotifyToggle(
+    char *dummy,
+    int type)
+<a name="anchor-308"></a>{
+    ProError status;
+    int m;
+    
+    
+<a name="anchor-309"></a>    for(m=0; m&lt;MAX_NOTIFY_TYPES; m++)
+    {
+	if(NotifyStatus[m].type == type)
+	{
+	    NotifyStatus[m].status = !NotifyStatus[m].status;
+<a name="anchor-310"></a>
+	    if(NotifyStatus[m].status)
+	    {
+		status = ProNotificationSet(NotifyStatus[m].type, NotifyStatus[m].func);
+		TEST_CALL_REPORT(&quot;ProNotificationSet()&quot;, &quot;ProTestNotifyToggle()&quot;,
+<a name="anchor-311"></a>				       status, status != PRO_TK_NO_ERROR);
+	    }
+	    else
+	    {
+		status = ProNotificationUnset(NotifyStatus[m].type);
+<a name="anchor-312"></a>		TEST_CALL_REPORT(&quot;ProNotificationUnset()&quot;, &quot;ProTestNotifyToggle()&quot;,
+				       status, status != PRO_TK_NO_ERROR);
+	    }
+	    break;
+	}
+<a name="anchor-313"></a>
+    }
+    return(0);
+}
+
+<a name="anchor-314"></a>/*====================================================================*\
+    FUNCTION :	ProTestNotifyDone()
+    PURPOSE  :	Options for closing the notify status menu
+\*====================================================================*/
+int ProTestNotifyDone(
+<a name="anchor-315"></a>    char *dummy,
+    int option)
+{
+#define NOTIFY_SETALL	0
+#define NOTIFY_CLEAR	1
+<a name="anchor-316"></a>#define NOTIFY_ACCEPT	2
+#define NOTIFY_QUIT	3
+    int m;
+    ProError status;
+
+<a name="anchor-317"></a>    switch(option)
+    {
+    case NOTIFY_SETALL :
+	for(m=0; m&lt;MAX_NOTIFY_TYPES; m++)
+	{
+<a name="anchor-318"></a>	    status = ProMenubuttonHighlight((char*)&quot;TkNotify&quot;,NotifyStatus[m].name);
+            TEST_CALL_REPORT( &quot;ProMenubuttonHighlight&quot;, &quot;ProTestNotifyDone&quot;,
+                status, status != PRO_TK_NO_ERROR);
+            if(NotifyStatus[m].status==0) {    
+	        status = ProNotificationSet(NotifyStatus[m].type, NotifyStatus[m].func);
+<a name="anchor-319"></a>#if 0                                   
+    	        TEST_CALL_REPORT(&quot;ProNotificationSet()&quot;, &quot;ProTestNotifyDone()&quot;,
+				   status, 
+                                   status != PRO_TK_NO_ERROR);
+#else 
+<a name="anchor-320"></a>/*  ProNotificationSet returns -1 with notify type PRO_FEATURE_REDEFINE_PRE
+    (bugminsk1340 )  */
+		TEST_CALL_REPORT(&quot;ProNotificationSet()&quot;, &quot;ProTestNotifyDone()&quot;,
+				    status,
+                                    0);
+<a name="anchor-321"></a>#endif                                   
+                                
+                if (status==PRO_TK_NO_ERROR) NotifyStatus[m].status = 1;
+            }                                   
+	}
+<a name="anchor-322"></a>	break;
+    case NOTIFY_CLEAR :
+	for(m=0; m&lt;MAX_NOTIFY_TYPES; m++)
+	{
+	    status = ProMenubuttonUnhighlight((char*)&quot;TkNotify&quot;,NotifyStatus[m].name);
+<a name="anchor-323"></a>            TEST_CALL_REPORT( &quot;ProMenubuttonUnhighlight&quot;, &quot;ProTestNotifyDone&quot;,
+                status, status != PRO_TK_NO_ERROR);
+            if(NotifyStatus[m].status!=0) {    
+	        status = ProNotificationUnset(NotifyStatus[m].type);
+        	TEST_CALL_REPORT(&quot;ProNotificationUnset()&quot;, &quot;ProTestNotifyDone()&quot;,
+<a name="anchor-324"></a>				   status, 
+                                   status != PRO_TK_NO_ERROR);                                   
+                if(status==PRO_TK_NO_ERROR) NotifyStatus[m].status = 0;                                   
+            }                                   
+            
+<a name="anchor-325"></a>	}
+
+	fclose(notify_fp);
+	notify_fp = NULL;
+	break;
+<a name="anchor-326"></a>    case NOTIFY_ACCEPT :
+	status = ProMenuDeleteWithStatus(option);
+        TEST_CALL_REPORT( &quot;ProMenuDeleteWithStatus&quot;, &quot;ProTestNotifyDone&quot;,
+                status, status != PRO_TK_NO_ERROR);
+	break;
+<a name="anchor-327"></a>    case NOTIFY_QUIT :
+	status = ProMenuDeleteWithStatus(option);
+        TEST_CALL_REPORT( &quot;ProMenuDeleteWithStatus&quot;, &quot;ProTestNotifyDone&quot;,
+                status, status != PRO_TK_NO_ERROR);
+	break;
+<a name="anchor-328"></a>    }
+
+    return (0);
+}
+
+<a name="anchor-329"></a>/*====================================================================*\
+    FUNCTION :	ProTestNotify()
+    PURPOSE  :	Commands for testing notification in Pro/TOOLKIT
+\*====================================================================*/
+int ProTestNotify()
+<a name="anchor-330"></a>{
+
+    int         m, option;
+    NotifyInfo  old_status[MAX_NOTIFY_TYPES];
+    ProError    status;
+<a name="anchor-331"></a>    static ProUtilMenuButtons cancel_type[] = { 
+        {&quot;-CancelAgree&quot;,0,  TEST_CALL_PRO_MENU_DELETE},
+        {&quot;Cancel&quot;,      0,  0},
+        {&quot;Agree&quot;,       1,  0},
+        {&quot;&quot;,            0,  0}
+<a name="anchor-332"></a>    };
+    
+    int         id;
+
+    if(notify_fp == NULL)
+<a name="anchor-333"></a>	notify_fp = PTApplsUnicodeFopen(&quot;notify.log&quot;,&quot;w&quot;);
+
+    memcpy(old_status, NotifyStatus, MAX_NOTIFY_TYPES * sizeof(NotifyInfo));
+
+    status = ProMenuFileRegister((char*)&quot;TkNotify&quot;,(char*)&quot;tknotify.mnu&quot;, &amp;id);
+<a name="anchor-334"></a>    TEST_CALL_REPORT( &quot;ProMenuFileRegister&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+    for(m=0; m&lt;MAX_NOTIFY_TYPES; m++)
+    {
+	status = ProMenubuttonActionSet((char*)&quot;TkNotify&quot;, NotifyStatus[m].name,
+<a name="anchor-335"></a>	    (ProMenubuttonAction)ProTestNotifyToggle, NULL, 
+	    NotifyStatus[m].type);
+        TEST_CALL_REPORT( &quot;ProMenubuttonActionSet&quot;, &quot;ProTestNotify&quot;,
+            status, status != PRO_TK_NO_ERROR);
+    }
+<a name="anchor-336"></a>    status = ProMenubuttonActionSet((char*)&quot;TkNotify&quot;,(char*)&quot;TkNotify&quot;,
+	(ProMenubuttonAction)ProMenuDelete, NULL, 0);
+    TEST_CALL_REPORT( &quot;ProMenubuttonActionSet&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+    status = ProMenuModeSet((char*)&quot;TkNotify&quot;,PROMENUMODE_DATA);
+<a name="anchor-337"></a>    TEST_CALL_REPORT( &quot;ProMenubModeSet&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+    status = ProMenuDatamodeSet((char*)&quot;TkNotify&quot;,PRO_B_TRUE);
+    TEST_CALL_REPORT( &quot;ProMenuDatamodeSet&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+<a name="anchor-338"></a>
+    status = ProMenuCreate(PROMENUTYPE_MAIN, (char*)&quot;TkNotify&quot;, &amp;id);
+    TEST_CALL_REPORT( &quot;ProMenuCreate&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+    for(m=0;  m&lt;MAX_NOTIFY_TYPES; m++)
+<a name="anchor-339"></a>	if(NotifyStatus[m].status)
+        {
+	    status = ProMenubuttonHighlight((char*)&quot;TkNotify&quot;,NotifyStatus[m].name);
+            TEST_CALL_REPORT( &quot;ProMenubuttonHighlight&quot;, &quot;ProTestNotify&quot;,
+                status, status != PRO_TK_NO_ERROR);
+<a name="anchor-340"></a>        }
+
+    status = ProMenuFileRegister((char*)&quot;TkNfyDone&quot;,(char*)&quot;tknotdone.mnu&quot;, &amp;id);
+    TEST_CALL_REPORT( &quot;ProMenuFileRegister&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+<a name="anchor-341"></a>    status = ProMenubuttonActionSet((char*)&quot;TkNfyDone&quot;,(char*)&quot;Set All&quot;,      
+	(ProMenubuttonAction)ProTestNotifyDone, NULL, NOTIFY_SETALL);
+    TEST_CALL_REPORT( &quot;ProMenubuttonActionSet&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+    status = ProMenubuttonActionSet((char*)&quot;TkNfyDone&quot;,(char*)&quot;Unset All&quot;,
+<a name="anchor-342"></a>        (ProMenubuttonAction)ProTestNotifyDone, NULL, NOTIFY_CLEAR);
+    TEST_CALL_REPORT( &quot;ProMenubuttonActionSet&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+    status = ProMenubuttonActionSet((char*)&quot;TkNfyDone&quot;,(char*)&quot;Accept Status&quot;,
+	(ProMenubuttonAction)ProTestNotifyDone, NULL, NOTIFY_ACCEPT);
+<a name="anchor-343"></a>    TEST_CALL_REPORT( &quot;ProMenubuttonActionSet&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+    status = ProMenubuttonActionSet((char*)&quot;TkNfyDone&quot;,(char*)&quot;Quit&quot;,
+	(ProMenubuttonAction)ProTestNotifyDone, NULL, NOTIFY_QUIT);
+    TEST_CALL_REPORT( &quot;ProMenubuttonActionSet&quot;, &quot;ProTestNotify&quot;,
+<a name="anchor-344"></a>        status, status != PRO_TK_NO_ERROR);
+    status = ProMenubuttonActionSet((char*)&quot;TkNfyDone&quot;, (char*)&quot;TkNfyDone&quot;,
+	(ProMenubuttonAction)ProMenuHold, NULL, 0);
+    TEST_CALL_REPORT( &quot;ProMenubuttonActionSet&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+<a name="anchor-345"></a>
+    status = ProMenuCreate(PROMENUTYPE_SUB, (char*)&quot;TkNfyDone&quot;, &amp;id);
+    TEST_CALL_REPORT( &quot;ProMenuCreate&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+    status = ProMenuProcess((char*)&quot;TkNfyDone&quot;, &amp;option);
+<a name="anchor-346"></a>    TEST_CALL_REPORT( &quot;ProMenuProcess&quot;, &quot;ProTestNotify&quot;,
+        status, status != PRO_TK_NO_ERROR);
+    if(option == NOTIFY_QUIT)
+	memcpy(NotifyStatus, old_status, MAX_NOTIFY_TYPES * sizeof(NotifyInfo));
+
+<a name="anchor-347"></a>    if(option == NOTIFY_ACCEPT || option == NOTIFY_QUIT)
+    {
+	status = ProMenuDelete();
+        TEST_CALL_REPORT( &quot;ProMenuDelete&quot;, &quot;ProTestNotify&quot;,
+            status, status != PRO_TK_NO_ERROR);
+<a name="anchor-348"></a>    }
+    
+    /*
+    Menu for support cancel functionality
+    */
+<a name="anchor-349"></a>    status = ProUtilMenuIntValueSelect (cancel_type, &amp;id);    
+    if (status == PRO_TK_NO_ERROR)
+        user_notify_cancel = id;
+    return(0);
+}
+<a name="anchor-350"></a>
+</pre>
+</body>
+</html>

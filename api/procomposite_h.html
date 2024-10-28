@@ -1,0 +1,228 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProComposite.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="procomposite_h.html#PROCOMPOSITE_H">PROCOMPOSITE_H</A>
+<A name="PROCOMPOSITE_H"></A>#define PROCOMPOSITE_H
+
+#include &lt;<A HREF="proobjects_h.html">ProObjects.h</A>&gt;
+#include &lt;<A HREF="promdl_h.html">ProMdl.h</A>&gt;
+#include &lt;<A HREF="promodelitem_h.html">ProModelitem.h</A>&gt;
+#include &lt;<A HREF="procolor_h.html">ProColor.h</A>&gt;
+
+
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+<A name="ProCompositeMassPropertyOption"></A>typedef enum tk_cmpst_mass_prop_opt
+{
+<A name="PRO_CMPST_MP_LAYUP_BASED"></A>    PRO_CMPST_MP_LAYUP_BASED,
+<A name="PRO_CMPST_MP_PLIES_BASED"></A>    PRO_CMPST_MP_PLIES_BASED
+} <A HREF="procomposite_h.html#ProCompositeMassPropertyOption">ProCompositeMassPropertyOption</A>;
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="434.html">ProCompositeMassPropertyOptionGet</A>(<A HREF="proobjects_h.html#ProMdl">ProMdl</A> composite_mdl, <A HREF="procomposite_h.html#ProCompositeMassPropertyOption">ProCompositeMassPropertyOption</A>* opt);
+/*
+    Purpose: Get mass property calculation option on composite solid.
+
+    Input Arguments:
+        composite_mdl - The composite model.
+
+    Output Arguments:
+        opt - option
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully returned the information.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A> - Model is not a composite Model
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="435.html">ProCompositeMassPropertyOptionSet</A>(<A HREF="proobjects_h.html#ProMdl">ProMdl</A> composite_mdl, <A HREF="procomposite_h.html#ProCompositeMassPropertyOption">ProCompositeMassPropertyOption</A> opt);
+/*
+    Purpose: Set mass property calculation option on composite solid.
+
+    Input Arguments:
+        composite_mdl - The composite model.
+        opt - option
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully returned the information.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A> - Model is not a composite Model
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="436.html">ProCompositeMdlGet</A> (<A HREF="proobjects_h.html#ProFeature">ProFeature</A> *p_feat_handle,
+                                    <A HREF="proobjects_h.html#ProMdl">ProMdl</A>     *p_mdl_handle);
+/*
+    Purpose: Retrieves the composite model, given a composite feature. 
+             &lt;b&gt;Note&lt;/b&gt;: After changing anything in this model application 
+             must regenerate top model (p_feat_handle-&gt;owner) using 
+             <A HREF="3867.html">ProSolidRegenerate</A>()
+
+    Input Arguments:
+        p_feat_handle - The handle to the composite feature
+
+    Output Arguments:
+        p_mdl_handle - The model handle to be initialized
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The argument corresponds to a valid composite feature 
+                          with a valid composite model.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The specified feature is not a valid composite 
+                            feature.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The specified feature is a suppressed composite 
+                             feature.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - composite model is not a solid or is not in 
+                             memory.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="437.html">ProCompositeFeatureCreate</A> (<A HREF="proobjects_h.html#ProMdl">ProMdl</A>     p_mdl_handle,
+                                           <A HREF="proobjects_h.html#ProFeature">ProFeature</A> *p_feat_handle);
+/*
+    Purpose: creates empty composite feature.
+
+    Input Arguments:
+        p_mdl_handle - The model handle.
+
+    Output Arguments:
+        p_feat_handle - The created composite feature.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The argument corresponds to a valid model.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The composite feature was created successfully.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="438.html">ProMdlIsComposite</A> (<A HREF="proobjects_h.html#ProMdl">ProMdl</A>  p_mdl_handle, 
+                                   <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *p_is_composite);
+/*
+    Purpose: Check is model of kind Composite model
+
+    Input Arguments:
+        p_mdl_handle - The model handle.
+
+    Output Arguments:
+        p_is_composite - This is <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the model is a Composite model; 
+                         otherwise, this is <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE.</A>
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully returned the information.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="439.html">ProRosetteDefaultSet</A>(<A HREF="proobjects_h.html#ProFeature">ProFeature</A> *rosette);
+/*
+    Purpose: Set specified rosette as default.
+
+    Input Arguments:
+        rosette - The rosette feature
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully returned the information.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A> - Feature is not rosette.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="440.html">ProRosetteDefaultGet</A>(<A HREF="proobjects_h.html#ProMdl">ProMdl</A> composite_mdl, <A HREF="proobjects_h.html#ProFeature">ProFeature</A> *rosette);
+/*
+    Purpose: Get specified rosette as default.
+
+    Input Arguments:
+        composite_mdl - The composite model.
+
+    Output Arguments:
+        rosette - Default rosette feature.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully returned the information.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - No rosette found or no default is set.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="441.html">ProCompositePlyVisit</A> (<A HREF="proobjects_h.html#ProSolid">ProSolid</A>                  composite,
+                                      <A HREF="3192.html">ProModelitemVisitAction</A>   action, 
+                                      <A HREF="3191.html">ProModelitemFilterAction</A>  filter,
+                                      <A HREF="proobjects_h.html#ProAppData">ProAppData</A>                appdata);
+/*
+    Purpose: Visits all the plies in the specified composite solid.
+
+    Input Arguments:
+        composite - The composite solid handle.
+        action - The visiting function. If it returns anything other than 
+                 <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A>, visiting stops.
+        filter - The filter function. If NULL, all features in the specified 
+                 solid are visited using the action function.
+        appdata - The application data passed to the filter and action 
+                  functions.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully visited all the plies.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Either no ply exist, or they were all filtered out 
+                             by the filter function.
+        Other - Any other value is the value returned by the action function 
+                (visiting stopped).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="442.html">ProPlyColorGet</A>(<A HREF="proobjects_h.html#ProPly">ProPly</A> *ply, <A HREF="procolor_h.html#ProColor">ProColor</A> *color);
+/*
+    Purpose: Get color of ply
+
+    Input Arguments:
+        ply - ply
+
+    Output Arguments:
+        color - color
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully returned color.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - invalid ply
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="443.html">ProPlyFeatureGet</A>(<A HREF="proobjects_h.html#ProPly">ProPly</A> *ply, <A HREF="proobjects_h.html#ProFeature">ProFeature</A> *feat);
+/*
+    Purpose: Get feature which created ply.
+
+    Input Arguments:
+        ply - ply
+
+    Output Arguments:
+        feat - feat
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully returned feature.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - invalid ply
+
+*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+
+#endif  /* <A HREF="procomposite_h.html#PROCOMPOSITE_H">PROCOMPOSITE_H</A> */
+
+        </PRE>
+    </BODY>
+</HTML>

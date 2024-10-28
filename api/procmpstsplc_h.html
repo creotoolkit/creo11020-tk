@@ -1,0 +1,77 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProCmpstSplc.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="procmpstsplc_h.html#PROCMPST_SPLC_H">PROCMPST_SPLC_H</A>
+<A name="PROCMPST_SPLC_H"></A>#define PROCMPST_SPLC_H
+
+/*
+   Creo Parametric TOOLKIT declarations related to cmpstSplc feature.
+*/
+
+
+
+#include &lt;<A HREF="profeature_h.html">ProFeature.h</A>&gt;
+#include &lt;<A HREF="proparamval_h.html">ProParamval.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*****************************************************************************
+ Feature element tree :
+ ----------------------
+ |--<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+ |--<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+ |--<A HREF="proelemid_h.html#PRO_E_PLIES_REF">PRO_E_PLIES_REF</A>
+ |--<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_OVERLAP_OPT">PRO_E_CMPST_PLY_OVERLAP_OPT</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_OVERLAP_DIM">PRO_E_CMPST_PLY_OVERLAP_DIM</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_STG_OPT">PRO_E_CMPST_PLY_STG_OPT</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_STG_DIM">PRO_E_CMPST_PLY_STG_DIM</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_SPLC_FLIP">PRO_E_CMPST_PLY_SPLC_FLIP</A>
+
+
+Feature elements table
+--------------------------------------------------------------------------------
+Element Id                  Element Name         Data Type         Valid Values
+--------------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>	Feature Type	<A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>	<A HREF="profeattype_h.html#PRO_FEAT_CMPST_SPLC">PRO_FEAT_CMPST_SPLC</A>
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>	featname	DATATYPE
+<A HREF="proelemid_h.html#PRO_E_PLIES_REF">PRO_E_PLIES_REF</A>	plies_coll	<A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proreference_h.html#ProReference">ProReference</A>
+<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>	chain_coll	<A HREF="proobjects_h.html#ProCollection">ProCollection</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_OVERLAP_OPT">PRO_E_CMPST_PLY_OVERLAP_OPT</A>	cmpst_ply_overlap_opt	<A HREF="procmpstsplc_h.html#ProCmpst_splc_overlap">ProCmpst_splc_overlap</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_OVERLAP_DIM">PRO_E_CMPST_PLY_OVERLAP_DIM</A>	cmpst_ply_overlap_dim	double
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_STG_OPT">PRO_E_CMPST_PLY_STG_OPT</A>	cmpst_ply_stg_opt	<A HREF="procmpstsplc_h.html#ProCmpst_splc_stagger">ProCmpst_splc_stagger</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_STG_DIM">PRO_E_CMPST_PLY_STG_DIM</A>	cmpst_ply_stg_dim	double
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_SPLC_FLIP">PRO_E_CMPST_PLY_SPLC_FLIP</A>	cmpst_ply_splc_flip	int
+
+
+
+*****************************************************************************/
+
+
+
+<A name="ProCmpst_splc_overlap"></A>typedef enum
+{
+<A name="PRO_CMPST_SPLC_OVERLAP_NO"></A>  PRO_CMPST_SPLC_OVERLAP_NO = 0,
+<A name="PRO_CMPST_SPLC_OVERLAP_YES"></A>  PRO_CMPST_SPLC_OVERLAP_YES = 1,
+}ProCmpst_splc_overlap;
+
+<A name="ProCmpst_splc_stagger"></A>typedef enum
+{
+<A name="PRO_CMPST_SPLC_STAGGER_NO"></A>  PRO_CMPST_SPLC_STAGGER_NO = 0,
+<A name="PRO_CMPST_SPLC_STAGGER_YES"></A>  PRO_CMPST_SPLC_STAGGER_YES = 1,
+}ProCmpst_splc_stagger;
+
+
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+
+        </PRE>
+    </BODY>
+</HTML>

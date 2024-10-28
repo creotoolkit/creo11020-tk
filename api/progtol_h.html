@@ -1,0 +1,1778 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProGtol.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="progtol_h.html#PROGTOL_H">PROGTOL_H</A>
+<A name="PROGTOL_H"></A>#define PROGTOL_H
+
+#include &lt;<A HREF="proselection_h.html">ProSelection.h</A>&gt;
+#include &lt;<A HREF="proannotationelem_h.html">ProAnnotationElem.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+<A name="ProGtoldata"></A>typedef struct gtol_dialog_info   *<A HREF="progtol_h.html#ProGtoldata">ProGtoldata</A>;
+<A name="ProGtoldatumref"></A>typedef struct progtol_datum_ref  *<A HREF="progtol_h.html#ProGtoldatumref">ProGtoldatumref</A>;
+<A name="ProGtolAttach"></A>typedef struct pro_gtol_attach    *<A HREF="progtol_h.html#ProGtolAttach">ProGtolAttach</A>;
+<A name="ProGtolleader"></A>typedef struct progtol_leader     *<A HREF="progtol_h.html#ProGtolleader">ProGtolleader</A>;
+
+<A name="ProGtoldataStatus"></A>typedef enum
+{
+<A name="PROGTOLSTATUS_MODEL_REF_ENT"></A>   PROGTOLSTATUS_MODEL_REF_ENT   =  0,
+<A name="PROGTOLSTATUS_PLACEMENT"></A>   PROGTOLSTATUS_PLACEMENT       =  1,
+<A name="PROGTOLSTATUS_INVALID_REF_ENT"></A>   PROGTOLSTATUS_INVALID_REF_ENT =  2,
+<A name="PROGTOLSTATUS_REF_DTM_NEEDED"></A>   PROGTOLSTATUS_REF_DTM_NEEDED  =  3,
+<A name="PROGTOLSTATUS_ONE_REF_DTM"></A>   PROGTOLSTATUS_ONE_REF_DTM     =  4,
+<A name="PROGTOLSTATUS_NONCOLL_AXIS"></A>   PROGTOLSTATUS_NONCOLL_AXIS    =  5,
+<A name="PROGTOLSTATUS_NONCOLL_SURF"></A>   PROGTOLSTATUS_NONCOLL_SURF    =  6,
+<A name="PROGTOLSTATUS_NONPERP_SURF"></A>   PROGTOLSTATUS_NONPERP_SURF    =  7,
+<A name="PROGTOLSTATUS_NONPERP_ENT"></A>   PROGTOLSTATUS_NONPERP_ENT     =  8,
+<A name="PROGTOLSTATUS_NONPAR_ENT"></A>   PROGTOLSTATUS_NONPAR_ENT      =  9,
+<A name="PROGTOLSTATUS_ENT_DTM_NOT_ANG"></A>   PROGTOLSTATUS_ENT_DTM_NOT_ANG = 10,
+<A name="PROGTOLSTATUS_NO_REF_ENT"></A>   PROGTOLSTATUS_NO_REF_ENT      = 11,
+<A name="PROGTOLSTATUS_COMPLETE"></A>   PROGTOLSTATUS_COMPLETE        = 12,
+<A name="PROGTOLSTATUS_NO_REF_GEOM"></A>   PROGTOLSTATUS_NO_REF_GEOM     = 13
+} <A HREF="progtol_h.html#ProGtoldataStatus">ProGtoldataStatus</A>;
+
+<A name="ProGtolType"></A>typedef enum
+{
+<A name="PROGTOLTYPE_UNKNOWN"></A>   PROGTOLTYPE_UNKNOWN          =  0,
+<A name="PROGTOLTYPE_STRAIGHTNESS"></A>   PROGTOLTYPE_STRAIGHTNESS     =  1,
+<A name="PROGTOLTYPE_FLATNESS"></A>   PROGTOLTYPE_FLATNESS         =  2,
+<A name="PROGTOLTYPE_CIRCULAR"></A>   PROGTOLTYPE_CIRCULAR         =  3,
+<A name="PROGTOLTYPE_CYLINDRICAL"></A>   PROGTOLTYPE_CYLINDRICAL      =  4,
+<A name="PROGTOLTYPE_LINE"></A>   PROGTOLTYPE_LINE             = 11,
+<A name="PROGTOLTYPE_SURFACE"></A>   PROGTOLTYPE_SURFACE          = 12,
+<A name="PROGTOLTYPE_ANGULAR"></A>   PROGTOLTYPE_ANGULAR          = 21,
+<A name="PROGTOLTYPE_PERPENDICULAR"></A>   PROGTOLTYPE_PERPENDICULAR    = 22,
+<A name="PROGTOLTYPE_PARALLEL"></A>   PROGTOLTYPE_PARALLEL         = 23,
+<A name="PROGTOLTYPE_POSITION"></A>   PROGTOLTYPE_POSITION         = 31,
+<A name="PROGTOLTYPE_CONCENTRICITY"></A>   PROGTOLTYPE_CONCENTRICITY    = 32,
+<A name="PROGTOLTYPE_SYMMETRY"></A>   PROGTOLTYPE_SYMMETRY         = 35,
+<A name="PROGTOLTYPE_CIRCULAR_RUNOUT"></A>   PROGTOLTYPE_CIRCULAR_RUNOUT  = 41,
+<A name="PROGTOLTYPE_TOTAL_RUNOUT"></A>   PROGTOLTYPE_TOTAL_RUNOUT     = 42
+} <A HREF="progtol_h.html#ProGtolType">ProGtolType</A>;
+
+<A name="ProGtolMaterialCond"></A>typedef enum
+{
+<A name="PROGTOLMATCOND_UNKNOWN"></A>   PROGTOLMATCOND_UNKNOWN     = 0,
+<A name="PROGTOLMATCOND_LMC"></A>   PROGTOLMATCOND_LMC         = 1,
+<A name="PROGTOLMATCOND_MMC"></A>   PROGTOLMATCOND_MMC         = 2,
+<A name="PROGTOLMATCOND_RFS"></A>   PROGTOLMATCOND_RFS         = 3,
+<A name="PROGTOLMATCOND_DEFAULT_RFS"></A>   PROGTOLMATCOND_DEFAULT_RFS = 4,
+<A name="PROGTOLMATCOND_LMC_R"></A>   PROGTOLMATCOND_LMC_R       = 5,
+<A name="PROGTOLMATCOND_MMC_R"></A>   PROGTOLMATCOND_MMC_R       = 6
+} <A HREF="progtol_h.html#ProGtolMaterialCond">ProGtolMaterialCond</A>;
+
+<A name="ProGtolRefItemType"></A>typedef enum
+{
+<A name="PROGTOLRTYPE_NONE"></A>   PROGTOLRTYPE_NONE   = -1, /* Only available in drawings */
+<A name="PROGTOLRTYPE_EDGE"></A>   PROGTOLRTYPE_EDGE   = 1,
+<A name="PROGTOLRTYPE_AXIS"></A>   PROGTOLRTYPE_AXIS   = 2,
+<A name="PROGTOLRTYPE_SURF"></A>   PROGTOLRTYPE_SURF   = 3,
+<A name="PROGTOLRTYPE_FEAT"></A>   PROGTOLRTYPE_FEAT   = 4,
+<A name="PROGTOLRTYPE_DATUM"></A>   PROGTOLRTYPE_DATUM  = 5,  /* Datum plane or axis */
+<A name="PROGTOLRTYPE_ENTITY"></A>   PROGTOLRTYPE_ENTITY = 6   /* NOT IMPLEMENTED */
+} <A HREF="progtol_h.html#ProGtolRefItemType">ProGtolRefItemType</A>;
+
+<A name="ProGtolPlacementType"></A>typedef enum
+{
+<A name="PROGTOLPTYPE_DATUM"></A>   PROGTOLPTYPE_DATUM,
+<A name="PROGTOLPTYPE_DIMENSION"></A>   PROGTOLPTYPE_DIMENSION,
+<A name="PROGTOLPTYPE_DIM_RELATED"></A>   PROGTOLPTYPE_DIM_RELATED,
+<A name="PROGTOLPTYPE_FREENOTE"></A>   PROGTOLPTYPE_FREENOTE,
+<A name="PROGTOLPTYPE_LEADERS"></A>   PROGTOLPTYPE_LEADERS,
+<A name="PROGTOLPTYPE_TANLEADER"></A>   PROGTOLPTYPE_TANLEADER,
+<A name="PROGTOLPTYPE_NORMLEADER"></A>   PROGTOLPTYPE_NORMLEADER,
+<A name="PROGTOLPTYPE_GTOL"></A>   PROGTOLPTYPE_GTOL
+} <A HREF="progtol_h.html#ProGtolPlacementType">ProGtolPlacementType</A>;
+
+
+<A name="ProLeaderType"></A>typedef enum
+{
+<A name="PROLEADERTYPE_ARROWHEAD"></A>   PROLEADERTYPE_ARROWHEAD   =  1,
+<A name="PROLEADERTYPE_DOT"></A>   PROLEADERTYPE_DOT         =  2,
+<A name="PROLEADERTYPE_FILLEDDOT"></A>   PROLEADERTYPE_FILLEDDOT   =  3,
+<A name="PROLEADERTYPE_NOARROW"></A>   PROLEADERTYPE_NOARROW     =  4,
+<A name="PROLEADERTYPE_CROSS"></A>   PROLEADERTYPE_CROSS       =  5,
+<A name="PROLEADERTYPE_SLASH"></A>   PROLEADERTYPE_SLASH       =  6,
+<A name="PROLEADERTYPE_INTEGRAL"></A>   PROLEADERTYPE_INTEGRAL    =  7,
+<A name="PROLEADERTYPE_BOX"></A>   PROLEADERTYPE_BOX         =  8,
+<A name="PROLEADERTYPE_FILLEDBOX"></A>   PROLEADERTYPE_FILLEDBOX   =  9,
+<A name="PROLEADERTYPE_DOUBLEARROW"></A>   PROLEADERTYPE_DOUBLEARROW = 10,
+<A name="PROLEADERTYPE_CROSS_N_ARROW"></A>   PROLEADERTYPE_CROSS_N_ARROW = 13,
+<A name="PROLEADERTYPE_TARGET"></A>   PROLEADERTYPE_TARGET      = 14, 
+<A name="PROLEADERTYPE_LEFTHALF"></A>   PROLEADERTYPE_LEFTHALF    = 15,
+<A name="PROLEADERTYPE_RIGHTHALF"></A>   PROLEADERTYPE_RIGHTHALF   = 16, 
+<A name="PROLEADERTYPE_TRIANGLE"></A>   PROLEADERTYPE_TRIANGLE    = 18,
+<A name="PROLEADERTYPE_AUTOMATIC"></A>   PROLEADERTYPE_AUTOMATIC   = 19
+} <A HREF="progtol_h.html#ProLeaderType">ProLeaderType</A>;
+
+<A name="ProGtolReferenceType"></A>typedef enum
+{
+<A name="PROGTOLREFTYPE_NONE"></A>   PROGTOLREFTYPE_NONE      = 0,
+<A name="PROGTOLREFTYPE_PRIMARY"></A>   PROGTOLREFTYPE_PRIMARY   = 1,
+<A name="PROGTOLREFTYPE_SECONDARY"></A>   PROGTOLREFTYPE_SECONDARY = 2,
+<A name="PROGTOLREFTYPE_TERTIARY"></A>   PROGTOLREFTYPE_TERTIARY  = 3
+} <A HREF="progtol_h.html#ProGtolReferenceType">ProGtolReferenceType</A>;
+
+<A name="ProGtolProjzone"></A>typedef enum
+{
+<A name="PROGTOLPROJZONE_NONE"></A>   PROGTOLPROJZONE_NONE       = 0,
+<A name="PROGTOLPROJZONE_BELOWGTOL"></A>   PROGTOLPROJZONE_BELOWGTOL  = 1,
+<A name="PROGTOLPROJZONE_INSIDEGTOL"></A>   PROGTOLPROJZONE_INSIDEGTOL = 2
+} <A HREF="progtol_h.html#ProGtolProjzone">ProGtolProjzone</A>;
+
+/* <A HREF="progtol_h.html#PROGTOLPROF_BILATERAL_IDX">PROGTOLPROF_BILATERAL_IDX</A> = 0 and <A HREF="progtol_h.html#PROGTOLPROF_UNILATERAL_IDX">PROGTOLPROF_UNILATERAL_IDX</A> = 1 in order
+ * to handle legacy code. */
+<A name="ProGtolProfBoundIndex"></A>typedef enum
+{
+<A name="PROGTOLPROF_BILATERAL_IDX"></A>   PROGTOLPROF_BILATERAL_IDX = 0,
+<A name="PROGTOLPROF_UNILATERAL_IDX"></A>   PROGTOLPROF_UNILATERAL_IDX = 1,
+<A name="PROGTOLPROF_UNEQUAL_IDX"></A>   PROGTOLPROF_UNEQUAL_IDX = 2
+} <A HREF="progtol_h.html#ProGtolProfBoundIndex">ProGtolProfBoundIndex</A>;
+
+<A name="ProTextHrzJustification"></A>typedef enum
+{
+<A name="PRO_TEXT_HRZJUST_DEFAULT"></A>  PRO_TEXT_HRZJUST_DEFAULT,
+<A name="PRO_TEXT_HRZJUST_LEFT"></A>  PRO_TEXT_HRZJUST_LEFT,
+<A name="PRO_TEXT_HRZJUST_CENTER"></A>  PRO_TEXT_HRZJUST_CENTER,
+<A name="PRO_TEXT_HRZJUST_RIGHT"></A>  PRO_TEXT_HRZJUST_RIGHT
+} <A HREF="progtol_h.html#ProTextHrzJustification">ProTextHrzJustification</A>;
+
+<A name="ProGtolSymbol"></A>typedef enum
+{
+<A name="PRO_GTOL_SYMBOL_DIAMETER"></A>	PRO_GTOL_SYMBOL_DIAMETER,
+<A name="PRO_GTOL_SYMBOL_FREE_STATE"></A>	PRO_GTOL_SYMBOL_FREE_STATE,	
+<A name="PRO_GTOL_SYMBOL_STAT_TOL"></A>	PRO_GTOL_SYMBOL_STAT_TOL,
+<A name="PRO_GTOL_SYMBOL_TANGENT_PLANE"></A>	PRO_GTOL_SYMBOL_TANGENT_PLANE,   
+
+<A name="/*"></A>	/* Material condition symbols */
+<A name="PRO_GTOL_SYMBOL_LMC"></A>	PRO_GTOL_SYMBOL_LMC,
+<A name="PRO_GTOL_SYMBOL_MMC"></A>	PRO_GTOL_SYMBOL_MMC,
+<A name="PRO_GTOL_SYMBOL_RFS"></A>	PRO_GTOL_SYMBOL_RFS,
+<A name="PRO_GTOL_SYMBOL_DEFAULT_RFS"></A>	PRO_GTOL_SYMBOL_DEFAULT_RFS,
+<A name="PRO_GTOL_SYMBOL_LMC_R"></A>	PRO_GTOL_SYMBOL_LMC_R,
+<A name="PRO_GTOL_SYMBOL_MMC_R"></A>	PRO_GTOL_SYMBOL_MMC_R,
+
+<A name="/*"></A>  /* Indicator Symbol */
+<A name="PRO_INDICATOR_SYMBOL_ANGULARITY"></A>    PRO_INDICATOR_SYMBOL_ANGULARITY,
+<A name="PRO_INDICATOR_SYMBOL_PERPENDICULARITY"></A>    PRO_INDICATOR_SYMBOL_PERPENDICULARITY,
+<A name="PRO_INDICATOR_SYMBOL_PARALLELISM"></A>    PRO_INDICATOR_SYMBOL_PARALLELISM,
+<A name="PRO_INDICATOR_SYMBOL_SYMMETRY"></A>    PRO_INDICATOR_SYMBOL_SYMMETRY,
+<A name="PRO_INDICATOR_SYMBOL_RUNOUT"></A>    PRO_INDICATOR_SYMBOL_RUNOUT,
+<A name="PRO_GTOL_SYMBOL_TRANSLATION"></A>    PRO_GTOL_SYMBOL_TRANSLATION
+
+<A name="/*"></A>    /* Add new C4 sumbols */
+} <A HREF="progtol_h.html#ProGtolSymbol">ProGtolSymbol</A>;
+
+<A name="ProGtolIndicatorType"></A>typedef enum
+{
+<A name="PRO_INDICATOR_DIRECTION_FEAT"></A>	PRO_INDICATOR_DIRECTION_FEAT,
+<A name="PRO_INDICATOR_COLLECTION_PLANE"></A>	PRO_INDICATOR_COLLECTION_PLANE,	
+<A name="PRO_INDICATOR_INTERSECTION_PLANE"></A>	PRO_INDICATOR_INTERSECTION_PLANE,
+<A name="PRO_INDICATOR_ORIENTATION_PLANE"></A>	PRO_INDICATOR_ORIENTATION_PLANE
+
+} <A HREF="progtol_h.html#ProGtolIndicatorType">ProGtolIndicatorType</A>;
+
+<A name="ProGtolValidityCheckType"></A>typedef enum
+{
+<A name="PRO_GTOL_SYNTAX_VALIDITY_CHECK"></A>  PRO_GTOL_SYNTAX_VALIDITY_CHECK
+
+} <A HREF="progtol_h.html#ProGtolValidityCheckType">ProGtolValidityCheckType</A>;
+
+<A name="ProSymbolFont"></A>typedef enum
+{
+<A name="PRO_FONT_ASME"></A>  PRO_FONT_ASME,
+<A name="PRO_FONT_ISO"></A>  PRO_FONT_ISO,
+<A name="PRO_FONT_LEGACY"></A>  PRO_FONT_LEGACY,
+<A name="PRO_FONT_STROKED_ASME"></A>  PRO_FONT_STROKED_ASME,
+<A name="PRO_FONT_STROKED_ISO"></A>  PRO_FONT_STROKED_ISO
+
+}ProSymbolFont;
+
+<A name="ProGtolEnvelopeFlag"></A>typedef enum
+{
+<A name="PRO_GTOL_ENVELOPE_DEFAULT"></A>  PRO_GTOL_ENVELOPE_DEFAULT,
+<A name="PRO_GTOL_ENVELOPE_SKIP_OUTSIDE_TEXT"></A>  PRO_GTOL_ENVELOPE_SKIP_OUTSIDE_TEXT
+
+}ProGtolEnvelopeFlag;
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1568.html">ProGtolDelete</A>(
+   <A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol);
+/*
+    Purpose: Deletes a gtol from its owning Creo Parametric model.
+
+    Input Arguments:
+        gtol - The gtol
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Could not delete the given item because it has 
+                            read-only access. <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A>
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1569.html">ProGtolRightTextGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A> **p_text);
+/*
+    Purpose: Retrieves the text of the specified geometrical tolerance.
+
+    Input Arguments:
+        gtol - Pointer to the geometrical tolerance.
+
+    Output Arguments:
+        p_text - The string added to the right of the geometric tolerance.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully retrieved the information.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - There is no additional text for this geometric 
+                             tolerance.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1570.html">ProGtolRightTextSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A> *text);
+/*
+    Purpose: Sets the text of the specified geometric tolerance.
+
+    Input Arguments:
+        gtol - Pointer to the geometrical tolerance.
+        text - The string added to the right of the geometric tolerance.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully retrieved the information.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol text cannot be varied.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Could not modify the given item because it has 
+                            read-only access.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1571.html">ProGtolDtlnoteGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>    *solid_model_gtol,
+                                   <A HREF="proobjects_h.html#ProDrawing">ProDrawing</A>  drawing,
+                                   <A HREF="proobjects_h.html#ProDtlnote">ProDtlnote</A> *dtl_note);
+/*
+    Purpose: Return the detail note that represents a shown geometric 
+             tolerance.
+
+    Input Arguments:
+        solid_model_gtol - The geometric tolerance handle.
+        drawing - The drawing where the note is displayed.
+
+    Output Arguments:
+        dtl_note - The drawing detail note that displays the model note.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully retrieved the note.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The solid model is not contained in the drawing.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The geometric tolerance is not displayed in the 
+                             drawing as a note.
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1572.html">ProGtolleaderAlloc</A>(
+   <A HREF="progtol_h.html#ProLeaderType">ProLeaderType</A> type,
+   <A HREF="proselection_h.html#ProSelection">ProSelection</A> attachment,
+   <A HREF="progtol_h.html#ProGtolleader">ProGtolleader</A> *leader);
+/*
+    Purpose: Allocates and defines a gtol leader structure.
+
+    Input Arguments:
+        type - The type which determinates the leader appearance
+        attachment - The item to which the leader is attached
+
+    Output Arguments:
+        leader - The allocated gtol leader structure
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more of the input arguments are invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1573.html">ProGtolleaderFree</A>(
+   <A HREF="progtol_h.html#ProGtolleader">ProGtolleader</A> *leader);
+/*
+    Purpose: Frees a gtol leader structure.
+
+    Input Arguments:
+        leader - Pointer to the leader structure
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1574.html">ProGtolleadersFree</A>(
+   <A HREF="progtol_h.html#ProGtolleader">ProGtolleader</A> **leaders);
+/*
+    Purpose: Frees an array of gtol leader structures.
+
+    Input Arguments:
+        leaders - Pointer to the leader structure array
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1575.html">ProGtolleaderGet</A>(
+   <A HREF="progtol_h.html#ProGtolleader">ProGtolleader</A> leader,
+   <A HREF="progtol_h.html#ProLeaderType">ProLeaderType</A> *type,
+   <A HREF="proselection_h.html#ProSelection">ProSelection</A> *attachment);
+/*
+    Purpose: Provides the information contained in a gtol leader structure.
+
+    Input Arguments:
+        leader - The leader structure
+
+    Output Arguments:
+        type - The type which determinates the leader appearance
+        attachment - The item to which the leader is attached
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1576.html">ProGeomitemGtolrefSet</A>(
+   <A HREF="proobjects_h.html#ProGeomitem">ProGeomitem</A>  *geomitem,
+   <A HREF="proobjects_h.html#ProDimension">ProDimension</A> *in_dim);
+/*
+    Purpose: &lt;B&gt;
+             &lt;P&gt;Note: This function is deprecated. Use <A HREF="1579.html">ProGeomitemSetdatumSet</A>() 
+             instead. &lt;/P&gt;&lt;/B&gt; Sets a datum plane or axis to be a gtol 
+             reference.
+
+    Input Arguments:
+        geomitem - The datum plane or axis
+        in_dim - Identifies the dimension for an "In dim" tolerance; set to 
+                 NULL if the gtol is "Free".
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more of the input arguments are invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - An error occurred and the function failed.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1577.html">ProGeomitemGtolrefClear</A>(
+   <A HREF="proobjects_h.html#ProGeomitem">ProGeomitem</A> *geomitem);
+/*
+    Purpose: &lt;B&gt;
+             &lt;P&gt;Note: This function is deprecated. Use 
+             <A HREF="1580.html">ProGeomitemSetdatumClear</A>() instead. &lt;/P&gt;&lt;/B&gt; Clears a datum plane 
+             or axis so it is no longer a gtol reference.
+
+    Input Arguments:
+        geomitem - The datum plane or axis
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Could not delete the given item because it has 
+                            read-only access.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - An error occurred and the function failed.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1578.html">ProGeomitemIsGtolref</A>(
+   <A HREF="proobjects_h.html#ProGeomitem">ProGeomitem</A> *geomitem,
+   <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>  *ref_datum,
+   <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>  *is_in_dim,
+   <A HREF="proobjects_h.html#ProDimension">ProDimension</A> *in_dim);
+/*
+    Purpose: &lt;B&gt;
+             &lt;P&gt;Note: This function is deprecated. Use <A HREF="1581.html">ProGeomitemSetdatumGet</A>() 
+             instead. &lt;/P&gt;&lt;/B&gt; Shows whether a datum plane or axis is a gtol 
+             reference.
+
+    Input Arguments:
+        geomitem - The datum plane or axis
+
+    Output Arguments:
+        ref_datum - TRUE is the datum is a gtol reference
+        is_in_dim - TRUE if the datum is "In dim", FALSE if "Free"
+        in_dim - If is_in_dim==TRUE, the dimension
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - An error occurred and the function failed.
+
+*/
+
+
+
+<A name="ProGtolUnitareaStyle"></A>typedef enum
+{
+<A name="PROGTOLUNITAREASTYLE_X"></A>   PROGTOLUNITAREASTYLE_X    = 0, /* /7X7 */
+<A name="PROGTOLUNITAREASTYLE_BOX"></A>   PROGTOLUNITAREASTYLE_BOX  = 1, /* /[box]7 */
+<A name="PROGTOLUNITAREASTYLE_DIA"></A>   PROGTOLUNITAREASTYLE_DIA  = 2  /* /[diameter]7 */
+} <A HREF="progtol_h.html#ProGtolUnitareaStyle">ProGtolUnitareaStyle</A>;
+
+<A name="ProGtolsetdatumRefType"></A>typedef enum 
+{
+<A name="PRO_GTOLREF_IN_DIM"></A>   PRO_GTOLREF_IN_DIM,
+<A name="PRO_GTOLREF_IN_GTOL"></A>   PRO_GTOLREF_IN_GTOL,
+<A name="PRO_GTOLREF_IN_GEOM"></A>   PRO_GTOLREF_IN_GEOM,
+<A name="PRO_GTOLREF_FREE"></A>   PRO_GTOLREF_FREE
+} <A HREF="progtol_h.html#ProGtolsetdatumRefType">ProGtolsetdatumRefType</A>;
+
+<A name="ProGtolsetdatumValue"></A>typedef struct
+{
+   <A HREF="progtol_h.html#ProGtolsetdatumRefType">ProGtolsetdatumRefType</A> type;
+   union 
+   {
+     <A HREF="proobjects_h.html#ProDimension">ProDimension</A> dim;
+     <A HREF="proobjects_h.html#ProGtol">ProGtol</A> gtol;
+     <A HREF="proselection_h.html#ProSelection">ProSelection</A> geom;
+   } ref;
+}ProGtolsetdatumValue;
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1579.html">ProGeomitemSetdatumSet</A>(
+   <A HREF="proobjects_h.html#ProGeomitem">ProGeomitem</A>  *geomitem,
+   <A HREF="progtol_h.html#ProGtolsetdatumValue">ProGtolsetdatumValue</A>* value);
+/*
+    Purpose: Sets a datum plane or axis to be a Set Datum. This function 
+             supersedes <A HREF="1576.html">ProGeomitemGtolrefSet.</A>
+
+    Input Arguments:
+        geomitem - The datum plane or axis
+        value - The type and reference object for the "Set Datum" to apply. 
+                Pass NULL to make it a "Free" Set Datum.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more of the input arguments are invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Could not modify the given item because it has 
+                            read-only access.
+
+*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1580.html">ProGeomitemSetdatumClear</A>(
+   <A HREF="proobjects_h.html#ProGeomitem">ProGeomitem</A> *geomitem);
+/*
+    Purpose: Removes the Set Datum status of a datum plane or axis. This 
+             function supersedes <A HREF="1577.html">ProGeomitemGtolrefClear.</A>
+
+    Input Arguments:
+        geomitem - The datum plane or axis
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1581.html">ProGeomitemSetdatumGet</A>(
+   <A HREF="proobjects_h.html#ProGeomitem">ProGeomitem</A> *geomitem,
+   <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>  *set,
+   <A HREF="progtol_h.html#ProGtolsetdatumValue">ProGtolsetdatumValue</A>* value);
+/*
+    Purpose: Shows whether a datum plane or axis is a Set Datum. This function 
+             supersedes <A HREF="1578.html">ProGeomitemIsGtolref.</A>
+
+    Input Arguments:
+        geomitem - The datum plane or axis
+
+    Output Arguments:
+        set - TRUE is the datum is a Set Datum.
+        value - The type and reference object for the "Set Datum" to apply. If 
+                type of <A HREF="progtol_h.html#ProGtolsetdatumValue">ProGtolsetdatumValue</A> is <A HREF="progtol_h.html#PRO_GTOLREF_IN_GEOM">PRO_GTOLREF_IN_GEOM</A>, the caller 
+                should free the memory for value.ref.geom by using 
+                <A HREF="3723.html">ProSelectionFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - An error occurred and the function failed.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1582.html">ProGtolTextstyleSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol,
+                                     <A HREF="proobjects_h.html#ProTextStyle">ProTextStyle</A> text_style);
+/*
+    Purpose: 
+             &lt;P&gt;&lt;B&gt;Note:&lt;/B&gt; This function is deprecated. Use 
+             <A HREF="84.html">ProAnnotationTextstyleSet</A>() instead.&lt;/P&gt; Assigns the text style 
+             assigned to a geometric tolerance. 
+
+    Licensing Requirement:
+        UNRECOGNIZED
+
+    Input Arguments:
+        gtol - The gtol.
+        text_style - The text style. Free this using <A HREF="3258.html">ProTextStyleFree</A>().
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol text style cannot be varied.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Could not modify the given item because it has 
+                            read-only access.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1583.html">ProGtolTextstyleGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol,
+                                     <A HREF="proobjects_h.html#ProTextStyle">ProTextStyle</A>* text_style);
+/*
+    Purpose: 
+             &lt;P&gt;&lt;B&gt;Note:&lt;/B&gt; This function is deprecated. Use 
+             <A HREF="85.html">ProAnnotationTextstyleGet</A>() instead.&lt;/P&gt; Obtains the text style 
+             assigned to a geometric tolerance. 
+
+    Licensing Requirement:
+        UNRECOGNIZED
+
+    Input Arguments:
+        gtol - The gtol.
+
+    Output Arguments:
+        text_style - The text style. Free this using <A HREF="3258.html">ProTextStyleFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1584.html">ProGtolElbowlengthGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol,
+                                       double* elbow_length,
+                                       <A HREF="proobjects_h.html#ProVector">ProVector</A> elbow_direction);
+/*
+    Purpose: Obtains the elbow properties of the geometric tolerance.
+             &lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; This function only supports gtols which are placed 
+             on an annotation plane. 
+
+    Licensing Requirement:
+        UNRECOGNIZED
+
+    Input Arguments:
+        gtol - The gtol.
+
+    Output Arguments:
+        elbow_length - The elbow length, in model units.
+        elbow_direction - The elbow direction, in the model's coordinate 
+                          system. This is the direction from the gtol text to 
+                          the gtol leaders.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The gtol does not use leaders.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A> - This gtol was created in a release before 
+                              Wildfire 2.0. Because of this, its internal 
+                              structure is different and the elbow length 
+                              cannot be obtained by this function.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1585.html">ProGtolLineEnvelopeGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* note,
+                                        int line_number,
+                                        <A HREF="proobjects_h.html#ProLineEnvelope">ProLineEnvelope</A> envelope);
+/*
+    Purpose: Get the envelope of a line in a specified geometric tolerance.
+             &lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; This function only supports gtols which are placed 
+             on an annotation plane. 
+
+    Licensing Requirement:
+        UNRECOGNIZED
+
+    Input Arguments:
+        note - The gtol.
+        line_number - The line number of the gtol.
+
+    Output Arguments:
+        envelope - The envelope surrounding the text line, in the model's 
+                   coordinate system.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The indicated line does not exist.
+
+*/
+
+
+
+
+
+<A name="ProGtolValueType"></A>typedef enum
+{
+<A name="PRO_GTOLVALTYPE_VALUE"></A>   PRO_GTOLVALTYPE_VALUE               = 1,  /* ProGtoldataValueSet */
+<A name="PRO_GTOLVALTYPE_COMPOSITE"></A>   PRO_GTOLVALTYPE_COMPOSITE           = 2,  /* ProGtoldataCompositeSet */
+<A name="PRO_GTOLVALTYPE_ZONE_HEIGHT"></A>   PRO_GTOLVALTYPE_ZONE_HEIGHT         = 3,  /* ProGtoldataProjZoneSet */
+<A name="PRO_GTOLVALTYPE_PERUNIT"></A>   PRO_GTOLVALTYPE_PERUNIT             = 4,  /* ProGtoldataPerUnitSet */
+<A name="PRO_GTOLVALTYPE_UNIT_AREA_OR_LENGTH"></A>   PRO_GTOLVALTYPE_UNIT_AREA_OR_LENGTH = 5,  /* ProGtoldataPerUnitSet */
+<A name="PRO_GTOLVALTYPE_DISPOSITION"></A>   PRO_GTOLVALTYPE_DISPOSITION         = 6   /* ProGtoldataDispositionValSet */
+} <A HREF="progtol_h.html#ProGtolValueType">ProGtolValueType</A>;
+
+
+
+<A name="ProGtolTextType"></A>typedef enum 
+{
+<A name="PRO_GTOLTEXT_ON_RIGHT"></A>PRO_GTOLTEXT_ON_RIGHT,
+<A name="PRO_GTOLTEXT_ON_TOP"></A>PRO_GTOLTEXT_ON_TOP,
+<A name="PRO_GTOLTEXT_ON_BOTTOM"></A>PRO_GTOLTEXT_ON_BOTTOM,
+<A name="PRO_GTOLTEXT_ON_LEFT"></A>PRO_GTOLTEXT_ON_LEFT
+} <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType</A>;
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1586.html">ProGtolTopTextGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** above_text);
+/*
+    Purpose: Obtains the text added to the top of the geometric tolerance.
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+
+    Output Arguments:
+        above_text - The text added to the top of the geometric tolerance. If 
+                     the text extends over multiple lines, the output string 
+                     will contain '\n' characters indicating the line breaks. 
+                     Free this string using <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The gtol does not have text on top.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1587.html">ProGtolTopTextSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* above_text);
+/*
+    Purpose: Assigns the text added to the top of the geometric tolerance.
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+        above_text - The text added to the top of the geometric tolerance. If 
+                     the text should extend over multiple lines, the input 
+                     string should contain '\n' characters indicating the line 
+                     breaks. Note that the top text cannot extend beyond the 
+                     length of the gtol control frame, and so the function may 
+                     automatically insert line breaks into the text when doing 
+                     this assignment.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol text cannot be varied.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Cannot set the top text because the gtol has 
+                            read-only access.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1588.html">ProGtolBottomTextGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** below_text);
+/*
+    Purpose: Obtains the text added to the bottom of the geometric tolerance.
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+
+    Output Arguments:
+        below_text - The text added to the bottom of the geometric tolerance. 
+                     If the text extends over multiple lines, the output string 
+                     will contain '\n' characters indicating the line breaks. 
+                     Free this string using <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The gtol does not have text on bottom.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1589.html">ProGtolBottomTextSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* below_text);
+/*
+    Purpose: Assigns the text added to the bottom of the geometric tolerance.
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+        below_text - The text added to the bottom of the geometric tolerance. 
+                     If the text should extend over multiple lines, the input 
+                     string should contain '\n' characters indicating the line 
+                     breaks. Note that the bottom text cannot extend beyond the 
+                     length of the gtol control frame, and so the function may 
+                     automatically insert line breaks into the text when doing 
+                     this assignment.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol text cannot be varied.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Cannot set the bottom text because the gtol has 
+                            read-only access.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1590.html">ProGtolLeftTextGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** left_text);
+/*
+    Purpose: Obtains the text added to the left of the geometric tolerance.
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+
+    Output Arguments:
+        left_text - The text added to the left of the geometric tolerance. If 
+                    the text extends over multiple lines, the output string 
+                    will contain '\n' characters indicating the line breaks. 
+                    Free this string using <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The gtol does not have text to left.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1591.html">ProGtolLeftTextSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* left_text);
+/*
+    Purpose: Assigns the text added to the left of the geometric tolerance.
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+        left_text - The text added to the left of the geometric tolerance. If 
+                    the text should extend over multiple lines, the input 
+                    string should contain '\n' characters indicating the line 
+                    breaks. Note that the left text cannot extend beyond the 
+                    length of the gtol control frame, and so the function may 
+                    automatically insert line breaks into the text when doing 
+                    this assignment.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol text cannot be varied.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Cannot set the left text because the gtol has 
+                            read-only access.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1592.html">ProGtolAddlTextBoxedSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType</A> text_type, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> is_boxed);
+/*
+    Purpose: Set Boxed to Additional text to a geometric tolerance with 
+             particular <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType.</A> Note that only Top and Bottom 
+             <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType</A> can have Boxed. 
+
+    Licensing Requirement:
+        UNRECOGNIZED
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+        text_type - The instance of additional text to access.
+        is_boxed - Set boxed to the additional text. Pass <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> to set the 
+                   Boxed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Cannot modify the gtol because it is read-only.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1593.html">ProGtolAddlTextBoxedGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType</A> text_type, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* is_boxed);
+/*
+    Purpose: Get if Additional text to a geometric tolerance with particular 
+             <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType</A> is Boxed. Note that only Top and Bottom 
+             <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType</A> can have Boxed. 
+
+    Licensing Requirement:
+        UNRECOGNIZED
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+        text_type - The instance of additional text to access.
+
+    Output Arguments:
+        is_boxed - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if Additional text to a gtol with particular 
+                   <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType</A> is Boxed.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The gtol does not have text on particular 
+                             <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType.</A>
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1594.html">ProGtolPrefixGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** prefix);
+/*
+    Purpose: Obtains the prefix text for the geometric tolerance.
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+
+    Output Arguments:
+        prefix - The prefix text. Free this string using <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The gtol does not contain prefix text.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1595.html">ProGtolPrefixSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* prefix);
+/*
+    Purpose: Assigns the prefix text for the geometric tolerance.
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+        prefix - The prefix text.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol prefix cannot be varied.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Cannot set the text because the gtol is read-only.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1596.html">ProGtolSuffixGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** suffix);
+/*
+    Purpose: Obtains the suffix text for the geometric tolerance.
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+
+    Output Arguments:
+        suffix - The suffix text. Free this string using <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The gtol does not contain suffix text.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1597.html">ProGtolSuffixSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* suffix);
+/*
+    Purpose: Assigns the suffix text for the geometric tolerance.
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+        suffix - The suffix text.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol suffix cannot be varied.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Cannot set the text because the gtol is read-only.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1598.html">ProGtoltextTextstyleGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, 
+                                         <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType</A> text_type, 
+					 <A HREF="proobjects_h.html#ProTextStyle">ProTextStyle</A>* text_style);
+/*
+    Purpose: Gets the text style for the additional text applied to a geometric 
+             tolerance. 
+
+    Licensing Requirement:
+        UNRECOGNIZED
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+        text_type - The instance of additional text to access.
+
+    Output Arguments:
+        text_style - The text style.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The gtol does not have the additional text 
+                             specified.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1599.html">ProGtoltextTextstyleSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, 
+                                         <A HREF="progtol_h.html#ProGtolTextType">ProGtolTextType</A> text_type, 
+					 <A HREF="proobjects_h.html#ProTextStyle">ProTextStyle</A> text_style);
+/*
+    Purpose: Sets the text style for the additional text applied to a geometric 
+             tolerance. Note that not all text style properties are supported 
+             for gtol additional text; unsupported properties are ignored by 
+             this function. 
+
+    Licensing Requirement:
+        UNRECOGNIZED
+
+    Input Arguments:
+        gtol - The geometric tolerance.
+        text_type - The instance of additional text to access.
+        text_style - The text style.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol text style cannot be varied.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_WRITE">PRO_TK_CANT_WRITE</A> - Cannot modify the gtol because it is read-only.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1600.html">ProGtolRightTextEnvelopeGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* note,
+
+                                        <A HREF="proobjects_h.html#ProLineEnvelope">ProLineEnvelope</A> envelope);
+/*
+    Purpose: Get the envelope of the right text in a specified geometric 
+             tolerance.
+             &lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; This function only supports gtols which are placed 
+             on an annotation plane. 
+
+    Licensing Requirement:
+        UNRECOGNIZED
+
+    Input Arguments:
+        note - The gtol.
+
+    Output Arguments:
+        envelope - The envelope surrounding the right text, in the model's 
+                   coordinate system.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+	
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1601.html">ProGtolTopTextHorizJustificationSet</A> (
+   <A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="progtol_h.html#ProTextHrzJustification">ProTextHrzJustification</A> justification);
+/*
+    Purpose: Sets horizontal justification for additional gtol text at the top
+
+    Input Arguments:
+        gtol - The gtol
+        justification - Applied justification
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - An error occurred and the function failed.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1602.html">ProGtolTopTextHorizJustificationGet</A> (
+   <A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="progtol_h.html#ProTextHrzJustification">ProTextHrzJustification</A> *justification);
+/*
+    Purpose: Gets horizontal justification for additional gtol text at the top
+
+    Input Arguments:
+        gtol - The gtol
+
+    Output Arguments:
+        justification - Justification to apply.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - An error occurred and the function failed.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1603.html">ProGtolBottomTextHorizJustificationSet</A> (
+   <A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="progtol_h.html#ProTextHrzJustification">ProTextHrzJustification</A> justification);
+/*
+    Purpose: Sets horizontal justification for additional gtol text at the 
+             bottom
+
+    Input Arguments:
+        gtol - The gtol
+        justification - Applied justification
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - An error occurred and the function failed.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1604.html">ProGtolBottomTextHorizJustificationGet</A> (
+   <A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, <A HREF="progtol_h.html#ProTextHrzJustification">ProTextHrzJustification</A> *justification);
+/*
+    Purpose: Gets horizontal justification for additional gtol text at the 
+             bottom
+
+    Input Arguments:
+        gtol - The gtol
+
+    Output Arguments:
+        justification - Justification to apply.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - An error occurred and the function failed.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1605.html">ProMdlGtolCreate</A> (<A HREF="proobjects_h.html#ProMdl">ProMdl</A> owner_mdl, <A HREF="progtol_h.html#ProGtolType">ProGtolType</A> type, <A HREF="progtol_h.html#ProGtolAttach">ProGtolAttach</A> gtol_attach, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* value_str, <A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol);
+/*
+    Purpose: Creates new Gtol with specified placement and value string
+
+    Input Arguments:
+        owner_mdl - Owner of the gtol.
+        type - type of gtol.
+        gtol_attach - placement which includes attachment references and 
+                      annotation plane.
+        value_str - value string.
+
+    Output Arguments:
+        gtol - newly created gtol.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - Specified placement reference are invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Gtol could not be created.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_UNSUPPORTED">PRO_TK_UNSUPPORTED</A> - owner_mdl is not drawing for creating make dim or 
+                             offset type gtol.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A>  <A HREF="1606.html">ProGtolValueStringSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* value);
+/*
+    Purpose: Set value string of gtol
+
+    Input Arguments:
+        gtol - valid gtol.
+        value - value string.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A>  <A HREF="1607.html">ProGtolValueStringGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** value);
+/*
+    Purpose: Get value string of gtol
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        value - value string.Free it using <A HREF="6138.html">ProWstringFree</A>()
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - No value string found
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A>  <A HREF="1608.html">ProGtolAllOverSet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> all_over);
+/*
+    Purpose: Set all over option for profile gtol
+
+    Input Arguments:
+        gtol - valid gtol.
+        all_over - Pass <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> to set all over else pass PRO_B_FASLE
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_MODIFY">PRO_TK_CANT_MODIFY</A> - This type of gtol does not support all over.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A>  <A HREF="1609.html">ProGtolAllOverGet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *all_over);
+/*
+    Purpose: Get all over option for profile gtol
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        all_over - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if all over is set else PRO_B_FASLE
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A> - This type of gtol does not support all over.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A>  <A HREF="1610.html">ProGtolAllAroundSet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> all_around);
+/*
+    Purpose: Set all around option for profile gtol
+
+    Input Arguments:
+        gtol - valid gtol.
+        all_around - Pass <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> to set all around else pass PRO_B_FASLE
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_MODIFY">PRO_TK_CANT_MODIFY</A> - This type of gtol does not support all around.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A>  <A HREF="1611.html">ProGtolAllAroundGet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *all_around);
+/*
+    Purpose: Get all around option for profile gtol
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        all_around - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if all around is set else PRO_B_FASLE
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A> - This type of gtol does not support all around.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1612.html">ProGtolCompositeGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>*** values ,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>*** primary ,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>*** secondary ,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>*** tertiary);
+/*
+    Purpose: Get composite tolerance frame
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        values - NULL or <A HREF="proarray_h.html#ProArray">ProArray</A>() of value strings. Free it using 
+                 <A HREF="6140.html">ProWstringproarrayFree</A>()
+        primary - NULL or <A HREF="proarray_h.html#ProArray">ProArray</A>() of primary strings. Free it using 
+                  <A HREF="6140.html">ProWstringproarrayFree</A>()
+        secondary - NULL or <A HREF="proarray_h.html#ProArray">ProArray</A>() of secondary strings. Free it using 
+                    <A HREF="6140.html">ProWstringproarrayFree</A>()
+        tertiary - NULL or <A HREF="proarray_h.html#ProArray">ProArray</A>() of tertiary strings. Free it using 
+                   <A HREF="6140.html">ProWstringproarrayFree</A>()
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1613.html">ProGtolCompositeSet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, int index ,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>* value ,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>* primary ,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>*  secondary ,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>* tertiary);
+/*
+    Purpose: Set composite tolerance
+
+    Input Arguments:
+        gtol - valid gtol.
+        index - position.Indices starts from 0. Pass <A HREF="protoolkit_h.html#PRO_VALUE_UNUSED">PRO_VALUE_UNUSED</A> to insert 
+                at end.
+        value - value string. If NULL, row corresponding to input index will be 
+                removed.
+        primary - primary datum string.
+        secondary - secondary datum string.
+        tertiary - tertiary datum string.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_OUT_OF_RANGE">PRO_TK_OUT_OF_RANGE</A> - invalid index
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1614.html">ProGtolDatumReferencesSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* primary,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>* secondary,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>* tertiary);
+/*
+    Purpose: Set datum references to gtol.
+
+    Input Arguments:
+        gtol - valid gtol.
+        primary - primary datum ref. Can be NULL
+        secondary - secondary datum ref. Can be NULL
+        tertiary - tertiary datum ref. Can be NULL
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1615.html">ProGtolDatumReferencesGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** primary,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>** secondary,<A HREF="prowchar_h.html#wchar_t">wchar_t</A>** tertiary);
+/*
+    Purpose: Get datum references to gtol.
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        primary - primary datum ref. Can be NULL. Free it using 
+                  <A HREF="6138.html">ProWstringFree</A>()
+        secondary - secondary datum ref. Can be NULL. Free it using 
+                    <A HREF="6138.html">ProWstringFree</A>()
+        tertiary - tertiary datum ref. Can be NULL. Free it using 
+                   <A HREF="6138.html">ProWstringFree</A>()
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1616.html">ProGtolCompositeShareRefSet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol,<A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> share);
+/*
+    Purpose: Set Share datum references for composite frame
+
+    Input Arguments:
+        gtol - valid gtol.
+        share - Pass <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> to share else pass <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1617.html">ProGtolCompositeShareRefGet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol,<A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *share);
+/*
+    Purpose: Get Share datum references for composite frame
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        share - share option.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1618.html">ProGtolTypeSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol , <A HREF="progtol_h.html#ProGtolType">ProGtolType</A> type);
+/*
+    Purpose: Set gtol type
+
+    Input Arguments:
+        gtol - valid gtol.
+        type - gtol type
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1619.html">ProGtolTypeGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol , <A HREF="progtol_h.html#ProGtolType">ProGtolType</A> *type);
+/*
+    Purpose: Set gtol type
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        type - gtol type
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1620.html">ProGtolBoundaryDisplaySet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> boundary);
+/*
+    Purpose: Set display of Boundary modifier.
+
+    Input Arguments:
+        gtol - valid gtol.
+        boundary - Pass <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> to display else pass <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_MODIFY">PRO_TK_CANT_MODIFY</A> - This type of gtol cannot have boundary modifier
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1621.html">ProGtolBoundaryDisplayGet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *boundary);
+/*
+    Purpose: Get display of Boundary modifier.
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        boundary - boundary option.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A> - This type of gtol cannot have boundary modifier
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1622.html">ProGtolUnilateralSet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> unilateral_set, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> outside);
+/*
+    Purpose: Set Unilateral modifier.
+
+    Input Arguments:
+        gtol - valid gtol.
+        unilateral_set - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> to set Unilateral modifier <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> to 
+                         remove Unilateral modifier
+        outside - Whether the tolerance refers to the outside of the profile, 
+                  if unilateral_set == <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_MODIFY">PRO_TK_CANT_MODIFY</A> - This type of gtol cannot have unilateral modifier
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1623.html">ProGtolUnilateralGet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *unilateral_set, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *outside);
+/*
+    Purpose: Get Unilateral modifier.
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        unilateral_set - unilateral modifier.
+        outside - Whether the tolerance refers to the outside of the profile, 
+                  if unilateral_set == <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A>
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A> - This type of gtol cannot have unilateral modifier
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A>  <A HREF="1624.html">ProGtolTopModelGet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol,<A HREF="proobjects_h.html#ProMdl">ProMdl</A> *top_mdl);
+/*
+    Purpose: Get top model of gtol
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        top_mdl - The model (part, assembly, or drawing) that defines the 
+                  origin of <A HREF="proselection_h.html#ProSelection">ProSelection</A> structures used in setting up gtol 
+                  references.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1625.html">ProGtolElbowlengthSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>* gtol, double elbow_length, <A HREF="proobjects_h.html#ProVector">ProVector</A> elbow_direction);
+/*
+    Purpose: Set elbow to gtol.
+             &lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; This function only supports leader type gtols 
+             which are placed on an annotation plane. 
+
+    Licensing Requirement:
+        UNRECOGNIZED
+
+    Input Arguments:
+        gtol - The gtol.
+        elbow_length - The elbow length, in model units.
+        elbow_direction - The elbow direction, in the model's coordinate 
+                          system. This is the direction from the gtol text to 
+                          the gtol leaders.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_TYPE">PRO_TK_INVALID_TYPE</A> - The gtol does not use leaders.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A>  <A HREF="1626.html">ProGtolSymbolStringGet</A> (<A HREF="progtol_h.html#ProGtolSymbol">ProGtolSymbol</A> symbol, <A HREF="progtol_h.html#ProSymbolFont">ProSymbolFont</A> font, <A HREF="prowchar_h.html#wchar_t">wchar_t</A> **value);
+/*
+    Purpose: Get value string of gtol
+
+    Input Arguments:
+        symbol - Type of symbol
+        font - Symbol font type
+
+    Output Arguments:
+        value - value string. Free it using <A HREF="6138.html">ProWstringFree</A>()
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1627.html">ProGtolReferencesAdd</A>( <A HREF="proobjects_h.html#ProGtol">ProGtol</A>                    *gtol, 
+                                      <A HREF="proannotationelem_h.html#ProAnnotationReference">ProAnnotationReference</A>     *refs );
+/*
+    Purpose: Add gtol references
+
+    Input Arguments:
+        gtol - valid gtol.
+        refs - <A HREF="proarray_h.html#ProArray">ProArray</A> of gtol references. Only 1 reference from type 
+               <A HREF="proannotationelem_h.html#PRO_ANNOT_REF_SRF_COLLECTION">PRO_ANNOT_REF_SRF_COLLECTION</A> is allowed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol owner is drawing.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MAX_LIMIT_REACHED">PRO_TK_MAX_LIMIT_REACHED</A> - More than 1 references from type 
+                                   <A HREF="proannotationelem_h.html#PRO_ANNOT_REF_SRF_COLLECTION">PRO_ANNOT_REF_SRF_COLLECTION.</A>
+        <A HREF="protoolkiterrors_h.html#PRO_TK_CANT_MODIFY">PRO_TK_CANT_MODIFY</A> - Refercnce from type <A HREF="proannotationelem_h.html#PRO_ANNOT_REF_SRF_COLLECTION">PRO_ANNOT_REF_SRF_COLLECTION</A> 
+                             already exist.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1628.html">ProGtolReferencesGet</A>( <A HREF="proobjects_h.html#ProGtol">ProGtol</A>                 *gtol, 
+                                      <A HREF="proannotationelem_h.html#ProAnnotationReference">ProAnnotationReference</A> **p_refs );
+/*
+    Purpose: Get gtol references
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        p_refs - <A HREF="proarray_h.html#ProArray">ProArray</A> of gtol references. Free it using 
+                 <A HREF="111.html">ProAnnotationreferencearrayFree</A>()
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol owner is drawing.
+
+    See Also:
+        <A HREF="75.html">ProAnnotationElementGet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1629.html">ProGtolReferenceDelete</A>( <A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, 
+                                        int      index_ref );
+/*
+    Purpose: Delete gtol reference
+
+    Input Arguments:
+        gtol - valid gtol.
+        index_ref - Indices start from 0. Get existing references from 
+                    <A HREF="1628.html">ProGtolReferencesGet</A>()
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The gtol owner is drawing..
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1630.html">ProGtolIndicatorsSet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="progtol_h.html#ProGtolIndicatorType">ProGtolIndicatorType</A> *types, <A HREF="prowchar_h.html#wchar_t">wchar_t</A> **symbols, <A HREF="prowchar_h.html#wchar_t">wchar_t</A> **dfs);
+/*
+    Purpose: Set indicators of gtol. Pass types, symbols and dfs as NULL to 
+             remove all indicators.
+
+    Input Arguments:
+        gtol - valid gtol.
+        types - <A HREF="proarray_h.html#ProArray">ProArray</A>() of indicator types. Maximum array size is 3.
+        symbols - <A HREF="proarray_h.html#ProArray">ProArray</A>() of indicator symbols strings. Maximum array size 
+                  is 3.
+        dfs - <A HREF="proarray_h.html#ProArray">ProArray</A>() of dfs strings. Maximum array size is 3.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1631.html">ProGtolIndicatorsGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="progtol_h.html#ProGtolIndicatorType">ProGtolIndicatorType</A> **types, <A HREF="prowchar_h.html#wchar_t">wchar_t</A> ***symbols, <A HREF="prowchar_h.html#wchar_t">wchar_t</A> ***dfs);
+/*
+    Purpose: Get indicators of gtol
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        types - <A HREF="proarray_h.html#ProArray">ProArray</A>() of indicator types. Free it using <A HREF="146.html">ProArrayFree</A>()
+        symbols - <A HREF="proarray_h.html#ProArray">ProArray</A>() of indicator symbols strings. Free it using 
+                  <A HREF="6140.html">ProWstringproarrayFree</A>()
+        dfs - <A HREF="proarray_h.html#ProArray">ProArray</A>() of dfs strings. Free it using <A HREF="6140.html">ProWstringproarrayFree</A>()
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - No indicators found for specified gtol
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A>  <A HREF="1632.html">ProGtolNameGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="prowchar_h.html#wchar_t">wchar_t</A> **p_name);
+/*
+    Purpose: Get name of gtol
+
+    Input Arguments:
+        gtol - valid gtol.
+
+    Output Arguments:
+        p_name - name string.Free it using <A HREF="6138.html">ProWstringFree</A>()
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Gtol is not found in database.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1633.html">ProGtolValidate</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="progtol_h.html#ProGtolValidityCheckType">ProGtolValidityCheckType</A> type, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *is_valid_gtol);
+/*
+    Purpose: Check whether the gtol is valid or not
+
+    Input Arguments:
+        gtol - gtol.
+        type - type of validity check
+
+    Output Arguments:
+        is_valid_gtol - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if GTol is valid, <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> otherwise
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - The input argument is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function encountered an error.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1634.html">ProGtolDtlnotesCollect</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *solid_model_gtol, <A HREF="proobjects_h.html#ProDrawing">ProDrawing</A> drawing, <A HREF="proobjects_h.html#ProDtlnote">ProDtlnote</A> **notes);
+/*
+    Purpose: Return the detail notes that represent a geometric tolerance in a 
+             drawing.
+
+    Input Arguments:
+        solid_model_gtol - The geometric tolerance handle.
+        drawing - The drawing where the note is displayed.
+
+    Output Arguments:
+        notes - <A HREF="proarray_h.html#ProArray">ProArray</A> of drawing notes that represent a model gtol.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully retrieved the notes.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments is invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - The solid model is not contained in the drawing.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - The geometric tolerance is not represented in the 
+                             drawing by any note.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1635.html">ProGtolleaderZExtensionlineGet</A>(<A HREF="proobjects_h.html#ProGtol">ProGtol</A> *gtol, <A HREF="progtol_h.html#ProGtolleader">ProGtolleader</A> *leader, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *is_zextension, <A HREF="proobjects_h.html#ProPoint3d">ProPoint3d</A> *line_end);
+/*
+    Purpose: Gets Z-Extension line of gtol leader. This is required when gtol 
+             is moved to another plane and other cases.
+
+    Input Arguments:
+        gtol - The geometric tolerance handle.
+        leader - gtol leader.
+
+    Output Arguments:
+        is_zextension - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if gtol has Z-Extension.
+        line_end - end point of extension line.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function completed successfully.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more of the input arguments are invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1636.html">ProGtolEnvelopeGetWithFlags</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>         *gtol,
+                                             <A HREF="proobjects_h.html#ProDrawing">ProDrawing</A>       drawing,
+                                             <A HREF="progtol_h.html#ProGtolEnvelopeFlag">ProGtolEnvelopeFlag</A> flags,
+                                             <A HREF="proobjects_h.html#ProLineEnvelope">ProLineEnvelope</A>  envelope);
+/*
+    Purpose: Get the envelope of gtol. For getting coordinates of gtol 
+             displayed in solid and same gtol is displayed in drawing then 
+             drawing should not be active.
+
+    Input Arguments:
+        gtol - gtol.
+        drawing - drawing. Pass only for solid gtol shown in drawing, otherwise 
+                  pass NULL.
+        flags - Gtol Envelope Flag. Pass <A HREF="progtol_h.html#PRO_GTOL_ENVELOPE_SKIP_OUTSIDE_TEXT">PRO_GTOL_ENVELOPE_SKIP_OUTSIDE_TEXT</A> to 
+                get envelope without additional texts, otherwise pass 
+                <A HREF="progtol_h.html#PRO_GTOL_ENVELOPE_DEFAULT">PRO_GTOL_ENVELOPE_DEFAULT.</A>
+
+    Output Arguments:
+        envelope - The envelope surrounding the gtol, in the model's coordinate 
+                   system. For Flat to Screen Gtol, envelope will be in screen 
+                   co-ordinates. For drawing it is in the screen coordinates. 
+                   For additional texts, there won't be any padding.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments were invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="1637.html">ProGtolEnvelopeGet</A> (<A HREF="proobjects_h.html#ProGtol">ProGtol</A>         *gtol,
+                                    <A HREF="proobjects_h.html#ProDrawing">ProDrawing</A>       drawing,
+                                    <A HREF="proobjects_h.html#ProLineEnvelope">ProLineEnvelope</A>  envelope);
+/*
+    Purpose: Get the envelope of gtol. For getting coordinates of gtol 
+             displayed in solid and same gtol is displayed in drawing then 
+             drawing should not be active.
+
+    Input Arguments:
+        gtol - gtol.
+        drawing - drawing. Pass only for solid gtol shown in drawing, otherwise 
+                  pass NULL.
+
+    Output Arguments:
+        envelope - The envelope surrounding the gtol, in the model's coordinate 
+                   system. For Flat to Screen Gtol, envelope will be in screen 
+                   co-ordinates. For drawing it is in the screen coordinates. 
+                   For additional texts, there won't be any padding.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments were invalid.
+
+*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+#endif /* <A HREF="progtol_h.html#PROGTOL_H">PROGTOL_H</A> */
+
+        </PRE>
+    </BODY>
+</HTML>

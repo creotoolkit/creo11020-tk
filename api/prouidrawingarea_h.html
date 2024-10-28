@@ -1,0 +1,3251 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProUIDrawingarea.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="prouidrawingarea_h.html#PROUIDRAWINGAREA_H_">PROUIDRAWINGAREA_H_</A>
+<A name="PROUIDRAWINGAREA_H_"></A>#define PROUIDRAWINGAREA_H_
+
+
+
+#include &lt;<A HREF="protoolkit_h.html">ProToolkit.h</A>&gt;
+#include &lt;<A HREF="proobjects_h.html">ProObjects.h</A>&gt;
+#include &lt;<A HREF="proui_h.html">ProUI.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4444.html">ProUIDrawingareaHelptextSet</A> (char* dialog, char* component, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* value);
+/*
+    Purpose: Set the help text to display when the cursor is over the drawing 
+             area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Help text to be displayed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4445.html">ProUIDrawingareaHelptextGet</A> (char* dialog, char* component, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** value);
+/*
+    Purpose: Get the help text that will be displayed when the cursor is over 
+             the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Help text for the drawing area. Free this using 
+                <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4446.html">ProUIDrawingareaEnable</A> (char* dialog, char* component);
+/*
+    Purpose: Set the drawing area and all its children to be sensitive to user 
+             input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4447.html">ProUIDrawingareaDisable</A> (char* dialog, char* component);
+/*
+    Purpose: Set the drawing area and all its children to be insensitive to the 
+             user input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4448.html">ProUIDrawingareaIsEnabled</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: Checks if the drawing area is sensitive or insensitive to the user 
+             input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the drawing area is sensitive. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the 
+                drawing area is insensitive.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4449.html">ProUIDrawingareaShow</A> (char* dialog, char* component);
+/*
+    Purpose: Make the drawing area visible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4450.html">ProUIDrawingareaHide</A> (char* dialog, char* component);
+/*
+    Purpose: Make the drawing area invisible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4451.html">ProUIDrawingareaIsVisible</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: Determines if the drawing area is visible or invisible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the drawing area is visible. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the 
+                drawing area is invisible.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4452.html">ProUIDrawingareaFontclassSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIFontClass">ProUIFontClass</A> value);
+/*
+    Purpose: Set font class to the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Font class to be set.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4453.html">ProUIDrawingareaFontclassGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIFontClass">ProUIFontClass</A>* value);
+/*
+    Purpose: Get the font class of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Current font class.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4454.html">ProUIDrawingareaFontstyleSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIFontStyle">ProUIFontStyle</A> value);
+/*
+    Purpose: Set font style to the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Font style to be set. This can be a bitmask of multiple styles.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4455.html">ProUIDrawingareaFontstyleGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIFontStyle">ProUIFontStyle</A>* value);
+/*
+    Purpose: Get font style of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Current font style. This can be a bitmask of multiple styles.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4456.html">ProUIDrawingareaFontsizeSet</A> (char* dialog, char* component, double value);
+/*
+    Purpose: Set the size of the font in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Font size to be set.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4457.html">ProUIDrawingareaFontsizeGet</A> (char* dialog, char* component, double* value);
+/*
+    Purpose: Get the size of the font in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Current font size.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4458.html">ProUIDrawingareaBackgroundcolorSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIColor">ProUIColor</A> value);
+/*
+    Purpose: Set the background color to the drawing area. This is the actual 
+             color of the background of the drawing area; it is not used for 
+             application-drawn graphics.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Background color.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4466.html">ProUIDrawingareaFgcolorSet</A>()
+        <A HREF="4468.html">ProUIDrawingareaBgcolorSet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4459.html">ProUIDrawingareaBackgroundcolorGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIColor">ProUIColor</A>* value);
+/*
+    Purpose: Get the background color of the drawing area. This is the actual 
+             color of the background of the drawing area; it is not used for 
+             application-drawn graphics.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Background color.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4467.html">ProUIDrawingareaFgcolorGet</A>()
+        <A HREF="4469.html">ProUIDrawingareaBgcolorGet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4460.html">ProUIDrawingareaDrawingwidthSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set width to the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Drawing area width.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4461.html">ProUIDrawingareaDrawingwidthGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get width of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Drawing area width.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4462.html">ProUIDrawingareaDrawingheightSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set height to the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Drawing area height.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4463.html">ProUIDrawingareaDrawingheightGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get height of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Drawing area height.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4464.html">ProUIDrawingareaClipchildrenSet</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> value);
+/*
+    Purpose: Set the flag indicating whether drawing operations within the 
+             drawing area should be clipped so that they do not overlap any 
+             children contained within the drawing area. 
+             &lt;P&gt;&lt;B&gt;NOTE:&lt;/B&gt; This option does not affect the initial display of 
+             the drawing area graphics using 
+             <A HREF="4579.html">ProUIDrawingareaPostmanagenotifyActionSet</A>() because the children 
+             are drawn after the graphics are drawn. This can be used from 
+             within other drawing area action callbacks.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> to clip the drawing operation. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> to not 
+                clip the drawing operation.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4465.html">ProUIDrawingareaClipchildrenGet</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* value);
+/*
+    Purpose: Get the flag indicating whether the drawing operations within the 
+             drawing area are clipped or not.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the drawing operations are clipped. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> 
+                if the drawing operations are not clipped.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4466.html">ProUIDrawingareaFgcolorSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIColor">ProUIColor</A> value);
+/*
+    Purpose: Set the foreground drawing color for new graphics to be drawn in 
+             the drawing area. This color is used to draw lines, shapes, and 
+             text on the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Foreground drawing color.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4458.html">ProUIDrawingareaBackgroundcolorSet</A>()
+        <A HREF="4468.html">ProUIDrawingareaBgcolorSet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4467.html">ProUIDrawingareaFgcolorGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIColor">ProUIColor</A>* value);
+/*
+    Purpose: Get the foreground drawing color of the drawing area. This color 
+             is used to draw lines, shapes, and text on the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Foreground drawing color.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4459.html">ProUIDrawingareaBackgroundcolorGet</A>()
+        <A HREF="4469.html">ProUIDrawingareaBgcolorGet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4468.html">ProUIDrawingareaBgcolorSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIColor">ProUIColor</A> value);
+/*
+    Purpose: Set the current background drawing color for new graphics to be 
+             drawn to the drawing area. This color is sometimes used to fill 
+             shapes in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Background drawing color.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4458.html">ProUIDrawingareaBackgroundcolorSet</A>()
+        <A HREF="4466.html">ProUIDrawingareaFgcolorSet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4469.html">ProUIDrawingareaBgcolorGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIColor">ProUIColor</A>* value);
+/*
+    Purpose: Get the current background drawing color of the drawing area. This 
+             color is sometimes used to fill shapes in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Background drawing color.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4459.html">ProUIDrawingareaBackgroundcolorGet</A>()
+        <A HREF="4467.html">ProUIDrawingareaFgcolorGet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4470.html">ProUIDrawingareaLinestyleSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUILineStyle">ProUILineStyle</A> value);
+/*
+    Purpose: Set the current line style of new graphics to be drawn in the 
+             drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Line style to be set.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4471.html">ProUIDrawingareaLinestyleGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUILineStyle">ProUILineStyle</A>* value);
+/*
+    Purpose: Get the current line style of graphics to be drawn in the drawing 
+             area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Current line style.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4472.html">ProUIDrawingareaDrawingmodeSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIDrawingMode">ProUIDrawingMode</A> value);
+/*
+    Purpose: Set the drawing mode for new graphics to be drawn in the drawing 
+             area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Drawing mode to be set.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4473.html">ProUIDrawingareaDrawingmodeGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIDrawingMode">ProUIDrawingMode</A>* value);
+/*
+    Purpose: Get the current drawing mode of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Current drawing mode.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4474.html">ProUIDrawingareaFillmodeSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIFillMode">ProUIFillMode</A> value);
+/*
+    Purpose: Set the fill mode for new Fill function calls drawn in the drawing 
+             area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Drawing fill mode to be set.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4475.html">ProUIDrawingareaFillmodeGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIFillMode">ProUIFillMode</A>* value);
+/*
+    Purpose: Get the current fill mode for the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Current drawing fill mode.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4476.html">ProUIDrawingareaArcdirectionSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIArcDirection">ProUIArcDirection</A> value);
+/*
+    Purpose: Set the direction used to draw new arcs in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Arc direction to be set.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4477.html">ProUIDrawingareaArcdirectionGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIArcDirection">ProUIArcDirection</A>* value);
+/*
+    Purpose: Get the direction used to draw new arcs in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Current arc direction.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4478.html">ProUIDrawingareaArcfillmodeSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIArcFillMode">ProUIArcFillMode</A> value);
+/*
+    Purpose: Set the fill mode used for drawing new filled arcs in the drawing 
+             area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Fill mode for the arcs.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4479.html">ProUIDrawingareaArcfillmodeGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIArcFillMode">ProUIArcFillMode</A>* value);
+/*
+    Purpose: Get the fill mode used for drawing new filled arcs in the drawing 
+             area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Fill mode for the arcs.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4480.html">ProUIDrawingareaPolygonfillmodeSet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIPolygonFillMode">ProUIPolygonFillMode</A> value);
+/*
+    Purpose: Set the fill mode used for drawing new polygons in the drawing 
+             area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Fill mode for the polygons.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4481.html">ProUIDrawingareaPolygonfillmodeGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIPolygonFillMode">ProUIPolygonFillMode</A>* value);
+/*
+    Purpose: Get the fill mode used for drawing new polygons in the drawing 
+             area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Fill mode for the polygons.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4482.html">ProUIDrawingareaEnableTracking</A> (char* dialog, char* component);
+/*
+    Purpose: Sets the drawing area to generate a 'move action' whenever the 
+             cursor is moved over a visible region of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4564.html">ProUIDrawingareaMoveActionSet</A>()
+        <A HREF="4562.html">ProUIDrawingareaEnterActionSet</A>()
+        <A HREF="4563.html">ProUIDrawingareaExitActionSet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4483.html">ProUIDrawingareaDisableTracking</A> (char* dialog, char* component);
+/*
+    Purpose: Sets the drawing area to not generate a 'move action' whenever the 
+             cursor is moved over a visible region of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4564.html">ProUIDrawingareaMoveActionSet</A>()
+        <A HREF="4562.html">ProUIDrawingareaEnterActionSet</A>()
+        <A HREF="4563.html">ProUIDrawingareaExitActionSet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4484.html">ProUIDrawingareaIsTrackingEnabled</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: Checks if the drawing area will generate a 'move action' whenever 
+             the cursor is moved over a visible region of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the movement of the cursor generates a 'move 
+                action'. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the movement of the cursor does not 
+                generate a 'move action'.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4564.html">ProUIDrawingareaMoveActionSet</A>()
+        <A HREF="4562.html">ProUIDrawingareaEnterActionSet</A>()
+        <A HREF="4563.html">ProUIDrawingareaExitActionSet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4485.html">ProUIDrawingareaImagesSet</A> (char* dialog, char* component, int count, char** values);
+/*
+    Purpose: Set the names of the images to be drawn in the drawing area. Each 
+             image may be a BIF (the .bif extension is optional) file or a PCX, 
+             GIF, BMP, ICO or CUR file.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of images.
+        values - Array of images name to be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4486.html">ProUIDrawingareaImagesGet</A> (char* dialog, char* component, int* count, char*** values);
+/*
+    Purpose: Get the names of the images that are in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        count - Number of images.
+        values - Array of images name. Free this using <A HREF="6136.html">ProStringarrayFree</A> ().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4487.html">ProUIDrawingareaDecorate</A> (char* dialog, char* component);
+/*
+    Purpose: Decorate the drawing area with shadow border.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4488.html">ProUIDrawingareaUndecorate</A> (char* dialog, char* component);
+/*
+    Purpose: Undecorate the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4489.html">ProUIDrawingareaIsDecorated</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: Checks if the drawing area is decorated or not.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the drawing area is decorated. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the 
+                drawing area is not decorated.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4490.html">ProUIDrawingareaCheckbuttonAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new check button to the drawing area. The item's position 
+             must be set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the check button to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4491.html">ProUIDrawingareaDrawingareaAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new drawing area to the drawing area. The item's position 
+             must be set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the drawing area to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4492.html">ProUIDrawingareaInputpanelAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new input panel to the drawing area. The item's position 
+             must be set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the input panel to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4493.html">ProUIDrawingareaLabelAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new label to the drawing area. The item's position must be 
+             set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the label to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4494.html">ProUIDrawingareaLayoutAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new layout to the drawing area. The item's position must be 
+             set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the label to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4495.html">ProUIDrawingareaListAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new list to the drawing area. The item's position must be 
+             set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the list to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4496.html">ProUIDrawingareaOptionmenuAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new optionmenu to the drawing area. The item's position must 
+             be set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the optionmenu to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4497.html">ProUIDrawingareaProgressbarAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new progressbar to the drawing area. The item's position 
+             must be set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the progressbar to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4498.html">ProUIDrawingareaPushbuttonAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new pushbutton to the drawing area. The item's position must 
+             be set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the pushbutton to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4499.html">ProUIDrawingareaRadiogroupAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new radiogroup to the drawing area. The item's position must 
+             be set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the radiogroup to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4500.html">ProUIDrawingareaSliderAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new slider to the drawing area. The item's position must be 
+             set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the slider to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4501.html">ProUIDrawingareaSpinboxAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new spinbox to the drawing area. The item's position must be 
+             set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the spinbox to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4502.html">ProUIDrawingareaTabAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new tab to the drawing area. The item's position must be set 
+             before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the tab to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4503.html">ProUIDrawingareaTableAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new table to the drawing area. The item's position must be 
+             set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the table to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4504.html">ProUIDrawingareaTextareaAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new textarea to the drawing area. The item's position must 
+             be set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the textarea to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4505.html">ProUIDrawingareaThumbwheelAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new thumbwheel to the drawing area. The item's position must 
+             be set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the thumbwheel to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4506.html">ProUIDrawingareaTreeAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new area to the drawing area. The item's position must be 
+             set before the drawing area will show the new child.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the area to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4507.html">ProUIDrawingareaCheckbuttonRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the checkbutton from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the checkbutton to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4508.html">ProUIDrawingareaDrawingareaRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the drawing area from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the drawing area to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4509.html">ProUIDrawingareaInputpanelRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the inputpanel from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the inputpanel to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4510.html">ProUIDrawingareaLabelRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the label from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the label to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4511.html">ProUIDrawingareaLayoutRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the layout from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the layout to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4512.html">ProUIDrawingareaListRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the list from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the list to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4513.html">ProUIDrawingareaOptionmenuRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the optionmenu from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the optionmenu to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4514.html">ProUIDrawingareaProgressbarRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the progressbar from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the progressbar to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4515.html">ProUIDrawingareaPushbuttonRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the pushbutton from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the pushbutton to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4516.html">ProUIDrawingareaRadiogroupRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the radiogroup from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the radiogroup to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4517.html">ProUIDrawingareaSliderRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the slider from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the slider to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4518.html">ProUIDrawingareaSpinboxRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the spinbox from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the spinbox to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4519.html">ProUIDrawingareaTabRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the tab from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the tab to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4520.html">ProUIDrawingareaTableRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the table from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the table to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4521.html">ProUIDrawingareaTextareaRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the textarea from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the textarea to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4522.html">ProUIDrawingareaThumbwheelRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the thumbwheel from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the thumbwheel to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4523.html">ProUIDrawingareaTreeRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the area from the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        name - Name of the area to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4524.html">ProUIDrawingareaAnchorSet</A> (char* dialog, char* component, int x, int y, <A HREF="proui_h.html#ProUIAnchor">ProUIAnchor</A> anchor);
+/*
+    Purpose: Sets the position of the drawing area with respect to a given 
+             anchor location. This function is applicable only if the parent of 
+             the drawing area is another drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+        anchor - Location on the drawing area used to set the position.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4525.html">ProUIDrawingareaSizeSet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                 width, 
+    int                 height);
+/*
+    Purpose: Set the size of the drawingarea. This field is used only if the 
+             parent is a drawing area. If the width or the height parameter is 
+             passed a value smaller than the drawingarea's minimum size, the 
+             function will fail. The drawingarea's minimum size can be 
+             retrieved using <A HREF="4528.html">ProUIDrawingareaMinimumsizeGet.</A>
+
+    Input Arguments:
+        dialog - The name of the dialog that contains drawingarea.
+        component - The name of the drawingarea component.
+        width - Width value
+        height - Height value
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4526.html">ProUIDrawingareaPositionSet</A> (char* dialog, char* component, int x, int y);
+/*
+    Purpose: Set the position to the drawing area with respect to its parent. 
+             This field is used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4527.html">ProUIDrawingareaPositionGet</A> (char* dialog, char* component, int* x, int* y);
+/*
+    Purpose: Get the position of the drawing area with respect to its parent. 
+             This field is used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4528.html">ProUIDrawingareaMinimumsizeGet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                *min_width, 
+    int                *min_height);
+/*
+    Purpose: Get the minimum size of the drawingarea in pixels. This field is 
+             used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawingarea.
+        component - The name of the drawingarea component.
+
+    Output Arguments:
+        min_width - Minimum width value.
+        min_height - Minimum height value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4529.html">ProUIDrawingareaSizeGet</A> (char* dialog, char* component, int* width, int* height);
+/*
+    Purpose: Get the size of the drawing area. This field is used only if the 
+             parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        width - Width of the drawing area.
+        height - Height of the drawing area.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4530.html">ProUIDrawingareaClear</A> (char* dialog, char* component);
+/*
+    Purpose: Clear the contents of the drawing area by painting it in the 
+             drawing background color (<A HREF="4469.html">ProUIDrawingareaBgcolorGet</A>().
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4531.html">ProUIDrawingareaCopyArea</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rect, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* position);
+/*
+    Purpose: Copy the contents within a given boundary at a location in the 
+             drawing area to another location.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        rect - Rectangular boundary containing the graphics to be copied.
+        position - Point at which the copied graphics should appear.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4532.html">ProUIDrawingareaPointsDraw</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* points);
+/*
+    Purpose: Draw an array of points in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of points to be drawn.
+        points - Array of points to be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4533.html">ProUIDrawingareaPolygonDraw</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* points);
+/*
+    Purpose: Draw a polygon in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of vertices in the polygon.
+        points - Array of points to form the vertices of the polygon.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4534.html">ProUIDrawingareaPolylineDraw</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* points);
+/*
+    Purpose: Draw a series of connected lines in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of points in the polygonal line.
+        points - Array of points in the polygonal line.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4535.html">ProUIDrawingareaLinesDraw</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* start_points, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* end_points);
+/*
+    Purpose: Draw a set of lines between in the drawing area. Each line will be 
+             drawn from the indicated start point in the array to the 
+             corresponding endpoint.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of lines to be drawn.
+        start_points - Array of points from which the lines should start.
+        end_points - Array of points at which the lines should end.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4536.html">ProUIDrawingareaRectsDraw</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rects);
+/*
+    Purpose: Draw a set of rectangles in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of rectangles to be drawn.
+        rects - Array of rectangles to be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4537.html">ProUIDrawingareaEllipsesDraw</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rects);
+/*
+    Purpose: Draw a set of ellipses in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of ellipses to be drawn.
+        rects - Array containing the rectangles bounding each ellipse.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4538.html">ProUIDrawingareaArcsDraw</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIArc">ProUIArc</A>* arcs);
+/*
+    Purpose: Draw a set of arcs in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of arcs that are to be drawn.
+        arcs - Array of arcs.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4539.html">ProUIDrawingareaPolygonFill</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* points);
+/*
+    Purpose: Draw a filled polygon in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of vertices in the polygon.
+        points - Array of points to draw vertices for the polygon.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4540.html">ProUIDrawingareaRectsFill</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rects);
+/*
+    Purpose: Draw a set of filled rectangles in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of rectangles that are to be drawn.
+        rects - Array of rectangles.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4541.html">ProUIDrawingareaEllipsesFill</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rects);
+/*
+    Purpose: Draw a set of filled ellipses in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of rectangles.
+        rects - Array of rectangles bounding each ellipse.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4542.html">ProUIDrawingareaArcsFill</A> (char* dialog, char* component, int count, <A HREF="proui_h.html#ProUIArc">ProUIArc</A>* arcs);
+/*
+    Purpose: Draw a set of filled arcs in the drawing.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of arcs that are to be drawn.
+        arcs - Array of arcs to be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4543.html">ProUIDrawingareaStringsizeGet</A> (char* dialog, char* component, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* string, <A HREF="proui_h.html#ProUISize">ProUISize</A>* size);
+/*
+    Purpose: Get the size that the given text string will occupy in the drawing 
+             area, given the current drawing area font settings.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        string - Text string.
+
+    Output Arguments:
+        size - Size that the text string will occupy in the drawing area.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4544.html">ProUIDrawingareaStringbaselineGet</A> (char* dialog, char* component, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* string, int* baseline);
+/*
+    Purpose: Get the height from the top of the string border to the string 
+             baseline for the given text string in the drawing area, given the 
+             current drawing area font settings.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        string - Text string.
+
+    Output Arguments:
+        baseline - Position from the baseline.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4545.html">ProUIDrawingareaStringsDraw</A> (char* dialog, char* component, int count, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** strings, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* positions);
+/*
+    Purpose: Draw strings at the given positions in the drawing.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of strings that are to be drawn.
+        strings - Array of strings to be drawn.
+        positions - Array of points at which the strings should be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4546.html">ProUIDrawingareaImagesizeGet</A> (char* dialog, char* component, char* image, <A HREF="proui_h.html#ProUISize">ProUISize</A>* size);
+/*
+    Purpose: Get the size of the image in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        image - Image for which the size should be obtained.
+
+    Output Arguments:
+        size - Size of the image.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4547.html">ProUIDrawingareaImagesDraw</A> (char* dialog, char* component, int count, char** images, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* positions);
+/*
+    Purpose: Draw images at the given positions in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        count - Number of images that are to be drawn.
+        images - Array of image names.
+        positions - Array of points at which the images should be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4548.html">ProUIDrawingareaCursorposGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* position);
+/*
+    Purpose: Get the position of the cursor in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        position - Position of the cursor.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4549.html">ProUIDrawingareaArcDraw</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIArc">ProUIArc</A>* arc);
+/*
+    Purpose: Draw an arc in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        arc - Arc to be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4550.html">ProUIDrawingareaEllipseDraw</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rect);
+/*
+    Purpose: Draw an ellipse in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        rect - Rectangle bounding the ellipse.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4551.html">ProUIDrawingareaImageDraw</A> (char* dialog, char* component, char* image, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* position);
+/*
+    Purpose: Draw an image in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        image - Name of the image to be drawn.
+        position - Point at which the image should be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4552.html">ProUIDrawingareaLineDraw</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* start_point, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* end_point);
+/*
+    Purpose: Draw a line in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        start_point - Start point of the line.
+        end_point - End point of the line.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4553.html">ProUIDrawingareaPointDraw</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* point);
+/*
+    Purpose: Draw a point in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        point - Point to be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4554.html">ProUIDrawingareaRectDraw</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rect);
+/*
+    Purpose: Draw a rectangle in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        rect - Rectangle to be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4555.html">ProUIDrawingareaShadowRectDraw</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rect);
+/*
+    Purpose: Draw a rectangle with a shadow border.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        rect - Rectangle to be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4556.html">ProUIDrawingareaShadowRectsDraw</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rects, int count);
+/*
+    Purpose: Draw a set of rectangles with shadow borders.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        rects - Array of rectangles.
+        count - Number of rectangles.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4557.html">ProUIDrawingareaStringDraw</A> (char* dialog, char* component, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* string, <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>* position);
+/*
+    Purpose: Draw a string at the given position in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        string - String to be drawn.
+        position - Position at which the string should be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4558.html">ProUIDrawingareaArcFill</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIArc">ProUIArc</A>* arc);
+/*
+    Purpose: Draw a filled arc in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        arc - Arc to be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4559.html">ProUIDrawingareaEllipseFill</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rect);
+/*
+    Purpose: Draw a filled ellipse in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        rect - Rectangle bounding the ellipse.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4560.html">ProUIDrawingareaRectFill</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIRectangle">ProUIRectangle</A>* rect);
+/*
+    Purpose: Draw a filled rectangle in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        rect - Rectangle to be drawn.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4561.html">ProUIDrawingareaCursorposSet</A> (char* dialog, char* component, int x, int y);
+/*
+    Purpose: Set the cursor at the given location in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        x - X value.
+        y - Y value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4562.html">ProUIDrawingareaEnterActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the action function to be called when the user has moved the 
+             cursor into the drawing area. This action will be generated only 
+             if tracking is enabled for the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the cursor is moved in to the 
+                   drawing area.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4482.html">ProUIDrawingareaEnableTracking</A>()
+        <A HREF="4483.html">ProUIDrawingareaDisableTracking</A>()
+        <A HREF="4484.html">ProUIDrawingareaIsTrackingEnabled</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4563.html">ProUIDrawingareaExitActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the user has moved the cursor 
+             out of the drawing area. This action will be generated only if 
+             tracking is enabled for the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the cursor is moved out of the 
+                   drawing area.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4482.html">ProUIDrawingareaEnableTracking</A>()
+        <A HREF="4483.html">ProUIDrawingareaDisableTracking</A>()
+        <A HREF="4484.html">ProUIDrawingareaIsTrackingEnabled</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4564.html">ProUIDrawingareaMoveActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the cursor is moved over the 
+             drawing area. This action will be generated only if tracking is 
+             enabled for the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the cursor is moved over the 
+                   drawing area.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="4482.html">ProUIDrawingareaEnableTracking</A>()
+        <A HREF="4483.html">ProUIDrawingareaDisableTracking</A>()
+        <A HREF="4484.html">ProUIDrawingareaIsTrackingEnabled</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4565.html">ProUIDrawingareaLbuttonarmActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the left mouse button is 
+             pressed in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the left mouse button is pressed.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4566.html">ProUIDrawingareaLbuttondisarmActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the left mouse button is 
+             released in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the left mouse button is 
+                   released.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4567.html">ProUIDrawingareaLbuttonactivateActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the left mouse button is 
+             pressed and released in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the left mouse button is pressed 
+                   and released.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4568.html">ProUIDrawingareaLbuttondblclkActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the left mouse button is 
+             double-clicked in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the left mouse button is 
+                   double-clicked.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4569.html">ProUIDrawingareaMbuttonarmActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the middle mouse button is 
+             pressed in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the middle mouse button is 
+                   pressed.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4570.html">ProUIDrawingareaMbuttondisarmActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the middle mouse button is 
+             released in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the middle mouse button is 
+                   released.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4571.html">ProUIDrawingareaMbuttonactivateActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the middle mouse button is 
+             pressed and released in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the middle mouse button is 
+                   pressed and released.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4572.html">ProUIDrawingareaMbuttondblclkActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the middle mouse button is 
+             double-clicked in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the middle mouse button is 
+                   double-clicked.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4573.html">ProUIDrawingareaRbuttonarmActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the right mouse button is 
+             pressed in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the right mouse button is 
+                   pressed.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4574.html">ProUIDrawingareaRbuttondisarmActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the right mouse button is 
+             released in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the right mouse button is 
+                   released.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4575.html">ProUIDrawingareaRbuttonactivateActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the right mouse button is 
+             pressed and released in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the right mouse button is pressed 
+                   and released.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4576.html">ProUIDrawingareaRbuttondblclkActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the right mouse button is 
+             double-clicked in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the right mouse button is 
+                   double-clicked.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4577.html">ProUIDrawingareaUpdateActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the drawing area needs to be 
+             updated due to a system-level color scheme change.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the drawing area needs to be 
+                   updated.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4578.html">ProUIDrawingareaResizeActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the drawing area is resized. 
+             Note: the drawing area contents are typically cleared after a 
+             resize.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the drawing area is resized.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4579.html">ProUIDrawingareaPostmanagenotifyActionSet</A> (char* dialog, char* component, <A HREF="4148.html">ProUIAction</A> callback, <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the drawing area has just been 
+             displayed. Use this callback to setup the initial graphics, text, 
+             and images in the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        callback - Function to be called when the drawing area has just been 
+                   managed.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4580.html">ProUIDrawingareaParentnameGet</A> (char *dialog, char *component, char **value);
+/*
+    Purpose: Get the name of the parent to the drawing area component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - The name of the parent. Free this using <A HREF="6134.html">ProStringFree</A> ().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4581.html">ProUIDrawingareaChildnamesGet</A> (char *dialog, char *component, int *count, char ***values);
+/*
+    Purpose: Get the names of the children to the drawing area component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        count - Number of children.
+        values - Array of names of the children. Free this using 
+                 <A HREF="6136.html">ProStringarrayFree</A> ().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4582.html">ProUIDrawingareaPopupmenuSet</A> (char* dialog, char* component, char* value);
+/*
+    Purpose: Set the popup menu to the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - The name of the popup menu.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4583.html">ProUIDrawingareaPopupmenuGet</A> (char* dialog, char* component, char** value);
+/*
+    Purpose: Get the popup menu for the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - The name of the popup menu. Free this using <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4584.html">ProUIDrawingareaAttachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the drawing area at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4585.html">ProUIDrawingareaUnattachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the drawing area at left side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4586.html">ProUIDrawingareaIsAttachedLeft</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the drawing area is attached at left side of the 
+             parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        state - state of the left attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the drawing area is 
+                attached at left. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the drawing area is not 
+                attached at left.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4587.html">ProUIDrawingareaAttachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the drawing area at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4588.html">ProUIDrawingareaUnattachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the drawing area at right side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4589.html">ProUIDrawingareaIsAttachedRight</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the drawing area is attached at right side of the 
+             parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        state - state of the right attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the drawing area 
+                is attached at right. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the drawing area is not 
+                attached at right.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4590.html">ProUIDrawingareaAttachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the drawing area at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4591.html">ProUIDrawingareaUnattachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the drawing area at top side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4592.html">ProUIDrawingareaIsAttachedTop</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the drawing area is attached at top side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        state - state of the top attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the drawing area is 
+                attached at top. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the drawing area is not 
+                attached at top.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4593.html">ProUIDrawingareaAttachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the drawing area at bottom side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4594.html">ProUIDrawingareaUnattachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the drawing area at bottom side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4595.html">ProUIDrawingareaIsAttachedBottom</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the drawing area is attached at bottom side of the 
+             parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        state - state of the bottom attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the drawing area 
+                is attached at bottom. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the drawing area is not 
+                attached at bottom.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4596.html">ProUIDrawingareaLeftoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set left offset to the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Left offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4597.html">ProUIDrawingareaLeftoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get left offset of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Left offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4598.html">ProUIDrawingareaRightoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set right offset to the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Right offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4599.html">ProUIDrawingareaRightoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get right offset of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Right offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4600.html">ProUIDrawingareaTopoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set top offset to the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Top offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4601.html">ProUIDrawingareaTopoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get top offset of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Top offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4602.html">ProUIDrawingareaBottomoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set bottom offset to the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+        value - Bottom offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4603.html">ProUIDrawingareaBottomoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get bottom offset of the drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the drawing area.
+        component - The name of the drawing area component.
+
+    Output Arguments:
+        value - Bottom offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+        </PRE>
+    </BODY>
+</HTML>

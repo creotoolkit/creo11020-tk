@@ -1,0 +1,2669 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProUINakedwindow.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="prouinakedwindow_h.html#__PROUINAKEDWINDOW_H__">__PROUINAKEDWINDOW_H__</A>
+<A name="__PROUINAKEDWINDOW_H__"></A>#define __PROUINAKEDWINDOW_H__
+
+#include &lt;<A HREF="proui_h.html">ProUI.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4989.html">ProUINakedwindowHelptextSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>                *value);
+/*
+    Purpose: Set the help text to display when the cursor is over the naked 
+             window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - Help text to be displayed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4990.html">ProUINakedwindowHelptextGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>               **value);
+/*
+    Purpose: Get the help text that will be displayed when the cursor is over 
+             the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - Help text for the naked window. Free this using 
+                <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4991.html">ProUINakedwindowShow</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: Make the naked window visible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4992.html">ProUINakedwindowHide</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: Make the naked window invisible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4993.html">ProUINakedwindowIsVisible</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state);
+/*
+    Purpose: Determines if the naked window is visible or invisible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the naked window is visible. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the 
+                naked window is invisible.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4994.html">ProUINakedwindowEnable</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: Set the naked window and all its children to be sensitive to user 
+             input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4995.html">ProUINakedwindowDisable</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: Set the naked window and all its children to be insensitive to the 
+             user input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4996.html">ProUINakedwindowIsEnabled</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state);
+/*
+    Purpose: Checks if the naked window is sensitive or insensitive to the user 
+             input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the naked window is sensitive. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the 
+                naked window is insensitive.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4997.html">ProUINakedwindowForegroundcolorSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    <A HREF="proui_h.html#ProUIColor">ProUIColor</A>              value);
+/*
+    Purpose: Set the foreground color to a naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - The foreground color.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4998.html">ProUINakedwindowForegroundcolorGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    <A HREF="proui_h.html#ProUIColor">ProUIColor</A>             *value);
+/*
+    Purpose: Get the foreground color to a naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - The foreground color.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4999.html">ProUINakedwindowBackgroundcolorSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    <A HREF="proui_h.html#ProUIColor">ProUIColor</A>              value);
+/*
+    Purpose: Set the background color type to a naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - The background color.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5000.html">ProUINakedwindowBackgroundcolorGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    <A HREF="proui_h.html#ProUIColor">ProUIColor</A>             *value);
+/*
+    Purpose: Get the background color type of a naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - The background color.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5001.html">ProUINakedwindowNakeddisplayGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>             *value);
+/*
+    Purpose: Returns the display pointer for the naked window. For <A HREF="prohardware_h.html#UNIX">UNIX</A> this is 
+             the XWindows display pointer. For Windows this value should not be 
+             used.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - The display status.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5002.html">ProUINakedwindowNakedwindowGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>             *value);
+/*
+    Purpose: Get the system window being used by the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - Value passed to the function. Under X Windows this is a window 
+                id (Window). Under Microsoft Windows this is a window handle 
+                (HWND).
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5003.html">ProUINakedwindowNakedwidthSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                     value);
+/*
+    Purpose: Set the NakedWindow width in pixels.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - The width in pixels
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5004.html">ProUINakedwindowNakedwidthGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                    *value);
+/*
+    Purpose: Get the NakedWindow width in pixels.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - The width in pixels.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5005.html">ProUINakedwindowNakedheightSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                     value);
+/*
+    Purpose: Set the NakedWindow height in pixels.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - The height in pixels.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5006.html">ProUINakedwindowNakedheightGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                    *value);
+/*
+    Purpose: Get the NakedWindow height in pixels.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - The height in pixels.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5007.html">ProUINakedwindowNakedminwidthSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                     value);
+/*
+    Purpose: Set the minimum NakedWindow width in pixels.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - The minimum width in pixels.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5008.html">ProUINakedwindowNakedminwidthGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                    *value);
+/*
+    Purpose: Get the minimum NakedWindow width in pixels.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - The minimum width in pixels.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5009.html">ProUINakedwindowNakedminheightSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                     value);
+/*
+    Purpose: Set the minimum NakedWindow height in pixels.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - The minimum height in pixels.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5010.html">ProUINakedwindowNakedminheightGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                    *value);
+/*
+    Purpose: Get the minimum NakedWindow height in pixels.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - The minimum height in pixels.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5011.html">ProUINakedwindowDefaultbuttonactionSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                     value);
+/*
+    Purpose: Set the default button action of the naked window. This is a flag 
+             indicating whether a middle mouse button press in the NakedWindow 
+             should cause the default button of the Dialog in which the 
+             component is contained to be activated.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - Value of the flag (<A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> or <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A>).
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5012.html">ProUINakedwindowDefaultbuttonactionGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                    *value);
+/*
+    Purpose: Set the default button action of the naked window. This is a flag 
+             indicating whether a middle mouse button press in the NakedWindow 
+             should cause the default button of the Dialog in which the 
+             component is contained to be activated.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - Value of the flag (<A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> or <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A>).
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5013.html">ProUINakedwindowAlwaysalloweventsSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                     value);
+/*
+    Purpose: Set whether user-input events should be processed when the 
+             NakedWindow is blocked.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - Value of the flag (<A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> or <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A>).
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5014.html">ProUINakedwindowAlwaysalloweventsGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                    *value);
+/*
+    Purpose: Get whether user-input events should be processed when the 
+             NakedWindow is blocked.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - Value of the flag (<A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> or <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A>).
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5015.html">ProUINakedwindowMappedSet</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: Set the naked window to occupy space when invisible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5016.html">ProUINakedwindowMappedUnset</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: Set the naked window not to occupy space when invisible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5017.html">ProUINakedwindowIsMapped</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state);
+/*
+    Purpose: Checks if the naked window occupies any space when it is 
+             invisible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> when naked window occupy space when it is invisible; 
+                <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> when naked window does not occupy any space when it 
+                is invisible.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5018.html">ProUINakedwindowPopupmenuSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    char                   *value);
+/*
+    Purpose: Set the popup menu to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - The name of the popup menu.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5019.html">ProUINakedwindowPopupmenuGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    char                  **value);
+/*
+    Purpose: Get the popup menu for the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - The name of the popup menu. Free this using <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5020.html">ProUINakedwindowEnablePopupwheninsensitive</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: Shows the popup menu when the naked window is insensitive.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5021.html">ProUINakedwindowDisablePopupwheninsensitive</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: Hides the popup menu when the naked window is insensitive.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5022.html">ProUINakedwindowIsPopupwheninsensitiveEnabled</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state);
+/*
+    Purpose: Checks the status (shown/hidden) of the popup menu when the naked 
+             window is insensitive.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> when the popup menu is shown for the insensitive 
+                naked window; <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> when the popup menu is hidden for the 
+                insensitive naked window.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5023.html">ProUINakedwindowEnableAlwaysontop</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: Make children that have always-on-top enabled be always placed 
+             above their siblings in the Z-order.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5024.html">ProUINakedwindowDisableAlwaysontop</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: Ignore childrens' always-on-top flag when arranging them.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5025.html">ProUINakedwindowIsAlwaysontopEnabled</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state
+);
+/*
+    Purpose: Check if the NakedWindow always places children with always-on-top 
+             behavior enabled to always be above their siblings in the Z-order 
+             when arranging them.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the NakedWindow always places children with 
+                always-on-top behavior enabled to always be above their 
+                siblings in the Z-order, <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> otherwise.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5026.html">ProUINakedwindowParentnameGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    char                  **value);
+/*
+    Purpose: Get the name of the parent to the naked window component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - The name of the parent. Free this output using <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5027.html">ProUINakedwindowAttachLeft</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: To attach the naked window at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5028.html">ProUINakedwindowUnattachLeft</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: To not attach the naked window at left side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5029.html">ProUINakedwindowIsAttachedLeft</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state);
+/*
+    Purpose: To check if the naked window is attached at left side of the 
+             parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> when the naked window is attached at left side of 
+                the parent component. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> when the naked window is not 
+                attached at left side of the parent component.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5030.html">ProUINakedwindowAttachRight</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: To attach the naked window at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5031.html">ProUINakedwindowUnattachRight</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: To not attach the naked window at right side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5032.html">ProUINakedwindowIsAttachedRight</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state);
+/*
+    Purpose: To check if the naked window is attached at right side of the 
+             parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> when naked window is attached at right side of the 
+                parent component. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> when naked window is not attached 
+                at right side of the parent component.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5033.html">ProUINakedwindowAttachTop</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: To attach the naked window at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5034.html">ProUINakedwindowUnattachTop</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: To not attach the naked window at top side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5035.html">ProUINakedwindowIsAttachedTop</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state);
+/*
+    Purpose: To check if the naked window is attached at top side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> when the naked window is attached at top side of the 
+                parent component. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> when the naked window is not 
+                attached at top side of the parent component.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5036.html">ProUINakedwindowAttachBottom</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: To attach the naked window at bottom side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5037.html">ProUINakedwindowUnattachBottom</A> (
+    char   *dialog, 
+    char   *component);
+/*
+    Purpose: To not attach the naked window at bottom side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5038.html">ProUINakedwindowIsAttachedBottom</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state);
+/*
+    Purpose: To check if the naked window is attached at bottom side of the 
+             parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> when the naked window is attached at bottom side of 
+                the parent component. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> when the naked window is not 
+                attached at bottom side of the parent component.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5039.html">ProUINakedwindowLeftoffsetSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                     value);
+/*
+    Purpose: Set left offset to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - Left offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5040.html">ProUINakedwindowLeftoffsetGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                    *value);
+/*
+    Purpose: Get left offset to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - Left offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5041.html">ProUINakedwindowRightoffsetSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                     value);
+/*
+    Purpose: Set right offset to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - Right offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5042.html">ProUINakedwindowRightoffsetGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                    *value);
+/*
+    Purpose: Get right offset to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - Right offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5043.html">ProUINakedwindowTopoffsetSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                     value);
+/*
+    Purpose: Set top offset to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - Top offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5044.html">ProUINakedwindowTopoffsetGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                    *value);
+/*
+    Purpose: Get top offset to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - Top offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5045.html">ProUINakedwindowBottomoffsetSet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                     value);
+/*
+    Purpose: Set bottom offset to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        value - Bottom offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5046.html">ProUINakedwindowBottomoffsetGet</A> (
+    char                   *dialog, 
+    char                   *component, 
+    int                    *value);
+/*
+    Purpose: Get bottom offset to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        value - Bottom offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5047.html">ProUINakedwindowNakedwindowAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new naked window to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the naked window to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5048.html">ProUINakedwindowNakedwindowRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a naked window from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the naked window to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5049.html">ProUINakedwindowCheckbuttonAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new checkbutton to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the checkbutton to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5050.html">ProUINakedwindowDrawingareaAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new drawingarea to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the drawingarea to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5051.html">ProUINakedwindowInputpanelAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new inputpanel to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the inputpanel to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5052.html">ProUINakedwindowLabelAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new label to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the label to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5053.html">ProUINakedwindowLayoutAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new layout to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the label to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5054.html">ProUINakedwindowListAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new list to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the list to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5055.html">ProUINakedwindowOptionmenuAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new optionmenu to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the optionmenu to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5056.html">ProUINakedwindowProgressbarAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new progressbar to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the progressbar to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5057.html">ProUINakedwindowPushbuttonAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new pushbutton to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the pushbutton to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5058.html">ProUINakedwindowRadiogroupAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new radiogroup to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the radiogroup to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5059.html">ProUINakedwindowSliderAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new slider to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the slider to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5060.html">ProUINakedwindowSpinboxAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new spinbox to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the spinbox to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5061.html">ProUINakedwindowTabAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new tab to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the tab to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5062.html">ProUINakedwindowTableAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new table to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the table to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5063.html">ProUINakedwindowTextareaAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new textarea to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the textarea to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5064.html">ProUINakedwindowThumbwheelAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new thumbwheel to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the thumbwheel to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5065.html">ProUINakedwindowTreeAdd</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Add a new tree to the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the tree to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5066.html">ProUINakedwindowCheckbuttonRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a checkbutton from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the checkbutton to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5067.html">ProUINakedwindowDrawingareaRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a drawingarea from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the drawingarea to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5068.html">ProUINakedwindowInputpanelRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a inputpanel from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the inputpanel to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5069.html">ProUINakedwindowLabelRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a label from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the label to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5070.html">ProUINakedwindowLayoutRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a layout from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the layout to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5071.html">ProUINakedwindowListRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a list from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the naked window to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5072.html">ProUINakedwindowOptionmenuRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a optionmenu from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the optionmenu to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5073.html">ProUINakedwindowProgressbarRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a progressbar from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the progressbar to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5074.html">ProUINakedwindowPushbuttonRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a pushbutton from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the pushbutton to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5075.html">ProUINakedwindowRadiogroupRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a radiogroup from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the radiogroup to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5076.html">ProUINakedwindowSliderRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a slider from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the slider to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5077.html">ProUINakedwindowSpinboxRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a spinbox from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the spinbox to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5078.html">ProUINakedwindowTabRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a tab from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the tab to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5079.html">ProUINakedwindowTableRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a table from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the table to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5080.html">ProUINakedwindowTextareaRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a textarea from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the textarea to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5081.html">ProUINakedwindowThumbwheelRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a thumbwheel from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the thumbwheel to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5082.html">ProUINakedwindowTreeRemove</A> (
+    char               *dialog, 
+    char               *component, 
+    char               *name);
+/*
+    Purpose: Remove a tree from the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        name - Name of the naked window to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5083.html">ProUINakedwindowAnchorSet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                 x, 
+    int                 y, 
+    <A HREF="proui_h.html#ProUIAnchor">ProUIAnchor</A>         anchor);
+/*
+    Purpose: Sets the position of the tree with respect to a given anchor 
+             location. This function is applicable only if the parent of the 
+             naked window is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+        anchor - Location on the naked window used to set the position.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5084.html">ProUINakedwindowSizeSet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                 width, 
+    int                 height);
+/*
+    Purpose: Set the size of the naked window. This field is used only if the 
+             parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        width - Width of the naked window.
+        height - Height of the naked window.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5085.html">ProUINakedwindowPositionSet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                 x, 
+    int                 y);
+/*
+    Purpose: Set the position to the naked window with respect to its parent. 
+             This field is used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5086.html">ProUINakedwindowPositionGet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                *x, 
+    int                *y);
+/*
+    Purpose: Get the position of the naked window with respect to its parent. 
+             This field is used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5087.html">ProUINakedwindowSizeGet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                *width, 
+    int                *height);
+/*
+    Purpose: Get the size of the naked window. This field is used only if the 
+             parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        width - Width of the naked window.
+        height - Height of the naked window.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5088.html">ProUINakedwindowCursorposGet</A> (
+    char               *dialog, 
+    char               *component, 
+    <A HREF="proui_h.html#ProUIPoint">ProUIPoint</A>         *position);
+/*
+    Purpose: Get the position of the cursor in the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+
+    Output Arguments:
+        position - Position of the cursor.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5089.html">ProUINakedwindowCursorposSet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                 x, 
+    int                 y);
+/*
+    Purpose: Set the cursor at the given location in the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        x - X value.
+        y - Y value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5090.html">ProUINakedwindowResizeActionSet</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="4148.html">ProUIAction</A> function, 
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when the naked window is resized. 
+             Note: the naked window contents are typically cleared after a 
+             resize.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        function - Function to be called when the naked window is resized.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5091.html">ProUINakedwindowKeyActionSet</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="4148.html">ProUIAction</A> function, 
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the action function to be called when a key has been pressed 
+             with the keyboard input focus on the naked window.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        function - Function to be called when a key is pressed with input focus 
+                   on the naked window
+        data - Action data to be passed to callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5092.html">ProUINakedwindowFocusinActionSet</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="4148.html">ProUIAction</A> function, 
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the action function to be called when the naked window has got 
+             keyboard input focus.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        function - Function to be called when naked window has got focus.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5093.html">ProUINakedwindowFocusoutActionSet</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="4148.html">ProUIAction</A> function, 
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the action function to be called when the naked window has 
+             lost keyboard input focus.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the naked window.
+        component - The name of the naked window component.
+        function - Function to be called when naked window has lost focus.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5094.html">ProUINakedwindowDestroynotifyActionSet</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="4148.html">ProUIAction</A> function, 
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when a component is about to be 
+             destroyed.
+
+    Input Arguments:
+        dialog - Name of the dialog.
+        component - The name of the naked window component.
+        function - Function to be called when a component is about to be 
+                   destroyed.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5095.html">ProUINakedwindowPremanagenotifyActionSet</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="4148.html">ProUIAction</A> function, 
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when a component is about to be 
+             managed.
+
+    Input Arguments:
+        dialog - Name of the dialog.
+        component - The name of the naked window component.
+        function - Function to be called when a component is about to be 
+                   managed.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5096.html">ProUINakedwindowPostmanagenotifyActionSet</A> (
+    char           *dialog, 
+    char           *component, 
+    <A HREF="4148.html">ProUIAction</A> function, 
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A> data);
+/*
+    Purpose: Set the function to be called when a component is about to be 
+             managed.
+
+    Input Arguments:
+        dialog - Name of the dialog.
+        component - The name of the naked window component.
+        function - Function to be called when a component is about to be 
+                   managed.
+        data - Action data passed to the callback function. Can be NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+/* nvk STOP REPLACEMENTS HERE*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5097.html">ProUIDialogNakedwindowAdd</A> (
+    char               *dialog,
+    char               *name,
+    <A HREF="proui_h.html#ProUIGridopts">ProUIGridopts</A>      *grid);
+/*
+    Purpose: Add a new naked window to the dialog.
+
+    Input Arguments:
+        dialog - Name of the dialog.
+        name - Name of the naked window to be added.
+        grid - Position of the added component in the dialog.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5098.html">ProUILayoutNakedwindowAdd</A> (
+    char               *dialog,
+    char               *component,
+    char               *name,
+    <A HREF="proui_h.html#ProUIGridopts">ProUIGridopts</A>      *grid);
+/*
+    Purpose: Add a new naked window to the layout.
+
+    Input Arguments:
+        dialog - Name of the dialog.
+        component - The name of the naked window component.
+        name - Name of the naked window to be added.
+        grid - Position of the added component in the dialog.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5099.html">ProUITreeNakedwindowAdd</A> (
+    char               *dialog,
+    char               *component,
+    char               *name);
+/*
+    Purpose: Add a new naked window to the tree.
+
+    Input Arguments:
+        dialog - Name of the dialog.
+        component - The name of the naked window component.
+        name - Name of the naked window to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5100.html">ProUITableNakedwindowAdd</A> (
+    char               *dialog,
+    char               *component,
+    char               *name);
+/*
+    Purpose: Add a new naked window to the table.
+
+    Input Arguments:
+        dialog - Name of the dialog.
+        component - The name of the naked window component.
+        name - Name of the naked window to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5101.html">ProUIDrawingareaNakedwindowAdd</A> (
+    char               *dialog,
+    char               *component,
+    char               *name);
+/*
+    Purpose: Add a new naked window to the drawing area.
+
+    Input Arguments:
+        dialog - Name of the dialog.
+        component - The name of the naked window component.
+        name - Name of the naked window to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5102.html">ProUIDialogNakedwindowRemove</A> (
+    char               *dialog,
+    char               *name);
+/*
+    Purpose: Remove the naked window from the dialog.
+
+    Input Arguments:
+        dialog - Name of the dialog.
+        name - Name of the naked window to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5103.html">ProUILayoutNakedwindowRemove</A> (
+    char               *dialog,
+    char               *component,
+    char               *name);
+/*
+    Purpose: Remove the naked window from the layout.
+
+    Input Arguments:
+        dialog - Name of the layout.
+        component - The name of the naked window component.
+        name - Name of the naked window to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5104.html">ProUITreeNakedwindowRemove</A> (
+    char               *dialog,
+    char               *component,
+    char               *name);
+/*
+    Purpose: Remove the naked window from the tree.
+
+    Input Arguments:
+        dialog - Name of the tree.
+        component - The name of the naked window component.
+        name - Name of the naked window to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5105.html">ProUITableNakedwindowRemove</A> (
+    char               *dialog,
+    char               *component,
+    char               *name);
+/*
+    Purpose: Remove the naked window from the table.
+
+    Input Arguments:
+        dialog - Name of the table.
+        component - The name of the naked window component.
+        name - Name of the naked window to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5106.html">ProUIDrawingareaNakedwindowRemove</A> (
+    char               *dialog,
+    char               *component,
+    char               *name);
+/*
+    Purpose: Remove the naked window from the drawing area.
+
+    Input Arguments:
+        dialog - Name of the drawing area.
+        component - The name of the naked window component.
+        name - Name of the naked window to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif /* __PROUINAKEDWINDOW_H__ */
+
+        </PRE>
+    </BODY>
+</HTML>

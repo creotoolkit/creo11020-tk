@@ -1,0 +1,155 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>Probbl.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="probbl_h.html#PROBBL_H">PROBBL_H</A>
+<A name="PROBBL_H"></A>#define PROBBL_H
+
+#include &lt;<A HREF="protoolkit_h.html">ProToolkit.h</A>&gt;
+
+
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/************************ CREO BBL ********************************
+************************************************************************/
+
+/*
+              
+           1----2nd direction----- 1 curve ---------+--------- 1
+                                                    |           
+           |                                        |          |
+           |                                        |          |
+                                                               
+           1                                       i-th        n-th
+                                                                
+           c                                        c          c
+           u                                        u          u
+           r                                        r          r
+           v                                        v          v
+           e                                        e          e
+                                                                
+           |                                        |          |
+                                                    |          | 
+          1st                                       |          | 
+                                                    |          |
+           d                                        |          |
+           i                                        |          |
+           r                                        |          |
+           e                                        |          |
+           c                                        |          |
+           t                                        |          |
+           i                                        |          |
+           o                                        |          |
+           n                                        |          |
+           |                                        |          |
+           |                                        |          |
+           +----2nd direction----- i-th curve ------+----------+
+           |                                        |          |
+           |                                        |          |
+                                                    |           
+           0 ---2nd direction------- n curve -------+--------- 1
+
+
+*/
+/************************************************************************
+
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TREE">PRO_E_FEATURE_TREE</A>
+ |---<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+ |---<A HREF="proelemid_h.html#PRO_E_FEATURE_FORM">PRO_E_FEATURE_FORM</A>
+ |---<A HREF="proelemid_h.html#PRO_E_DTM_SRF_TYPE">PRO_E_DTM_SRF_TYPE</A>
+
+ |---<A HREF="proelemid_h.html#PRO_E_BNBLN_CURVES">PRO_E_BNBLN_CURVES</A>
+ |    |---<A HREF="proelemid_h.html#PRO_E_BNBLN_1DIR">PRO_E_BNBLN_1DIR</A>
+ |    |    |---<A HREF="proelemid_h.html#PRO_E_BNBLN_DIR_CURVES">PRO_E_BNBLN_DIR_CURVES</A>
+ |    |    |    |---<A HREF="proelemid_h.html#PRO_E_STD_CHAIN_HOLDER">PRO_E_STD_CHAIN_HOLDER</A>
+ |    |    |    |    |---<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>
+ |    |    |---<A HREF="proelemid_h.html#PRO_E_BBL_ADD_CLOSED">PRO_E_BBL_ADD_CLOSED</A>
+ |    |---<A HREF="proelemid_h.html#PRO_E_BNBLN_2DIR">PRO_E_BNBLN_2DIR</A>
+ |    |    |---<A HREF="proelemid_h.html#PRO_E_BNBLN_DIR_CURVES">PRO_E_BNBLN_DIR_CURVES</A>
+ |    |    |---<A HREF="proelemid_h.html#PRO_E_BBL_ADD_CLOSED">PRO_E_BBL_ADD_CLOSED</A>
+
+ |---<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+ |---<A HREF="proelemid_h.html#PRO_E_EXT_SURF_CUT_SOLID_TYPE">PRO_E_EXT_SURF_CUT_SOLID_TYPE</A>
+
+**************************************************************************/
+
+/*
+------------------------------------------------------------------------------
+Element Id                        Element Name               Data Type
+------------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>               Feature Type                <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>
+<A HREF="proelemid_h.html#PRO_E_FEATURE_FORM">PRO_E_FEATURE_FORM</A>               Feature form                <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>
+<A HREF="proelemid_h.html#PRO_E_DTM_SRF_TYPE">PRO_E_DTM_SRF_TYPE</A>               Datum surface type          <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>
+
+<A HREF="proelemid_h.html#PRO_E_BNBLN_CURVES">PRO_E_BNBLN_CURVES</A>                                           PRO_ELEM_TYPE_COMPOUND
+<A HREF="proelemid_h.html#PRO_E_BNBLN_1DIR">PRO_E_BNBLN_1DIR</A>                 BBL curves in 1st direction PRO_ELEM_TYPE_COMPOUND
+<A HREF="proelemid_h.html#PRO_E_BNBLN_2DIR">PRO_E_BNBLN_2DIR</A>                 BBL curves in 2nd direction PRO_ELEM_TYPE_COMPOUND
+
+<A HREF="proelemid_h.html#PRO_E_BNBLN_DIR_CURVES">PRO_E_BNBLN_DIR_CURVES</A>           array of chain holders      PRO_ELEM_TYPE_ARRAY
+<A HREF="proelemid_h.html#PRO_E_STD_CHAIN_HOLDER">PRO_E_STD_CHAIN_HOLDER</A>                                       PRO_ELEM_TYPE_COMPOUND
+<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>  curves to path through      <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A>
+                                 curve can be composite
+<A HREF="proelemid_h.html#PRO_E_BBL_ADD_CLOSED">PRO_E_BBL_ADD_CLOSED</A>             closes the surface in 1st   <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A> 
+                                 or 2nd direction
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>                                       <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>
+<A HREF="proelemid_h.html#PRO_E_EXT_SURF_CUT_SOLID_TYPE">PRO_E_EXT_SURF_CUT_SOLID_TYPE</A>                                <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>
+
+*/
+
+
+/************************************************************************
+ Requirments
+-------------------------------------------------------------------------
+    <A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>                  required
+                                        type (see <A HREF="profeattype_h.html">ProFeatType.h</A>)
+                                        valid value <A HREF="profeattype_h.html#PRO_FEAT_DATUM_SURF">PRO_FEAT_DATUM_SURF</A>
+    <A HREF="proelemid_h.html#PRO_E_FEATURE_FORM">PRO_E_FEATURE_FORM</A>                  required
+                                        valid value <A HREF="profeatform_h.html#PRO_USE_SURFS">PRO_USE_SURFS</A>
+    <A HREF="proelemid_h.html#PRO_E_DTM_SRF_TYPE">PRO_E_DTM_SRF_TYPE</A>                  required
+                                        valid value <A HREF="probbl_h.html#PRO_E_DTM_SRF_TYPE_BND_BLEND">PRO_E_DTM_SRF_TYPE_BND_BLEND</A>
+
+    <A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>              required
+                                        Default given by application depending
+                                        on feature type. Modifiable by user.
+
+    <A HREF="proelemid_h.html#PRO_E_BNBLN_CURVES">PRO_E_BNBLN_CURVES</A>                  required at least 1 direction
+                                        <A HREF="proelemid_h.html#PRO_E_BNBLN_1DIR">PRO_E_BNBLN_1DIR</A> or <A HREF="proelemid_h.html#PRO_E_BNBLN_2DIR">PRO_E_BNBLN_2DIR</A>
+
+    <A HREF="proelemid_h.html#PRO_E_BNBLN_1DIR">PRO_E_BNBLN_1DIR</A>                    required at least 2 curves
+                                        not required if <A HREF="proelemid_h.html#PRO_E_BNBLN_2DIR">PRO_E_BNBLN_2DIR</A> is defined
+
+    <A HREF="proelemid_h.html#PRO_E_BNBLN_2DIR">PRO_E_BNBLN_2DIR</A>                    required at least 2 curves
+                                        not required if <A HREF="proelemid_h.html#PRO_E_BNBLN_1DIR">PRO_E_BNBLN_1DIR</A> is defined
+
+
+    <A HREF="proelemid_h.html#PRO_E_BNBLN_DIR_CURVES">PRO_E_BNBLN_DIR_CURVES</A>              required
+    <A HREF="proelemid_h.html#PRO_E_STD_CHAIN_HOLDER">PRO_E_STD_CHAIN_HOLDER</A>              required                 
+    <A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>     required      
+    <A HREF="proelemid_h.html#PRO_E_BBL_ADD_CLOSED">PRO_E_BBL_ADD_CLOSED</A>                not required 
+                                        Default value <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A>
+                                        Value <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> is workable if there are at least 3 curves
+    <A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>                                       
+    <A HREF="proelemid_h.html#PRO_E_EXT_SURF_CUT_SOLID_TYPE">PRO_E_EXT_SURF_CUT_SOLID_TYPE</A>       required
+                                        valid value <A HREF="profeattype_h.html#PRO_FEAT_DATUM_SURF">PRO_FEAT_DATUM_SURF</A>
+
+-------------------------------------------------------------------------
+
+***************************************************************************/
+
+<A name="PRO_E_DTM_SRF_TYPE_BND_BLEND"></A>#define PRO_E_DTM_SRF_TYPE_BND_BLEND 11
+
+/************************************************************************/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+
+
+        </PRE>
+    </BODY>
+</HTML>

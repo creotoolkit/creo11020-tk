@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>UgDtlnoteExamples.c</title>
+</head>
+<body bgcolor="#ffffff">
+<pre><a name="anchor-0"></a>
+/*
+	Copyright (c) 2024 PTC Inc. and/or Its Subsidiary Companies. All Rights Reserved.
+*/
+
+<a name="anchor-1"></a>
+/* This code is used for test: ptn_custbugs_i03j01j03_1 */
+
+#include &lt;ProToolkit.h>
+#include &lt;ProDtlnote.h>
+<a name="anchor-2"></a>#include &lt;PTApplsUnicodeUtils.h>
+#include &lt;UgDrawing.h>
+/*====================================================================*\ 
+FUNCTION : UsrSurfNoteCreate() 
+PURPOSE  : Utility to create a note that documents the surface name or id. 
+<a name="anchor-3"></a>\*====================================================================*/ 
+int UsrSurfNoteCreate(
+     ProDrawing drawing,
+     ProSelection surf_sel,      /* The surface - where the note leader
+                                    should be attached. */
+<a name="anchor-4"></a>     ProVector pos)              /* The location of the note itself */
+{
+     ProDtlnotetext text;
+     ProName font;
+     ProDtlnoteline line;
+<a name="anchor-5"></a>     ProModelitem modelitem;
+     ProName wname;
+     ProCharName name;
+     ProLine wstr;
+     ProCharLine str;
+<a name="anchor-6"></a>     ProDtlnotedata ndata;
+     ProView view;
+     ProDtlattach attach, leader;
+     ProDtlnote note;
+     ProTextStyle style;
+<a name="anchor-7"></a>
+/*--------------------------------------------------------------------*\ 
+    Allocate a text item, and set its properties 
+\*--------------------------------------------------------------------*/ 
+    ProDtlnotetextAlloc(&amp;text);
+<a name="anchor-8"></a>     style = UserCreateTextStyle(L&quot;cgomg&quot;, -1.0, -1.0, 0.0, 0.0);
+     ProDtlnotetextStyleSet(text, style);
+
+/*--------------------------------------------------------------------*\ 
+    Get the name of the selected surface, form a string which
+<a name="anchor-9"></a>     describes it, and add the string to the text item 
+\*--------------------------------------------------------------------*/ 
+    ProSelectionModelitemGet(surf_sel, &amp;modelitem);
+    if(ProModelitemNameGet(&amp;modelitem, wname) == PRO_TK_NO_ERROR)
+         ProWstringToString(name, wname);
+<a name="anchor-10"></a>
+    else
+         ProTKSprintf(name, &quot;id %d&quot;, modelitem.id); 
+    
+    ProTKSprintf(str, &quot;Surface %s&quot;, name); 
+<a name="anchor-11"></a>
+    ProStringToWstring(wstr, str); 
+    ProDtlnotetextStringSet(text, wstr);
+    
+/*--------------------------------------------------------------------*\ 
+<a name="anchor-12"></a>    Allocate a new text line, and add the text item to it 
+\*--------------------------------------------------------------------*/ 
+    ProDtlnotelineAlloc(&amp;line);
+    ProDtlnotelineTextAdd(line, text);
+
+<a name="anchor-13"></a>/*--------------------------------------------------------------------*\ 
+    Allocate a note description, and add the line to it 
+\*--------------------------------------------------------------------*/ 
+    ProDtlnotedataAlloc(drawing, &amp;ndata); 
+    ProDtlnotedataLineAdd(ndata, line);
+<a name="anchor-14"></a>
+/*--------------------------------------------------------------------*\ 
+    Set the attachment of the note itself 
+\*--------------------------------------------------------------------*/ 
+    ProSelectionViewGet(surf_sel, &amp;view);
+<a name="anchor-15"></a>    ProDtlattachAlloc(PRO_DTLATTACHTYPE_FREE, view, pos, NULL, &amp;attach);
+    ProDtlnotedataAttachmentSet(ndata, attach);
+
+/*--------------------------------------------------------------------*\ 
+    Add the note leader 
+<a name="anchor-16"></a>\*--------------------------------------------------------------------*/ 
+    ProDtlattachAlloc(PRO_DTLATTACHTYPE_PARAMETRIC, NULL, NULL, surf_sel,
+                         &amp;leader);
+    ProDtlnotedataLeaderAdd(ndata, leader);
+
+<a name="anchor-17"></a>/*--------------------------------------------------------------------*\ 
+    Create the note 
+\*--------------------------------------------------------------------*/ 
+    ProDtlnoteCreate(drawing, NULL, ndata, &amp;note);
+
+<a name="anchor-18"></a>/*--------------------------------------------------------------------*\ 
+    Display the note 
+\*--------------------------------------------------------------------*/ 
+    ProAnnotationShow(&amp;note,NULL, view);
+
+<a name="anchor-19"></a>/*--------------------------------------------------------------------*\ 
+    Free the memory for the note description 
+\*--------------------------------------------------------------------*/ 
+    ProDtlnotedataFree(ndata);
+    ProTextStyleFree(&amp;style);
+<a name="anchor-20"></a>    
+    return 1;
+
+ }
+
+<a name="anchor-21"></a>int UsrSurfNoteCreateWrapper ()
+{
+   ProDrawing drawing;
+    ProMouseButton button;
+    ProSelection *sel;
+<a name="anchor-22"></a>    int n_sel;
+    ProVector pos;
+    ProFileName msgfil;
+
+    ProStringToWstring (msgfil, &quot;msg_ugdrawing.txt&quot;);
+<a name="anchor-23"></a>
+    ProMdlCurrentGet((ProMdl*)&amp;drawing);
+
+    ProMessageDisplay(msgfil,&quot;USER Select surface&quot;);
+    if(ProSelect(&quot;surface&quot;,1,NULL,NULL,NULL,NULL,&amp;sel,&amp;n_sel) !=
+<a name="anchor-24"></a>            PRO_TK_NO_ERROR || n_sel &lt; 1)
+        return(0);
+
+    ProMessageDisplay(msgfil,&quot;USER Select note position&quot;);
+    if(ProMousePickGet(PRO_ANY_BUTTON, &amp;button, pos) != PRO_TK_NO_ERROR)
+<a name="anchor-25"></a>      return(0);
+
+    UsrSurfNoteCreate(drawing, sel[0], pos);
+
+    return (1);
+<a name="anchor-26"></a>}
+</pre>
+</body>
+</html>

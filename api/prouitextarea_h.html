@@ -1,0 +1,1161 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProUITextarea.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="prouitextarea_h.html#PROUITEXTAREA_H">PROUITEXTAREA_H</A>
+<A name="PROUITEXTAREA_H"></A>#define PROUITEXTAREA_H
+
+#include &lt;<A HREF="proui_h.html">ProUI.h</A>&gt;
+
+
+
+/*===========================================================================*/
+ 
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5708.html">ProUITextareaHelptextSet</A>(
+    char*	dialog,
+    char*	textarea,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>*     helptext);
+/*
+    Purpose: Set the helptext of a text area component
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+        helptext - The help text
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5709.html">ProUITextareaColumnsSet</A>(
+    char*	dialog,
+    char*	textarea,
+    int         columns);
+/*
+    Purpose: Set the number of columns in a text area component
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+        columns - The number of columns
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+ 
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5710.html">ProUITextareaEditable</A>(
+    char*	dialog,
+    char*	textarea);
+/*
+    Purpose: Set a text area to be editable
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5711.html">ProUITextareaReadOnly</A>(
+    char*	dialog,
+    char*	textarea);
+/*
+    Purpose: Set a text area to be readonly
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5712.html">ProUITextareaMaxlenSet</A>(
+    char*	dialog,
+    char*	textarea,
+    int         maxlen);
+/*
+    Purpose: Set the maximum length of a text area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+        maxlen - The maximum length of the text area
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5713.html">ProUITextareaMinrowsSet</A>(
+    char*	dialog,
+    char*	textarea,
+    int         minrows);
+/*
+    Purpose: Set the minimum number of rows for a text area
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+        minrows - The minimum number of rows
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5714.html">ProUITextareaRowsSet</A>(
+    char*	dialog,
+    char*	textarea,
+    int         rows);
+/*
+    Purpose: Set the number of rows for a text area
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+        rows - The number of rows
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5715.html">ProUITextareaValueSet</A>(
+    char*	dialog,
+    char*	textarea,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>*    value);
+/*
+    Purpose: Sets the value of the text in the text area
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+        value - A wide string containing the text, lines separated by 
+                (<A HREF="prowchar_h.html#wchar_t">wchar_t</A>)'\n'.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5716.html">ProUITextareaValueGet</A>(
+    char*	dialog,
+    char*	textarea,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>**   lines);
+/*
+    Purpose: Gets the value of the text in the text area
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+
+    Output Arguments:
+        lines - Wide string containing the text, lines separated by 
+                (<A HREF="prowchar_h.html#wchar_t">wchar_t</A>)'\n'. The memory for this wide string is allocated by 
+                the function and should be freed with <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5717.html">ProUITextareaActivateActionSet</A>(
+    char*	dialog,
+    char*	textarea,
+    <A HREF="4148.html">ProUIAction</A> action,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>  appdata);
+/*
+    Purpose: Sets the activate action for a text area. This function is called 
+             when the user presses return in the text area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area.
+        textarea - The name of the text area component
+        action - The action to perform when the text area is activated.
+        appdata - Application data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5718.html">ProUITextareaEnable</A>(
+    char* dialog,
+    char* textarea);
+/*
+    Purpose: Enables the text area
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5719.html">ProUITextareaDisable</A>(
+    char* dialog,
+    char* textarea);
+/*
+    Purpose: Disables the text area
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area
+        textarea - The name of the text area component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5720.html">ProUITextareaInputActionSet</A>(
+    char*	dialog,
+    char*	textarea,
+    <A HREF="4148.html">ProUIAction</A> action,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>  appdata);
+/*
+    Purpose: Sets the activate action for a text area. This function is called 
+             when the user changes the conents of the text area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area.
+        textarea - The name of the text area component
+        action - The action to perform when the text area contents are changed.
+        appdata - Application data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5721.html">ProUITextareaIsVisible</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>   *state
+);
+/*
+    Purpose: Checks to see if the Textarea is visible in the dialog or not.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area.
+        component - The name of the text area component
+
+    Output Arguments:
+        state - Whether or not the text area is visible
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5722.html">ProUITextareaShow</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Makes the component visible in the dialog
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area.
+        component - The name of the text area component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5723.html">ProUITextareaHide</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Hides the component from the dialog
+
+    Input Arguments:
+        dialog - name of dialog
+        component - name of component
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5724.html">ProUITextareaFocusinActionSet</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="4148.html">ProUIAction</A>   callback,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>    data);
+/*
+    Purpose: Sets the focus in action for a text area. This function is called 
+             when the user moves the cursor onto the text area using the mouse 
+             or [TAB] key.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area.
+        component - The name of the text area component
+        callback - The action to perform when the text area gains user focus.
+        data - Application data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5725.html">ProUITextareaFocusoutActionSet</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="4148.html">ProUIAction</A>   callback,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>    data);
+/*
+    Purpose: Sets the focus out action for a text area. This function is called 
+             when the user moves the cursor off of the text area using the 
+             mouse or [TAB] key.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the text area.
+        component - The name of the text area component
+        callback - The action to perform when the text area loses user focus.
+        data - Application data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5726.html">ProUITextareaPopupmenuSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *value);
+/*
+    Purpose: Sets the name of the popup menu for the textarea.
+
+    Input Arguments:
+        dialog - The dialog name.
+        component - The component name.
+        value - The name of the popup menu pane.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5727.html">ProUITextareaPopupmenuGet</A> (
+    char       *dialog,
+    char       *component,
+    char      **value);
+/*
+    Purpose: Gets the name of the popup menu for the textarea.
+
+    Input Arguments:
+        dialog - The dialog name.
+        component - The component name.
+
+    Output Arguments:
+        value - The name of the popup menu pane. Free this string using 
+                <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+ 
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5728.html">ProUITextareaAnchorSet</A> (char* dialog, char* component, int x, int y, <A HREF="proui_h.html#ProUIAnchor">ProUIAnchor</A> anchor);
+/*
+    Purpose: Sets the position of the textarea with respect to a given anchor 
+             location. This function is applicable only if the parent of the 
+             textarea is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+        anchor - Location on the textarea used to set the position.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5729.html">ProUITextareaSizeSet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                 width, 
+    int                 height);
+/*
+    Purpose: Set the size of the textarea. This field is used only if the 
+             parent is a drawing area. If the width or the height parameter is 
+             passed a value smaller than the textarea's minimum size, the 
+             function will fail. The textarea's minimum size can be retrieved 
+             using <A HREF="5732.html">ProUITextareaMinimumsizeGet.</A>
+
+    Input Arguments:
+        dialog - The name of the dialog that contains textarea.
+        component - The name of the textarea component.
+        width - Width value
+        height - Height value
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5730.html">ProUITextareaPositionSet</A> (char* dialog, char* component, int x, int y);
+/*
+    Purpose: Set the position to the textarea with respect to its parent. This 
+             field is used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains textarea.
+        component - The name of the textarea component.
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5731.html">ProUITextareaPositionGet</A> (char* dialog, char* component, int* x, int* y);
+/*
+    Purpose: Get the position of the textarea with respect to its parent. This 
+             field is used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5732.html">ProUITextareaMinimumsizeGet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                *min_width, 
+    int                *min_height);
+/*
+    Purpose: Get the minimum size of the textarea in pixels. This field is used 
+             only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        min_width - Minimum width value.
+        min_height - Minimum height value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5733.html">ProUITextareaSizeGet</A> (char* dialog, char* component, int* width, int* height);
+/*
+    Purpose: Get the size of the textarea. This field is used only if the 
+             parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        width - Width value
+        height - Height value
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5734.html">ProUITextareaParentnameGet</A> (char *dialog, char *component, char **value);
+/*
+    Purpose: Get the name of the parent to the textarea component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        value - The name of the parent. Free this using <A HREF="6134.html">ProStringFree</A> ().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5735.html">ProUITextareaHelptextGet</A> (char* dialog, char* component, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** value);
+/*
+    Purpose: Get the helptext that will display when the cursor is over the 
+             textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        value - The helptext. Free this using <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5736.html">ProUITextareaIsEnabled</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: Checks if the textarea is sensitive to the user input or not.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> when the textarea is sensitive. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> when the 
+                textarea is insensitive.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5737.html">ProUITextareaAttachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the textarea at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5738.html">ProUITextareaUnattachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the textarea at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5739.html">ProUITextareaIsAttachedLeft</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the textarea is attached at left side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        state - state of the left attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the textarea is 
+                attached at left. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the textarea is not attached 
+                at left.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5740.html">ProUITextareaAttachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the textarea at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5741.html">ProUITextareaUnattachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the textarea at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5742.html">ProUITextareaIsAttachedRight</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the textarea is attached at right side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        state - state of the right attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the textarea is 
+                attached at right. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the textarea is not attached 
+                at right.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5743.html">ProUITextareaAttachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the textarea at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5744.html">ProUITextareaUnattachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the textarea at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5745.html">ProUITextareaIsAttachedTop</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the textarea is attached at top side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        state - state of the top attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the textarea is 
+                attached at top. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the textarea is not attached at 
+                top.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5746.html">ProUITextareaAttachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the textarea at bottom side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5747.html">ProUITextareaUnattachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the textarea at bottom side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5748.html">ProUITextareaIsAttachedBottom</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the textarea is attached at bottom side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        state - state of the bottom attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the textarea is 
+                attached at bottom. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the textarea is not attached 
+                at bottom.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5749.html">ProUITextareaLeftoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set left offset to the textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+        value - Left offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5750.html">ProUITextareaLeftoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get left offset of the textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        value - Left offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5751.html">ProUITextareaRightoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set right offset to the textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+        value - Right offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5752.html">ProUITextareaRightoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get right offset of the textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        value - Right offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5753.html">ProUITextareaTopoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set top offset to the textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+        value - Top offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5754.html">ProUITextareaTopoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get top offset of the textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        value - Top offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5755.html">ProUITextareaBottomoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set bottom offset to the textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+        value - Bottom offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5756.html">ProUITextareaBottomoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get bottom offset of the textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        value - Bottom offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5757.html">ProUITextareaColumnsGet</A> (
+    char                   *dialog,
+    char                   *component,
+    int                    *value);
+/*
+    Purpose: Get width of the textarea in character widths.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        value - Column width of the textarea.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5758.html">ProUITextareaIsEditable</A> (
+    char           *dialog,    
+    char           *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>     *state
+);
+/*
+    Purpose: Get editable state of textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> when the textarea is editable. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> when the 
+                textarea is not editable.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+ 
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5759.html">ProUITextareaMinrowsGet</A> (
+    char                   *dialog,
+    char                   *component,
+    int                    *value);
+/*
+    Purpose: Get minimum number of rows of the textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        value - Minimum number of rows of the textarea.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+ 
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5760.html">ProUITextareaMaxlenGet</A> (
+    char                   *dialog,
+    char                   *component,
+    int                    *value);
+/*
+    Purpose: Get maximum length of the text contents in textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        value - Maximum length of the text contents.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5761.html">ProUITextareaRowsGet</A> (
+    char                   *dialog,
+    char                   *component,
+    int                    *value);
+/*
+    Purpose: Get number of rows of the textarea.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the textarea.
+        component - The name of the textarea component.
+
+    Output Arguments:
+        value - Number of rows in textarea.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+ 
+#endif  /* PROUITEXTAREA_H */
+
+        </PRE>
+    </BODY>
+</HTML>

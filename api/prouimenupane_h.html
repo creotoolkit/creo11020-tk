@@ -1,0 +1,915 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProUIMenupane.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="prouimenupane_h.html#PROUIMENUPANE_H">PROUIMENUPANE_H</A>
+<A name="PROUIMENUPANE_H"></A>#define PROUIMENUPANE_H
+
+#include &lt;<A HREF="proui_h.html">ProUI.h</A>&gt;
+
+
+
+/*===========================================================================*/
+ 
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4936.html">ProUIMenupaneTextSet</A>(
+    char       *dialog,
+    char       *menupane,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>    *text);
+/*
+    Purpose: Set the text to appear on the button in a menu bar activating a 
+             menu pane
+             &lt;p&gt; Use this function only with a menu bar in a custom 
+             application-created UI dialog.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menu pane
+        menupane - The name of the menu pane
+        text - The new text
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4937.html">ProUIMenupaneIsVisible</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>   *state
+);
+/*
+    Purpose: Checks to see if the Menupane is visible in the dialog or not.
+             &lt;p&gt; Use this function only with a menu bar in a custom 
+             application-created UI dialog.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menu pane
+        component - The name of the menu pane
+
+    Output Arguments:
+        state - Whether or not the menu pane is visible.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4938.html">ProUIMenupaneShow</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Makes the component visible in the dialog.
+             &lt;p&gt; Use this function only with a menu bar in a custom 
+             application-created UI dialog.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menu pane
+        component - The name of the menu pane
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4939.html">ProUIMenupaneHide</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Hides the component from the dialog.
+             &lt;p&gt; Use this function only with a menu bar in a custom 
+             application-created UI dialog.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menu pane
+        component - The name of the menu pane
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4940.html">ProUIMenupaneCheckbuttonAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new checkbutton to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        name - Name of the checkbutton to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4941.html">ProUIMenupanePushbuttonAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new pushbutton to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        name - Name of the pushbutton to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4942.html">ProUIMenupaneRadiogroupAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new radiogroup to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        name - Name of the radiogroup to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4943.html">ProUIMenupaneSeparatorAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new separator to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        name - Name of the separator to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4944.html">ProUIMenupaneCascadebuttonAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new cascadebutton to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        name - Name of the cascadebutton to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4945.html">ProUIMenupaneCheckbuttonInsert</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIPosition">ProUIPosition</A> pos, char* sibling, char* name);
+/*
+    Purpose: Insert a new check button in the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        pos - Position of the check button with respect to the sibling.
+        sibling - The name of the existing reference component.
+        name - The name of the new check button inserted.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4946.html">ProUIMenupanePushbuttonInsert</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIPosition">ProUIPosition</A> pos, char* sibling, char* name);
+/*
+    Purpose: Insert a new push button in the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        pos - Position of the push button with respect to the sibling.
+        sibling - The name of the existing reference component.
+        name - The name of the inserted push button.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4947.html">ProUIMenupaneRadiogroupInsert</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIPosition">ProUIPosition</A> pos, char* sibling, char* name);
+/*
+    Purpose: Insert a new radio group in the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        pos - Position of the radio group with respect to the sibling.
+        sibling - The name of the existing reference component.
+        name - The name of the inserted radio group.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4948.html">ProUIMenupaneSeparatorInsert</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIPosition">ProUIPosition</A> pos, char* sibling, char* name);
+/*
+    Purpose: Insert a new separator in the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        pos - Position of the separator with respect to the sibling.
+        sibling - The name of the existing reference component.
+        name - The name of the inserted separator.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4949.html">ProUIMenupaneCascadebuttonInsert</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUIPosition">ProUIPosition</A> pos, char* sibling, char* name);
+/*
+    Purpose: Insert a new cascade button in the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        pos - Position of the cascade button with respect to the sibling.
+        sibling - The name of the existing reference component.
+        name - The name of the inserted cascade button.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4950.html">ProUIMenupaneCheckbuttonRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the checkbutton from the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        name - Name of the checkbutton to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4951.html">ProUIMenupanePushbuttonRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the pushbutton from the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        name - Name of the pushbutton to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4952.html">ProUIMenupaneRadiogroupRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the radiogroup from the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        name - Name of the radiogroup to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4953.html">ProUIMenupaneSeparatorRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the separator from the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        name - Name of the separator to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4954.html">ProUIMenupaneCascadebuttonRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the cascadebutton from the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains menupane
+        component - The name of the menupane component.
+        name - Name of the cascadebutton to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4955.html">ProUIMenupaneChildnamesGet</A> (char *dialog, char *component, int *count, char ***values);
+/*
+    Purpose: Get the name of the children to the menupane component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        count - Number of children.
+        values - Array of names of the children. Free this using 
+                 <A HREF="6136.html">ProStringarrayFree</A> ().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4956.html">ProUIMenupaneBitmapSet</A> (char* dialog, char* component, char* value);
+/*
+    Purpose: Set the bitmap to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+        value - The name of the bitmap.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4957.html">ProUIMenupaneBitmapGet</A> (char* dialog, char* component, char** value);
+/*
+    Purpose: Get the bitmap to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        value - The name of the menupane. Free this using <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4958.html">ProUIMenupanePopupmenuSet</A> (char* dialog, char* component, char* value);
+/*
+    Purpose: Set the popup menu to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+        value - The name of the popup menu.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4959.html">ProUIMenupanePopupmenuGet</A> (char* dialog, char* component, char** value);
+/*
+    Purpose: Get the popup menu for the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        value - The name of the menupane. Free this using <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4960.html">ProUIMenupaneAttachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the menupane at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4961.html">ProUIMenupaneUnattachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the menupane at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4962.html">ProUIMenupaneIsAttachedLeft</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the menupane is attached at left side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        state - state of the left attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the menupane is 
+                attached at left. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the menupane is not attached 
+                at left.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4963.html">ProUIMenupaneAttachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the menupane at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4964.html">ProUIMenupaneUnattachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the menupane at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4965.html">ProUIMenupaneIsAttachedRight</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the menupane is attached at right side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        state - state of the right attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the menupane is 
+                attached at right. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the menupane is not attached 
+                at right.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4966.html">ProUIMenupaneAttachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the menupane at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4967.html">ProUIMenupaneUnattachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the menupane at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4968.html">ProUIMenupaneIsAttachedTop</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the menupane is attached at top side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        state - state of the top attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the menupane is 
+                attached at top. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the menupane is not attached at 
+                top.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4969.html">ProUIMenupaneAttachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the menupane at bottom side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4970.html">ProUIMenupaneUnattachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the menupane at bottom side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4971.html">ProUIMenupaneIsAttachedBottom</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the menupane is attached at bottom side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        state - state of the bottom attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the menupane is 
+                attached at bottom. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the menupane is not attached 
+                at bottom.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4972.html">ProUIMenupaneLeftoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set left offset to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+        value - Left offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4973.html">ProUIMenupaneLeftoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get left offset of the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        value - Left offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4974.html">ProUIMenupaneRightoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set right offset to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+        value - Right offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4975.html">ProUIMenupaneRightoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get right offset of the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        value - Right offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4976.html">ProUIMenupaneTopoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set top offset to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+        value - Top offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4977.html">ProUIMenupaneTopoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get top offset of the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        value - Top offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4978.html">ProUIMenupaneBottomoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set bottom offset to the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+        value - Bottom offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4979.html">ProUIMenupaneBottomoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get bottom offset of the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        value - Bottom offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4980.html">ProUIMenupaneTextGet</A> (
+    char                   *dialog,
+    char                   *component,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>               **value);
+/*
+    Purpose: Get label of the menupane.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the menupane.
+        component - The name of the menupane component.
+
+    Output Arguments:
+        value - Label of the menupane.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+ 
+#endif  /* PROUIMENUPANE_H */
+
+        </PRE>
+    </BODY>
+</HTML>

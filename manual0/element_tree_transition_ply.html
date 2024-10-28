@@ -1,0 +1,389 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
+      <meta name="ch:resourceid" content="element_tree_transition_ply" scheme="atiChunkerMeta">
+      
+      
+      
+      
+      
+      
+      <link href="css/styler.css" rel="stylesheet" type="text/css">
+      <title>Element Tree: Transition Plies</title>
+   
+<SCRIPT LANGUAGE="JAVASCRIPT">
+  function findProperNode() { top.frames[0].document.apiwizard.manual("MANELEMENT_TREE_TRANSITION_PLY0", location.hash); }
+</SCRIPT>
+
+</head>
+   <body onLoad="findProperNode()">
+      
+         
+         <a name="0"> </a><div class=" x-title-65-0 x-title-65-1 x-title-65-2" combinedFontName="off" id="styler-id1.1.1.22.1" class="ChapterTitle">Element Tree: Transition Plies</div>
+         <div class=" x-shortdesc-1-0"></div><span class=" x-prolog-1-0">
+            <div class=" x-metadata-1-0"><span class=" x-keywords-2-0"><span class=" x-keyword-1-0">
+                     </span><span class=" x-indexterm-1-0"></span></span></div></span><div class=" x-body-2-0 x-body-2-1">
+            <div class=" x-p-7-0">This  <span class=" x-ph-2-0"><span xmlns="" profilecode="100000000">section</span></span> introduces and shows how to create, redefine and access transition plies features in <span class=" x-ph-2-0" id="element_tree_transition_ply_pubsTopic-1-4578B678_PTCCreo_24_15">Creo TOOLKIT</span>.
+            </div>
+            <div class=" x-section-1-0" id="styler-id1.1.1.22.4.2">
+               <div class=" x-title-58-0" combinedFontName="off" id="styler-id1.1.1.22.4.2.1">Introduction to Transition Plies</div>
+               <div class=" x-p-7-0">Transition between plies is a way to shorten and extend plies created from the same boundary to create a transition effect
+                  relative to a transition chain. For the transition curve, you must select a chain of edges that is common to all the selected
+                  plies.
+               </div>
+            </div>
+            <div class=" x-section-1-0" id="styler-id1.1.1.22.4.3">
+               <div class=" x-title-58-0" combinedFontName="off" id="styler-id1.1.1.22.4.3.1">Feature Element Tree for the Transition Plies Feature</div><a xmlns="" class="indexterm" name="1"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="2"></a><span class=" x-indexterm-1-0"></span><div class=" x-p-7-0">The element tree for the Transition Ply feature is documented in the header file <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProCmpstPliesTrans.h</span></span> and has a simple structure. The following figure demonstrates the element tree structure:
+               </div><span class=" x-image-2-0"><img alt="" src="graphics/ele_tree_transition_plies.gif"></span></div>
+            <div class=" x-p-7-0">The following table describes the elements in the element tree:</div>
+            <div class=" x-table-2-0" id="styler-id1.1.1.22.4.5">
+               <table xmlns="" cellpadding="6.666666666666667" class=" x-tgroup-1-0" frame="box" rules="none" style="border-collapse: collapse; border-width: 1pt; " width="100%">
+                  <colgroup>
+                     <col width="160">
+                     <col>
+                     <col>
+                  </colgroup>
+                  <thead align="left" class=" x-thead-1-0" style="font-weight: bold" valign="top">
+                     <tr class=" x-row-2-0">
+                        <th class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; " valign="top">
+                           <div class=" x-p-3-0">Element ID</div>
+                        </th>
+                        <th class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; " valign="top">
+                           <div class=" x-p-3-0">Element Name</div>
+                        </th>
+                        <th class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; " valign="top">
+                           <div class=" x-p-3-0">Data Type</div>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody class=" x-tbody-1-0" valign="top">
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_FEATURE_TYPE</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">Feature Type</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_VALUE_TYPE_INT</span></span></div>
+                        </td>
+                     </tr>
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_STD_FEATURE_NAME</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">featname</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">DATATYPE</span></span></div>
+                        </td>
+                     </tr>
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_TYPE</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">transition_type</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0">Specified using the enumerated data type <span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProCmpst_plies_transTransition_type</span></span>.
+                           </div>
+                        </td>
+                     </tr>
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_REFS</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">plies_refs</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProArray</span></span> of <span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProReference</span></span></div>
+                        </td>
+                     </tr>
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_OFFS_ARR</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">offsets_arr</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProArray</span></span> of <span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProCmpst_plies_transOffsets_cmpd</span></span></div>
+                        </td>
+                     </tr>
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_ARR_CMPD</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">offsets_cmpd</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0">Specified using the enumerated data type <span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProCmpst_plies_transOffsets_cmpd</span></span>.
+                           </div>
+                        </td>
+                     </tr>
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_PLY_REF_ARR</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">plies_ref</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProReference</span></span></div>
+                        </td>
+                     </tr>
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_OFF_ARR</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">offset_arr_col</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_VALUE_TYPE_DOUBLE</span></span></div>
+                        </td>
+                     </tr>
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_STD_CURVE_COLLECTION_APPL</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">transition_ref</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProCollection</span></span></div>
+                        </td>
+                     </tr>
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_PAT_SETT</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">pattern_settings</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0">Specified using the enumerated data type <span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProCmpst_plies_transPattern_settings</span></span>.
+                           </div>
+                        </td>
+                     </tr>
+                     <tr class=" x-row-2-0">
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_OFFSET</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">offset</span></span></div>
+                        </td>
+                        <td class="entry-in-tbody" style="border-width: 1pt; border-right-style: solid; border-bottom-style: solid; ">
+                           <div class=" x-p-3-0"><span class=" x-codeph-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_VALUE_TYPE_DOUBLE</span></span></div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class=" x-p-7-0">The elements in this tree are described as follows:</div>
+            <div class=" x-ul-2-0">
+               <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                  <col style="width: 0em">
+                  <col style="width: 18pt">
+                  <col>
+                  <tbody>
+                     <tr valign="baseline">
+                        <td align="right"></td>
+                        <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                        <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_FEATURE_TYPE</span></span>&#8212;Specifies the feature type and the valid value is <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_FEAT_CMPST_PLIES_TRANS</span></span>.</span></td>
+                     </tr>
+                  </tbody>
+               </table>
+               <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                  <col style="width: 0em">
+                  <col style="width: 18pt">
+                  <col>
+                  <tbody>
+                     <tr valign="baseline">
+                        <td align="right"></td>
+                        <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                        <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_STD_FEATURE_NAME</span></span>&#8212;Specifies the feature name.</span></td>
+                     </tr>
+                  </tbody>
+               </table>
+               <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                  <col style="width: 0em">
+                  <col style="width: 18pt">
+                  <col>
+                  <tbody>
+                     <tr valign="baseline">
+                        <td align="right"></td>
+                        <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                        <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_TYPE</span></span>&#8212;Specifies the transition type and is defined using the enumerated data type <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProCmpst_plies_transTransition_type</span></span>. The valid values are:
+                              <div class=" x-ul-1-0">
+                                 <table border="0" cellpadding="0" cellspacing="0" class=" x-li-10-0" style="table-layout: fixed; " width="100%">
+                                    <col style="width: 0em">
+                                    <col style="width: 18pt">
+                                    <col>
+                                    <tbody>
+                                       <tr valign="baseline">
+                                          <td align="right"></td>
+                                          <td align="left" style="word-break: keep-all; "><span style="font-family: 'Arial Unicode MS'; ">&#9675;</span>&nbsp;
+                                          </td>
+                                          <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_CMPST_PLIES_TRANS_TRANSITION_TYPE_PATTERN</span></span>=1</span></td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <table border="0" cellpadding="0" cellspacing="0" class=" x-li-10-0" style="table-layout: fixed; " width="100%">
+                                    <col style="width: 0em">
+                                    <col style="width: 18pt">
+                                    <col>
+                                    <tbody>
+                                       <tr valign="baseline">
+                                          <td align="right"></td>
+                                          <td align="left" style="word-break: keep-all; "><span style="font-family: 'Arial Unicode MS'; ">&#9675;</span>&nbsp;
+                                          </td>
+                                          <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_CMPST_PLIES_TRANS_TRANSITION_TYPE_CUSTOM</span></span>=2</span></td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div></span></td>
+                     </tr>
+                  </tbody>
+               </table>
+               <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                  <col style="width: 0em">
+                  <col style="width: 18pt">
+                  <col>
+                  <tbody>
+                     <tr valign="baseline">
+                        <td align="right"></td>
+                        <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                        <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_REFS</span></span>&#8212;Specifies the reference to the transition plies using <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProArray</span></span> of <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProReference</span></span>.</span></td>
+                     </tr>
+                  </tbody>
+               </table>
+               <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                  <col style="width: 0em">
+                  <col style="width: 18pt">
+                  <col>
+                  <tbody>
+                     <tr valign="baseline">
+                        <td align="right"></td>
+                        <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                        <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_OFF_ARR</span></span>&#8212;Specifies the transition offsets of the selected plies relative to the selected reference.</span></td>
+                     </tr>
+                  </tbody>
+               </table>
+               <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                  <col style="width: 0em">
+                  <col style="width: 18pt">
+                  <col>
+                  <tbody>
+                     <tr valign="baseline">
+                        <td align="right"></td>
+                        <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                        <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_ARR_CMPD</span></span>&#8212;Specifies the constant offset between the edges of subsequent plies.</span><div class=" x-ul-2-0">
+                              <table border="0" cellpadding="0" cellspacing="0" class=" x-li-10-0" style="table-layout: fixed; " width="100%">
+                                 <col style="width: 0em">
+                                 <col style="width: 18pt">
+                                 <col>
+                                 <tbody>
+                                    <tr valign="baseline">
+                                       <td align="right"></td>
+                                       <td align="left" style="word-break: keep-all; "><span style="font-family: 'Arial Unicode MS'; ">&#9675;</span>&nbsp;
+                                       </td>
+                                       <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_PLY_REF_ARR</span></span>&#8212;Specifies a chain of edges to define the reference for transition offsets. You can select only chain that is common to all
+                                             the selected plies. When you move the cursor over a chain it will highlight when it is a transition chain.</span></td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                              <table border="0" cellpadding="0" cellspacing="0" class=" x-li-10-0" style="table-layout: fixed; " width="100%">
+                                 <col style="width: 0em">
+                                 <col style="width: 18pt">
+                                 <col>
+                                 <tbody>
+                                    <tr valign="baseline">
+                                       <td align="right"></td>
+                                       <td align="left" style="word-break: keep-all; "><span style="font-family: 'Arial Unicode MS'; ">&#9675;</span>&nbsp;
+                                       </td>
+                                       <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_OFFS_ARR</span></span>&#8212;Specifies a chain from the highlighted chains.</span></td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                  <col style="width: 0em">
+                  <col style="width: 18pt">
+                  <col>
+                  <tbody>
+                     <tr valign="baseline">
+                        <td align="right"></td>
+                        <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                        <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_STD_CURVE_COLLECTION_APPL</span></span>&#8212;Specifies the transition references using the <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProCollection</span></span> object.</span></td>
+                     </tr>
+                  </tbody>
+               </table>
+               <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                  <col style="width: 0em">
+                  <col style="width: 18pt">
+                  <col>
+                  <tbody>
+                     <tr valign="baseline">
+                        <td align="right"></td>
+                        <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                        <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_PAT_SETT</span></span>&#8212;Specifies the pattern settings using the enumerated data type <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProCmpst_plies_transPattern_settings</span></span>. The valid values are:
+                              <div class=" x-ul-1-0">
+                                 <table border="0" cellpadding="0" cellspacing="0" class=" x-li-10-0" style="table-layout: fixed; " width="100%">
+                                    <col style="width: 0em">
+                                    <col style="width: 18pt">
+                                    <col>
+                                    <tbody>
+                                       <tr valign="baseline">
+                                          <td align="right"></td>
+                                          <td align="left" style="word-break: keep-all; "><span style="font-family: 'Arial Unicode MS'; ">&#9675;</span>&nbsp;
+                                          </td>
+                                          <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_CMPST_PLIES_TRANS_PATTERN_SETTINGS_BACKSLASH</span></span>=1</span></td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <table border="0" cellpadding="0" cellspacing="0" class=" x-li-10-0" style="table-layout: fixed; " width="100%">
+                                    <col style="width: 0em">
+                                    <col style="width: 18pt">
+                                    <col>
+                                    <tbody>
+                                       <tr valign="baseline">
+                                          <td align="right"></td>
+                                          <td align="left" style="word-break: keep-all; "><span style="font-family: 'Arial Unicode MS'; ">&#9675;</span>&nbsp;
+                                          </td>
+                                          <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_CMPST_PLIES_TRANS_PATTERN_SETTINGS_SLASH</span></span>=2</span></td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div></span></td>
+                     </tr>
+                  </tbody>
+               </table>
+               <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                  <col style="width: 0em">
+                  <col style="width: 18pt">
+                  <col>
+                  <tbody>
+                     <tr valign="baseline">
+                        <td align="right"></td>
+                        <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                        <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_E_CMPST_PLIES_TRANS_OFFSET</span></span>&#8212;Specifies a chain of edges to define the reference for transition offsets. You can select only a chain that is common to
+                              all the selected plies. The system highlights the possible transition chains.</span></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

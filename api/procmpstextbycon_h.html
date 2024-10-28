@@ -1,0 +1,58 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProCmpstExtByCon.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="procmpstextbycon_h.html#PROCMPST_EXT_BY_CON_H">PROCMPST_EXT_BY_CON_H</A>
+<A name="PROCMPST_EXT_BY_CON_H"></A>#define PROCMPST_EXT_BY_CON_H
+
+/*
+   Creo Parametric TOOLKIT declarations related to cmpstExtByCon feature.
+*/
+
+
+
+#include &lt;<A HREF="profeature_h.html">ProFeature.h</A>&gt;
+#include &lt;<A HREF="proparamval_h.html">ProParamval.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*****************************************************************************
+ Feature element tree :
+ ----------------------
+ |--<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+ |--<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_EBC_CHANGED_PLY">PRO_E_CMPST_EBC_CHANGED_PLY</A>
+ |--<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY">PRO_E_AREA_BOUNDARY</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOPS">PRO_E_AREA_BOUNDARY_LOOPS</A>
+ |     |--<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOP">PRO_E_AREA_BOUNDARY_LOOP</A>
+ |        |--<A HREF="proelemid_h.html#PRO_E_STD_LOOP_COLLECTION_APPL">PRO_E_STD_LOOP_COLLECTION_APPL</A>
+ |--<A HREF="proelemid_h.html#PRO_E_DSGNTAREA_CREATION_FLIP">PRO_E_DSGNTAREA_CREATION_FLIP</A>
+
+
+Feature elements table
+---------------------------------------------------------------------------------------------------------------
+Element Id                     Element Name         Data Type               Valid Values
+---------------------------------------------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>             Feature Type         <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>      <A HREF="profeattype_h.html#PRO_FEAT_CMPST_PLY_EXT_BY_CON">PRO_FEAT_CMPST_PLY_EXT_BY_CON</A>
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>         Featname             <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>  Wide character string
+<A HREF="proelemid_h.html#PRO_E_CMPST_EBC_CHANGED_PLY">PRO_E_CMPST_EBC_CHANGED_PLY</A>    Ply                  <A HREF="proreference_h.html#ProReference">ProReference</A>            Ply object
+<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY">PRO_E_AREA_BOUNDARY</A>            Boundary             Compound
+<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOPS">PRO_E_AREA_BOUNDARY_LOOPS</A>      Inner Loops          <A HREF="proarray_h.html#ProArray">ProArray</A> of Inner loop
+<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOP">PRO_E_AREA_BOUNDARY_LOOP</A>       Inner loop           Compound
+<A HREF="proelemid_h.html#PRO_E_STD_LOOP_COLLECTION_APPL">PRO_E_STD_LOOP_COLLECTION_APPL</A> Boundary chains      <A HREF="provalue_h.html#PRO_VALUE_TYPE_POINTER">PRO_VALUE_TYPE_POINTER</A>  See <A HREF="procrvcollection_h.html">ProCrvcollection.h</A>
+<A HREF="proelemid_h.html#PRO_E_DSGNTAREA_CREATION_FLIP">PRO_E_DSGNTAREA_CREATION_FLIP</A>  Creation Flip        <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>      Optional. 0/1
+
+
+
+*****************************************************************************/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+        </PRE>
+    </BODY>
+</HTML>

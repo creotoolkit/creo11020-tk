@@ -1,0 +1,4250 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProUITable.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="prouitable_h.html#PROUITABLE_H">PROUITABLE_H</A>
+<A name="PROUITABLE_H"></A>#define PROUITABLE_H
+#include &lt;<A HREF="proui_h.html">ProUI.h</A>&gt;
+
+
+
+/*===========================================================================*/
+ 
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*===========================================================================*\
+ TABLE ATTRIBUTES
+\*===========================================================================*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5522.html">ProUITableRownamesSet</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **values);
+/*
+    Purpose: Sets the name of the rows in the table. 
+             &lt;p&gt; If adding new rows - labels must be assigned using 
+             <A HREF="5524.html">ProUITableRowlabelsSet</A>() or <A HREF="5586.html">ProUITableRowLabelSet</A>(). &lt;/p&gt;
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the values array
+        values - Array of row names.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5523.html">ProUITableRownamesGet</A> (
+    char       *dialog,
+    char       *component,
+    int        *count,
+    char     ***values);
+/*
+    Purpose: Gets the names of the rows in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        count - Number of items in returned array
+        values - Array of row names allocated by the function. Use 
+                 <A HREF="6136.html">ProStringarrayFree</A>() to release it.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5524.html">ProUITableRowlabelsSet</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>   **values);
+/*
+    Purpose: Sets the names of the user-visible row labels in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the values array. This must match the number 
+                of row names in the table.
+        values - Array of row labels.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5525.html">ProUITableRowlabelsGet</A> (
+    char       *dialog,
+    char       *component,
+    int        *count,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>  ***values);
+/*
+    Purpose: Gets the names of the user-visible row labels in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        count - Number of items in returned array
+        values - Array of row labels allocated by the function. Use 
+                 <A HREF="6139.html">ProWstringarrayFree</A>() to release it.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5526.html">ProUITableColumnnamesSet</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **values);
+/*
+    Purpose: Sets the names of the columns in the table. 
+             &lt;p&gt; If adding new columns - labels must be assigned using 
+             <A HREF="5528.html">ProUITableColumnlabelsSet</A>() or <A HREF="5595.html">ProUITableColumnLabelSet</A>(). &lt;/p&gt;
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the values array
+        values - Array of column names.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5527.html">ProUITableColumnnamesGet</A> (
+    char       *dialog,
+    char       *component,
+    int        *count,
+    char     ***values);
+/*
+    Purpose: Gets the names of the columns in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        count - Number of items in returned array
+        values - Array of column names allocated by the function. Use 
+                 <A HREF="6136.html">ProStringarrayFree</A>() to release it.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5528.html">ProUITableColumnlabelsSet</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>   **values);
+/*
+    Purpose: Sets the user-visible labels of the columns in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the values array. This must match the number 
+                of column names in the table.
+        values - Array of column labels.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5529.html">ProUITableColumnlabelsGet</A> (
+    char       *dialog,
+    char       *component,
+    int        *count,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>  ***values);
+/*
+    Purpose: Gets the user-visible labels of the columns in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        count - Number of items in returned array
+        values - Array of column labels allocated by the function. Use 
+                 <A HREF="6139.html">ProWstringarrayFree</A>() to release it.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5530.html">ProUITableColumnwidthsSet</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    int        *values);
+/*
+    Purpose: Sets the widths of the columns in the table, in characters.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the values array
+        values - Array of column widths.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5531.html">ProUITableColumnresizingsSet</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    int        *values);
+/*
+    Purpose: Sets the resizing policies of the columns in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the values array
+        values - Array of resizing factors.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5532.html">ProUITableLockedcolumnsSet</A> (
+    char       *dialog,
+    char       *component,
+    int         value);
+/*
+    Purpose: Sets the number of columns to repeat at the left of the table 
+             while scrolling.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        value - The number of columns.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5533.html">ProUITableLockedrowsSet</A> (
+    char       *dialog,
+    char       *component,
+    int         value);
+/*
+    Purpose: Sets the number of rows to repeat at the top of the table while 
+             scrolling.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        value - The number of rows. This should not include the title row.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5534.html">ProUITableSelectednamesSet</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **values);
+/*
+    Purpose: Sets the selected cells in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the values array
+        values - Array of selected names. This array should consist of (2 * the 
+                 number of selections), organized in pairs: &lt;UL&gt; &lt;LI&gt;&lt;P&gt;element 
+                 [0, 2, 4...] = row name of the selected cell &lt;/P&gt; 
+                 &lt;LI&gt;&lt;P&gt;element [1, 3, 5...] = column name of the selected cell 
+                 &lt;/P&gt; &lt;/UL&gt;
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5535.html">ProUITableSelectednamesGet</A> (
+    char       *dialog,
+    char       *component,
+    int        *count,
+    char     ***values);
+/*
+    Purpose: Gets the selected cells in the table. This array should consist of 
+             (2 * the number of selections), organized in pairs: 
+             &lt;UL&gt; 
+             &lt;LI&gt;
+             &lt;P&gt;element [0, 2, 4...] = row name of the selected cell &lt;/P&gt; 
+             &lt;LI&gt;
+             &lt;P&gt;element [1, 3, 5...] = column name of the selected cell &lt;/P&gt; 
+             &lt;/UL&gt;
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        count - Number of items in returned array
+        values - Array of selected names allocated by the function. Use 
+                 <A HREF="6136.html">ProStringarrayFree</A>() to release it.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5536.html">ProUITableSelectedcolumnnamesSet</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **values);
+/*
+    Purpose: Sets the selected columns in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the values array
+        values - Array of selected column names.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5537.html">ProUITableSelectedcolumnnamesGet</A> (
+    char       *dialog,
+    char       *component,
+    int        *count,
+    char     ***values);
+/*
+    Purpose: Gets the selected columns in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        count - Number of items in returned array
+        values - Array of selected column names allocated by the function. Use 
+                 <A HREF="6136.html">ProStringarrayFree</A>() to release it.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5538.html">ProUITableSelectionpolicySet</A> (
+    char       *dialog,
+    char       *component,
+    <A HREF="proui_h.html#ProUISelectionpolicy">ProUISelectionpolicy</A>  value);
+/*
+    Purpose: Sets the table selection policy.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        value - The table selection policy:&lt;UL&gt; &lt;LI&gt;&lt;P&gt;<A HREF="proui_h.html#PROUISELPOLICY_NONE">PROUISELPOLICY_NONE</A> = Do 
+                not allow item selection. &lt;/P&gt; &lt;LI&gt;&lt;P&gt;<A HREF="proui_h.html#PROUISELPOLICY_SINGLE">PROUISELPOLICY_SINGLE</A> = 
+                Select 0 or 1 items. &lt;/P&gt; &lt;LI&gt;&lt;P&gt;<A HREF="proui_h.html#PROUISELPOLICY_BROWSE">PROUISELPOLICY_BROWSE</A> = Always 
+                select exactly 1 item. &lt;/P&gt; &lt;LI&gt;&lt;P&gt;<A HREF="proui_h.html#PROUISELPOLICY_MULTIPLE">PROUISELPOLICY_MULTIPLE</A> = 
+                Select any number of items. &lt;/P&gt; &lt;LI&gt;&lt;P&gt;<A HREF="proui_h.html#PROUISELPOLICY_EXTENDED">PROUISELPOLICY_EXTENDED</A> 
+                = Select any number of items, including ranges of items. 
+                &lt;/P&gt;&lt;/UL&gt;
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5539.html">ProUITableColumnselectionpolicySet</A> (
+    char       *dialog,
+    char       *component,
+    <A HREF="proui_h.html#ProUISelectionpolicy">ProUISelectionpolicy</A>     value);
+/*
+    Purpose: Sets the table column selection policy.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        value - The table column selection policy:&lt;UL&gt; 
+                &lt;LI&gt;&lt;P&gt;<A HREF="proui_h.html#PROUISELPOLICY_NONE">PROUISELPOLICY_NONE</A> = Do not allow column selection. 
+                &lt;/P&gt; &lt;LI&gt;&lt;P&gt;<A HREF="proui_h.html#PROUISELPOLICY_SINGLE">PROUISELPOLICY_SINGLE</A> = Select 0 or 1 columns. &lt;/P&gt; 
+                &lt;LI&gt;&lt;P&gt;<A HREF="proui_h.html#PROUISELPOLICY_BROWSE">PROUISELPOLICY_BROWSE</A> = Always select exactly 1 column. 
+                &lt;/P&gt; &lt;LI&gt;&lt;P&gt;<A HREF="proui_h.html#PROUISELPOLICY_MULTIPLE">PROUISELPOLICY_MULTIPLE</A> = Select any number of 
+                columns. &lt;/P&gt; &lt;LI&gt;&lt;P&gt;<A HREF="proui_h.html#PROUISELPOLICY_EXTENDED">PROUISELPOLICY_EXTENDED</A> = Select any 
+                number of columns, including ranges of columns. &lt;/P&gt;&lt;/UL&gt;
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5540.html">ProUITableHelptextSet</A> (
+    char       *dialog,
+    char       *component,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>    *value);
+/*
+    Purpose: Sets the helptext for the table. This will be used by all elements 
+             of the table except for cells assigned a helptext value using 
+             <A HREF="5656.html">ProUITableCellHelptextStringSet</A>().
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        value - The help text for the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5541.html">ProUITableColumnsSet</A> (
+    char       *dialog,
+    char       *component,
+    int         value);
+/*
+    Purpose: Sets the width of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        value - The table width, in characters.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5542.html">ProUITableColumnsGet</A> (
+    char       *dialog,
+    char       *component,
+    int        *value);
+/*
+    Purpose: Gets the width of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        value - The table width, in characters.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5543.html">ProUITableMincolumnsSet</A> (
+    char       *dialog,
+    char       *component,
+    int         value);
+/*
+    Purpose: Sets the minimum width of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        value - The width, in characters.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5544.html">ProUITableVisiblerowsSet</A> (
+    char       *dialog,
+    char       *component,
+    int         value);
+/*
+    Purpose: Sets the number of rows visible in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        value - The number of rows. This number should &gt;= 1 (where 1 is the 
+                title row).
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5545.html">ProUITableMinrowsSet</A> (
+    char       *dialog,
+    char       *component,
+    int         value);
+/*
+    Purpose: Sets the minimum number of rows to display in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        value - The number of rows. This value should not include the title 
+                row.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5546.html">ProUITableAutohighlightEnable</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Turns on autohighlighting of rows when cells are selected.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5547.html">ProUITableAutohighlightDisable</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Turns off autohighlighting of rows when cells are selected.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5548.html">ProUITableIsAutohighlightEnabled</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>   *state
+);
+/*
+    Purpose: Identifies whether or not autohighlighting is enabled in the 
+             table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> is autohighlighting is enabled, <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if it is 
+                not.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5549.html">ProUITableTruncatelabelSet</A> (
+    char       *dialog,
+    char       *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>  value);
+/*
+    Purpose: Identifies whether or not to truncate the label in a newly created 
+             cell based on the cell width.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        value - The setting for new cells: <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> = truncate the new 
+                labels, <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> = do not truncate the new label. This 
+                setting does not affect existing cells.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5550.html">ProUITableShow</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Causes the table to be visible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+    See Also:
+        <A HREF="5551.html">ProUITableHide</A>()
+        PrOUITableIsVisible()
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5551.html">ProUITableHide</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Causes the table to be invisible.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+    See Also:
+        <A HREF="5550.html">ProUITableShow</A>()
+        PrOUITableIsVisible()
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5552.html">ProUITableIsVisible</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>   *state
+);
+/*
+    Purpose: 
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        state - Whether or not the table is visible.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5553.html">ProUITableEnable</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Sets the table to be sensitive to user input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+    See Also:
+        <A HREF="5554.html">ProUITableDisable</A>()
+        <A HREF="5555.html">ProUITableIsEnabled</A>()
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5554.html">ProUITableDisable</A> (
+    char   *dialog,
+    char   *component
+);
+/*
+    Purpose: Sets the table to be insensitive to user input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+    See Also:
+        <A HREF="5553.html">ProUITableEnable</A>()
+        <A HREF="5555.html">ProUITableIsEnabled</A>()
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5555.html">ProUITableIsEnabled</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>   *state
+);
+/*
+    Purpose: Determines whether or not the table is sensitive to user input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        state - Whether or not the table is sensitive to user input.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+    See Also:
+        <A HREF="5553.html">ProUITableEnable</A>()
+        <A HREF="5554.html">ProUITableDisable</A>()
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5556.html">ProUITableComponentCopy</A> (
+    char       *dialog,
+    char       *component,
+    char       *source_device,
+    char       *source_component,
+    char       *name);
+/*
+    Purpose: Copies a predefined component and places it in the table. The 
+             component will not be displayed until it is assigned to a table 
+             cell using <A HREF="5564.html">ProUITableCellComponentNameSet</A>(). However, you can 
+             update the component's properties as needed and display it at a 
+             later time.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        source_device - The name of the dialog from which to copy the 
+                        component.
+        source_component - The name of the component to copy.
+        name - The name for the copied component in the table.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+    See Also:
+        <A HREF="5564.html">ProUITableCellComponentNameSet</A>()
+        <A HREF="5566.html">ProUITableCellComponentCopy</A>()
+        <A HREF="5557.html">ProUITableComponentDelete</A>()
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5557.html">ProUITableComponentDelete</A> (
+    char       *dialog,
+    char       *component,
+    char       *name);
+/*
+    Purpose: Deletes a component from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - The name of the component in the table.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+    See Also:
+        <A HREF="5556.html">ProUITableComponentCopy</A>()
+*/
+
+
+/*===========================================================================*\
+ TABLE CELLS
+\*===========================================================================*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5558.html">ProUITableCellLabelSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>    *label);
+/*
+    Purpose: Sets the text contained in the table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+        label - The cell label string.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5559.html">ProUITableCellLabelGet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>   **label);
+/*
+    Purpose: Gets the text contained in the table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        label - The cell label string, allocated by the function. Use 
+                <A HREF="6138.html">ProWstringFree</A> to release it.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5560.html">ProUITableCellHelpTextSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>    *help_text);
+/*
+    Purpose: Sets the help text for the table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+        help_text - The cell help text.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5561.html">ProUITableIsCellSensitive</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *state);
+/*
+    Purpose: Determines if the table cell is sensitive to user input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        state - Whether or not the cell is sensitive to user input.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5562.html">ProUITableCellEnable</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column);
+/*
+    Purpose: Sets the table cell to be sensitive to user input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5563.html">ProUITableCellDisable</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column);
+/*
+    Purpose: Sets the table cell to be insensitive to user input.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5564.html">ProUITableCellComponentNameSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column,
+    char       *name);
+/*
+    Purpose: Sets the component name contained in the table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+        name - The name of the component contained in the cell.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5565.html">ProUITableCellComponentNameGet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column,
+    char      **name);
+/*
+    Purpose: Gets the component name contained in the table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        name - The name of the component contained in the cell. Use 
+               <A HREF="6134.html">ProStringFree</A> to release this string.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5566.html">ProUITableCellComponentCopy</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column,
+    char       *source_device,
+    char       *source_component,
+    char       *name);
+/*
+    Purpose: Copies a predefined component and places it in the table in the 
+             designated cell. The component will be displayed in this cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The row containing the target cell.
+        column - The column containing the target cell.
+        source_device - The name of the dialog from which to copy the 
+                        component.
+        source_component - The name of the component to copy.
+        name - The name for the copied component in the table.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+    See Also:
+        <A HREF="5567.html">ProUITableCellComponentDelete</A>()
+        <A HREF="5556.html">ProUITableComponentCopy</A>()
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5567.html">ProUITableCellComponentDelete</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column);
+/*
+    Purpose: Removes the component contained in the table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5568.html">ProUITableAnchorCellSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column);
+/*
+    Purpose: Sets the coordinates of the table selection anchor cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5569.html">ProUITableAnchorCellGet</A> (
+    char       *dialog,
+    char       *component,
+    char      **row,
+    char      **column);
+/*
+    Purpose: Gets the coordinates of the table selection anchor cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        row - The table row name. Use <A HREF="6134.html">ProStringFree</A> to release this string.
+        column - The table column name. Use <A HREF="6134.html">ProStringFree</A> to release this 
+                 string.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5570.html">ProUITableFocusCellSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *column);
+/*
+    Purpose: Sets the coordinates of the table selection focus cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5571.html">ProUITableFocusCellGet</A> (
+    char       *dialog,
+    char       *component,
+    char      **row,
+    char      **column);
+/*
+    Purpose: Gets the coordinates of the table selection focus cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        row - The table row name. Use <A HREF="6134.html">ProStringFree</A> to release this string.
+        column - The table column name. Use <A HREF="6134.html">ProStringFree</A> to release this 
+                 string.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5572.html">ProUITableCellAttachTop</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column);
+/*
+    Purpose: Attach the contents of the cell to the top of the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5573.html">ProUITableCellUnattachTop</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column);
+/*
+    Purpose: Unattach the contents of the cell from the top of the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5574.html">ProUITableIsCellAttachedTop</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>         *state);
+/*
+    Purpose: Determines if the contents of the cell are attached to the top of 
+             the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        state - Whether or not the contents of the cell are attached to the top 
+                of the cell.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5575.html">ProUITableCellAttachBottom</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column);
+/*
+    Purpose: Attach the contents of the cell to the bottom of the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5576.html">ProUITableCellUnattachBottom</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column);
+/*
+    Purpose: Unattach the contents of the cell from the bottom of the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5577.html">ProUITableIsCellAttachedBottom</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>         *state);
+/*
+    Purpose: Determines if the contents of the cell are attached to the bottom 
+             of the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        state - Whether or not the contents of the cell are attached to the 
+                bottom of the cell.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5578.html">ProUITableCellAttachLeft</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column);
+/*
+    Purpose: Attach the contents of the cell to the left of the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5579.html">ProUITableCellUnattachLeft</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column);
+/*
+    Purpose: Unattach the contents of the cell from the left of the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5580.html">ProUITableIsCellAttachedLeft</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>         *state);
+/*
+    Purpose: Determines if the contents of the cell are attached to the left of 
+             the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        state - Whether or not the contents of the cell are attached to the 
+                left of the cell.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5581.html">ProUITableCellAttachRight</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column);
+/*
+    Purpose: Attach the contents of the cell to the right of the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5582.html">ProUITableCellUnattachRight</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column);
+/*
+    Purpose: Unattach the contents of the cell from the right of the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5583.html">ProUITableIsCellAttachedRight</A> (
+    char               *dialog,
+    char               *component,
+    char               *row,
+    char               *column,
+    <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>         *state);
+/*
+    Purpose: Determines if the contents of the cell are attached to the right 
+             of the cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        column - The table column name.
+
+    Output Arguments:
+        state - Whether or not the contents of the cell are attached to the 
+                right of the cell.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+/*===========================================================================*\
+ TABLE ROWS
+\*===========================================================================*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5584.html">ProUITableRowIndexGet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    int        *index);
+/*
+    Purpose: Gets the index of the table row with the given name.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+
+    Output Arguments:
+        index - The table row index. The indices start at 0.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5585.html">ProUITableRowRename</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    char       *name);
+/*
+    Purpose: Renames the table row.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        name - The new name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5586.html">ProUITableRowLabelSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>    *label);
+/*
+    Purpose: Sets the user-visible label for the table row.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        label - The new row label.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5587.html">ProUITableRowLabelGet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>   **label);
+/*
+    Purpose: Gets the user-visible label for the table row.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+
+    Output Arguments:
+        label - The row name. Use <A HREF="6138.html">ProWstringFree</A> to release this string.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5588.html">ProUITableRowsInsert</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    int         count,
+    char      **names);
+/*
+    Purpose: Inserts one or more new rows into the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name. The new rows will be inserted after this row. 
+              If NULL, new rows will be inserted at the top of the table.
+        count - Number of items in the names array
+        names - Array of new row names.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5589.html">ProUITableRowsDelete</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **names);
+/*
+    Purpose: Deletes one or more rows from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the names array
+        names - Array of row names to delete.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5590.html">ProUITableRowCellsSelect</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **names);
+/*
+    Purpose: Selects the cells of the given rows of the table. 
+             &lt;p&gt; NOTE: The table selection policy must be either Multiple or 
+             Extended. &lt;/p&gt;
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the names array
+        names - Names of the rows to select.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5591.html">ProUITableRowCellsDeselect</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **names);
+/*
+    Purpose: Deselect the cells of the given rows of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the names array
+        names - Names of the rows to deselect.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5592.html">ProUITableRowCellLabelsSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *row,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>    *labels);
+/*
+    Purpose: Sets the contents of the cells of the rows using a single string.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - The table row name.
+        labels - String to use when setting the labels in the row. Use the tab 
+                 character to separate individual labels into the separate 
+                 columns.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+/*===========================================================================*\
+ TABLE COLUMNS
+\*===========================================================================*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5593.html">ProUITableColumnIndexGet</A> (
+    char       *dialog,
+    char       *component,
+    char       *column,
+    int        *index);
+/*
+    Purpose: Gets the column index for a given column.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        column - The table column name.
+
+    Output Arguments:
+        index - The table column index. The indices start at 0.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5594.html">ProUITableColumnRename</A> (
+    char       *dialog,
+    char       *component,
+    char       *column,
+    char       *name);
+/*
+    Purpose: Renames a table column.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        column - The table column name.
+        name - The new name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5595.html">ProUITableColumnLabelSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *column,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>    *label);
+/*
+    Purpose: Sets the user visible label for the column.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        column - The table column name.
+        label - The new column label.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5596.html">ProUITableColumnLabelGet</A> (
+    char       *dialog,
+    char       *component,
+    char       *column,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A>   **label);
+/*
+    Purpose: Gets the user-visible label for the column.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        column - The table column name.
+
+    Output Arguments:
+        label - The column label. Use <A HREF="6138.html">ProWstringFree</A> to release this string.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5597.html">ProUITableColumnWidthSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *column,
+    int         width);
+/*
+    Purpose: Sets the width of the column in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        column - The table column name.
+        width - The new column width.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5598.html">ProUITableColumnWidthGet</A> (
+    char       *dialog,
+    char       *component,
+    char       *column,
+    int        *width);
+/*
+    Purpose: Gets the width of the column in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        column - The table column name.
+
+    Output Arguments:
+        width - The column width, in characters.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5599.html">ProUITableColumnResizingFactorSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *column,
+    int         resizing);
+/*
+    Purpose: Sets the resizing factor of the column in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        column - The table column name.
+        resizing - The new resizing factor.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5600.html">ProUITableColumnResizingFactorGet</A> (
+    char       *dialog,
+    char       *component,
+    char       *column,
+    int        *resizing);
+/*
+    Purpose: Gets the resizing factor of the column in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        column - The table column name.
+
+    Output Arguments:
+        resizing - The column resizing factor.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5601.html">ProUITableColumnsInsert</A> (
+    char       *dialog,
+    char       *component,
+    char       *column,
+    int         count,
+    char      **names);
+/*
+    Purpose: Inserts one or more columns into the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        column - The table column name. The new columns will be inserted after 
+                 this column.
+        count - Number of items in the names array
+        names - Array of new column names to insert.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5602.html">ProUITableColumnsDelete</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **names);
+/*
+    Purpose: Deletes one or more columns from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the names array
+        names - Array of column names to delete.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5603.html">ProUITableColumnCellsSelect</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **names);
+/*
+    Purpose: Selects the cells of the given columns in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the names array
+        names - Array of column names to select.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5604.html">ProUITableColumnCellsDeselect</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **names);
+/*
+    Purpose: Deselects the cells of the given columns in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the names array
+        names - Array of column names to deselect.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5605.html">ProUITableResetColumnWidth</A> (
+    char       *dialog,
+    char       *component,
+    char       *column);
+/*
+    Purpose: Sets the column width to the default.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        column - The table column name.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+/*===========================================================================*\
+ TABLE ACTIONS
+\*===========================================================================*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5606.html">ProUITableArmActionSet</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="4148.html">ProUIAction</A>  callback,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>  data);
+/*
+    Purpose: Sets the arm action for a table. This function is called when the 
+             user changes the selection anchor cell and focus cell in the 
+             table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        callback - The action function.
+        data - Data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5607.html">ProUITableDisarmActionSet</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="4148.html">ProUIAction</A>  callback,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>  data);
+/*
+    Purpose: Sets the disarm action for a table. This function is called when 
+             the user changes the selection focus cell in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        callback - The action function.
+        data - Data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5608.html">ProUITableSelectActionSet</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="4148.html">ProUIAction</A>  callback,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>  data);
+/*
+    Purpose: Sets the select action for a table. This function is called when 
+             the user changes the selected cells in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        callback - The action function.
+        data - Data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5609.html">ProUITableActivateActionSet</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="4148.html">ProUIAction</A>  callback,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>  data);
+/*
+    Purpose: Sets the activate action for a table. This function is called when 
+             the user presses the return key or double-clicks the left mouse 
+             button in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        callback - The action function.
+        data - Data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5610.html">ProUITableFocusinActionSet</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="4148.html">ProUIAction</A>  callback,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>  data);
+/*
+    Purpose: Sets the focus in action for a table. This function is called when 
+             the user when the user moves the cursor onto the table using the 
+             mouse or [TAB] key.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        callback - The action function.
+        data - Data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5611.html">ProUITableFocusoutActionSet</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="4148.html">ProUIAction</A>   callback,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>  data);
+/*
+    Purpose: Sets the focus out action for a table. This function is called 
+             when the user when the user moves the cursor off of the table 
+             using the mouse or [TAB] key.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        callback - The action function.
+        data - Data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5612.html">ProUITableColumnselectActionSet</A> (
+    char         *dialog,
+    char         *component,
+    <A HREF="4148.html">ProUIAction</A>   callback,
+    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>  data);
+/*
+    Purpose: Sets the column selection action for the table. This function is 
+             called when the user changes the currently selected table columns.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        callback - The action function.
+        data - Data to be passed to callback function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5613.html">ProUITablePopupmenuSet</A> (
+    char       *dialog,
+    char       *component,
+    char       *value);
+/*
+    Purpose: Sets the name of the popup menu for the table.
+
+    Input Arguments:
+        dialog - The dialog name.
+        component - The component name.
+        value - The name of the popup menu pane.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5614.html">ProUITablePopupmenuGet</A> (
+    char       *dialog,
+    char       *component,
+    char      **value);
+/*
+    Purpose: Gets the name of the popup menu for the table.
+
+    Input Arguments:
+        dialog - The dialog name.
+        component - The component name.
+
+    Output Arguments:
+        value - The name of the popup menu pane. Free this string using 
+                <A HREF="6134.html">ProStringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given &lt;!-- Objectname: 
+                            ProUI --&gt;
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5615.html">ProUITableCheckbuttonAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new checkbutton to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the checkbutton to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5616.html">ProUITableDrawingareaAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new drawingarea to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the drawingarea to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5617.html">ProUITableInputpanelAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new inputpanel to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the inputpanel to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5618.html">ProUITableLabelAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new label to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the label to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5619.html">ProUITableLayoutAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new layout to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the layout to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5620.html">ProUITableListAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new list to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the list to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5621.html">ProUITableOptionmenuAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new optionmenu to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the optionmenu to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5622.html">ProUITableProgressbarAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new progressbar to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the progressbar to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5623.html">ProUITablePushbuttonAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new pushbutton to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the pushbutton to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5624.html">ProUITableRadiogroupAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new radiogroup to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the radiogroup to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5625.html">ProUITableSliderAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new slider to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the slider to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5626.html">ProUITableSpinboxAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new spinbox to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the spinbox to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5627.html">ProUITableTabAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new tab to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the tab to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5628.html">ProUITableTableAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new table to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the table to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5629.html">ProUITableTextareaAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new textarea to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the textarea to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5630.html">ProUITableThumbwheelAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new thumbwheel to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the thumbwheel to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5631.html">ProUITableTreeAdd</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Add a new tree to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the tree to be added.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5632.html">ProUITableCheckbuttonRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the checkbutton from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the checkbutton to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5633.html">ProUITableDrawingareaRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the drawingarea from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the drawingarea to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5634.html">ProUITableInputpanelRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the inputpanel from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the inputpanel to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5635.html">ProUITableLabelRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the label from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the label to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5636.html">ProUITableLayoutRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the layout from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the layout to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5637.html">ProUITableListRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the list from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the list to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5638.html">ProUITableOptionmenuRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the optionmenu from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the optionmenu to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5639.html">ProUITableProgressbarRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the progressbar from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the progressbar to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5640.html">ProUITablePushbuttonRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the pushbutton from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the pushbutton to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5641.html">ProUITableRadiogroupRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the radiogroup from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the radiogroup to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5642.html">ProUITableSliderRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the slider from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the slider to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5643.html">ProUITableSpinboxRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the spinbox from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the spinbox to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5644.html">ProUITableTabRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the tab from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the tab to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5645.html">ProUITableTableRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the table from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the table to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5646.html">ProUITableTextareaRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the textarea from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the textarea to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5647.html">ProUITableThumbwheelRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the thumbwheel from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the thumbwheel to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5648.html">ProUITableTreeRemove</A> (char* dialog, char* component, char* name);
+/*
+    Purpose: Remove the tree from the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        name - Name of the tree to be removed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5649.html">ProUITableAnchorSet</A> (char* dialog, char* component, int x, int y, <A HREF="proui_h.html#ProUIAnchor">ProUIAnchor</A> anchor);
+/*
+    Purpose: Sets the position of the table with respect to a given anchor 
+             location. This function is applicable only if the parent of the 
+             table is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+        anchor - Location on the table used to set the position.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5650.html">ProUITableSizeSet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                 width, 
+    int                 height);
+/*
+    Purpose: Set the size of the table. This field is used only if the parent 
+             is a drawing area. If the width or the height parameter is passed 
+             a value smaller than the table's minimum size, the function will 
+             fail. The table's minimum size can be retrieved using 
+             <A HREF="5653.html">ProUITableMinimumsizeGet.</A>
+
+    Input Arguments:
+        dialog - The name of the dialog that contains table.
+        component - The name of the table component.
+        width - Width value
+        height - Height value
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5651.html">ProUITablePositionSet</A> (char* dialog, char* component, int x, int y);
+/*
+    Purpose: Set the position to the table with respect to its parent. This 
+             field is used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5652.html">ProUITablePositionGet</A> (char* dialog, char* component, int* x, int* y);
+/*
+    Purpose: Get the position of the table with respect to its parent. This 
+             field is used only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        x - X value with respect to the upper left corner of the parent.
+        y - Y value with respect to the upper left corner of the parent.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5653.html">ProUITableMinimumsizeGet</A> (
+    char               *dialog, 
+    char               *component, 
+    int                *min_width, 
+    int                *min_height);
+/*
+    Purpose: Get the minimum size of the table in pixels. This field is used 
+             only if the parent is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        min_width - Minimum width value.
+        min_height - Minimum height value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5654.html">ProUITableSizeGet</A> (char* dialog, char* component, int* width, int* height);
+/*
+    Purpose: Get the size of the table. This field is used only if the parent 
+             is a drawing area.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        width - Width value.
+        height - Height value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5655.html">ProUITableCellHelptextStringGet</A> (char* dialog, char* component, char* row, char* column, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** help_text);
+/*
+    Purpose: Get the help-text that is displayed while the cursor is over the 
+             table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - Row of the table.
+        column - Column of the table.
+
+    Output Arguments:
+        help_text - Help text displayed. Free this using <A HREF="6138.html">ProWstringFree</A> ().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5656.html">ProUITableCellHelptextStringSet</A> (char* dialog, char* component, char* row, char* column, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>* help_text);
+/*
+    Purpose: Set the help-text to be displayed when the cursor is over the 
+             table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - Row of the table.
+        column - Column of the table.
+        help_text - Help text to be displayed.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5657.html">ProUITableCellForegroundColorGet</A> (char* dialog, char* component, char* row, char* column, <A HREF="proui_h.html#ProUIColor">ProUIColor</A>* color);
+/*
+    Purpose: Get the foreground color of the table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - Row of the table.
+        column - Column of the table.
+
+    Output Arguments:
+        color - foreground color of the cell.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5658.html">ProUITableCellForegroundColorSet</A> (char* dialog, char* component, char* row, char* column, <A HREF="proui_h.html#ProUIColor">ProUIColor</A> color);
+/*
+    Purpose: Set the foreground color of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - Row of the table.
+        column - Column of the table.
+        color - foreground color of the cell.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5659.html">ProUITableCellBackgroundColorGet</A> (char* dialog, char* component, char* row, char* column, <A HREF="proui_h.html#ProUIColor">ProUIColor</A>* color);
+/*
+    Purpose: Get the background color of the table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - Row of the table.
+        column - Column of the table.
+
+    Output Arguments:
+        color - background color of the cell.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5660.html">ProUITableCellBackgroundColorSet</A> (char* dialog, char* component, char* row, char* column, <A HREF="proui_h.html#ProUIColor">ProUIColor</A> color);
+/*
+    Purpose: Set the background color of the table cell.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        row - Row of the table.
+        column - Column of the table.
+        color - background color of the cell.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5661.html">ProUITableParentnameGet</A> (char *dialog, char *component, char **value);
+/*
+    Purpose: Get the name of the parent to the table component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - The name of the parent. Free this using <A HREF="6134.html">ProStringFree</A> ().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5662.html">ProUITableChildnamesGet</A> (char *dialog, char *component, int *count, char ***values);
+/*
+    Purpose: Get the name of the children to the table component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        count - Number of children.
+        values - Array of names of the children. Free this using 
+                 <A HREF="6136.html">ProStringarrayFree</A> ().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5663.html">ProUITableColumnwidthsGet</A> (char* dialog, char* component, int* count, int** values);
+/*
+    Purpose: Get the width of all columns in the table in character widths. If 
+             the width is not set, then the default width is used.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        count - Number of columns.
+        values - Array of column width values.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="5665.html">ProUITableDefaultcolumnwidthSet</A>()
+        <A HREF="5666.html">ProUITableDefaultcolumnwidthGet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5664.html">ProUITableColumnresizingsGet</A> (char* dialog, char* component, int* count, int** values);
+/*
+    Purpose: Get the resizing factor of all the columns in the tabel. The 
+             default value is 0.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        count - Number of columns.
+        values - Array of resizing factor for all the columns.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5665.html">ProUITableDefaultcolumnwidthSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set the default column width of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+        value - Default width of the column.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5666.html">ProUITableDefaultcolumnwidthGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get the default column width of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Default width of the column.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5667.html">ProUITableLockedcolumnsGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get the number of locked columns in the table. Width of the locked 
+             columns can not be changed.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Number of locked columns.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5668.html">ProUITableLockedrowsGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get the number of locked rows in the table. Height of the locked 
+             rows can not be changed.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Number of locked rows.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5669.html">ProUITableColumnselectionpolicyGet</A> (char* dialog, char* component, <A HREF="proui_h.html#ProUISelectionpolicy">ProUISelectionpolicy</A>* value);
+/*
+    Purpose: Get the selection policy of the column in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Selection policy of the table.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5670.html">ProUITableHelptextGet</A> (char* dialog, char* component, <A HREF="prowchar_h.html#wchar_t">wchar_t</A>** value);
+/*
+    Purpose: Get the helptext that will display when the cursor is over the 
+             table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - The helptext. Free this using <A HREF="6138.html">ProWstringFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5671.html">ProUITableMincolumnsGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get the minimum width of the column in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Minimum width of the column.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5672.html">ProUITableVisiblerowsGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get the number of visible rows in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Number of visible rows.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5673.html">ProUITableMinrowsGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get the minimum height of the row in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Minimum height of the row.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5674.html">ProUITableUseScrollbarswhenNeeded</A> (char* dialog, char* component);
+/*
+    Purpose: Set the table to use scrollbar only when the total row height and 
+             column width of the table is greater than height and column of the 
+             table respectively.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5675.html">ProUITableAlwaysUsescrollBars</A> (char* dialog, char* component);
+/*
+    Purpose: Set the table to use scrollbar always.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5676.html">ProUITableUsesScrollbarswhenneeded</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: Checks if the table uses scrollbar or not.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> when the table uses scrollbar only when needed. 
+                <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> when the table use scrollbar always.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5677.html">ProUITableAlignmentSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set the given value to align the text in the row and column header 
+             label of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+        value - alignment value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5678.html">ProUITableAlignmentGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get the value used to align the text in the row and column header 
+             label of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - alignment value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5679.html">ProUITableShowgridSet</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> value);
+/*
+    Purpose: Set the table to show or hide the grid based on the given value.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+        value - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> to show the grid. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> to hide the grid.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5680.html">ProUITableShowgridGet</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* value);
+/*
+    Purpose: Get the flag to know if the grid of the table is shown or hidden.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the grid is shown. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the grid is 
+                hidden.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5681.html">ProUITableTruncatelabelGet</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* value);
+/*
+    Purpose: Get the flag to know if the label in the cell is truncated or not.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the label is truncated. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the label 
+                is not truncated.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5682.html">ProUITableActivateonreturnEnable</A> (char* dialog, char* component);
+/*
+    Purpose: Set the table to generate "activate action" when the user press 
+             the RETURN key.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+    See Also:
+        <A HREF="5609.html">ProUITableActivateActionSet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5683.html">ProUITableActivateonreturnDisable</A> (char* dialog, char* component);
+/*
+    Purpose: Set the table to press the default button when the user press the 
+             RETURN key.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5684.html">ProUITableIsActivateonreturnEnabled</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: Checks if the user RETURN key press will generate the "activate 
+             action" or set the default button to be pressed.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        state - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the RETURN key press generates "activate action" 
+                <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the RETURN key press set the default button to 
+                be pressed.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5685.html">ProUITableAttachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the table at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5686.html">ProUITableUnattachLeft</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the table at left side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5687.html">ProUITableIsAttachedLeft</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the table is attached at left side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        state - state of the left attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the table is 
+                attached at left. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the table is not attached at 
+                left.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5688.html">ProUITableAttachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the table at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5689.html">ProUITableUnattachRight</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the table at right side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5690.html">ProUITableIsAttachedRight</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the table is attached at right side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        state - state of the right attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the table is 
+                attached at right. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the table is not attached at 
+                right.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5691.html">ProUITableAttachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the table at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5692.html">ProUITableUnattachTop</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the table at top side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5693.html">ProUITableIsAttachedTop</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the table is attached at top side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        state - state of the top attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the table is 
+                attached at top. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the table is not attached at 
+                top.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5694.html">ProUITableAttachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To attach the table at bottom side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5695.html">ProUITableUnattachBottom</A> (char* dialog, char* component);
+/*
+    Purpose: To not attach the table at bottom side of the parent component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5696.html">ProUITableIsAttachedBottom</A> (char* dialog, char* component, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>* state);
+/*
+    Purpose: To check if the table is attached at bottom side of the parent 
+             component.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        state - state of the bottom attachment. <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if the table is 
+                attached at bottom. <A HREF="protoolkit_h.html#PRO_B_FALSE">PRO_B_FALSE</A> if the table is not attached at 
+                bottom.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5697.html">ProUITableLeftoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set left offset to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+        value - Left offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5698.html">ProUITableLeftoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get left offset of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Left offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5699.html">ProUITableRightoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set right offset to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+        value - Right offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5700.html">ProUITableRightoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get right offset of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Right offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5701.html">ProUITableTopoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set top offset to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+        value - Top offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5702.html">ProUITableTopoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get top offset of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Top offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5703.html">ProUITableBottomoffsetSet</A> (char* dialog, char* component, int value);
+/*
+    Purpose: Set bottom offset to the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+        value - Bottom offset value.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5704.html">ProUITableBottomoffsetGet</A> (char* dialog, char* component, int* value);
+/*
+    Purpose: Get bottom offset of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Bottom offset value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5705.html">ProUITableSelectionpolicyGet</A> (
+    char                   *dialog,
+    char                   *component,
+    <A HREF="proui_h.html#ProUISelectionpolicy">ProUISelectionpolicy</A>   *value);
+/*
+    Purpose: Get selection policy of the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The name of the table component.
+
+    Output Arguments:
+        value - Selection policy of the table.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5706.html">ProUITableSelectedrownamesSet</A> (
+    char       *dialog,
+    char       *component,
+    int         count,
+    char      **values);
+/*
+    Purpose: Sets the selected rows in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+        count - Number of items in the values array
+        values - Array of selected row names.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="5707.html">ProUITableSelectedrownamesGet</A> (
+    char       *dialog,
+    char       *component,
+    int        *count,
+    char     ***values);
+/*
+    Purpose: Gets the selected rows in the table.
+
+    Input Arguments:
+        dialog - The name of the dialog that contains the table.
+        component - The table name.
+
+    Output Arguments:
+        count - Number of items in returned array
+        values - Array of selected row names allocated by the function. Use 
+                 <A HREF="6136.html">ProStringarrayFree</A>() to release it.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function was successful
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - An invalid argument was given
+
+*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+ 
+#endif /* PROUITABLE_H */
+
+        </PRE>
+    </BODY>
+</HTML>

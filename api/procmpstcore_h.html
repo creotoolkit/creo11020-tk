@@ -1,0 +1,90 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProCmpstCore.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="procmpstcore_h.html#PROCMPST_CORE_H">PROCMPST_CORE_H</A>
+<A name="PROCMPST_CORE_H"></A>#define PROCMPST_CORE_H
+
+
+/*
+   Creo Parametric TOOLKIT declarations related to cmpstCore feature.
+*/
+
+
+
+#include &lt;<A HREF="proansi_h.html">ProANSI.h</A>&gt;
+#include &lt;<A HREF="procmpstmanply_h.html">ProCmpstManPly.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/***********************************************************************************************
+
+ Feature element tree :
+ ----------------------
+ |--<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+ |--<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_BASE_QUILT">PRO_E_CMPST_PLY_BASE_QUILT</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_TYPE">PRO_E_CMPST_MAN_PLY_TYPE</A>
+ |--<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY">PRO_E_AREA_BOUNDARY</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOPS">PRO_E_AREA_BOUNDARY_LOOPS</A>
+ |     |--<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOP">PRO_E_AREA_BOUNDARY_LOOP</A>
+ |        |--<A HREF="proelemid_h.html#PRO_E_STD_LOOP_COLLECTION_APPL">PRO_E_STD_LOOP_COLLECTION_APPL</A>
+ |
+ |--<A HREF="proelemid_h.html#PRO_E_DSGNTAREA_CREATION_FLIP">PRO_E_DSGNTAREA_CREATION_FLIP</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_ZONES">PRO_E_CMPST_MAN_PLY_ZONES</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_CMPND">PRO_E_CMPST_MAN_PLY_CMPND</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_MTRL">PRO_E_CMPST_MAN_PLY_MTRL</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_ORNT">PRO_E_CMPST_MAN_PLY_ORNT</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_DROP_OFF">PRO_E_CMPST_MAN_PLY_DROP_OFF</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_NAME">PRO_E_CMPST_MAN_PLY_NAME</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_SEQ">PRO_E_CMPST_MAN_PLY_SEQ</A>
+ |
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_ROSETTE">PRO_E_CMPST_PLY_ROSETTE</A>
+ |--<A HREF="proelemid_h.html#PRO_E_CMPST_CORE_SET_ARR">PRO_E_CMPST_CORE_SET_ARR</A>
+ |  |--<A HREF="proelemid_h.html#PRO_E_CMPST_CORE_SET">PRO_E_CMPST_CORE_SET</A>
+ |     |--<A HREF="proelemid_h.html#PRO_E_CMPST_CORE_D1">PRO_E_CMPST_CORE_D1</A>
+ |     |--<A HREF="proelemid_h.html#PRO_E_CMPST_CORE_D2">PRO_E_CMPST_CORE_D2</A>
+ |     |--<A HREF="proelemid_h.html#PRO_E_CMPST_CORE_HEIGHT">PRO_E_CMPST_CORE_HEIGHT</A>
+ |     |--<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A>
+
+Feature elements table
+-------------------------------------------------------------------------------------------------------
+Element Id                      Element Name           Data Type                Valid Values
+-------------------------------------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>              Feature Type           <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>       <A HREF="profeattype_h.html#PRO_FEAT_CMPST_CORE">PRO_FEAT_CMPST_CORE</A>
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>          featname               <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>   Wide character string
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_BASE_QUILT">PRO_E_CMPST_PLY_BASE_QUILT</A>      CmpstPlyBaseQuiltStep  <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A> The layup surface
+<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_TYPE">PRO_E_CMPST_MAN_PLY_TYPE</A>        Ply_type               <A HREF="procmpstmanply_h.html#ProCmpst_man_ply_type">ProCmpst_man_ply_type</A>    Optional. Default value: 1.
+<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY">PRO_E_AREA_BOUNDARY</A>             Boundary               compound
+<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOPS">PRO_E_AREA_BOUNDARY_LOOPS</A>       Loops                  <A HREF="proarray_h.html#ProArray">ProArray</A> of Loops
+<A HREF="proelemid_h.html#PRO_E_AREA_BOUNDARY_LOOP">PRO_E_AREA_BOUNDARY_LOOP</A>        Loop                   compound
+<A HREF="proelemid_h.html#PRO_E_STD_LOOP_COLLECTION_APPL">PRO_E_STD_LOOP_COLLECTION_APPL</A>  Boundary chains        <A HREF="provalue_h.html#PRO_VALUE_TYPE_POINTER">PRO_VALUE_TYPE_POINTER</A>   See <A HREF="procrvcollection_h.html">ProCrvcollection.h</A>
+<A HREF="proelemid_h.html#PRO_E_DSGNTAREA_CREATION_FLIP">PRO_E_DSGNTAREA_CREATION_FLIP</A>   Creation Flip          <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>       Optional. 0/1
+<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_ZONES">PRO_E_CMPST_MAN_PLY_ZONES</A>       Zones                  <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A> <A HREF="proobjects_h.html#PRO_QUILT">PRO_QUILT</A> of Laminate Zone feature
+<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_CMPND">PRO_E_CMPST_MAN_PLY_CMPND</A>       PlyCompound            compound
+<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_MTRL">PRO_E_CMPST_MAN_PLY_MTRL</A>        Material               <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>       Material id
+<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_ORNT">PRO_E_CMPST_MAN_PLY_ORNT</A>        Orientation            <A HREF="provalue_h.html#PRO_VALUE_TYPE_DOUBLE">PRO_VALUE_TYPE_DOUBLE</A>    The valid range is -360.0 to +360.0
+<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_DROP_OFF">PRO_E_CMPST_MAN_PLY_DROP_OFF</A>    Drop-Off               <A HREF="provalue_h.html#PRO_VALUE_TYPE_DOUBLE">PRO_VALUE_TYPE_DOUBLE</A>    The valid range is 0 to MAX_DIM_VALUE
+<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_NAME">PRO_E_CMPST_MAN_PLY_NAME</A>        Name                   <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>   Wide character string
+<A HREF="proelemid_h.html#PRO_E_CMPST_MAN_PLY_SEQ">PRO_E_CMPST_MAN_PLY_SEQ</A>         Sequence               <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>   Wide character string
+<A HREF="proelemid_h.html#PRO_E_CMPST_PLY_ROSETTE">PRO_E_CMPST_PLY_ROSETTE</A>         CmpstPlyRosetteStep    <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A> <A HREF="proobjects_h.html#PRO_SURFACE">PRO_SURFACE</A>, <A HREF="proobjects_h.html#PRO_QUILT">PRO_QUILT</A>
+                                                                                <A HREF="proobjects_h.html#PRO_CSYS">PRO_CSYS</A>, <A HREF="proobjects_h.html#PRO_LOG_CSYS">PRO_LOG_CSYS</A>
+<A HREF="proelemid_h.html#PRO_E_CMPST_CORE_SET_ARR">PRO_E_CMPST_CORE_SET_ARR</A>        Taper Sets             <A HREF="proarray_h.html#ProArray">ProArray</A> of Sets         Optional
+<A HREF="proelemid_h.html#PRO_E_CMPST_CORE_SET">PRO_E_CMPST_CORE_SET</A>            Taper Set              Compound                 Optional
+<A HREF="proelemid_h.html#PRO_E_CMPST_CORE_D1">PRO_E_CMPST_CORE_D1</A>             D1                     <A HREF="provalue_h.html#PRO_VALUE_TYPE_DOUBLE">PRO_VALUE_TYPE_DOUBLE</A>    Optional. Positive numbers
+<A HREF="proelemid_h.html#PRO_E_CMPST_CORE_D2">PRO_E_CMPST_CORE_D2</A>             D2                     <A HREF="provalue_h.html#PRO_VALUE_TYPE_DOUBLE">PRO_VALUE_TYPE_DOUBLE</A>    Optional. The valid range is 0 to 
+                                                                                material thickness
+<A HREF="proelemid_h.html#PRO_E_STD_CURVE_COLLECTION_APPL">PRO_E_STD_CURVE_COLLECTION_APPL</A> Taper Chain            <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A> Optional. See <A HREF="procrvcollection_h.html">ProCrvcollection.h</A>
+******************************************************************************************************/
+
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+        </PRE>
+    </BODY>
+</HTML>

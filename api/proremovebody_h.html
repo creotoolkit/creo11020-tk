@@ -1,0 +1,66 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProRemoveBody.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="proremovebody_h.html#PRO_REMOVEBODY_H">PRO_REMOVEBODY_H</A>
+<A name="PRO_REMOVEBODY_H"></A>#define PRO_REMOVEBODY_H
+
+
+
+#include &lt;<A HREF="protoolkit_h.html">ProToolkit.h</A>&gt;
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+/*==============================================================================
+
+(1) Feature element tree
+
+   <A HREF="proelemid_h.html#PRO_E_FEATURE_TREE">PRO_E_FEATURE_TREE</A>
+	 |
+	 |--<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>
+	 |
+	 |--<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>
+	 |
+	 |--<A HREF="proelemid_h.html#PRO_E_BODY_SELECT">PRO_E_BODY_SELECT</A>
+	 |
+
+
+===============================================================================
+
+(2) Feature elements table
+
+-------------------------------------------------------------------------------
+ Element Id                Element Name       Data Type                Valid Values
+-------------------------------------------------------------------------------
+<A HREF="proelemid_h.html#PRO_E_FEATURE_TYPE">PRO_E_FEATURE_TYPE</A>         Feature Type       <A HREF="provalue_h.html#PRO_VALUE_TYPE_INT">PRO_VALUE_TYPE_INT</A>        Note-1
+<A HREF="proelemid_h.html#PRO_E_STD_FEATURE_NAME">PRO_E_STD_FEATURE_NAME</A>     Feature name       <A HREF="provalue_h.html#PRO_VALUE_TYPE_WSTRING">PRO_VALUE_TYPE_WSTRING</A>    Note-2
+<A HREF="proelemid_h.html#PRO_E_BODY_SELECT">PRO_E_BODY_SELECT</A>         Remove bodies      <A HREF="provalue_h.html#PRO_VALUE_TYPE_SELECTION">PRO_VALUE_TYPE_SELECTION</A>   Note-3
+
+===============================================================================
+
+(3) Notes
+
+   Note-1 : <A HREF="profeattype_h.html#PRO_FEAT_REMOVEBODY">PRO_FEAT_REMOVEBODY</A>
+
+   Note-2 : Remove body feature name.
+			Default value Remove body.
+
+   Note-3 : References for bodies that will be removed.
+			valid selection reference is from type <A HREF="proobjects_h.html#PRO_BODY">PRO_BODY</A> only.
+			This is a mandatory element, could be filled with single body
+			or multiple bodies.
+			In case of multiple bodies, please use <A HREF="1233.html">ProElementReferencesSet</A>().
+
+
+==============================================================================*/
+
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+#endif /* PRO_REMOVEBODY_H */
+
+        </PRE>
+    </BODY>
+</HTML>

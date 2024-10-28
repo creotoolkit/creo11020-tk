@@ -1,0 +1,210 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProUIMessage.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="prouimessage_h.html#PROUIMESSAGE_H">PROUIMESSAGE_H</A>
+<A name="PROUIMESSAGE_H"></A>#define PROUIMESSAGE_H
+
+#include &lt;<A HREF="proui_h.html">ProUI.h</A>&gt;
+
+
+
+/*===========================================================================*/
+ 
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+<A name="ProUIMessageButton"></A>typedef enum pro_ui_message_button
+{
+<A name="PRO_UI_MESSAGE_ABORT"></A>  PRO_UI_MESSAGE_ABORT     = 0,      /* Abort from the appln */
+<A name="PRO_UI_MESSAGE_RETRY"></A>  PRO_UI_MESSAGE_RETRY     = 1,      /* Retry the step */
+<A name="PRO_UI_MESSAGE_IGNORE"></A>  PRO_UI_MESSAGE_IGNORE    = 2,      /* Ignore the event */
+<A name="PRO_UI_MESSAGE_CONFIRM"></A>  PRO_UI_MESSAGE_CONFIRM   = 3,      /* Confirm the event */
+<A name="PRO_UI_MESSAGE_YES"></A>  PRO_UI_MESSAGE_YES       = 4,      /* confirm the event */
+<A name="PRO_UI_MESSAGE_NO"></A>  PRO_UI_MESSAGE_NO        = 5,      /* disagree */
+<A name="PRO_UI_MESSAGE_OK"></A>  PRO_UI_MESSAGE_OK        = 6,      /* acknowldge */
+<A name="PRO_UI_MESSAGE_CANCEL"></A>  PRO_UI_MESSAGE_CANCEL    = 7       /* disacknowledge */
+} <A HREF="prouimessage_h.html#ProUIMessageButton">ProUIMessageButton</A>;
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4981.html">ProUIMessageDialogDisplay</A>(
+    <A HREF="proui_h.html#ProUIMessageType">ProUIMessageType</A> type,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A> *title,
+    <A HREF="prowchar_h.html#wchar_t">wchar_t</A> *msg_txt,
+    <A HREF="prouimessage_h.html#ProUIMessageButton">ProUIMessageButton</A> *buttons,
+    <A HREF="prouimessage_h.html#ProUIMessageButton">ProUIMessageButton</A> def_button,
+    <A HREF="prouimessage_h.html#ProUIMessageButton">ProUIMessageButton</A> *user_choice);
+/*
+    Purpose: Displays the UI Message Dialog
+
+    Input Arguments:
+        type - The type of the message
+        title - The text to display as the dialog title
+        msg_txt - The message text to be displayed in the dialog Note, to 
+                  display '&amp;' pass '&amp;&amp;' instead.
+        buttons - A <A HREF="proarray_h.html#ProArray">ProArray</A> of possible button identifiers
+        def_button - The identifier of the default button
+
+    Output Arguments:
+        user_choice - The identifier of the button that the user pressed to 
+                      dismiss the dialog
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully loaded and displayed the 
+                          dialog
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Bad inputs
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4982.html">ProUIMessagedialogCreate</A>(
+    const char *name,
+    <A HREF="proui_h.html#ProUIMessageType">ProUIMessageType</A> type
+);
+/*
+    Purpose: Initialize a message dialog Note: This API intended is for 
+             transient and balloon message dialogs. For regular message dialogs 
+             use <A HREF="4981.html">ProUIMessageDialogDisplay.</A>
+
+    Input Arguments:
+        name - Name of the dialog
+        type - The type of the message
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Dialog initialized successfully
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Bad inputs
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4983.html">ProUIMessagedialogShow</A>(const char *name);
+/*
+    Purpose: Display a message dialog
+
+    Input Arguments:
+        name - Name of the dialog
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Dialog displayed successfully
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Bad inputs
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4984.html">ProUIMessagedialogTitleSet</A>(
+    const char *name,
+    const <A HREF="prowchar_h.html#wchar_t">wchar_t</A> *title
+);
+/*
+    Purpose: Set the title of a message dialog
+
+    Input Arguments:
+        name - Name of the dialog
+        title - Text to be displayed in the title
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Dialog displayed successfully
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Bad inputs
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4985.html">ProUIMessagedialogMessageSet</A>(
+    const char *name,
+    const <A HREF="prowchar_h.html#wchar_t">wchar_t</A> *message
+);
+/*
+    Purpose: Set the message of the dialog
+
+    Input Arguments:
+        name - Name of the dialog
+        message - Text to be displayed in the message
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Dialog displayed successfully
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Bad inputs
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4986.html">ProUIMessagedialogTransientSet</A>(const char *name);
+/*
+    Purpose: Make a message dialog transient
+
+    Input Arguments:
+        name - Name of the dialog
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Dialog displayed successfully
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Bad inputs
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4987.html">ProUIMessagedialogDurationSet</A>(
+    const char *name,
+    int duration
+);
+/*
+    Purpose: Set the duration of a transient dialog (default: 5 seconds)
+
+    Input Arguments:
+        name - Name of the dialog
+        duration - Duration of the dialog in milliseconds
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Dialog displayed successfully
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Bad inputs
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="4988.html">ProUIMessagedialogBalloonSet</A>(
+    const char *name,
+    const char *target_dialog,
+    const char *target_component
+);
+/*
+    Purpose: Make a message dialog balloon
+
+    Input Arguments:
+        name - Name of the dialog
+        target_dialog - Dialog on which the balloon is displayed
+        target_component - Component pointed by the balloon
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Dialog displayed successfully
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Bad inputs
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - The function failed &lt;!-- Objectname: ProUI --&gt;
+
+*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+ 
+#endif  /* <A HREF="prouimessage_h.html#PROUIMESSAGE_H">PROUIMESSAGE_H</A> */
+
+        </PRE>
+    </BODY>
+</HTML>

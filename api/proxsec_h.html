@@ -1,0 +1,1995 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProXsec.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="proxsec_h.html#PROXSEC_H">PROXSEC_H</A>
+<A name="PROXSEC_H"></A>#define PROXSEC_H
+
+
+ 
+ 
+#include	&lt;<A HREF="protoolkit_h.html">ProToolkit.h</A>&gt;
+#include	&lt;<A HREF="proobjects_h.html">ProObjects.h</A>&gt;
+#include        &lt;<A HREF="prosolid_h.html">ProSolid.h</A>&gt; 
+#include        &lt;<A HREF="proview_h.html">ProView.h</A>&gt;
+
+<A name="ProXsecCut"></A>typedef enum pro_xsec_cut
+{
+<A name="PRO_XSEC_PLANAR"></A>  PRO_XSEC_PLANAR = 0,
+<A name="PRO_XSEC_OFFSET"></A>  PRO_XSEC_OFFSET = 1,
+<A name="PRO_XSEC_PATTERN"></A>  PRO_XSEC_PATTERN = 2,
+<A name="PRO_XSEC_LAMINATE"></A>  PRO_XSEC_LAMINATE = 3
+
+} <A HREF="proxsec_h.html#ProXsecCut">ProXsecCut</A>;
+
+<A name="ProXsecCutobj"></A>typedef enum pro_xsec_cut_obj
+{
+<A name="PRO_XSECTYPE_MODEL"></A>  PRO_XSECTYPE_MODEL		= 0,
+<A name="PRO_XSECTYPE_QUILTS"></A>  PRO_XSECTYPE_QUILTS		= 1,
+<A name="PRO_XSECTYPE_MODELQUILTS"></A>  PRO_XSECTYPE_MODELQUILTS	= 2,
+<A name="PRO_XSECTYPE_ONEPART"></A>  PRO_XSECTYPE_ONEPART   	= 3
+} <A HREF="proxsec_h.html#ProXsecCutobj">ProXsecCutobj</A>;
+
+<A name="ProXsec"></A>typedef struct pro_xsec
+{
+ <A HREF="prosizeconst_h.html#ProName">ProName</A>     xsec_name;
+ <A HREF="proobjects_h.html#ProSolid">ProSolid</A>    solid_owner;
+} <A HREF="proxsec_h.html#ProXsec">ProXsec</A>;
+
+/* size of the name in <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> should be <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE</A> */
+/* Used instead of <A HREF="proxsec_h.html#ProXsec">ProXsec</A> */
+<A name="ProXsecMdlname"></A>typedef struct pro_xsec_mdlname *<A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>;
+
+<A name="ProXsecType"></A>typedef struct pro_xsec_type
+{
+ <A HREF="proxsec_h.html#ProXsecCut">ProXsecCut</A> cutter;
+ <A HREF="proxsec_h.html#ProXsecCutobj">ProXsecCutobj</A> cut_object;
+} <A HREF="proxsec_h.html#ProXsecType">ProXsecType</A>;
+
+<A name="ProGeom"></A>typedef struct geom* <A HREF="proxsec_h.html#ProGeom">ProGeom</A>;
+
+/* Deprecated. Please use <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A> */
+<A name="ProXsecGeom"></A>typedef struct pro_xsec_geom
+{
+ int      memb_id_tab;
+ int      quilt_id;
+ <A HREF="proxsec_h.html#ProGeom">ProGeom</A>  geom_ptr; 
+} <A HREF="proxsec_h.html#ProXsecGeom">ProXsecGeom</A>;
+
+/* Deprecated. Please use <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A> and <A HREF="6361.html">ProXSectionItemDataGet</A>*/
+<A name="ProXsecGeometry"></A>typedef struct pro_xsec_geometry
+{
+ int     *memb_id_tab;   /* <A HREF="proarray_h.html#ProArray">ProArray</A> of member id tab to the xsec owner part */
+ int      quilt_id;      /* quilt id for xsec */
+ <A HREF="proxsec_h.html#ProGeom">ProGeom</A>  geom_ptr;      /* geometry pointer for xsec */
+} <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A>;
+
+<A name="ProXSectionItem"></A>typedef struct protk_xsection_item *<A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A>;
+
+/* Used for:
+   Setting quilt id for offset xsec creation.
+   Setting quilt xsec type for offset xsec creation.
+*/
+<A name="ProXSectionCreateData"></A>typedef struct protk_xsection_create_data *<A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A>;
+
+<A name="ProXsecXhatch"></A>typedef struct pro_xsec_xhatch
+{
+ int        angle;
+ double     spacing;
+ double     offset; 
+} <A HREF="proxsec_h.html#ProXsecXhatch">ProXsecXhatch</A>;
+
+<A name="ProZoneReference"></A>typedef struct pro_zone_reference 
+{
+ int  geom_id;       /* geom id for zone plane */
+ int  oper;          /* operation: 0 - intersection, 1 - union */
+ int *memb_id_tab;   /* member id tab to the plane owner part */
+} <A HREF="proxsec_h.html#ProZoneReference">ProZoneReference</A>;
+
+<A name="ProZoneReferenceWithflip"></A>typedef struct pro_zone_reference_with_flip 
+{
+ int  geom_id;       /* geom id for zone plane */
+ int  oper;          /* operation: 0 - intersection, 1 - union */
+ int *memb_id_tab;   /* <A HREF="proarray_h.html#ProArray">ProArray</A> of member id tab to the plane owner part */
+ int  flip;          /* 1 or -1 */
+} <A HREF="proxsec_h.html#ProZoneReferenceWithflip">ProZoneReferenceWithflip</A>;
+
+/* The items that could be exclude are components and bodies */
+<A name="ProXsecExcludeModels"></A>typedef enum pro_xsec_exclude_models
+{
+<A name="PRO_XSEC_MODEL_EXCLUDE"></A>  PRO_XSEC_MODEL_EXCLUDE	= 0,
+<A name="PRO_XSEC_MODEL_INCLUDE"></A>  PRO_XSEC_MODEL_INCLUDE	= 1
+} <A HREF="proxsec_h.html#ProXsecExcludeModels">ProXsecExcludeModels</A>;
+
+<A name="PRO_XHATCH"></A>#define PRO_XHATCH 0
+<A name="PRO_XSEC_EXCLUDED"></A>#define PRO_XSEC_EXCLUDED (1&lt;&lt;0)
+<A name="PRO_XSEC_FILL"></A>#define PRO_XSEC_FILL     (1&lt;&lt;1)
+<A name="PRO_XHATCH_ERASED"></A>#define PRO_XHATCH_ERASED (1&lt;&lt;2)
+
+<A name="ProXsecXhatchPattern"></A>typedef struct pro_xsec_xhatch_pattern
+{
+ int        angle;
+ double     spacing;
+ double     offset;
+ int        font; /* values are defined in  <A HREF="procolor_h.html#ProLinestyle">ProLinestyle</A> */
+ <A HREF="procolor_h.html#ProColor">ProColor</A>   color;
+} <A HREF="proxsec_h.html#ProXsecXhatchPattern">ProXsecXhatchPattern</A>;
+
+<A name="PRO_NEW_HATCH_DASH_MAX"></A>#define PRO_NEW_HATCH_DASH_MAX  6
+<A name="ProXsecNewXhatchPattern"></A>typedef struct pro_xsec_new_xhatch_pattern
+{
+  double     angle;
+  double     x_origin;
+  double     y_origin;
+  double     delta_x;
+  double     delta_y;
+  double     dash[PRO_NEW_HATCH_DASH_MAX];
+  int        num_dash;
+  <A HREF="procolor_h.html#ProColor">ProColor</A>   color;
+} <A HREF="proxsec_h.html#ProXsecNewXhatchPattern">ProXsecNewXhatchPattern</A>;
+
+<A name="ProXsecXhatchStyle"></A>typedef struct pro_xsec_xhatch_style
+{
+ int type; /* <A HREF="proxsec_h.html#PRO_XHATCH">PRO_XHATCH</A> | <A HREF="proxsec_h.html#PRO_XSEC_EXCLUDED">PRO_XSEC_EXCLUDED</A> | <A HREF="proxsec_h.html#PRO_XSEC_FILL">PRO_XSEC_FILL</A> | <A HREF="proxsec_h.html#PRO_XHATCH_ERASED">PRO_XHATCH_ERASED</A> */
+ <A HREF="proxsec_h.html#ProXsecXhatchPattern">ProXsecXhatchPattern</A> *lines; /* This is <A HREF="proarray_h.html#ProArray">ProArray</A>; free it with <A HREF="146.html">ProArrayFree</A> */
+} <A HREF="proxsec_h.html#ProXsecXhatchStyle">ProXsecXhatchStyle</A>;
+
+<A name="ProXsecNewXhatchStyle"></A>typedef struct pro_xsec_new_xhatch_style
+{
+  int                   type; /* <A HREF="proxsec_h.html#PRO_XHATCH">PRO_XHATCH</A> | <A HREF="proxsec_h.html#PRO_XSEC_EXCLUDED">PRO_XSEC_EXCLUDED</A> | 
+                                 <A HREF="proxsec_h.html#PRO_XSEC_FILL">PRO_XSEC_FILL</A> | <A HREF="proxsec_h.html#PRO_XHATCH_ERASED">PRO_XHATCH_ERASED</A> */
+                              /* <A HREF="proxsec_h.html#PRO_XSEC_EXCLUDED">PRO_XSEC_EXCLUDED</A> type will be applied only in 
+                                 drawing environment */
+  <A HREF="proxsec_h.html#ProXsecXhatchPattern">ProXsecXhatchPattern</A>    *old_lines; /* This is <A HREF="proarray_h.html#ProArray">ProArray</A>; 
+                                         free it with <A HREF="146.html">ProArrayFree</A> */
+  <A HREF="proxsec_h.html#ProXsecNewXhatchPattern">ProXsecNewXhatchPattern</A> *new_lines; /* This is <A HREF="proarray_h.html#ProArray">ProArray</A>; 
+                                         free it with <A HREF="146.html">ProArrayFree</A> */
+} <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A>;
+
+
+<A name="ProXsecOffsetSide"></A>typedef enum pro_xsec_offset_side
+{
+<A name="PRO_XSEC_OFFSET_BOTH_SIDES"></A>  PRO_XSEC_OFFSET_BOTH_SIDES	= 0,
+<A name="PRO_XSEC_OFFSET_SIDE_1"></A>  PRO_XSEC_OFFSET_SIDE_1	= 1,
+<A name="PRO_XSEC_OFFSET_SIDE_2"></A>  PRO_XSEC_OFFSET_SIDE_2	= 2
+} <A HREF="proxsec_h.html#ProXsecOffsetSide">ProXsecOffsetSide</A>;
+
+
+
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6339.html">ProXsecMdlnameAlloc</A>( <A HREF="proobjects_h.html#ProSolid">ProSolid</A> solid_owner, <A HREF="prosizeconst_h.html#ProMdlName">ProMdlName</A> xsec_name, 
+                                     <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> *r_xsec );
+/*
+    Purpose: Allocates <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> handle.
+
+    Input Arguments:
+        solid_owner - Owner of the Cross-section
+        xsec_name - The name to set in the Cross-section. Maximum name size 
+                    should be <A HREF="prosizeconst_h.html#PRO_MDLNAME_SIZE">PRO_MDLNAME_SIZE.</A>
+
+    Output Arguments:
+        r_xsec - Cross-section handle
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid xsec.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_LINE_TOO_LONG">PRO_TK_LINE_TOO_LONG</A> - xsec_name longer then <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A>
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6340.html">ProXsecMdlnameFree</A>( <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> *p_xsec );
+/*
+    Purpose: Frees <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> handle.
+
+    Input Arguments:
+        p_xsec - Cross-section handle
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid xsec.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6341.html">ProXsecMdlnameNameGet</A>(<A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> xsec, <A HREF="prosizeconst_h.html#ProMdlName">ProMdlName</A> xsec_name);
+/*
+    Purpose: Gives the name of the Cross-section
+
+    Input Arguments:
+        xsec - Cross-section handle
+
+    Output Arguments:
+        xsec_name - The Cross-section name
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid xsec.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6342.html">ProXsecMdlnameNameSet</A>(<A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> xsec, <A HREF="prosizeconst_h.html#ProMdlName">ProMdlName</A> xsec_name);
+/*
+    Purpose: Sets the name of the Cross-section. Xsec name should be restricetd 
+             to <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A>
+
+    Input Arguments:
+        xsec - Cross-section handle
+        xsec_name - The name to set in the Cross-section. Maximum name size 
+                    should be <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully set.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid xsec or
+        <A HREF="protoolkiterrors_h.html#PRO_TK_LINE_TOO_LONG">PRO_TK_LINE_TOO_LONG</A> - xsec_name longer then <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A>
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6343.html">ProXsecMdlnameSolidOwnerGet</A>(<A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> xsec, <A HREF="proobjects_h.html#ProSolid">ProSolid</A> *p_solid_owner);
+/*
+    Purpose: Gives the owner of the Cross-section
+
+    Input Arguments:
+        xsec - Cross-section handle
+
+    Output Arguments:
+        p_solid_owner - Owner of the Cross-section
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid xsec.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6344.html">ProXsecMdlnameSolidOwnerSet</A>(<A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> xsec, <A HREF="proobjects_h.html#ProSolid">ProSolid</A> solid_owner);
+/*
+    Purpose: Sets the owner of the Cross-section
+
+    Input Arguments:
+        xsec - Cross-section handle
+        solid_owner - Owner of the Cross-section
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully set.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid xsec.
+
+*/
+
+typedef <A HREF="protoolkiterrors_h.html#ProError">ProError</A> (*<A HREF="6345.html">ProSolidXsecVisitAction</A>) (<A HREF="proxsec_h.html#ProXsec">ProXsec</A>       *xsec,
+                                             <A HREF="proobjects_h.html#ProAppData">ProAppData</A>  caller_data);
+/*
+    Purpose: Caller-supplied visit function performed when visiting part or 
+             assembly cross-sections.
+
+    Input Arguments:
+        xsec - Cross-section being visited
+        caller_data - Caller supplied data
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Continue visiting.
+        Other - Stop visiting, propagate this error up.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6346.html">ProXsecPlanarCreate</A>( <A HREF="proobjects_h.html#ProSolid">ProSolid</A>      solid_owner,
+                                     <A HREF="prosizeconst_h.html#ProName">ProName</A>       xsec_name,
+                                     int           plane_id,
+                                     <A HREF="proxsec_h.html#ProXsecCutobj">ProXsecCutobj</A> type,
+                                     int           quilt_id,
+                                     <A HREF="proxsec_h.html#ProXsec">ProXsec</A>      *xsec );
+/*
+    Purpose: Create a cross section through a datum plane. 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6378.html">ProXsecPlanarWithoptionsCreate</A> instead.
+
+    Input Arguments:
+        solid_owner - Solid in which the xsec is to be created.
+        xsec_name - Name of the cross section.
+        plane_id - ID of the plane through which the cross section is created. 
+                   This plane must belong to the solid_owner.
+        type - Type of object being cut by the xsec.
+        quilt_id - ID of the quilt being cut if Xsec_type is quilt; -1 in all 
+                   other cases. The quilt must belong to the solid_owner.
+
+    Output Arguments:
+        xsec - Handle to created cross section
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross section successfully created.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failed to create cross section.
+
+*/
+ 
+extern  <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6347.html">ProSolidXsecVisit</A>( <A HREF="proobjects_h.html#ProSolid">ProSolid</A>                 solid,
+                                    <A HREF="6345.html">ProSolidXsecVisitAction</A>  visit_action,
+                                    <A HREF="proobjects_h.html#ProAppData">ProAppData</A>               caller_data );
+/*
+    Purpose: Visit all cross-sections in the specified solid. This function 
+             visits only "named" cross sections.
+
+    Input Arguments:
+        solid - The solid handle
+        visit_action - The visiting function; visiting stops if this function 
+                       does not return <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR.</A>
+        caller_data - Application data passed to the visit function
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross-sections successfully visited.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Model doesn't have cross-sections.
+        Other - Value returned by the action function; visiting stops.
+
+*/
+
+
+ extern  <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6348.html">ProXsecTypeGet</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A>       *xsec,
+				  <A HREF="proxsec_h.html#ProXsecType">ProXsecType</A>   *p_type);
+/*
+    Purpose: Return type of the specified cross-section.
+
+    Input Arguments:
+        xsec - Cross section handle
+
+    Output Arguments:
+        p_type - Cross-section type; a structure with 2 fields: &lt;br&gt; &lt;OL&gt; 
+                 &lt;LI&gt;Cutting object type (plane, ply, offset or pattern)&lt;br&gt; 
+                 &lt;LI&gt;Type of the object being cut (model, quilt, or 
+                 model_and_quilts) &lt;/OL&gt;
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6349.html">ProXsecRename</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec,
+                               <A HREF="prosizeconst_h.html#ProName">ProName</A>  new_name );
+/*
+    Purpose: Rename a cross-section.
+
+    Input Arguments:
+        xsec - Cross section handle
+        new_name - New name for the cross section. Note: the contents of this 
+                   handle will be changed by the function.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Name successfully changed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s); rename aborted.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6350.html">ProXsecRegenerate</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A>  *xsec );
+/*
+    Purpose: Regenerate cross-section of a part or assembly.
+
+    Input Arguments:
+        xsec - Cross section handle
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross-section successfully regenerated.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        other - Error encountered, cross-section not regenerated.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6351.html">ProXsecDelete</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A>   *xsec );
+/*
+    Purpose: Delete specified cross-section from a part or assembly.
+
+    Input Arguments:
+        xsec - Cross section handle
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross-section successfully deleted .
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6352.html">ProXsecDisplay</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec);
+/*
+    Purpose: Display the specified cross section. Does NOT add the cross 
+             section to the associated objects list. The display disappears on 
+             the first screen redraw.
+
+    Input Arguments:
+        xsec - Cross section handle
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross-section successfully displayed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6353.html">ProXsecGeometryRetrieve</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A>      *xsec,
+                                         <A HREF="proxsec_h.html#ProXsecGeom">ProXsecGeom</A>  **geom_arr );
+/*
+    Purpose: Return the geometry of all cross-section components. 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt;This function is deprecated. Please use 
+             <A HREF="6355.html">ProXsecGeometryCollect</A> instead.
+
+    Input Arguments:
+        xsec - Cross-section handle
+
+    Output Arguments:
+        geom_arr - Array of component geometry structures (see <A HREF="proxsec_h.html#ProXsecGeom">ProXsecGeom</A>)
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6354.html">ProXsecMassPropertyCompute</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A>  *xsec, 
+                                            <A HREF="prosizeconst_h.html#ProName">ProName</A>  csys_name,
+                                            <A HREF="prosolid_h.html#ProMassProperty">ProMassProperty</A>   *p_mass_prop);
+/*
+    Purpose: Compute the mass properties of the cross-section in the specified 
+             coordinate system.
+             &lt;p&gt; Note:
+             &lt;p&gt; Not supported for offset or quilt cross-sections.
+
+    Input Arguments:
+        xsec - Cross-section
+        csys_name - Name of reference coordinate system
+
+    Output Arguments:
+        p_mass_prop - The following results are returned for cross sections: 
+                      &lt;table&gt;&lt;tr&gt; &lt;td&gt;&lt;b&gt;Value Returned&lt;/b&gt;&lt;/td&gt; 
+                      &lt;td&gt;&lt;b&gt;Structure Field Used&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt; 
+                      &lt;tr&gt;&lt;td&gt;area&lt;/td&gt; &lt;td&gt;surface_area&lt;/td&gt;&lt;/tr&gt; 
+                      &lt;tr&gt;&lt;td&gt;center_of_gravity&lt;/td&gt; &lt;td&gt;center_of_gravity[0] 
+                      and center_of_gravity[1]&lt;/td&gt;&lt;/tr&gt; 
+                      &lt;tr&gt;&lt;td&gt;coor_sys_inertia&lt;/td&gt; &lt;td&gt;coor_sys_inertia[0][0], 
+                      coor_sys_inertia[0][1], coor_sys_inertia[1][0], 
+                      coor_sys_inertia[1][1]&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully computed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6355.html">ProXsecGeometryCollect</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A>      *xsec,
+                                        <A HREF="proview_h.html#ProView">ProView</A> p_view,
+                                         <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A>  **r_geom_arr );
+/*
+    Purpose: Returns the geometry of non-empty cross-section components 
+             (intersecting their sub-assemblies) 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6358.html">ProXSectionItemsCollect</A> and <A HREF="6361.html">ProXSectionItemDataGet</A> instead to get 
+             geom from item.
+
+    Input Arguments:
+        xsec - Cross-section handle
+        p_view - View handle if not NULL, function returns only solid geometry 
+                 (non-quilt and non-facetrep) components that intersect their 
+                 non-hidden, non-suppressed parts and are inside view borders; 
+                 if NULL, returns all non-empty components
+
+    Output Arguments:
+        r_geom_arr - Pointer to <A HREF="proarray_h.html#ProArray">ProArray</A> of component geometry structures (see 
+                     <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A>)
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Input cross-section is not a drawing view 
+                             cross-section.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Cross-section fails regeneration.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+<A HREF="prolibapi_h.html#LIB_COREUTILS_API">LIB_COREUTILS_API</A>  <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6356.html">ProXsecGeometryArrayFree</A> ( <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A> **p_geom_arr );
+/*
+    Purpose: Frees <A HREF="proarray_h.html#ProArray">ProArray</A> of cross-section data allocated by 
+             <A HREF="6355.html">ProXsecGeometryCollect</A> function.
+
+    Input Arguments:
+        p_geom_arr - The pointer to the <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully freed the data.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_geom_arr is NULL.
+
+    See Also:
+        <A HREF="6355.html">ProXsecGeometryCollect</A>()
+*/
+
+<A HREF="prolibapi_h.html#LIB_COREUTILS_API">LIB_COREUTILS_API</A>  <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6357.html">ProXsecGeometryFree</A> ( <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A> *xsec_geom );
+/*
+    Purpose: Frees the cross-section data.
+
+    Input Arguments:
+        xsec_geom - The pointer to the <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully freed the data.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - xsec_geom is NULL.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6358.html">ProXSectionItemsCollect</A>( <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>    xsec,
+										                     <A HREF="proview_h.html#ProView">ProView</A>           p_view, 
+                                         <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A> **p_xsec_items );
+/*
+    Purpose: Returns array of <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem.</A> An array item is created for 
+             each body. If no bodies are created, contains one item for each 
+             component.
+
+    Input Arguments:
+        xsec - Cross-section handle
+        p_view - View handle if not NULL, function returns only items 
+                 containing solid geometry (non-quilt and non-facetrep) 
+                 components that intersect their non-hidden, non-suppressed 
+                 parts and are inside view borders; if NULL, returns all 
+                 non-empty components.
+
+    Output Arguments:
+        p_xsec_items - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem.</A>
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Cross-section fails regeneration.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - p_view is drawing view and input cross-section is 
+                             not found in the view.
+
+    See Also:
+        <A HREF="6361.html">ProXSectionItemDataGet</A>, <A HREF="6359.html">ProXSectionItemsArrFree</A>, <A HREF="6360.html">ProXSectionItemFree.</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6359.html">ProXSectionItemsArrFree</A>( <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A> **p_xsec_items_arr );
+/*
+    Purpose: Frees <A HREF="proarray_h.html#ProArray">ProArray</A> of cross-section data allocated by 
+             <A HREF="6358.html">ProXSectionItemsCollect</A> function.
+
+    Input Arguments:
+        p_xsec_items_arr - The pointer to <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully freed the data.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_xsec_items_arr is NULL.
+
+    See Also:
+        <A HREF="6358.html">ProXSectionItemsCollect</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6360.html">ProXSectionItemFree</A>( <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A> *p_xsec_item );
+/*
+    Purpose: Frees <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A>
+
+    Input Arguments:
+        p_xsec_item - The pointer to the <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully freed the data.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_xsec_item is NULL.
+
+*/
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6361.html">ProXSectionItemDataGet</A>( <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A>  xsec_item, 
+                                        <A HREF="proobjects_h.html#ProAsmcomppath">ProAsmcomppath</A>  *r_path,  
+                                        <A HREF="proobjects_h.html#ProType">ProType</A>         *r_id_type, 
+                                        int             *r_id, 
+                                        <A HREF="proxsec_h.html#ProGeom">ProGeom</A>         *r_geom );
+/*
+    Purpose: Returns Data from xsec item handle.
+
+    Input Arguments:
+        xsec_item - Cross section body specific handle.
+
+    Output Arguments:
+        r_path - path to the component being cut by cross-section.
+        r_id_type - body or quilt type.
+        r_id - id of the body or the quilt being cut, or the exagerated ply if 
+               this is a ply section.
+        r_geom - Geometry created by Cross-section by cutting specific body or 
+                 quilt.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+    See Also:
+        <A HREF="6361.html">ProXSectionItemDataGet</A>, <A HREF="6359.html">ProXSectionItemsArrFree</A>, <A HREF="6360.html">ProXSectionItemFree.</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6362.html">ProXsecPlaneGet</A> (<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, <A HREF="proxsec_h.html#ProGeom">ProGeom</A> *pp_plane);
+/*
+    Purpose: Return the plane of a given cross-section.
+
+    Input Arguments:
+        xsec - Cross-section handle
+
+    Output Arguments:
+        pp_plane - Pointer to a pointer to a plane geom
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NOT_IMPLEMENTED">PRO_TK_NOT_IMPLEMENTED</A> - This is not a planar cross-section.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s): incorrect xsec or 
+                            output arg may be NULL.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6363.html">ProXsecCompXhatchGet</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, int id, <A HREF="proview_h.html#ProView">ProView</A> p_view,
+                                      <A HREF="proxsec_h.html#ProXsecXhatch">ProXsecXhatch</A> **p_xhatch_arr );
+/*
+    Purpose: Returns cross-section component xhatching
+
+    Input Arguments:
+        xsec - Cross-section handle
+        id - Cross-section component id in component list
+        p_view - View handle if not NULL, in component list we have only solid 
+                 geometry (non-quilt and non-facetrep) components that 
+                 intersect their non-hidden, non-suppressed parts and are 
+                 inside view borders; if NULL, in component list we have all 
+                 non-empty components
+
+    Output Arguments:
+        p_xhatch_arr - <A HREF="proarray_h.html#ProArray">ProArray</A> of cross-section component line patterns. Free 
+                       this using <A HREF="146.html">ProArrayFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Cross-section fails regeneration.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Input cross-section is not a drawing view 
+                             cross-section or doesn't have the component with 
+                             given id that is inside the view or the component 
+                             doesn't have xhatches.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_UNSUPPORTED">PRO_TK_UNSUPPORTED</A> - Input cross-section is with non-linear-hatch. Not 
+                             supported with non-linear-hatch. Can be used 
+                             <A HREF="6390.html">ProXsecCompNewXhatchStyleGet</A>() instead.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6364.html">ProXsecCompXhatchAdd</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, int id, <A HREF="proview_h.html#ProView">ProView</A> p_view,
+                                      <A HREF="proxsec_h.html#ProXsecXhatch">ProXsecXhatch</A> *xhatch );
+/*
+    Purpose: Adds line pattern to cross-section component xhatching
+
+    Input Arguments:
+        xsec - Cross-section handle
+        id - Cross-section component id in component list
+        p_view - View handle if not NULL, in component list we have only solid 
+                 geometry (non-quilt and non-facetrep) components that 
+                 intersect their non-hidden, non-suppressed parts and are 
+                 inside view borders; if NULL, in component list we have all 
+                 non-empty components
+        xhatch - Pointer to <A HREF="proxsec_h.html#ProXsecXhatch">ProXsecXhatch</A> structure with line pattern
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Cross-section fails regeneration.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Input cross-section is not a drawing view 
+                             cross-section or doesn't have the component with 
+                             given id that is inside the view.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_FOUND">PRO_TK_E_FOUND</A> - Cross-section component already has the input line 
+                         pattern. Nothing added.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_UNSUPPORTED">PRO_TK_UNSUPPORTED</A> - Input cross-section is with non-linear-hatch. New 
+                             line can't be added for non-linear-hatch.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6365.html">ProXsecCompXhatchReplace</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, int id, <A HREF="proview_h.html#ProView">ProView</A> p_view,
+                                          <A HREF="proxsec_h.html#ProXsecXhatch">ProXsecXhatch</A> *xhatch );
+/*
+    Purpose: Replaces line patterns with new one in cross-section component 
+             xhatching
+
+    Input Arguments:
+        xsec - Cross-section handle
+        id - Cross-section component id in component list
+        p_view - View handle if not NULL, in component list we have only solid 
+                 geometry (non-quilt and non-facetrep) components that 
+                 intersect their non-hidden, non-suppressed parts and are 
+                 inside view borders; if NULL, in component list we have all 
+                 non-empty components
+        xhatch - Pointer to <A HREF="proxsec_h.html#ProXsecXhatch">ProXsecXhatch</A> structure with line pattern
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Cross-section fails regeneration.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Input cross-section is not a drawing view 
+                             cross-section or doesn't have the component with 
+                             given id that is inside the view.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6366.html">ProOffsetXsecGet</A>(<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, <A HREF="proview_h.html#ProView">ProView</A> p_view, <A HREF="pro2dentdef_h.html#Pro2dLinedef">Pro2dLinedef</A> **p_ent_arr, <A HREF="prosurfacedata_h.html#ProPlanedata">ProPlanedata</A> *plane, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *p_one_sided, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *p_flip);
+/*
+    Purpose: Returns parameters of offset X-section 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6367.html">ProOffsetXsecInfoGet</A> instead.
+
+    Input Arguments:
+        xsec - Cross-section handle
+        p_view - View handle
+
+    Output Arguments:
+        p_ent_arr - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="pro2dentdef_h.html#Pro2dLinedef">Pro2dLinedef</A> structures for X-section entities. 
+                    Free this using <A HREF="146.html">ProArrayFree</A>().
+        plane - <A HREF="prosurfacedata_h.html#ProPlanedata">ProPlanedata</A> for an entity plane.
+        p_one_sided - TRUE if X-section is on one side of entity plane; FALSE - 
+                      both sided.
+        p_flip - FALSE, we remove material from the left of the oriented 
+                 entities (if we look from the positive normal to entity plane) 
+                 and if one_sided = TRUE, only from one side of entity plane 
+                 opposite to its normal. TRUE, we instead keep this area and 
+                 remove the rest of the material.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NOT_IMPLEMENTED">PRO_TK_NOT_IMPLEMENTED</A> - Some of X-section entities is not a line 
+                                 segment.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6367.html">ProOffsetXsecInfoGet</A>(<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, <A HREF="proview_h.html#ProView">ProView</A> p_view, <A HREF="pro2dentdef_h.html#Pro2dLinedef">Pro2dLinedef</A> **p_ent_arr, <A HREF="prosurfacedata_h.html#ProPlanedata">ProPlanedata</A> *plane, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *p_one_sided, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *p_flip, <A HREF="proxsec_h.html#ProXsecOffsetSide">ProXsecOffsetSide</A>* p_side_xsec_mode);
+/*
+    Purpose: Returns parameters of offset X-section
+
+    Input Arguments:
+        xsec - Cross-section handle
+        p_view - View handle
+
+    Output Arguments:
+        p_ent_arr - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="pro2dentdef_h.html#Pro2dLinedef">Pro2dLinedef</A> structures for X-section entities. 
+                    Free this using <A HREF="146.html">ProArrayFree</A>().
+        plane - <A HREF="prosurfacedata_h.html#ProPlanedata">ProPlanedata</A> for an entity plane.
+        p_one_sided - TRUE if X-section is on one side of entity plane; FALSE - 
+                      both sided.
+        p_flip - FALSE, we remove material from the left of the oriented 
+                 entities (if we look from the positive normal to entity plane) 
+                 and if one_sided = TRUE, only from one side of entity plane 
+                 opposite to its normal. TRUE, we instead keep this area and 
+                 remove the rest of the material.
+        p_side_xsec_mode - returns orientation as 
+                           PRO_XSEC_OFFSET_SIDE_1/PRO_XSEC_OFFSET_SIDE_2/ 
+                           <A HREF="proxsec_h.html#PRO_XSEC_OFFSET_BOTH_SIDES">PRO_XSEC_OFFSET_BOTH_SIDES</A>
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NOT_IMPLEMENTED">PRO_TK_NOT_IMPLEMENTED</A> - Some of X-section entities is not a line 
+                                 segment.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6368.html">ProFeatureZoneGet</A> (<A HREF="proobjects_h.html#ProFeature">ProFeature</A> *zone, <A HREF="prosurfacedata_h.html#ProPlanedata">ProPlanedata</A> **p_planes, int **p_oper_arr);
+/*
+    Purpose: Return zone feature planes and operations.
+
+    Input Arguments:
+        zone - <A HREF="proobjects_h.html#ProFeature">ProFeature</A> handle.
+
+    Output Arguments:
+        p_planes - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="prosurfacedata_h.html#ProPlanedata">ProPlanedata</A> structures. Free this using 
+                   <A HREF="146.html">ProArrayFree</A>().
+        p_oper_arr - <A HREF="proarray_h.html#ProArray">ProArray</A> of operations: 0 - intersection, 1 - union. We 
+                     keep the material that belongs to the intersection and 
+                     union of planes' half spaces. Free this using 
+                     <A HREF="146.html">ProArrayFree</A>().
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6369.html">ProXsecAsModelitemGet</A> (<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *p_xsec, <A HREF="proobjects_h.html#ProModelitem">ProModelitem</A> *p_item);
+/*
+    Purpose: Converts <A HREF="proxsec_h.html#ProXsec">ProXsec</A> into <A HREF="proobjects_h.html#ProModelitem">ProModelitem</A>
+
+    Input Arguments:
+        p_xsec - Cross-section handle.
+
+    Output Arguments:
+        p_item - <A HREF="proobjects_h.html#ProModelitem">ProModelitem.</A>
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully converted.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_PTR">PRO_TK_INVALID_PTR</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6370.html">ProXsecGet</A>(<A HREF="proobjects_h.html#ProMdl">ProMdl</A> owner, int id, <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *p_xsec);
+/*
+    Purpose: Get <A HREF="proxsec_h.html#ProXsec">ProXsec</A> from owner and id.
+
+    Input Arguments:
+        owner - Solid owner.
+        id - xsec id.
+
+    Output Arguments:
+        p_xsec - Cross-section handle.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully converted.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_INVALID_PTR">PRO_TK_INVALID_PTR</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6371.html">ProModelitemIsZone</A>(<A HREF="proobjects_h.html#ProModelitem">ProModelitem</A> *p_item, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *p_val);
+/*
+    Purpose: Check if <A HREF="proobjects_h.html#ProModelitem">ProModelitem</A> is a zone feature.
+
+    Input Arguments:
+        p_item - <A HREF="proobjects_h.html#ProModelitem">ProModelitem</A> handle.
+
+    Output Arguments:
+        p_val - <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> is TRUE for zone, otherwise FALSE.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - p_item successfully checked.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_item is NULL or p_item-&gt;owner is invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6372.html">ProXsecParallelCreate</A>( <A HREF="proobjects_h.html#ProSolid">ProSolid</A>      solid_owner,
+                                       <A HREF="prosizeconst_h.html#ProName">ProName</A>       xsec_name,
+                                       int           plane_id,
+                                       double        distance,
+                                       <A HREF="proxsec_h.html#ProXsec">ProXsec</A>       *p_xsec,
+                                       <A HREF="proobjects_h.html#ProDimension">ProDimension</A>  *p_dimension );
+/*
+    Purpose: Create a cross section parallel to a given plane.
+
+    Input Arguments:
+        solid_owner - Solid in which the xsec is to be created. Cannot be NULL.
+        xsec_name - Name of the cross section. Cannot be NULL. Cannot be empty.
+        plane_id - ID of the given plane. This plane must belong to the 
+                   solid_owner.
+        distance - Distance from the given plane to the cross section plane.
+
+    Output Arguments:
+        p_xsec - Handle to created cross section. Cannot be NULL.
+        p_dimension - Handle for created dimension between given plane and the 
+                      cross section.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross section successfully created.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameters: NULL arguments, or 
+                            solid_owner is not a solid, or empty xsec_name, or 
+                            plane_id does not correspond to a plane.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_FOUND">PRO_TK_E_FOUND</A> - Cross section with such name already exists.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failed to create cross section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6373.html">ProFeatureZonesectionCreate</A>(<A HREF="proobjects_h.html#ProSolid">ProSolid</A> p_solid, 
+                                            <A HREF="proxsec_h.html#ProZoneReference">ProZoneReference</A> *zone_refs, 
+                                            <A HREF="prosizeconst_h.html#ProName">ProName</A> zone_name, 
+                                            <A HREF="proobjects_h.html#ProFeature">ProFeature</A> *p_zone);
+/*
+    Purpose: Create zone feature by its planes and operations.
+
+    Input Arguments:
+        p_solid - The solid handle.
+        zone_refs - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proxsec_h.html#ProZoneReference">ProZoneReference</A> for zone reference planes. We 
+                    keep the material that belongs to the intersection and 
+                    union of planes' half spaces. Pass NULL to memb_id_tab 
+                    member of this structure, when the feature is owned by a 
+                    part.
+        zone_name - Zone name handle. If a zone with this name exists, the 
+                    function returns <A HREF="protoolkiterrors_h.html#PRO_TK_E_FOUND">PRO_TK_E_FOUND.</A>
+
+    Output Arguments:
+        p_zone - <A HREF="proobjects_h.html#ProFeature">ProFeature</A> handle.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Zone feature successfully created.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input/output parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failure to create zone.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_FOUND">PRO_TK_E_FOUND</A> - Zone with given name already exists.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6374.html">ProXsecCanCreateAsFeature</A> (<A HREF="proobjects_h.html#ProMdl">ProMdl</A> model, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *flag);
+/*
+    Purpose: Check if section features can be created in a given model
+
+    Input Arguments:
+        model - The model handle.
+
+    Output Arguments:
+        flag - <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> is TRUE if new section can be created, otherwise 
+               FALSE.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Model successfully checked.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Model is NULL or invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6375.html">ProXsecOldToNewConvert</A> (<A HREF="proobjects_h.html#ProMdl">ProMdl</A> model);
+/*
+    Purpose: Convert all the old sections of a given model to the new sections
+
+    Input Arguments:
+        model - The model handle.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Sections successfully converted.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Model is NULL or invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failure to convert sections.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6376.html">ProXsecFeatureGet</A> (<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *p_sec, <A HREF="proobjects_h.html#ProFeature">ProFeature</A> *p_feature);
+/*
+    Purpose: Returns a pointer to the cross section feature.
+
+    Input Arguments:
+        p_sec - Cross-section handle.
+
+    Output Arguments:
+        p_feature - <A HREF="proobjects_h.html#ProFeature">ProFeature</A> handle.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross section feature successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_sec or p_feature are NULL or invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - Legacy cross sections.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failure to retrieve section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6377.html">ProXsecIsFeature</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *p_sec, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *p_value );
+/*
+    Purpose: Check whether the cross section is a feature.
+
+    Input Arguments:
+        p_sec - Cross-section handle.
+
+    Output Arguments:
+        p_value - <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> is TRUE if p_sec is feat, otherwise FALSE.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - p_sec successfully checked.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_sec or p_value are NULL or invalid.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6378.html">ProXsecPlanarWithoptionsCreate</A>( <A HREF="proobjects_h.html#ProSolid">ProSolid</A>             solid_owner,
+                                                <A HREF="prosizeconst_h.html#ProName">ProName</A>              xsec_name,
+                                                int                  plane_id,
+                                                <A HREF="proxsec_h.html#ProXsecCutobj">ProXsecCutobj</A>        xsec_type,
+                                                int                 *memb_id_tab,
+                                                int                  quilt_id,
+                                                int                  flip,
+                                                <A HREF="proxsec_h.html#ProXsecExcludeModels">ProXsecExcludeModels</A> model_opt,
+                                                <A HREF="proobjects_h.html#ProAsmpath">ProAsmpath</A>          *comp_id_tabs,
+                                                <A HREF="proxsec_h.html#ProXsec">ProXsec</A>             *xsec );
+/*
+    Purpose: Creates a cross section through a datum plane and makes it 
+             visible. 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6379.html">ProXSectionPlanarCreate</A> instead.
+
+    Input Arguments:
+        solid_owner - Solid in which the xsec is to be created.
+        xsec_name - Name of the cross section.
+        plane_id - ID of the cutting plane. This plane must belong to the 
+                   solid_owner.
+        xsec_type - Type of object being cut by the xsec.
+        memb_id_tab - <A HREF="proarray_h.html#ProArray">ProArray</A> of integer identifiers forming the path to the 
+                      component whose quilt is being cut if xsec_type is 
+                      <A HREF="proxsec_h.html#PRO_XSECTYPE_QUILTS">PRO_XSECTYPE_QUILTS</A>, or the component if xsec_type is 
+                      <A HREF="proxsec_h.html#PRO_XSECTYPE_ONEPART">PRO_XSECTYPE_ONEPART</A>
+        quilt_id - ID of the quilt being cut if xsec_type is 
+                   <A HREF="proxsec_h.html#PRO_XSECTYPE_QUILTS">PRO_XSECTYPE_QUILTS</A>; -1 in all other cases. The quilt may 
+                   belong to the solid_owner or its sub-assemblies.
+        flip - xsec flip with respect to cutting plane positive normal.
+        model_opt - option for exclude/include;
+        comp_id_tabs - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proobjects_h.html#ProAsmpath">ProAsmpath</A> for excluded/included components.
+
+    Output Arguments:
+        xsec - Handle to created cross section
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross section successfully created.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failed to create cross section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6379.html">ProXSectionPlanarCreate</A>( <A HREF="proobjects_h.html#ProSolid">ProSolid</A>              solid_owner, 
+                                         <A HREF="prosizeconst_h.html#ProMdlName">ProMdlName</A>            xsec_name,
+                                         <A HREF="proselection_h.html#ProSelection">ProSelection</A>          cutting_plane,
+                                         <A HREF="proxsec_h.html#ProXsecCutobj">ProXsecCutobj</A>         xsec_type,
+                                         <A HREF="proselection_h.html#ProSelection">ProSelection</A>          quilt_or_one_part,
+                                         int                   flip,
+                                         <A HREF="proxsec_h.html#ProXsecExcludeModels">ProXsecExcludeModels</A>  excld_incld_opt,
+                                         <A HREF="proselection_h.html#ProSelection">ProSelection</A>         *exclude_items,
+                                         <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data,
+                                         <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>       *r_xsec );
+/*
+    Purpose: Creates a cross section through a datum plane and makes it 
+             visible.
+
+    Input Arguments:
+        solid_owner - Solid in which the xsec is to be created.
+        xsec_name - Name of the cross section. Name size should be 
+                    <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A>
+        cutting_plane - Selection of cutting plane. Cutting plane should belong 
+                        to top level part or assembly.
+        xsec_type - Type of object being cut by the xsec.
+        quilt_or_one_part - <A HREF="proselection_h.html#ProSelection">ProSelection</A> of quilt or component depending on 
+                            xsec_type.
+        flip - xsec flip with respect to cutting plane positive normal.
+        excld_incld_opt - <A HREF="proxsec_h.html#PRO_XSEC_MODEL_EXCLUDE">PRO_XSEC_MODEL_EXCLUDE</A> - exclude exclude_items from 
+                          cutting by cross section;
+        exclude_items - <A HREF="proarray_h.html#ProArray">ProArray</A> of selected bodies or parts to include/exclude 
+                        from cross-section.
+        data - Reserved for future use. Pass NULL.
+
+    Output Arguments:
+        r_xsec - Handle to created cross section
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross section successfully created.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failed to create cross section.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_LINE_TOO_LONG">PRO_TK_LINE_TOO_LONG</A> - xsec_name is longer then <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A>
+
+    See Also:
+        ProXSecGeometryCollect()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6380.html">ProFeatureZonesectionGet</A>(<A HREF="proobjects_h.html#ProFeature">ProFeature</A> *zone, <A HREF="proxsec_h.html#ProZoneReferenceWithflip">ProZoneReferenceWithflip</A> **p_zone_refs);
+/*
+    Purpose: Return zone feature references.
+
+    Input Arguments:
+        zone - <A HREF="proobjects_h.html#ProFeature">ProFeature</A> handle.
+
+    Output Arguments:
+        p_zone_refs - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proxsec_h.html#ProZoneReferenceWithflip">ProZoneReferenceWithflip</A> for zone reference 
+                      planes.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6381.html">ProFeatureZonesectionWithflipCreate</A>(<A HREF="proobjects_h.html#ProSolid">ProSolid</A> p_solid, 
+                                                    <A HREF="proxsec_h.html#ProZoneReferenceWithflip">ProZoneReferenceWithflip</A> *zone_refs, 
+                                                    <A HREF="prosizeconst_h.html#ProName">ProName</A> zone_name, 
+                                                    <A HREF="proobjects_h.html#ProFeature">ProFeature</A> *p_zone);
+/*
+    Purpose: Create zone feature by its planes and operations. The same as 
+             <A HREF="6373.html">ProFeatureZonesectionCreate</A> but also allows the user to add a flip 
+             for zone planes: see ProZoneReferenceWithFlip.
+
+    Input Arguments:
+        p_solid - The solid handle.
+        zone_refs - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proxsec_h.html#ProZoneReferenceWithflip">ProZoneReferenceWithflip</A> for zone reference 
+                    planes. We keep the material that belongs to the 
+                    intersection and union of planes' half spaces. Pass NULL to 
+                    memb_id_tab member of this structure, when the feature is 
+                    owned by a part.
+        zone_name - Zone name handle. If a zone with this name exists, the 
+                    function returns <A HREF="protoolkiterrors_h.html#PRO_TK_E_FOUND">PRO_TK_E_FOUND.</A>
+
+    Output Arguments:
+        p_zone - <A HREF="proobjects_h.html#ProFeature">ProFeature</A> handle.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Zone feature successfully created.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input/output parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failure to create zone.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_FOUND">PRO_TK_E_FOUND</A> - Zone with given name already exists.
+
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6382.html">ProFeatureZoneXsecgeomGet</A>(<A HREF="proobjects_h.html#ProFeature">ProFeature</A> *zone, <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A> ***r_geom_arrays);
+/*
+    Purpose: Return zone feature xsec geometry.
+
+    Input Arguments:
+        zone - <A HREF="proobjects_h.html#ProFeature">ProFeature</A> handle.
+
+    Output Arguments:
+        r_geom_arrays - <A HREF="proarray_h.html#ProArray">ProArray</A> of ProArrays of <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A> for zone 
+                        reference planes.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+
+<A HREF="prolibapi_h.html#LIB_COREUTILS_API">LIB_COREUTILS_API</A> <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6383.html">ProZoneReferenceArrayFree</A>( <A HREF="proxsec_h.html#ProZoneReferenceWithflip">ProZoneReferenceWithflip</A> **p_zone_refs);
+/*
+    Purpose: Frees <A HREF="proarray_h.html#ProArray">ProArray</A> of zone reference data allocated by 
+             <A HREF="6380.html">ProFeatureZonesectionGet.</A>
+
+    Input Arguments:
+        p_zone_refs - The pointer to the <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proxsec_h.html#ProZoneReferenceWithflip">ProZoneReferenceWithflip.</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully freed the data.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_zone_refs is NULL.
+
+*/
+
+
+<A HREF="prolibapi_h.html#LIB_COREUTILS_API">LIB_COREUTILS_API</A> <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6384.html">ProZoneReferenceFree</A>( <A HREF="proxsec_h.html#ProZoneReferenceWithflip">ProZoneReferenceWithflip</A> *zone_ref);
+/*
+    Purpose: Frees the zone reference data.
+
+    Input Arguments:
+        zone_ref - The pointer to <A HREF="proxsec_h.html#ProZoneReferenceWithflip">ProZoneReferenceWithflip.</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully freed the data.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - zone_ref is NULL.
+
+*/
+
+<A HREF="prolibapi_h.html#LIB_COREUTILS_API">LIB_COREUTILS_API</A> <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6385.html">ProFeatureZoneXsecGeomArrayFree</A>(<A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A> ***p_geom_arrays);
+/*
+    Purpose: Frees <A HREF="proarray_h.html#ProArray">ProArray</A> of ProArrays of <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A> for zone reference 
+             planes allocated by <A HREF="6382.html">ProFeatureZoneXsecgeomGet.</A>
+
+    Input Arguments:
+        p_geom_arrays - Pointer to <A HREF="proarray_h.html#ProArray">ProArray</A> of ProArrays of <A HREF="proxsec_h.html#ProXsecGeometry">ProXsecGeometry</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully freed the data.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_geom_arrays is NULL.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6386.html">ProXsecFlipGet</A>(<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, int *p_flip);
+/*
+    Purpose: Return xsec flip.
+
+    Input Arguments:
+        xsec - <A HREF="proxsec_h.html#ProXsec">ProXsec</A> handle.
+
+    Output Arguments:
+        p_flip - planar xsec: 1 - model is clipped in the direction of the 
+                 positive normal to the xsec plane.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - solid owner is not a composite design model, or 
+                             composite session is not active.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6387.html">ProXsecExcludeCompGet</A>(<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, <A HREF="proxsec_h.html#ProXsecExcludeModels">ProXsecExcludeModels</A> *p_model_opt, <A HREF="proobjects_h.html#ProAsmpath">ProAsmpath</A> **p_comp_id_tabs);
+/*
+    Purpose: Return pathes to xsec exclude/include components. 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6388.html">ProXSectionExcludeCompGet</A> instead.
+
+    Input Arguments:
+        xsec - <A HREF="proxsec_h.html#ProXsec">ProXsec</A> handle.
+
+    Output Arguments:
+        p_model_opt - option for exclude/include:
+        p_comp_id_tabs - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proobjects_h.html#ProAsmpath">ProAsmpath</A> for components. Free it using 
+                         <A HREF="3333.html">ProAsmpathProarrayFree.</A>
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6388.html">ProXSectionExcludeCompGet</A>( <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>         xsec, 
+                                           <A HREF="proxsec_h.html#ProXsecExcludeModels">ProXsecExcludeModels</A>  *p_exclude_include_opt, 
+                                           <A HREF="proselection_h.html#ProSelection">ProSelection</A>         **p_exclude_array);
+/*
+    Purpose: Return pathes to xsec exclude/include components and bodies.
+
+    Input Arguments:
+        xsec - <A HREF="proxsec_h.html#ProXsec">ProXsec</A> handle.
+
+    Output Arguments:
+        p_exclude_include_opt - option for exclude/include:
+        p_exclude_array - <A HREF="proarray_h.html#ProArray">ProArray</A> of excluded or included items.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6389.html">ProXsecCompXhatchStyleGet</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, int id, <A HREF="proview_h.html#ProView">ProView</A> p_view,
+                                           <A HREF="proxsec_h.html#ProXsecXhatchStyle">ProXsecXhatchStyle</A> *p_xhatch_style );
+/*
+    Purpose: Returns cross-section component xhatching 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6396.html">ProXsectionCompXhatchStyleGet</A> to get Xhatch from component. Please 
+             use <A HREF="6396.html">ProXsectionCompXhatchStyleGet</A> to get Xhatch from body.
+
+    Input Arguments:
+        xsec - Cross-section handle
+        id - Cross-section component id in component list
+        p_view - View handle if not NULL, in component list we have only solid 
+                 geometry (non-quilt and non-facetrep) components that 
+                 intersect their non-hidden, non-suppressed parts and are 
+                 inside view borders; if NULL, in component list we have all 
+                 non-empty components
+
+    Output Arguments:
+        p_xhatch_style - <A HREF="proxsec_h.html#ProXsecXhatchStyle">ProXsecXhatchStyle</A> handle.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Cross-section fails regeneration.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Input cross-section is not a drawing view 
+                             cross-section or doesn't have the component with 
+                             given id that is inside the view or the component 
+                             doesn't have xhatches.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_UNSUPPORTED">PRO_TK_UNSUPPORTED</A> - Input cross-section is with non-linear-hatch. Not 
+                             Supported for non-linear-hatch. Please use instead 
+                             <A HREF="6390.html">ProXsecCompNewXhatchStyleGet</A>().
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6390.html">ProXsecCompNewXhatchStyleGet</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, int id, <A HREF="proview_h.html#ProView">ProView</A> p_view,
+                                              <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> *p_xhatch_style );
+/*
+    Purpose: Returns cross-section component xhatching with 
+             old/non-linear-hatch 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6396.html">ProXsectionCompXhatchStyleGet</A> to get Xhatch from component. Please 
+             use <A HREF="6396.html">ProXsectionCompXhatchStyleGet</A> to get Xhatch from body.
+
+    Input Arguments:
+        xsec - Cross-section handle
+        id - Cross-section component id in component list
+        p_view - View handle if not NULL, in component list we have only solid 
+                 geometry (non-quilt and non-facetrep) components that 
+                 intersect their non-hidden, non-suppressed parts and are 
+                 inside view borders; if NULL, in component list we have all 
+                 non-empty components
+
+    Output Arguments:
+        p_xhatch_style - <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> handle. Unused hatch field 
+                         (either new_lines or old_lines) will be set to NULL.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Cross-section fails regeneration.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Input cross-section is not a drawing view 
+                             cross-section or doesn't have the component with 
+                             given id that is inside the view or the component 
+                             doesn't have xhatches.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6391.html">ProXsecCompXhatchStyleSet</A>(<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, int id, <A HREF="proview_h.html#ProView">ProView</A> p_view, 
+                                          <A HREF="proxsec_h.html#ProXsecXhatchStyle">ProXsecXhatchStyle</A> *p_xhatch_style );
+/*
+    Purpose: Replaces line patterns with new one in cross-section component 
+             xhatching Non-linear-hatch is not supported. Please use 
+             <A HREF="6390.html">ProXsecCompNewXhatchStyleGet</A>() for non-linear-hatch support. 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6397.html">ProXsectionCompXhatchStyleSet</A> to set Xhatch on component. Please 
+             use <A HREF="6395.html">ProXSectionItemXhatchStyleSet</A> to set Xhatch on body.
+
+    Input Arguments:
+        xsec - Cross-section handle
+        id - Cross-section component id in component list
+        p_view - View handle if not NULL, in component list we have only solid 
+                 geometry (non-quilt and non-facetrep) components that 
+                 intersect their non-hidden, non-suppressed parts and are 
+                 inside view borders; if NULL, in component list we have all 
+                 non-empty components
+        p_xhatch_style - <A HREF="proxsec_h.html#ProXsecXhatchStyle">ProXsecXhatchStyle</A> handle
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Cross-section fails regeneration.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Input cross-section is not a drawing view 
+                             cross-section or doesn't have the component with 
+                             given id that is inside the view.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6392.html">ProXsecCompNewXhatchStyleSet</A>(<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, int id, <A HREF="proview_h.html#ProView">ProView</A> p_view,
+                                             <A HREF="prosizeconst_h.html#ProName">ProName</A> hatch_name, 
+                                             <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> *p_xhatch_style );
+/*
+    Purpose: Replaces line patterns with new one in cross-section component 
+             xhatching. 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6397.html">ProXsectionCompXhatchStyleSet</A> to set Xhatch on component. Please 
+             use <A HREF="6395.html">ProXSectionItemXhatchStyleSet</A> to set Xhatch on body.
+
+    Input Arguments:
+        xsec - Cross-section handle
+        id - Cross-section component id in component list
+        p_view - View handle if not NULL, in component list we have only solid 
+                 geometry (non-quilt and non-facetrep) components that 
+                 intersect their non-hidden, non-suppressed parts and are 
+                 inside view borders; if NULL, in component list we have all 
+                 non-empty components
+        hatch_name - Name for the non-linear-hatching. A suffix _TK will be 
+                     added to the name Relevant only for the non-linear-hatch. 
+                     If NULL, the hatch will be called TK_#.
+        p_xhatch_style - <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> handle Unused hatch field 
+                         (either new_lines or old_lines) should be set to NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Cross-section fails regeneration.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Input cross-section is not a drawing view 
+                             cross-section or doesn't have the component with 
+                             given id that is inside the view.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6393.html">ProXsecCompNewXhatchStyleSetByName</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, int id, 
+                                                    <A HREF="proview_h.html#ProView">ProView</A> p_view, 
+                                                    <A HREF="prosizeconst_h.html#ProName">ProName</A> hatch_name,
+                                                    int type, <A HREF="procolor_h.html#ProColor">ProColor</A> color);
+/*
+    Purpose: Replaces line patterns with new one with the name hatch_name 
+             Relevant only for non-linear-hatch patterns. 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6398.html">ProXsecNewXhatchStyleCreateFromName</A> to create 
+             <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> and set it with function 
+             <A HREF="6397.html">ProXsectionCompXhatchStyleSet</A> or <A HREF="6395.html">ProXSectionItemXhatchStyleSet.</A>
+
+    Input Arguments:
+        xsec - Cross-section handle
+        id - Cross-section component id in component list
+        p_view - View handle if not NULL, in component list we have only solid 
+                 geometry (non-quilt and non-facetrep) components that 
+                 intersect their non-hidden, non-suppressed parts and are 
+                 inside view borders; if NULL, in component list we have all 
+                 non-empty components
+        hatch_name - hatch pattern name
+        type - <A HREF="proxsec_h.html#PRO_XHATCH">PRO_XHATCH</A> | <A HREF="proxsec_h.html#PRO_XSEC_EXCLUDED">PRO_XSEC_EXCLUDED</A> | <A HREF="proxsec_h.html#PRO_XSEC_FILL">PRO_XSEC_FILL</A> | 
+               <A HREF="proxsec_h.html#PRO_XHATCH_ERASED">PRO_XHATCH_ERASED</A>
+        color - hatch pattern color
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Cross-section fails regeneration.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Input cross-section is not a drawing view 
+                             cross-section or doesn't have the component with 
+                             given id that is inside the view or there is no 
+                             hatch pattern with given name.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_MULTIBODY_UNSUPPORTED">PRO_TK_MULTIBODY_UNSUPPORTED</A> - Multi-Body parts are being cut by the 
+                                       Cross-section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6394.html">ProXSectionItemXhatchStyleGet</A>( <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A> xsec_item,
+                                               <A HREF="proview_h.html#ProView">ProView</A>         p_view,
+                                               <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> *p_xhatch_style );
+/*
+    Purpose: Returns cross-section xhatch style of body.
+
+    Input Arguments:
+        xsec_item - Specific body xsec handle.
+        p_view - View handle. Could be NULL if not Drawing.
+
+    Output Arguments:
+        p_xhatch_style - <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> handle. Unused hatch field 
+                         (either new_lines or old_lines) will be set to NULL.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6395.html">ProXSectionItemXhatchStyleSet</A>( <A HREF="proxsec_h.html#ProXSectionItem">ProXSectionItem</A> xsec_item,
+                                               <A HREF="proview_h.html#ProView">ProView</A>         p_view,
+                                               <A HREF="prosizeconst_h.html#ProName">ProName</A>         hatch_name,
+                                               <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> *p_xhatch_style );
+/*
+    Purpose: Sets cross-section xhatch style on body. If the XhatchStyle and 
+             the hatch_name exist in the session, no new hatch with with TK 
+             suffix will be created. The existent hatch will be set.
+
+    Input Arguments:
+        xsec_item - Specific body xsec handle.
+        p_view - View handle. Could be NULL if not Drawing.
+        hatch_name - Name for the non-linear-hatching. A suffix _TK will be 
+                     added to the name Relevant only for the non-linear-hatch. 
+                     If NULL, the hatch will be called TK_#.
+        p_xhatch_style - <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> handle. Unused hatch field 
+                         (either new_lines or old_lines) should be set to NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6396.html">ProXsectionCompXhatchStyleGet</A>( <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>  xsec,
+                                               <A HREF="proobjects_h.html#ProAsmcomppath">ProAsmcomppath</A> *path,
+                                               <A HREF="proview_h.html#ProView">ProView</A>         p_view,
+                                               <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> *p_xhatch_style );
+/*
+    Purpose: Returns cross-section xhatch style of component. If Xhatch is not 
+             the same on all the component bodies error <A HREF="protoolkiterrors_h.html#PRO_TK_E_AMBIGUOUS">PRO_TK_E_AMBIGUOUS</A> will 
+             be returned.
+
+    Input Arguments:
+        xsec - Cross-section handle
+        path - path to component. For part: owner is the part and table_num is 
+               zero.
+        p_view - View handle. Could be NULL if not Drawing.
+
+    Output Arguments:
+        p_xhatch_style - <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> handle. Unused hatch field 
+                         (either new_lines or old_lines) will be set to NULL.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_AMBIGUOUS">PRO_TK_E_AMBIGUOUS</A> - Indicates bodies of component have different 
+                             hatch.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6397.html">ProXsectionCompXhatchStyleSet</A>( <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>  xsec,
+                                               <A HREF="proobjects_h.html#ProAsmcomppath">ProAsmcomppath</A> *path,
+                                               <A HREF="proview_h.html#ProView">ProView</A>         p_view,
+                                               <A HREF="prosizeconst_h.html#ProName">ProName</A>         hatch_name,
+                                               <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> *p_xhatch_style );
+/*
+    Purpose: Sets cross-section xhatch style on component. If the XhatchStyle 
+             and the hatch_name exist in the session, no new hatch with with TK 
+             suffix will be created. The existent hatch will be set.
+
+    Input Arguments:
+        xsec - Cross-section handle
+        path - path to component. For part: owner is the part and table_num is 
+               zero.
+        p_view - View handle. Could be NULL if not Drawing.
+        hatch_name - Name for the non-linear-hatching. A suffix _TK will be 
+                     added to the name Relevant only for the non-linear-hatch. 
+                     If NULL, the hatch will be called TK_#. If the XhatchStyle 
+                     is created by
+        p_xhatch_style - <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> handle. Unused hatch field 
+                         (either new_lines or old_lines) should be set to NULL.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6398.html">ProXsecNewXhatchStyleCreateFromName</A>( <A HREF="prosizeconst_h.html#ProName">ProName</A> hatch_name, 
+                                                     <A HREF="procolor_h.html#ProColor">ProColor</A> color, int type,
+                                                     <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> *p_xhatch_style );
+/*
+    Purpose: Creates <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> from hatch name. Relevant only to 
+             PAT hatch (non-linear-hatch). Created p_xhatch_style could be set 
+             by functions <A HREF="6395.html">ProXSectionItemXhatchStyleSet</A> and 
+             <A HREF="6397.html">ProXsectionCompXhatchStyleSet.</A>
+
+    Input Arguments:
+        hatch_name - Name of existing PAT hatch.
+        color - color of the newly created pattern.
+        type - <A HREF="proxsec_h.html#PRO_XHATCH">PRO_XHATCH</A> | <A HREF="proxsec_h.html#PRO_XSEC_EXCLUDED">PRO_XSEC_EXCLUDED</A> | <A HREF="proxsec_h.html#PRO_XSEC_FILL">PRO_XSEC_FILL</A> | 
+               <A HREF="proxsec_h.html#PRO_XHATCH_ERASED">PRO_XHATCH_ERASED</A>
+
+    Output Arguments:
+        p_xhatch_style - <A HREF="proxsec_h.html#ProXsecNewXhatchStyle">ProXsecNewXhatchStyle</A> handle. Unused hatch field 
+                         (old_lines) will be set to NULL.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6399.html">ProXsecOffsetCreate</A>(<A HREF="proobjects_h.html#ProSolid">ProSolid</A> solid_owner, 
+                                    <A HREF="prosizeconst_h.html#ProName">ProName</A> xsec_name, 
+                                    double trf[4][3], 
+                                    <A HREF="pro2dentdef_h.html#Pro2dLinedef">Pro2dLinedef</A> *ent_arr, 
+                                    <A HREF="proxsec_h.html#ProXsecOffsetSide">ProXsecOffsetSide</A> side, 
+                                    int flip, 
+                                    <A HREF="proxsec_h.html#ProXsecExcludeModels">ProXsecExcludeModels</A> model_opt, 
+                                    <A HREF="proobjects_h.html#ProAsmpath">ProAsmpath</A> *comp_id_tabs, 
+                                    <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec);
+/*
+    Purpose: Creates an offset cross section with polyline lying on the plane 
+             given by local sys. 
+             &lt;p&gt;&lt;b&gt;NOTE: &lt;/b&gt; This function is deprecated. Please use 
+             <A HREF="6400.html">ProXSectionOffsetCreate</A> instead.
+
+    Input Arguments:
+        solid_owner - Solid in which the xsec is to be created.
+        xsec_name - Name of the cross section.
+        trf - Local sys of the plane containing cross section polyline.
+        ent_arr - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="pro2dentdef_h.html#Pro2dLinedef">Pro2dLinedef</A> structures for polyline.
+        side - PRO_XSEC_OFFSET_SIDE_1/2 - we remove material only from 
+               positive/negative normal of polyline plane;
+        flip - FALSE - we keep material from the right of the oriented 
+               polyline, if we look from the positive normal to polyline plane 
+               and if side = PRO_XSEC_OFFSET_SIDE_1/2, only from the 
+               positive/negative normal to this plane;
+        model_opt - <A HREF="proxsec_h.html#PRO_XSEC_MODEL_EXCLUDE">PRO_XSEC_MODEL_EXCLUDE</A> - exclude assembly components with 
+                    paths in comp_id_tabs from cutting by cross section;
+        comp_id_tabs - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="proobjects_h.html#ProAsmpath">ProAsmpath</A> for excluded/included components.
+
+    Output Arguments:
+        xsec - Handle to created cross section
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross section successfully created.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failed to create cross section.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6400.html">ProXSectionOffsetCreate</A>( <A HREF="proobjects_h.html#ProSolid">ProSolid</A>          solid_owner, 
+                                         <A HREF="prosizeconst_h.html#ProMdlName">ProMdlName</A>        xsec_name, 
+                                         double            trf[4][3], 
+                                         <A HREF="pro2dentdef_h.html#Pro2dLinedef">Pro2dLinedef</A>     *ent_arr, 
+                                         <A HREF="proxsec_h.html#ProXsecOffsetSide">ProXsecOffsetSide</A> side, 
+                                         int               flip,
+                                         <A HREF="proxsec_h.html#ProXsecExcludeModels">ProXsecExcludeModels</A>  excld_incld_opt,
+                                         <A HREF="proselection_h.html#ProSelection">ProSelection</A>         *exclude_items,
+                                         <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data,
+                                         <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>       *r_xsec);
+/*
+    Purpose: Creates an offset cross section with polyline lying on the plane 
+             given by local sys.
+
+    Input Arguments:
+        solid_owner - Solid in which the xsec is to be created.
+        xsec_name - Name of the cross section. Name size should be 
+                    <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A>
+        trf - Local sys of the plane containing cross section polyline.
+        ent_arr - <A HREF="proarray_h.html#ProArray">ProArray</A> of <A HREF="pro2dentdef_h.html#Pro2dLinedef">Pro2dLinedef</A> structures for polyline.
+        side - PRO_XSEC_OFFSET_SIDE_1/2 - we remove material only from 
+               positive/negative normal of polyline plane;
+        flip - FALSE - we keep material from the right of the oriented 
+               polyline, if we look from the positive normal to polyline plane 
+               and if side = PRO_XSEC_OFFSET_SIDE_1/2, only from the 
+               positive/negative normal to this plane;
+        excld_incld_opt - <A HREF="proxsec_h.html#PRO_XSEC_MODEL_EXCLUDE">PRO_XSEC_MODEL_EXCLUDE</A> - exclude exclude_items from 
+                          cutting by cross section;
+        exclude_items - <A HREF="proarray_h.html#ProArray">ProArray</A> of selected bodies or parts to include/exclude 
+                        from cross-section.
+        data - Used to set quilt xsec type ( <A HREF="proxsec_h.html#PRO_XSECTYPE_QUILTS">PRO_XSECTYPE_QUILTS</A> or 
+               <A HREF="proxsec_h.html#PRO_XSECTYPE_MODELQUILTS">PRO_XSECTYPE_MODELQUILTS</A> ) for offset xsec creation. Used to set 
+               quilt selection for offset xsec creation when 
+               <A HREF="proxsec_h.html#PRO_XSECTYPE_QUILTS">PRO_XSECTYPE_QUILTS</A> option is used.
+
+    Output Arguments:
+        r_xsec - Handle to created cross section
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross section successfully created.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failed to create cross section.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_LINE_TOO_LONG">PRO_TK_LINE_TOO_LONG</A> - xsec_name is longer then <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A>
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6401.html">ProXsecIsVisible</A>(<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec, <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *p_vis);
+/*
+    Purpose: Return xsec visibility.
+
+    Input Arguments:
+        xsec - Cross-section handle
+
+    Output Arguments:
+        p_vis - <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> is TRUE if xsec is visible (xhatched), FALSE if not.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid xsec or p_vis is NULL.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - solid owner is not a composite design model or 
+                             composite session is not active.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Current view and model is different from where 
+                             xsec was created.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6402.html">ProXsecMakeVisible</A>(<A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec);
+/*
+    Purpose: Make xsec visible (xhatched).
+
+    Input Arguments:
+        xsec - Cross-section handle
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid xsec.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - solid owner is not a composite design model or 
+                             composite session is not active.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Current view and model is different from where 
+                             xsec was created.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6403.html">ProXsecActiveGet</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *p_xsec );
+/*
+    Purpose: Return Active xsec
+
+    Input Arguments:
+        none
+
+    Output Arguments:
+        p_xsec - Cross-section which is active
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failed to retrieve data
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Current view does not have an active xsec
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6404.html">ProXsecActiveSet</A>( <A HREF="proxsec_h.html#ProXsec">ProXsec</A> *xsec );
+/*
+    Purpose: Make xsec active
+
+    Input Arguments:
+        xsec - Cross-section handle
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully retrieved.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid xsec.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - solid owner is not a composite design model or 
+                             composite session is not active.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6405.html">ProXSectionCreateDataAlloc</A>( <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> *r_data );
+/*
+    Purpose: Allocates <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> empty data.
+
+    Input Arguments:
+        none
+
+    Output Arguments:
+        r_data - <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully allocated.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - r_data is NULL.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6406.html">ProXSectionCreateDataFree</A>( <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> *pp_data );
+/*
+    Purpose: Releases <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data.
+
+    Input Arguments:
+        pp_data - Address to <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Data successfully released.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - pp_data is NULL.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6407.html">ProXSectionCreateDataQuiltSelSet</A>( 
+                                             <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> p_data,
+                                             <A HREF="proselection_h.html#ProSelection">ProSelection</A>          quilt_sel );
+/*
+    Purpose: Sets quilt selection into <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data.
+
+    Input Arguments:
+        p_data - <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data.
+        quilt_sel - quilt selection.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Set successfully completed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_data is NULL.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6408.html">ProXSectionCreateDataQuiltSelGet</A>( 
+                                         <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A>  p_data,
+                                         <A HREF="proselection_h.html#ProSelection">ProSelection</A>          *r_quilt_sel );
+/*
+    Purpose: Gets quilt selection from <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data.
+
+    Input Arguments:
+        p_data - <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data.
+
+    Output Arguments:
+        r_quilt_sel - Address of quilt selection empty pointer.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Get successfully completed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_data is NULL.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6409.html">ProXSectionCreateDataQuiltTypeSet</A>( 
+                                            <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> p_data,
+                                            <A HREF="proxsec_h.html#ProXsecCutobj">ProXsecCutobj</A>         xsec_type );
+/*
+    Purpose: Sets quilt xsec type into <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data.
+
+    Input Arguments:
+        p_data - <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data.
+        xsec_type - Either <A HREF="proxsec_h.html#PRO_XSECTYPE_QUILTS">PRO_XSECTYPE_QUILTS</A> or <A HREF="proxsec_h.html#PRO_XSECTYPE_MODELQUILTS">PRO_XSECTYPE_MODELQUILTS.</A>
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Set successfully completed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_data is NULL or xsec_type isn't of two allowed 
+                            types.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6410.html">ProXSectionCreateDataQuiltTypeGet</A>( 
+                                         <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A>  p_data,
+                                         <A HREF="proxsec_h.html#ProXsecCutobj">ProXsecCutobj</A>         *r_xsec_type );
+/*
+    Purpose: Gets quilt xsec type from <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data ( Either 
+             <A HREF="proxsec_h.html#PRO_XSECTYPE_QUILTS">PRO_XSECTYPE_QUILTS</A> or <A HREF="proxsec_h.html#PRO_XSECTYPE_MODELQUILTS">PRO_XSECTYPE_MODELQUILTS</A> ).
+
+    Input Arguments:
+        p_data - <A HREF="proxsec_h.html#ProXSectionCreateData">ProXSectionCreateData</A> data.
+
+    Output Arguments:
+        r_xsec_type - Address of <A HREF="proxsec_h.html#ProXsecCutobj">ProXsecCutobj</A> pointer.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Get successfully completed.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - p_data is NULL or xsec_type on data isn't of two 
+                            allowed types.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6411.html">ProXSectionLaminateCreate</A>( <A HREF="proobjects_h.html#ProSolid">ProSolid</A>              solid_owner, 
+                                      <A HREF="prosizeconst_h.html#ProMdlName">ProMdlName</A>            xsec_name,
+                                      <A HREF="proselection_h.html#ProSelection">ProSelection</A>          cutting_plane,
+                                      int                   flip,
+                                      <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>       *r_xsec );
+/*
+    Purpose: Creates a cross section through a datum plane and makes it 
+             visible.
+
+    Input Arguments:
+        solid_owner - Solid in which the xsec is to be created.
+        xsec_name - Name of the cross section. Name size should be 
+                    <A HREF="prosizeconst_h.html#PRO_NAME_SIZE">PRO_NAME_SIZE.</A>
+        cutting_plane - Selection of cutting plane. Cutting plane should belong 
+                        to solid_owner.
+        flip - xsec flip with respect to cutting plane positive normal.
+
+    Output Arguments:
+        r_xsec - Handle to created cross section
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross section successfully created.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s).
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - solid owner is not a composite design model or 
+                             composite session is not active.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_GENERAL_ERROR">PRO_TK_GENERAL_ERROR</A> - Failed to create cross section.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_LINE_TOO_LONG">PRO_TK_LINE_TOO_LONG</A> - xsec_name is longer than <A HREF="prosizeconst_h.html#PRO_MDLNAME_SIZE">PRO_MDLNAME_SIZE.</A>
+
+    See Also:
+        ProXSecGeometryCollect()
+*/
+
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6412.html">ProXSectionLaminateScaleGet</A>( <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>  xsec,
+                                        double         *p_scale );
+/*
+    Purpose: Get the value of the ply section exaggerated scale.
+
+    Input Arguments:
+        xsec - <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> handle.
+
+    Output Arguments:
+        p_scale - the exaggerated scale value.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross section is valid and scale found.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s), or xsec is not a ply 
+                            section.
+
+    See Also:
+        <A HREF="6413.html">ProXSectionLaminateScaleModify</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6413.html">ProXSectionLaminateScaleModify</A>( <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A>  xsec,
+                                           double          scale );
+/*
+    Purpose: Modifies the value of the ply section exaggerated scale.
+
+    Input Arguments:
+        xsec - <A HREF="proxsec_h.html#ProXsecMdlname">ProXsecMdlname</A> handle.
+        scale - the exaggerated scale value to set.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Cross section is valid and scale found.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - Invalid input parameter(s), or xsec is not a ply 
+                            section.
+
+    See Also:
+        <A HREF="6412.html">ProXSectionLaminateScaleGet</A>()
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6414.html">ProDrawingViewXhatchDependentSet</A>( <A HREF="proobjects_h.html#ProDrawing">ProDrawing</A>  drawing,
+                                                  <A HREF="proview_h.html#ProView">ProView</A>     view,
+                                                  <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A>  dependent );
+/*
+    Purpose: Check if section hatching is dependent on parent view.
+
+    Input Arguments:
+        drawing - Drawing handle
+        view - The view handle
+        dependent - Pass <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> to make dependent .
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - No section or hatching present.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="6415.html">ProDrawingViewXhatchDependentGet</A>( <A HREF="proobjects_h.html#ProDrawing">ProDrawing</A>  drawing,
+                                                  <A HREF="proview_h.html#ProView">ProView</A>     view,
+                                                  <A HREF="protoolkit_h.html#ProBoolean">ProBoolean</A> *is_dep );
+/*
+    Purpose: Set section hatching is dependency on parent view.
+
+    Input Arguments:
+        drawing - Drawing handle
+        view - The view handle
+
+    Output Arguments:
+        is_dep - <A HREF="protoolkit_h.html#PRO_B_TRUE">PRO_B_TRUE</A> if dependent.
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function succeeded.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - One or more input arguments was invalid.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_CONTEXT">PRO_TK_BAD_CONTEXT</A> - No section or hatching present.
+
+*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif
+
+        </PRE>
+    </BODY>
+</HTML>

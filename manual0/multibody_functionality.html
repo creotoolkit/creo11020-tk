@@ -1,0 +1,436 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
+      <meta name="ch:resourceid" content="multibody_functionality" scheme="atiChunkerMeta">
+      
+      
+      
+      
+      
+      
+      <link href="css/styler.css" rel="stylesheet" type="text/css">
+      <title>Core: Solid Body</title>
+   
+<SCRIPT LANGUAGE="JAVASCRIPT">
+  function findProperNode() { top.frames[0].document.apiwizard.manual("MANMULTIBODY_FUNCTIONALITY0", location.hash); }
+</SCRIPT>
+
+</head>
+   <body onLoad="findProperNode()">
+      
+         
+         <a name="0"> </a><div class=" x-title-65-0 x-title-65-1" combinedFontName="off" id="styler-id1.1.1.7.1" class="ChapterTitle">Core: Solid Body</div>
+         <div class=" x-shortdesc-1-0"></div><span class=" x-prolog-1-0"></span><div class=" x-body-2-0">
+            <div class=" x-p-7-0">This <span class=" x-ph-2-0"><span xmlns="" profilecode="100000000">section</span></span>  describes how to access, create, or delete bodies in a model.
+            </div>
+         </div>
+         <div class=" x-topic-4-0 x-topic-4-1 x-topic-4-2" combinedFontName="off" id="styler-id1.1.1.7.5">
+            
+            <a name="1"> </a><div class=" x-title-33-0 x-title-33-2" combinedFontName="off" id="styler-id1.1.1.7.5.1" class="Heading1">Introduction to Solid Body</div>
+            <div class=" x-abstract-1-0"><a xmlns="" class="indexterm" name="2"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="3"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="4"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="5"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="6"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="7"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="8"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="9"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="10"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="11"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="12"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="13"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="14"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="15"></a><span class=" x-indexterm-1-0"></span></div>
+            <div class=" x-body-3-0">
+               <div class=" x-p-7-0">In <span class=" x-ph-2-0" id="multibody_functionality_pubsTopic-1-4578B678_PTCCreoPara_9_41"><span xmlns="" profilecode="1">Creo Parametric</span></span> <span class=" x-ph-2-0">7.0.0.0</span> and later, the term &#8220;solid body&#8221; denotes a container object for solid geometry. 
+               </div>
+               <div class=" x-p-7-0">In earlier versions of <span class=" x-ph-2-0" id="multibody_functionality_pubsTopic-1-4578B678_PTCCreoPara_9_41"><span xmlns="" profilecode="1">Creo Parametric</span></span> all solid geometry in a part is considered as one piece of a single material, even when the geometry has disjoint volumes.
+                  Starting in <span class=" x-ph-2-0" id="multibody_functionality_pubsTopic-1-4578B678_PTCCreoPara_9_41"><span xmlns="" profilecode="1">Creo Parametric</span></span> <span class=" x-ph-2-0">7.0.0.0</span>, you can create parts that contain one or more geometric bodies. Each body can be handled individually, and can have different
+                  characteristics. For example, you can assign a different material to each body.
+               </div>
+               <div class=" x-p-7-0">Bodies contain only solid geometry. Nonsolid entities, like datums, curves, and quilts, are not contained in any body.</div>
+               <div class=" x-p-7-0">When you create a new part, it has an empty body in it. This body will contain the solid geometry created by the features.
+                  If no solid geometry is created, or as long as the part contains only nonsolid geometry, this body remains empty. A part must
+                  always have at least one body in it.
+               </div>
+               <div class=" x-p-7-0">When you retrieve a part that was created using a version earlier of <span class=" x-ph-2-0" id="multibody_functionality_pubsTopic-1-4578B678_PTCCreoPara_9_41"><span xmlns="" profilecode="1">Creo Parametric</span></span> , it shows a single body in it. This body contains all the solid geometry in the part, if any exists.
+               </div>
+               <div class=" x-p-7-0">Using <span class=" x-ph-2-0" id="multibody_functionality_pubsTopic-1-4578B678_PTCCreoPara_9_41"><span xmlns="" profilecode="1">Creo Parametric</span></span> solid body feature, you can create parts with one or more geometric bodies. A body consists of solid geometry of the same
+                  material. You can assign a different material to each body and a single part can have more than one material.
+               </div>
+               <div class=" x-section-1-0" id="styler-id1.1.1.7.5.3.7">
+                  <div class=" x-title-58-0" combinedFontName="off" id="styler-id1.1.1.7.5.3.7.1">Solid Body Objects</div>
+                  <div class=" x-p-7-0">The structure <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBody</span></span> describes the contents of the solid body object. This object uses the same declaration as the <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProModelitem</span></span> object, which is as follows:<pre class=" x-codeblock-1-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">typedef struct pro_model_item
+{
+  ProType  type;
+  int      id;
+  ProMdl   owner;
+} ProSolidBody;</span></pre></div>
+               </div>
+            </div>
+         </div>
+         <div class=" x-topic-8-0 x-topic-8-1 x-topic-8-2" id="styler-id1.1.1.7.6">
+            
+            <a name="16"> </a><div class=" x-title-33-0 x-title-33-2" combinedFontName="off" id="styler-id1.1.1.7.6.1" class="Heading1">States of bodies</div>
+            <div class=" x-abstract-1-0"><a xmlns="" class="indexterm" name="17"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="18"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="19"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="20"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="21"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="22"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="23"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="24"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="25"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="26"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="27"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="28"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="29"></a><span class=" x-indexterm-1-0"></span></div>
+            <div class=" x-body-3-0">
+               <div class=" x-p-7-0">When a body has geometry, it does not have a special state. A body can have a state derived from features and geometry.
+                  <div class=" x-ul-1-0">
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">No Contributing Features</span></span>&#8212; No feature contributes geometry to the body.</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">No Geometry</span></span>&#8212; Features which contribute to the body, however other features cut the entire geometry of this body. Or all the contributing
+                                    features are suppressed.</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">Construction</span></span>&#8212;Does not participate in mass properties calculations and is not considered in global or volume interference analysis or in
+                                    collision detection. The construction state does not change the other properties of the body. Setting a body to construction
+                                    state is reversible.</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class=" x-topic-8-0 x-topic-8-1 x-topic-8-2" id="styler-id1.1.1.7.7">
+            
+            <a name="30"> </a><div class=" x-title-33-0 x-title-33-2" combinedFontName="off" id="styler-id1.1.1.7.7.1" class="Heading1">Creating a Body</div>
+            <div class=" x-abstract-1-0"><a xmlns="" class="indexterm" name="31"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="32"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="33"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="34"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="35"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="36"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="37"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="38"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="39"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="40"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="41"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="42"></a><span class=" x-indexterm-1-0"></span><a xmlns="" class="indexterm" name="43"></a><span class=" x-indexterm-1-0"></span></div>
+            <div class=" x-body-3-0">
+               <div class=" x-p-7-0">A new part is created with a default body. This body is in the <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">No Contributing Features</span></span> state. When you add solid geometry to this part, you can add to this body, or create a new body. You can delete bodies that
+                  are in the <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">No Contributing Features</span></span> state. When you delete a body, it is removed from the part and the <span class=" x-uicontrol-4-0" combinedFontName="Sanserif-combined"><span xmlns="" class="cf-Sanserif-combined-Default">Bodies</span></span> folder in the model tree. The parameters and relations for the body are deleted.
+               </div>
+               <div class=" x-p-7-0">Functions introduced:</div>
+               <div class=" x-ul-2-0">
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="44"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3926.html">ProSolidBodyCreate()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="45"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3927.html">ProSolidBodiesCollect()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="46"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3928.html">ProSolidDefaultBodyGet()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="47"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3929.html">ProSolidDefaultBodySet()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="48"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3930.html">ProSolidBodySurfaceVisit()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="49"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3931.html">ProSolidBodyDelete()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="50"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3932.html">ProSolidBodyStateGet()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="51"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3933.html">ProSolidBodyIsConstruction()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="52"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3934.html">ProSolidBodyConstructionSet()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="53"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3936.html">ProSolidBodyOutlineGet()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="54"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3935.html">ProSolidBodyIsSheetmetal()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="55"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3940.html">ProSolidBodyIsComposite()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class=" x-p-7-0">The function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyCreate()</span></span> creates a new body. The input argument <span class=" x-parmname-3-0">sld</span> is the solid owner on which the body needs to be created. The output argument <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">body</span></span> is the body that is created.
+               </div>
+               <div class=" x-p-7-0">Refer to the <span class=" x-ph-2-0" id="multibody_functionality_pubsTopic-1-4578B678_PTCCreoPara_9_41"><span xmlns="" profilecode="1">Creo Parametric</span></span> online help for more information about body creation.
+               </div>
+               <div class=" x-p-7-0">The function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodiesCollect()</span></span> collects all the bodies in the specified solid.
+               </div>
+               <div class=" x-p-7-0">The function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidDefaultBodyGet()</span></span> returns the default body in the specified solid.
+               </div>
+               <div class=" x-p-7-0">The function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidDefaultBodySet()</span></span> sets the specified body as default body in the specified solid. The input argument <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">default_body</span></span> is the body to be set as the default body.
+               </div>
+               <div class=" x-p-7-0">Use the function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodySurfaceVisit()</span></span> to visit the surfaces that are included in the specified body.
+               </div>
+               <div class=" x-p-7-0">The function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyDelete()</span></span> deletes the body in the specified solid. When you delete a body, it is removed from the part and the <span class=" x-uicontrol-4-0" combinedFontName="Sanserif-combined"><span xmlns="" class="cf-Sanserif-combined-Default">Bodies</span></span> folder in the model tree.
+               </div>
+               <div class=" x-p-7-0">The function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyStateGet()</span></span> returns the state of the body and is defined by the enumerated data type <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyState</span></span> and the valid values are:
+                  <div class=" x-ul-1-0">
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_BODY_STATE_MISSING</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_BODY_STATE_CONSUMED</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_BODY_STATE_NO_CONTR_FEAT</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_BODY_STATE_NO_GEOMETRY</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                        <col style="width: 0em">
+                        <col style="width: 18pt">
+                        <col>
+                        <tbody>
+                           <tr valign="baseline">
+                              <td align="right"></td>
+                              <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                              <td><span class=" x-p-4-0"><span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_BODY_STATE_ACTIVE</span></span></span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <div class=" x-p-7-0">Use the function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyIsConstruction()</span></span> to check if the specified body is a construction body.
+               </div>
+               <div class=" x-p-7-0">Use the function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyConstructionSet()</span></span> to set the specified body as a construction body. The function returns the error <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_TK_NO_CHANGE</span></span> if the body is already a construction body.
+               </div>
+               <div class=" x-p-7-0">Use the function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyOutlineGet()</span></span> to retrieve the regeneration outline of a solid body, with respect to the base coordinate system orientation. This outline
+                  defines the boundary box of the body. The function returns <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_TK_E_NOT_FOUND</span></span> if the solid body is empty.
+               </div>
+               <div class=" x-p-7-0">The function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyIsSheetmetal()</span></span> checks if the specified body is an active sheetmetal body.
+               </div>
+               <div class=" x-p-7-0">In <span class=" x-ph-2-0" id="multibody_functionality_pubsTopic-1-4578B678_PTCCreoPara_9_41"><span xmlns="" profilecode="1">Creo Parametric</span></span> <span class=" x-ph-2-0">7.0</span>, a sheetmetal part can have a single sheetmetal body and any number of solid bodies.
+               </div>
+               <div class=" x-p-7-0">Use the function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyIsComposite()</span></span> to check if the specified body is an active composite body. The function returns a <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProBoolean</span></span> output argument <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">is_cmpst</span></span>. The value is <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_B_TRUE</span></span> if the body is a composite body.
+               </div>
+            </div>
+         </div>
+         <div class=" x-topic-8-0 x-topic-8-1 x-topic-8-2" id="styler-id1.1.1.7.8">
+            
+            <a name="56"> </a><div class=" x-title-33-0 x-title-33-2" combinedFontName="off" id="styler-id1.1.1.7.8.1" class="Heading1">Listing Features</div>
+            <div class=" x-body-3-0">
+               <div class=" x-p-7-0">Functions Introduced:</div>
+               <div class=" x-ul-2-0">
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; "></td>
+                           <td><span class=" x-p-4-0"><a name="57"> </a><span class=" x-apiname-3-0" mcad="FunctionList"><li class="FunctionList"><A HREF="../api/3937.html">ProSolidBodyFeaturesGet()</A></li></span></span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class=" x-p-7-0">The function <span class=" x-cmdname-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProSolidBodyFeaturesGet()</span></span> lists all the features that are associated with the specified body. The output argument <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">features</span></span> is a <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">ProArray</span></span> of features.
+               </div>
+               <div class=" x-p-7-0">The function returns the error <span class=" x-codeph-2-0" combinedFontName="Monospace-combined"><span xmlns="" class="cf-Monospace-combined-European_Alphabets">PRO_TK_E_NOT_FOUND</span></span> if there are no contributing features associated with the body.
+               </div>
+            </div>
+         </div>
+         <div class=" x-topic-8-0 x-topic-8-1 x-topic-8-2" id="styler-id1.1.1.7.9">
+            
+            <a name="58"> </a><div class=" x-title-33-0 x-title-33-2" combinedFontName="off" id="styler-id1.1.1.7.9.1" class="Heading1">Multibody Operations</div>
+            <div class=" x-body-3-0">
+               <div class=" x-p-7-0">Each body has its own geometry. You can perform geometric operations such as splitting a body or merging with other bodies.
+                  Bodies contribute to the mass properties of the model. You can select bodies as references for features. You can split a body
+                  into two bodies and also perform move or copy operations on bodies. The geometry of the original body is divided between the
+                  original body and the new body. For more information on body options and body operations, refer to the <a href="element_tree_bodies.html" class=" x-xref-4-0 x-xref-4-5 x-xref-4-6 x-xref-4-9">Element Trees: Solid Body</a> chapter.
+               </div>
+               <div class=" x-p-7-0">You can use the Boolean Operations feature to perform geometric operations such as:</div>
+               <div class=" x-ul-2-0">
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-13-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0"><span class=" x-uicontrol-4-0" combinedFontName="Sanserif-combined"><span xmlns="" class="cf-Sanserif-combined-Default">Merge</span></span> &#8212;Combines the geometry of two or more bodies into one body.</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-16-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0"><span class=" x-uicontrol-4-0" combinedFontName="Sanserif-combined"><span xmlns="" class="cf-Sanserif-combined-Default">Intersect</span></span>&#8212;Keeps the geometry that is shared by two or more bodies.</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table border="0" cellpadding="0" cellspacing="0" class=" x-li-14-0" style="table-layout: fixed; " width="100%">
+                     <col style="width: 0em">
+                     <col style="width: 18pt">
+                     <col>
+                     <tbody>
+                        <tr valign="baseline">
+                           <td align="right"></td>
+                           <td align="left" style="word-break: keep-all; ">&#8226;&nbsp;</td>
+                           <td><span class=" x-p-4-0"><span class=" x-uicontrol-4-0" combinedFontName="Sanserif-combined"><span xmlns="" class="cf-Sanserif-combined-Default">Subtract</span></span>&#8212;Removes the geometry of one body from one or more bodies.</span></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

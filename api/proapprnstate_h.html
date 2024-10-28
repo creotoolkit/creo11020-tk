@@ -1,0 +1,85 @@
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <TITLE>ProApprnstate.h</TITLE>
+    </HEAD>
+    <BODY BGCOLOR="#ffffff">
+        <PRE>
+            #ifndef <A HREF="proapprnstate_h.html#PRO_APPRNSTATEH">PRO_APPRNSTATEH</A>
+<A name="PRO_APPRNSTATEH"></A>#define PRO_APPRNSTATEH
+
+
+#include &lt;<A HREF="promodelitem_h.html">ProModelitem.h</A>&gt;
+<A HREF="proansi_h.html#PRO_BEGIN_C_DECLS">PRO_BEGIN_C_DECLS</A>
+
+<A name="ProApprnstateData"></A>typedef struct _ProApprnstateData *<A HREF="proapprnstate_h.html#ProApprnstateData">ProApprnstateData</A>;  /* opaque handle for 
+                                                          appearance state data */
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="142.html">ProApprnstateNameGet</A> (<A HREF="proobjects_h.html#ProApprnstate">ProApprnstate</A> apprn, <A HREF="prowchar_h.html#wchar_t">wchar_t</A> **r_name);
+/*
+    Purpose: To get the name of an appearance state
+
+    Input Arguments:
+        apprn - Handle to the appearance state.
+
+    Output Arguments:
+        r_name - Returns pointer to wchar string with the name of the 
+                 apperarnce state; the caller must release the string using 
+                 <A HREF="6138.html">ProWstringFree</A>()
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The name of the appearance state was successfully 
+                          found.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - There was an error finding the name of the 
+                            appearance state.
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="143.html">ProSolidApprnstateVisit</A> (<A HREF="proobjects_h.html#ProSolid">ProSolid</A>                 p_solid,
+                                         <A HREF="3191.html">ProModelitemFilterAction</A> filter,
+                                         <A HREF="3192.html">ProModelitemVisitAction</A>  action,
+                                         <A HREF="proobjects_h.html#ProAppData">ProAppData</A>               app_data);
+/*
+    Purpose: Visits all the appearance states in the specified solid.
+
+    Input Arguments:
+        p_solid - The solid handle.
+        app_data - The application data passed to the filter and visiting 
+                   functions.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - The function successfully visited all the appearance 
+                          states.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_E_NOT_FOUND">PRO_TK_E_NOT_FOUND</A> - Either no appearance state exist, or they were all 
+                             filtered out by the filter function.
+        Other - Any other value is the value returned by the action function 
+                (visiting stopped).
+
+*/
+
+extern <A HREF="protoolkiterrors_h.html#ProError">ProError</A> <A HREF="144.html">ProApprnstateIsActive</A>(<A HREF="proobjects_h.html#ProApprnstate">ProApprnstate</A> apprn, <A HREF="protoolkit_h.html#ProBool">ProBool</A>* r_is_active);
+/*
+    Purpose: To determine if a given appearance state is the active one
+
+    Input Arguments:
+        apprn - Handle to the appearance state.
+
+    Output Arguments:
+        none
+
+    Return Values:
+        <A HREF="protoolkiterrors_h.html#PRO_TK_NO_ERROR">PRO_TK_NO_ERROR</A> - Appearance state is a valid handle.
+        <A HREF="protoolkiterrors_h.html#PRO_TK_BAD_INPUTS">PRO_TK_BAD_INPUTS</A> - There was an error evaluating the appearance state.
+
+*/
+
+<A HREF="proansi_h.html#PRO_END_C_DECLS">PRO_END_C_DECLS</A>
+
+#endif /* PRO_APPRNSTATE_H */
+
+        </PRE>
+    </BODY>
+</HTML>
